@@ -15,12 +15,19 @@ class DoubleShopApplicationTests {
     @Autowired
     ArticleMapper articleMapper;
 
+    @Autowired
+    GalleryMapper galleryMapper;
+
     @Test
     void contextLoads() {
         Article article = articleMapper.getArticle(1L);
+        Gallery gallery = galleryMapper.getArticle(1L);
 
         assertThat(article).isNotNull();
         assertThat(article.getId()).isEqualTo(1L);
+
+        assertThat(gallery).isNotNull();
+        assertThat(gallery.getId()).isEqualTo(1L);
     }
 
 }
