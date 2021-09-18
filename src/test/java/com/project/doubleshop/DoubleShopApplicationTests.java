@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.TestPropertySource;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -15,19 +14,12 @@ class DoubleShopApplicationTests {
     @Autowired
     ArticleMapper articleMapper;
 
-    @Autowired
-    GalleryMapper galleryMapper;
-
     @Test
     void contextLoads() {
-        Article article = articleMapper.getArticle(1L);
-        Gallery gallery = galleryMapper.getArticle(1L);
+        Article article = articleMapper.selectById(1L);
 
         assertThat(article).isNotNull();
         assertThat(article.getId()).isEqualTo(1L);
-
-        assertThat(gallery).isNotNull();
-        assertThat(gallery.getId()).isEqualTo(1L);
     }
 
 }
