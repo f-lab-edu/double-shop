@@ -1,8 +1,10 @@
-package com.project.doubleshop.test.domain;
+package com.project.doubleshop.test.domain.entity;
 
+import lombok.Builder;
 import lombok.Data;
 
 @Data
+@Builder
 public class Item {
 
     // 상품 pk
@@ -42,7 +44,7 @@ public class Item {
     private String allergicIssue;
 
     // 상품 번호
-    private Long modelSerialNo;
+    private String modelSerialNo;
 
     // 상품 평가 점수
     private Integer ratePoint;
