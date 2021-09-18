@@ -35,8 +35,8 @@ public class Member {
 
     private Type type;
 
-    private Integer count;
+    private Integer count; // 로그인 횟수
 
-    private Date lastLoginTime;
+    private Date lastLoginTime; // 마지막 로그인 시간
 
 }
