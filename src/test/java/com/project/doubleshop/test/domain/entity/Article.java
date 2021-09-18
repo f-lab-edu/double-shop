@@ -1,4 +1,4 @@
-package com.project.doubleshop;
+package com.project.doubleshop.test.domain.entity;
 
 import lombok.Data;
 
