@@ -24,7 +24,7 @@ CREATE TABLE  IF NOT EXISTS `ITEM`
     search_keyword             varchar(50)    NULL,
     stock                      integer        NULL,
     discount_price             integer        NULL,
-    oneday_elligible           boolean        NULL,
-    fresh_elligible            boolean        NULL,
+    oneday_eligible           boolean        NULL,
+    fresh_eligible            boolean        NULL,
     CONSTRAINT PK_ITEM PRIMARY KEY (id)
 );
