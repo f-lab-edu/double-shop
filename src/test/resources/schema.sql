@@ -7,7 +7,7 @@ CREATE TABLE  IF NOT EXISTS `ITEM`
     price                      integer        NOT NULL,
     unit                       varchar(50)    NULL DEFAULT '',
     volume                     varchar(50)    NULL DEFAULT '',
-    length                     varchar(50)    NULL DEFAULT '',
+    dimension                  varchar(50)    NULL DEFAULT '',
     package_type               varchar(50)    NULL DEFAULT '',
     origin                     varchar(50)    NULL DEFAULT '',
     expiration                 varchar(50)    NULL DEFAULT '',
