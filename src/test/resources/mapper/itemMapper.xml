@@ -3,17 +3,17 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.project.doubleshop.test.domain.mapper.ItemMapper">
     <insert id="insertItem" parameterType="Item" useGeneratedKeys="true">
-        INSERT INTO ITEM (name, description, price, unit, volume, length, package_type, certificate_of_analysis, expiration, price_per_100g,
-                          allergic_issue, model_serial_no, rate_point, search_keyword, stock, discount_price, oneday_eligible, fresh_eligible)
+        INSERT INTO ITEM (name, description, price, unit, volume, length, package_type, origin, expiration, price_per_100g,
+                          allergic_info, model_serial_no, rating, search_keyword, stock, discount_price, oneday_eligible, fresh_eligible)
         VALUES (#{name}, #{description}, #{price}, #{unit}, #{volume}, #{length},
-                #{packageType}, #{certificateOfAnalysis}, #{expiration}, #{pricePer100g},
-                #{allergicIssue}, #{modelSerialNo}, #{ratePoint}, #{searchKeyword}, #{stock}, #{discountPrice}, #{onedayEligible}, #{freshEligible})
+                #{packageType}, #{origin}, #{expiration}, #{pricePer100g},
+                #{allergicInfo}, #{modelSerialNo}, #{rating}, #{searchKeyword}, #{stock}, #{discountPrice}, #{onedayEligible}, #{freshEligible})
     </insert>
 
     <select id="selectById" parameterType="long" resultType="Item">
         SELECT
-               id, name, description, price, unit, volume, length, package_type, certificate_of_analysis, expiration, price_per_100g,
-               allergic_issue, model_serial_no, rate_point, search_keyword, stock, discount_price, oneday_eligible, fresh_eligible
+               id, name, description, price, unit, volume, length, package_type, origin, expiration, price_per_100g,
+               allergic_info, model_serial_no, rating, search_keyword, stock, discount_price, oneday_eligible, fresh_eligible
         FROM ITEM WHERE id = #{id}
     </select>
 

@@ -32,7 +32,7 @@ public class Item {
     private String packageType;
 
     // 원산지
-    private String certificateOfAnalysis;
+    private String origin;
 
     // 유통기한
     private String expiration;
@@ -41,13 +41,13 @@ public class Item {
     private Integer pricePer100g;
 
     // 알러지 정보
-    private String allergicIssue;
+    private String allergicInfo;
 
     // 상품 번호
     private String modelSerialNo;
 
     // 상품 평가 점수
-    private Integer ratePoint;
+    private Integer rating;
 
     // 검색 키워드
     private String searchKeyword;
