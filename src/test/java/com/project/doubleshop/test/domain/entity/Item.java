@@ -31,7 +31,7 @@ public class Item {
     private String volume;
 
     // 치수
-    private String length;
+    private String dimension;
 
     // 포장타입
     private String packageType;
