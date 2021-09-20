@@ -1,8 +1,0 @@
-<!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.project.doubleshop.test.domain.mapper.ArticleMapper">
-    <select id="selectById" parameterType="long" resultType="Article">
-        SELECT * FROM ARTICLES WHERE id = #{id}
-    </select>
-</mapper>
