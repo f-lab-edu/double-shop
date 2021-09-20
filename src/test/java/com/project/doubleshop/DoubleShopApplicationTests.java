@@ -2,14 +2,17 @@ package com.project.doubleshop;
 
 import com.project.doubleshop.test.domain.entity.Item;
 import com.project.doubleshop.test.domain.mapper.ItemMapper;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import java.util.List;
+
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @SpringBootTest
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @ContextConfiguration(classes = TestConfig.class)
 class DoubleShopApplicationTests {
 
@@ -17,63 +20,61 @@ class DoubleShopApplicationTests {
     ItemMapper itemMapper;
 
     @Test
-    void contextLoads() {
-        // given
-        int affectedColumnNum = itemMapper.insertItem(Item.builder()
-                .name("마법천자문. 1: 불어라! 바람 풍")
-                .description("스토리에 몰입하다보니 정작 한자는 한자도 생각도 나지않는 책")
-                .price(10800)
-                .unit("권")
-                .volume("1")
-                .length("1")
-                .packageType("종이박스")
-                .origin("1")
-                .expiration("1")
-                .pricePer100g(0)
-                .allergicInfo("1")
-                .modelSerialNo("175014350 - 500109051")
-                .rating(0)
-                .searchKeyword("교육")
-                .stock(132)
-                .discountPrice(0)
-                .onedayEligible(true)
-                .freshEligible(false)
-                .build());
+    @Order(1)
+    @DisplayName("select 단건 테스트: item pk 1번에는 item 데이터가 존재한다.")
+    void findOneItemById() {
+        Item findItem = itemMapper.selectById(1L);
 
-        itemMapper.insertItem(Item.builder()
-                .name("마법천자문. 2: 불어라! 바람 풍")
-                .description("스토리에 몰입하다보니 정작 한자는 한자도 생각도 나지않는 책")
-                .price(10800)
-                .unit("권")
-                .volume("1")
-                .length("1")
-                .packageType("종이박스")
-                .origin("1")
-                .expiration("1")
-                .pricePer100g(0)
-                .allergicInfo("1")
-                .modelSerialNo("175014350 - 500109051")
-                .rating(0)
-                .searchKeyword("교육")
-                .stock(132)
-                .discountPrice(0)
-                .onedayEligible(true)
-                .freshEligible(false)
-                .build());
+        assertThat(findItem).isNotNull();
+        assertThat(findItem.getId()).isEqualTo(1L);
+    }
 
-        // when
+    @Test
+    @Order(2)
+    @DisplayName("select 목록 테스트: 모든 상품 목록을 검색할 경우, 상품 갯수는 총 14개여야 한다.")
+    void findAllItems() {
+        List<Item> allItems = itemMapper.selectAllItems();
+
+        assertThat(allItems).isNotNull();
+        assertThat(allItems.size()).isEqualTo(14);
+    }
+
+    @Test
+    @Order(3)
+    @DisplayName("update 테스트: 1번 상품의 이름을 바꿀 경우, 기존 1번 상품의 이름과 달라야 한다.")
+    void updateOneItem() {
         Item item = itemMapper.selectById(1L);
-        Item item2 = itemMapper.selectById(2L);
-        String changeItemName = "바른생활";
-        item.setName(changeItemName);
+        String beforeChangeName = item.getName();
+        item.setName("changed");
         itemMapper.updateItem(item);
-        itemMapper.deleteItem(item2.getId());
+        String afterChangeNAme = item.getName();
 
-        // then
-        assertThat(affectedColumnNum).isSameAs(1);
         assertThat(item).isNotNull();
-        assertThat(itemMapper.selectById(2L)).isNull();
-        assertThat(item.getId()).isEqualTo(1L);
-        assertThat(item.getName()).isEqualTo(changeItemName);
+        assertThat(beforeChangeName).isNotEqualTo(afterChangeNAme);
+    }
+
+    @Test
+    @Order(4)
+    @DisplayName("delete 테스트: 1번 상품을 삭제할 경우, 기존의 상품 목록의 갯수보다 1개 적어야 한다.")
+    void deleteOneItem() {
+        int beforeDeleteItemSize = itemMapper.selectAllItems().size();
+        itemMapper.deleteItem(1L);
+        int afterDeleteItemSize = itemMapper.selectAllItems().size();
+        assertThat(beforeDeleteItemSize - 1).isSameAs(afterDeleteItemSize);
+    }
+
+    @Test
+    @Order(5)
+    @DisplayName("insert 테스트: 상품을 하나 등록할 경우, 추가된 로우는 하나여야만 한다.")
+    void insertOneItem() {
+        int affectedRowNum = itemMapper.insertItem(Item.builder()
+                .name("newItem")
+                .brandName("newBrand")
+                .description("newDescription")
+                .price(1)
+                .build());
+
+        assertThat(affectedRowNum).isSameAs(1);
+
     }
 }
