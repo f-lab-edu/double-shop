@@ -1,8 +1,6 @@
 package com.project.doubleshop;
 
-import com.project.doubleshop.test.domain.entity.Article;
 import com.project.doubleshop.test.domain.entity.Item;
-import com.project.doubleshop.test.domain.mapper.ArticleMapper;
 import com.project.doubleshop.test.domain.mapper.ItemMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,15 +14,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 class DoubleShopApplicationTests {
 
     @Autowired
-    ArticleMapper articleMapper;
-
-    @Autowired
     ItemMapper itemMapper;
 
     @Test
     void contextLoads() {
         // given
-        Article article = articleMapper.selectById(1L);
         int affectedColumnNum = itemMapper.insertItem(Item.builder()
                 .name("마법천자문. 1: 불어라! 바람 풍")
                 .description("스토리에 몰입하다보니 정작 한자는 한자도 생각도 나지않는 책")
@@ -33,12 +27,12 @@ class DoubleShopApplicationTests {
                 .volume("1")
                 .length("1")
                 .packageType("종이박스")
-                .certificateOfAnalysis("1")
+                .origin("1")
                 .expiration("1")
                 .pricePer100g(0)
-                .allergicIssue("1")
+                .allergicInfo("1")
                 .modelSerialNo("175014350 - 500109051")
-                .ratePoint(0)
+                .rating(0)
                 .searchKeyword("교육")
                 .stock(132)
                 .discountPrice(0)
@@ -54,12 +48,12 @@ class DoubleShopApplicationTests {
                 .volume("1")
                 .length("1")
                 .packageType("종이박스")
-                .certificateOfAnalysis("1")
+                .origin("1")
                 .expiration("1")
                 .pricePer100g(0)
-                .allergicIssue("1")
+                .allergicInfo("1")
                 .modelSerialNo("175014350 - 500109051")
-                .ratePoint(0)
+                .rating(0)
                 .searchKeyword("교육")
                 .stock(132)
                 .discountPrice(0)
@@ -81,7 +75,5 @@ class DoubleShopApplicationTests {
         assertThat(itemMapper.selectById(2L)).isNull();
         assertThat(item.getId()).isEqualTo(1L);
         assertThat(item.getName()).isEqualTo(changeItemName);
-        assertThat(article).isNotNull();
-        assertThat(article.getId()).isEqualTo(1L);
     }
 }
