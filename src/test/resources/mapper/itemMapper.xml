@@ -10,14 +10,16 @@
                 #{allergicInfo}, #{modelSerialNo}, #{rating}, #{searchKeyword}, #{stock}, #{discountPrice},
                 #{author}, #{publisher}, #{isbn}, #{publishedTime}, #{onedayEligible}, #{freshEligible})
     </insert>
-
     <select id="selectById" parameterType="long" resultType="Item">
-        SELECT
-               id, name, description, brand_name, price, unit, volume, dimension, package_type, origin, expiration, price_per_100g,
+        SELECT id, name, description, brand_name, price, unit, volume, dimension, package_type, origin, expiration, price_per_100g,
                allergic_info, model_serial_no, rating, search_keyword, stock, discount_price, author, publisher, isbn, published_time, oneday_eligible, fresh_eligible
         FROM ITEM WHERE id = #{id}
     </select>
-
+    <select id="selectAllItems" resultType="Item">
+        SELECT  id, name, description, brand_name, price, unit, volume, dimension, package_type, origin, expiration, price_per_100g,
+                allergic_info, model_serial_no, rating, search_keyword, stock, discount_price, author, publisher, isbn, published_time, oneday_eligible, fresh_eligible
+        FROM ITEM
+    </select>
     <update id="updateItem" parameterType="Item">
         UPDATE ITEM SET
             name = #{name},
@@ -25,7 +27,6 @@
             price = #{price}
         WHERE id = #{id}
     </update>
-
     <delete id="deleteItem" parameterType="long">
         DELETE FROM ITEM WHERE id = #{id}
     </delete>
