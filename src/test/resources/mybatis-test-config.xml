@@ -7,7 +7,6 @@
         <package name="com.project.doubleshop.test.domain.entity"/>
     </typeAliases>
     <mappers>
-        <mapper resource="mapper/articleMapper.xml"/>
         <mapper resource="mapper/itemMapper.xml"/>
     </mappers>
 </configuration>
