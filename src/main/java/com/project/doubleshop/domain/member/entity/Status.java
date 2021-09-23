@@ -1,4 +1,4 @@
-package com.project.doubleshop.model.enums;
+package com.project.doubleshop.domain.member.entity;
 
 /**
  * NORMAL: 일반 사용자 계정
@@ -6,5 +6,7 @@ package com.project.doubleshop.model.enums;
  * BANNED: 사용 정지된 계정
  */
 public enum Status {
-    NORMAL, DORMANT, BANNED;
+    NORMAL,
+    DORMANT,
+    BANNED;
 }

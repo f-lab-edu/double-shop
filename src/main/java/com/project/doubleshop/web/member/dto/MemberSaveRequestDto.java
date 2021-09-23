@@ -1,8 +1,8 @@
-package com.project.doubleshop.dto;
+package com.project.doubleshop.web.member.dto;
 
-import com.project.doubleshop.model.enums.Status;
-import com.project.doubleshop.model.member.Member;
-import com.project.doubleshop.utils.SHA256EncryptionUtil;
+import com.project.doubleshop.domain.member.entity.Status;
+import com.project.doubleshop.domain.member.entity.Member;
+import com.project.doubleshop.domain.utils.SHA256EncryptionUtil;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -45,7 +45,7 @@ public class MemberSaveRequestDto {
         this.phone = phone;
     }
 
-    public void passwordEncryption(SHA256EncryptionUtil encryptionUtil) {
+    public void encryptPassword(SHA256EncryptionUtil encryptionUtil) {
         this.password = encryptionUtil.encrypt(password);
     }
 

@@ -1,4 +1,4 @@
-package com.project.doubleshop.service;
+package com.project.doubleshop.domain.member.service;
 
 import com.twilio.Twilio;
 import com.twilio.exception.TwilioException;
@@ -20,11 +20,14 @@ public class SmsVerificationService {
 
     // 인증 번호를 전송하고, 발송 데이터를 세션에 저장
     public int sendSms(String country, String phoneNum, HttpSession session) {
-        int authNum = randomRange(100000, 999999); // 인증 번호 생성 (100000 ~ 999999)
 
-        String targetNum = "+" + country + phoneNum; // 수신자 휴대폰 번호: +(국가 번호) (전화 번호)
+        // 인증 번호 생성 (100000 ~ 999999)
+        int authNum = randomRange(100000, 999999);
 
-        String authMessage = "[Double Shop] 인증 번호 " + authNum + "를 입력하세요.";
+        // 수신자 휴대폰 번호: +(국가 번호) (전화 번호)
+        String targetNum = String.format("+%s%s", country, phoneNum);
+
+        String authMessage = String.format("[Double Shop] 인증 번호 %d를 입력하세요.", authNum);
 
         try {
             Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
@@ -39,17 +42,22 @@ public class SmsVerificationService {
         }
 
         session.setAttribute(phoneNum, authNum);
+        session.setMaxInactiveInterval(60 * 10); // 인증 번호의 유효 시간 설정 (10분)
 
         return authNum;
     }
 
-    private static int randomRange(int n1, int n2) {
-        return (int) ((Math.random() * (n2 - n1 + 1)) + n1);
-    }
-
     // 사용자가 입력한 인증 번호와 세션에 저장된 인증 번호 비교
     public boolean verifySms(String phoneNum, String inputNum, HttpSession session) {
-        return session.getAttribute(phoneNum).equals(inputNum);
+        boolean result = session.getAttribute(phoneNum).equals(inputNum);
+
+        session.removeAttribute("phoneNum");
+
+        return result;
+    }
+
+    private static int randomRange(int n1, int n2) {
+        return (int) ((Math.random() * (n2 - n1 + 1)) + n1);
     }
 
 }

@@ -1,8 +1,8 @@
-package com.project.doubleshop.controller;
+package com.project.doubleshop.web.member.controller;
 
-import com.project.doubleshop.dto.MemberSaveRequestDto;
-import com.project.doubleshop.service.MemberService;
-import com.project.doubleshop.service.SmsVerificationService;
+import com.project.doubleshop.web.member.dto.MemberSaveRequestDto;
+import com.project.doubleshop.domain.member.service.MemberService;
+import com.project.doubleshop.domain.member.service.SmsVerificationService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,19 +23,19 @@ public class MemberController {
     // 아이디 중복 체크
     @GetMapping("/{userId}/exists")
     public ResponseEntity<Boolean> checkIdDuplicate(@PathVariable String userId) {
-        return ResponseEntity.ok(memberService.checkIdDuplicate(userId));
+        return ResponseEntity.ok(memberService.isIdDuplicate(userId));
     }
 
     // 이메일 중복 체크
     @GetMapping("/{email}/exists")
     public ResponseEntity<Boolean> checkEmailDuplicate(@PathVariable String email) {
-        return ResponseEntity.ok(memberService.checkEmailDuplicate(email));
+        return ResponseEntity.ok(memberService.isEmailDuplicate(email));
     }
 
     // 회원 등록
     @PostMapping
     public ResponseEntity<Void> createMember(@Valid @RequestBody MemberSaveRequestDto requestDto) {
-        memberService.signUp(requestDto);
+        memberService.registerMember(requestDto);
 
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

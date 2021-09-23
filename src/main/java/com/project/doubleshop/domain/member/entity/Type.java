@@ -1,4 +1,4 @@
-package com.project.doubleshop.model.enums;
+package com.project.doubleshop.domain.member.entity;
 
 /**
  * REGULAR: 일반 사용자
@@ -6,5 +6,7 @@ package com.project.doubleshop.model.enums;
  * KAKAO: 카카오 계정 사용자
  */
 public enum Type {
-    REGULAR, NAVER, KAKAO;
+    REGULAR,
+    NAVER,
+    KAKAO;
 }

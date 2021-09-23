@@ -1,9 +1,9 @@
-package com.project.doubleshop.model.member;
+package com.project.doubleshop.domain.member.entity;
 
-import com.project.doubleshop.model.enums.Authority;
-import com.project.doubleshop.model.enums.Grade;
-import com.project.doubleshop.model.enums.Status;
-import com.project.doubleshop.model.enums.Type;
+import com.project.doubleshop.domain.member.entity.Authority;
+import com.project.doubleshop.domain.member.entity.Grade;
+import com.project.doubleshop.domain.member.entity.Status;
+import com.project.doubleshop.domain.member.entity.Type;
 import lombok.*;
 
 import java.util.Date;

@@ -1,4 +1,4 @@
-package com.project.doubleshop.model.enums;
+package com.project.doubleshop.domain.member.entity;
 
 /**
  * CONSUMER: 소비자
@@ -6,5 +6,7 @@ package com.project.doubleshop.model.enums;
  * ADMIN: 관리자
  */
 public enum Authority {
-    CONSUMER, SELLER, ADMIN;
+    CONSUMER,
+    SELLER,
+    ADMIN;
 }

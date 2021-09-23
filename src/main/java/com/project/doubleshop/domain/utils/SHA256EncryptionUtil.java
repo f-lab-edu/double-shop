@@ -1,4 +1,4 @@
-package com.project.doubleshop.utils;
+package com.project.doubleshop.domain.utils;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

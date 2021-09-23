@@ -1,4 +1,4 @@
-package com.project.doubleshop.model.enums;
+package com.project.doubleshop.domain.member.entity;
 
 /**
  * NORMAL: 일반 회원
@@ -6,5 +6,7 @@ package com.project.doubleshop.model.enums;
  * GOLD: 골드 회원
  */
 public enum Grade {
-    NORMAL, SILVER, GOLD;
+    NORMAL,
+    SILVER,
+    GOLD;
 }
