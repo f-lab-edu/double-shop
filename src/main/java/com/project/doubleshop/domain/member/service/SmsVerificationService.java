@@ -4,6 +4,7 @@ import com.twilio.Twilio;
 import com.twilio.exception.TwilioException;
 import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.type.PhoneNumber;
+import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
 
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpSession;
  * Twilio API를 활용한 SMS
  * 회원가입 시 사용자가 입력한 휴대폰 번호로 인증 번호 전송
  */
+@Service
 public class SmsVerificationService {
 
     // 발급받은 시드와 토큰 값
