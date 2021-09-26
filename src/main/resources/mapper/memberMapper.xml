@@ -10,13 +10,13 @@
         VALUES (#{userId}, #{password}, #{name}, #{phone}, #{email}, #{status})
     </insert>
 
-    <select id="checkId" resultType="int">
+    <select id="getIdCount" resultType="int">
         SELECT COUNT(user_id)
         FROM member
         WHERE user_id = #{userId}
     </select>
 
-    <select id="checkEmail" resultType="int">
+    <select id="getEmailCount" resultType="int">
         SELECT COUNT(email)
         FROM member
         WHERE email = #{email}
