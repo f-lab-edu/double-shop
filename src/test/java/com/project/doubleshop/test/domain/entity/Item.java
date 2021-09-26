@@ -80,5 +80,4 @@ public class Item {
 
     // 당일배송가능여부
     private boolean freshEligible;
-
 }
