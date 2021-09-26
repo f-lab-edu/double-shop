@@ -4,6 +4,7 @@ import com.project.doubleshop.domain.member.entity.Authority;
 import com.project.doubleshop.domain.member.entity.Grade;
 import com.project.doubleshop.domain.member.entity.Status;
 import com.project.doubleshop.domain.member.entity.Type;
+import com.project.doubleshop.web.member.dto.MemberInfoDto;
 import lombok.*;
 
 import javax.validation.constraints.Email;
@@ -52,5 +53,14 @@ public class Member {
     private Integer count; // 로그인 횟수
 
     private Date lastLoginTime; // 마지막 로그인 시간
+
+    public MemberInfoDto toMemberInfoDto() {
+        return MemberInfoDto.builder()
+                .userId(this.getUserId())
+                .name(this.getName())
+                .phone(this.getPhone())
+                .email(this.getEmail())
+                .build();
+    }
 
 }

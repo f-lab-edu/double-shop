@@ -1,7 +1,5 @@
 package com.project.doubleshop.domain.member.service;
 
-import com.project.doubleshop.domain.exception.DuplicatedEmailException;
-import com.project.doubleshop.domain.exception.DuplicatedIdException;
 import com.project.doubleshop.web.member.dto.MemberSaveRequestDto;
 import com.project.doubleshop.domain.mapper.MemberInfoMapper;
 import com.project.doubleshop.domain.utils.SHA256EncryptionUtil;
@@ -13,6 +11,7 @@ import org.springframework.stereotype.Service;
 public class MemberServiceImpl implements MemberService {
 
     private MemberInfoMapper memberInfoMapper;
+
     private SHA256EncryptionUtil encryptionUtil;
 
     // 아이디 중복 검사
