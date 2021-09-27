@@ -8,8 +8,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
-@Builder
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ItemFormDTO {
 	// 상품 pk
 	private Long id;
@@ -78,8 +76,8 @@ public class ItemFormDTO {
 	private LocalDate publishedTime;
 
 	// 하루배송가능여부
-	private boolean onedayEligible;
+	private boolean isOnedayEligible;
 
 	// 당일배송가능여부
-	private boolean freshEligible;
+	private boolean isFreshEligible;
 }
