@@ -25,4 +25,4 @@ CREATE TABLE  IF NOT EXISTS ITEM
     is_oneday_eligible            boolean        NULL DEFAULT false,
     is_fresh_eligible             boolean        NULL DEFAULT false,
     CONSTRAINT PK_ITEM PRIMARY KEY (id)
-    );
+);

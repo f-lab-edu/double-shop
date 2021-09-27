@@ -1,15 +1,21 @@
 package com.project.doubleshop;
 
-import com.project.doubleshop.test.domain.entity.Item;
-import com.project.doubleshop.test.domain.mapper.TestItemMapper;
+
+
+import com.project.doubleshop.domain.entity.item.Item;
+import com.project.doubleshop.domain.repository.mapper.ItemMapper;
+
+import com.project.doubleshop.web.item.dto.ItemFormDTO;
+
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 
-import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+
+import java.util.List;
 
 @SpringBootTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -17,7 +23,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 class DoubleShopApplicationTests {
 
     @Autowired
-    TestItemMapper testItemMapper;
+    ItemMapper testItemMapper;
 
     @Test
     @Order(1)
@@ -45,9 +51,11 @@ class DoubleShopApplicationTests {
     void updateOneItem() {
         Item item = testItemMapper.selectById(1L);
         String beforeChangeName = item.getName();
-        item.setName("changed");
-        testItemMapper.updateItem(item);
-        String afterChangeNAme = item.getName();
+        Item newItem = Item.createItem(ItemFormDTO.builder()
+            .name("updated Item")
+            .build());
+        testItemMapper.updateItem(newItem);
+        String afterChangeNAme = newItem.getName();
 
         assertThat(item).isNotNull();
         assertThat(beforeChangeName).isNotEqualTo(afterChangeNAme);

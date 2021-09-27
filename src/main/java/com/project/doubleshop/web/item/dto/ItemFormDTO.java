@@ -3,11 +3,15 @@ package com.project.doubleshop.web.item.dto;
 import java.time.LocalDate;
 
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class ItemFormDTO {
 	// 상품 pk
 	private Long id;
