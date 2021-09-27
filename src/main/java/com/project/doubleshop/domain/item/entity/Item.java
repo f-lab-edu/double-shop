@@ -1,10 +1,11 @@
-package com.project.doubleshop.domain.item.entity.v2;
+package com.project.doubleshop.domain.item.entity;
 
 import java.time.LocalDate;
 
 import com.project.doubleshop.web.item.dto.ItemFormDTO;
 
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,6 +13,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @Getter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
+@AllArgsConstructor
 public class Item {
 
     // 상품 pk
