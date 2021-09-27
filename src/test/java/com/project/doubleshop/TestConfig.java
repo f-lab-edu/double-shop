@@ -20,8 +20,10 @@ public class TestConfig {
 
     @Bean
     public DataSource dataSource() {
-        return new EmbeddedDatabaseBuilder()
+        return new EmbeddedDatabaseBuilder(resourceLoader)
                 .setType(EmbeddedDatabaseType.H2)
+                .addScript("classpath:test/schema.sql")
+                .addScript("classpath:test/data.sql")
                 .build();
     }
 
@@ -29,7 +31,7 @@ public class TestConfig {
     public SqlSessionFactory sqlSessionFactory() throws Exception {
         SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
         factoryBean.setDataSource(dataSource());
-        factoryBean.setConfigLocation(resourceLoader.getResource("classpath:mybatis-test-config.xml"));
+        factoryBean.setConfigLocation(resourceLoader.getResource("classpath:test/mybatis-test-config.xml"));
         return factoryBean.getObject();
     }
 }
