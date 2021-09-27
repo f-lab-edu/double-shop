@@ -1,4 +1,4 @@
-package com.project.doubleshop.domain.item.entity;
+package com.project.doubleshop.domain.entity.item.entity;
 
 import java.time.LocalDate;
 
@@ -83,10 +83,10 @@ public class Item {
     private LocalDate publishedTime;
 
     // 하루배송가능여부
-    private boolean onedayEligible;
+    private boolean isOnedayEligible;
 
     // 당일배송가능여부
-    private boolean freshEligible;
+    private boolean isFreshEligible;
 
     // 상품 인스턴스 생성 로직
     public static Item createItem(ItemFormDTO dto) {
@@ -113,8 +113,8 @@ public class Item {
             .publisher(dto.getPublisher())
             .isbn(dto.getIsbn())
             .publishedTime(dto.getPublishedTime())
-            .onedayEligible(dto.isOnedayEligible())
-            .onedayEligible(dto.isFreshEligible())
+            .isOnedayEligible(dto.isOnedayEligible())
+            .isFreshEligible(dto.isFreshEligible())
             .build();
     }
 }
