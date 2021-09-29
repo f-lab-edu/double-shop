@@ -1,4 +1,4 @@
-package com.project.doubleshop.domain.entity.item;
+package com.project.doubleshop.domain.item.entity;
 
 import java.time.LocalDate;
 
@@ -89,7 +89,7 @@ public class Item {
     private boolean isFreshEligible;
 
     // 상품 인스턴스 생성 로직
-    public static Item createItem(ItemFormDTO dto) {
+    public static Item createItemInstance(ItemFormDTO dto) {
         return Item.builder()
             .id(dto.getId())
             .name(dto.getName())
@@ -116,5 +116,13 @@ public class Item {
             .isOnedayEligible(dto.isOnedayEligible())
             .isFreshEligible(dto.isFreshEligible())
             .build();
+    }
+
+    public void removeStock(int stock) {
+        this.stock -= stock;
+    }
+
+    public void addStock(int stock) {
+        this.stock += stock;
     }
 }

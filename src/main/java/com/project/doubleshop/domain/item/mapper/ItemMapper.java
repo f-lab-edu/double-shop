@@ -1,10 +1,10 @@
-package com.project.doubleshop.domain.mapper;
+package com.project.doubleshop.domain.item.mapper;
 
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.project.doubleshop.domain.entity.item.Item;
+import com.project.doubleshop.domain.item.entity.Item;
 
 @Mapper
 public interface ItemMapper {

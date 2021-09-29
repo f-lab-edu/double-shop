@@ -1,8 +1,6 @@
-package com.project.doubleshop.domain.repository.item;
+package com.project.doubleshop.domain.item.repository.item;
 
-import static org.assertj.core.api.Assertions.*;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
 
@@ -15,7 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
-import com.project.doubleshop.domain.entity.item.Item;
+import com.project.doubleshop.domain.item.entity.Item;
+import com.project.doubleshop.domain.item.repository.ItemRepository;
 import com.project.doubleshop.web.item.dto.ItemFormDTO;
 
 @SpringBootTest
@@ -53,7 +52,7 @@ class ItemRepositoryTest {
 		Long id = beforeUpdateItem.getId();
 		String changedName = "changed item name";
 
-		Item updatedItemForm = Item.createItem(ItemFormDTO.builder()
+		Item updatedItemForm = Item.createItemInstance(ItemFormDTO.builder()
 			.id(id)
 			.name(changedName)
 			.description("update one item")
@@ -72,7 +71,7 @@ class ItemRepositoryTest {
 	@Order(4)
 	@DisplayName("하나의 상품을 추가하면, 그 상품의 pk는 15번이고, 전체 상품의 갯수는 15개이다.")
 	void insertOneItem() {
-		Item inputItem = Item.createItem(ItemFormDTO.builder()
+		Item inputItem = Item.createItemInstance(ItemFormDTO.builder()
 			.name("newItem")
 			.brandName("newBrand")
 			.description("newDescription")

@@ -1,17 +1,18 @@
-package com.project.doubleshop.domain.repository.item;
+package com.project.doubleshop.domain.item.repository;
 
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.project.doubleshop.domain.entity.item.Item;
-import com.project.doubleshop.domain.mapper.ItemMapper;
+import com.project.doubleshop.domain.item.entity.Item;
+import com.project.doubleshop.domain.item.mapper.ItemMapper;
 
 import lombok.RequiredArgsConstructor;
 
 @Repository
 @RequiredArgsConstructor
 public class MyBatisItemRepository implements ItemRepository {
+
 	private final ItemMapper mapper;
 
 	/**
