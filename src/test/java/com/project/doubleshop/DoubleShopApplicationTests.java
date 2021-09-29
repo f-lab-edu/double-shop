@@ -2,7 +2,7 @@ package com.project.doubleshop;
 
 
 
-import com.project.doubleshop.domain.mapper.ItemMapper;
+import com.project.doubleshop.domain.item.mapper.ItemMapper;
 
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,8 +1,8 @@
-package com.project.doubleshop.domain.repository.item;
+package com.project.doubleshop.domain.item.repository;
 
 import java.util.List;
 
-import com.project.doubleshop.domain.entity.item.Item;
+import com.project.doubleshop.domain.item.entity.Item;
 
 public interface ItemRepository {
 	boolean save(Item entity);

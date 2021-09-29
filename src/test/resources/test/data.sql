@@ -1,3 +1,4 @@
+/* 상품 */
 -- 남성 패션
 INSERT INTO ITEM (name, description, brand_name, price, unit,
                   package_type, origin,
