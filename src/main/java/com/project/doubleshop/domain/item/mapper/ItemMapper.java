@@ -4,7 +4,9 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.project.doubleshop.domain.common.Status;
 import com.project.doubleshop.domain.item.entity.Item;
+import com.project.doubleshop.web.item.dto.ItemStatusRequest;
 
 @Mapper
 public interface ItemMapper {
@@ -12,5 +14,6 @@ public interface ItemMapper {
     Item selectById(Long id);
     List<Item> selectAllItems();
     int updateItem(Item item);
-    int deleteItem(Long id);
+    int assignItemStatus(ItemStatusRequest itemStatusRequest);
+    int deleteItem(Status status);
 }

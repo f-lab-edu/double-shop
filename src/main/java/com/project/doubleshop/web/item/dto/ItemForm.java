@@ -2,6 +2,9 @@ package com.project.doubleshop.web.item.dto;
 
 import java.time.LocalDate;
 
+import com.project.doubleshop.domain.common.Status;
+import com.project.doubleshop.domain.item.entity.Item;
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,10 +12,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
-public class ItemFormDTO {
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public class ItemForm {
 	// 상품 pk
 	private Long id;
 
@@ -84,4 +85,31 @@ public class ItemFormDTO {
 
 	// 당일배송가능여부
 	private boolean isFreshEligible;
+
+	public ItemForm(Item source) {
+		this.id = source.getId();
+		this.name = source.getName();
+		this.description = source.getDescription();
+		this.brandName = source.getBrandName();
+		this.price = source.getPrice();
+		this.unit = source.getUnit();
+		this.volume = source.getVolume();
+		this.dimension = source.getDimension();
+		this.packageType = source.getPackageType();
+		this.origin = source.getOrigin();
+		this.expiration = source.getExpiration();
+		this.pricePer100g = source.getPricePer100g();
+		this.allergicInfo = source.getAllergicInfo();
+		this.modelSerialNo = source.getModelSerialNo();
+		this.rating = source.getRating();
+		this.searchKeyword = source.getSearchKeyword();
+		this.stock = source.getStock();
+		this.discountPrice = source.getDiscountPrice();
+		this.author = source.getAuthor();
+		this.publisher = source.getPublisher();
+		this.isbn = source.getIsbn();
+		this.publishedTime = source.getPublishedTime();
+		this.isOnedayEligible = source.isOnedayEligible();
+		this.isFreshEligible = source.isFreshEligible();
+	}
 }

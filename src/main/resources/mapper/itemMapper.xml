@@ -3,31 +3,63 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.project.doubleshop.domain.item.mapper.ItemMapper">
     <insert id="insertItem" parameterType="Item" useGeneratedKeys="true">
-        INSERT INTO ITEM (name, description, brand_name, price, unit, volume, dimension, package_type, origin, expiration, price_per_100g,
-                          allergic_info, model_serial_no, rating, search_keyword, stock, discount_price, author, publisher, isbn, published_time, is_oneday_eligible, is_fresh_eligible)
-        VALUES (#{name}, #{description},#{brandName}, #{price}, #{unit}, #{volume}, #{dimension},
-                #{packageType}, #{origin}, #{expiration}, #{pricePer100g},
-                #{allergicInfo}, #{modelSerialNo}, #{rating}, #{searchKeyword}, #{stock}, #{discountPrice},
-                #{author}, #{publisher}, #{isbn}, #{publishedTime}, #{isOnedayEligible}, #{isFreshEligible})
+        insert into item (name, description, brand_name, price, unit,
+                          volume, dimension, package_type, origin, expiration,
+                          price_per_100g, allergic_info, model_serial_no, rating, search_keyword,
+                          stock, discount_price, author, publisher, isbn,
+                          published_time, is_oneday_eligible, is_fresh_eligible, status, status_update_time)
+        values (#{name}, #{description},#{brandName}, #{price}, #{unit},
+                #{volume}, #{dimension}, #{packageType}, #{origin}, #{expiration},
+                #{pricePer100g}, #{allergicInfo}, #{modelSerialNo}, #{rating}, #{searchKeyword},
+                #{stock}, #{discountPrice}, #{author}, #{publisher}, #{isbn},
+                #{publishedTime}, #{isOnedayEligible}, #{isFreshEligible}, #{status}, #{statusUpdateTime})
     </insert>
     <select id="selectById" parameterType="long" resultType="Item">
-        SELECT id, name, description, brand_name, price, unit, volume, dimension, package_type, origin, expiration, price_per_100g,
-               allergic_info, model_serial_no, rating, search_keyword, stock, discount_price, author, publisher, isbn, published_time, is_oneday_eligible, is_fresh_eligible
-        FROM ITEM WHERE id = #{id}
+        select id, name, description, brand_name, price, unit, volume, dimension, package_type, origin, expiration, price_per_100g,
+               allergic_info, model_serial_no, rating, search_keyword, stock, discount_price, author, publisher, isbn, published_time,
+               is_oneday_eligible, is_fresh_eligible, status, status_update_time
+        from item where id = #{id}
     </select>
     <select id="selectAllItems" resultType="Item">
-        SELECT  id, name, description, brand_name, price, unit, volume, dimension, package_type, origin, expiration, price_per_100g,
-                allergic_info, model_serial_no, rating, search_keyword, stock, discount_price, author, publisher, isbn, published_time, is_oneday_eligible, is_fresh_eligible
-        FROM ITEM
+        select id, name, description, brand_name, price, unit, volume, dimension, package_type, origin, expiration, price_per_100g,
+                allergic_info, model_serial_no, rating, search_keyword, stock, discount_price, author, publisher, isbn, published_time,
+               is_oneday_eligible, is_fresh_eligible, status, status_update_time
+        from item
     </select>
     <update id="updateItem" parameterType="Item">
-        UPDATE ITEM SET
-            name = #{name},
-            description = #{description},
-            price = #{price}
-        WHERE id = #{id}
+        update item set
+                        name = #{name},
+                        description = #{description},
+                        brand_name = #{brandName},
+                        price = #{price},
+                        unit = #{unit},
+                        volume = #{volume},
+                        dimension = #{dimension},
+                        package_type = #{packageType},
+                        origin = #{origin},
+                        expiration = #{expiration},
+                        price_per_100g = #{pricePer100g},
+                        allergic_info = #{allergicInfo},
+                        model_serial_no = #{modelSerialNo},
+                        rating = #{rating},
+                        search_keyword = #{searchKeyword},
+                        stock = #{stock},
+                        discount_price = #{discountPrice},
+                        author = #{author},
+                        publisher = #{publisher},
+                        isbn = #{isbn},
+                        published_time  = #{publishedTime},
+                        is_oneday_eligible = #{isOnedayEligible},
+                        is_fresh_eligible = #{isFreshEligible},
+                        status= #{status},
+                        status_update_time = #{statusUpdateTime},
+                        created_time = #{createTime}
+        where id = #{id}
     </update>
-    <delete id="deleteItem" parameterType="long">
-        DELETE FROM ITEM WHERE id = #{id}
+    <update id="assignItemStatus" parameterType="ItemStatusRequest">
+        update item set status = #{status} where id = #{id}
+    </update>
+    <delete id="deleteItem" parameterType="Status">
+        delete from item where status = #{DELETED}
     </delete>
 </mapper>

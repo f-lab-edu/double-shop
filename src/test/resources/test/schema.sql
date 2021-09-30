@@ -22,7 +22,10 @@ CREATE TABLE  IF NOT EXISTS ITEM
     publisher                  varchar(50)    NULL DEFAULT '',
     isbn                       varchar(50)    NULL DEFAULT '',
     published_time             date           NULL DEFAULT Now(),
-    is_oneday_eligible            boolean        NULL DEFAULT false,
-    is_fresh_eligible             boolean        NULL DEFAULT false,
+    is_oneday_eligible         boolean        NULL DEFAULT false,
+    is_fresh_eligible          boolean        NULL DEFAULT false,
+    status                     varchar(50)    NULL DEFAULT 'ACTIVATED',
+    status_update_time         timestamp      NULL DEFAULT Now(),
+    created_time               timestamp      NULL DEFAULT Now(),
     CONSTRAINT PK_ITEM PRIMARY KEY (id)
 );

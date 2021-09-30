@@ -1,8 +1,10 @@
 package com.project.doubleshop.domain.item.entity;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
-import com.project.doubleshop.web.item.dto.ItemFormDTO;
+import com.project.doubleshop.domain.common.Status;
+import com.project.doubleshop.web.item.dto.ItemForm;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -88,8 +90,17 @@ public class Item {
     // 당일배송가능여부
     private boolean isFreshEligible;
 
+    // 상태
+    private Status status;
+
+    // 상태 업데이트 시간
+    private LocalDateTime statusUpdateTime;
+
+    // 등록된 시간
+    private LocalDateTime createTime;
+
     // 상품 인스턴스 생성 로직
-    public static Item createItemInstance(ItemFormDTO dto) {
+    public static Item createItemInstance(ItemForm dto) {
         return Item.builder()
             .id(dto.getId())
             .name(dto.getName())
