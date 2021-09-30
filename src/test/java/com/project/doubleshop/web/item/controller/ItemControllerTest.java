@@ -8,6 +8,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
@@ -30,7 +31,9 @@ class ItemControllerTest {
 				.accept(MediaType.APPLICATION_JSON)
 		)
 			.andDo(print())
-			.andExpect(status().is2xxSuccessful());
+			.andExpect(status().is2xxSuccessful())
+			.andExpect(jsonPath("$.id").value(1))
+			.andExpect(jsonPath("$.name").value("어반티 1+1+1 드라이 라운드 쿨티셔츠 3장세트 남여공용 기능성 반팔티 냉감 반팔 티셔츠"));
 	}
 
 	@Test
@@ -41,7 +44,10 @@ class ItemControllerTest {
 				.accept(MediaType.APPLICATION_JSON)
 		)
 			.andDo(print())
-			.andExpect(status().is4xxClientError());
+			.andExpect(status().is4xxClientError())
+			.andExpect(jsonPath("$.id").doesNotExist())
+			.andExpect(jsonPath("$.statusCode").value(HttpStatus.NOT_FOUND.getReasonPhrase()))
+			.andExpect(jsonPath("$.message").exists());
 	}
 
 	@Test
@@ -52,6 +58,7 @@ class ItemControllerTest {
 				.accept(MediaType.APPLICATION_JSON)
 		)
 			.andDo(print())
-			.andExpect(status().is2xxSuccessful());
+			.andExpect(status().is2xxSuccessful())
+			.andExpect(jsonPath("$[0].id").exists());
 	}
 }
