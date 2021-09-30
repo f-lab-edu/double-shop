@@ -26,9 +26,6 @@ public class ItemDTO {
 	// 상품 가격
 	private final Integer price;
 
-	// 단위
-	private final String unit;
-
 	// 용량
 	private final String volume;
 
@@ -89,7 +86,6 @@ public class ItemDTO {
 		this.description = source.getDescription();
 		this.brandName = source.getBrandName();
 		this.price = source.getPrice();
-		this.unit = source.getUnit();
 		this.volume = source.getVolume();
 		this.dimension = source.getDimension();
 		this.packageType = source.getPackageType();

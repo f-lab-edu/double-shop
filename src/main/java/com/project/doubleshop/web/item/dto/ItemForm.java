@@ -29,9 +29,6 @@ public class ItemForm {
 	// 상품 가격
 	private Integer price;
 
-	// 단위
-	private String unit;
-
 	// 용량
 	private String volume;
 
@@ -92,7 +89,6 @@ public class ItemForm {
 		this.description = source.getDescription();
 		this.brandName = source.getBrandName();
 		this.price = source.getPrice();
-		this.unit = source.getUnit();
 		this.volume = source.getVolume();
 		this.dimension = source.getDimension();
 		this.packageType = source.getPackageType();

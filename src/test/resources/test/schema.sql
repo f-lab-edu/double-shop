@@ -5,7 +5,6 @@ CREATE TABLE  IF NOT EXISTS ITEM
     description                varchar(50)    NOT NULL DEFAULT '',
     brand_name                 varchar(50)    NOT NULL DEFAULT '자체제작',
     price                      integer        NOT NULL DEFAULT 0,
-    unit                       varchar(50)    NULL DEFAULT '',
     volume                     varchar(50)    NULL DEFAULT '',
     dimension                  varchar(50)    NULL DEFAULT '',
     package_type               varchar(50)    NULL DEFAULT '',
