@@ -6,8 +6,10 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.project.doubleshop.domain.common.Status;
 import com.project.doubleshop.domain.item.entity.Item;
 import com.project.doubleshop.domain.item.repository.ItemRepository;
+import com.project.doubleshop.web.item.dto.ItemStatusRequest;
 
 import lombok.RequiredArgsConstructor;
 
@@ -26,7 +28,15 @@ public class ItemService {
 		return Optional.ofNullable(itemRepository.findById(itemId));
 	}
 
-	public Optional<List<Item>> findItems() {
-		return Optional.ofNullable(itemRepository.findAll());
+	public List<Item> findItems() {
+		return itemRepository.findAll();
+	}
+
+	public void AssignItemStatus(ItemStatusRequest requestDTO) {
+		itemRepository.assignStatus(requestDTO);
+	}
+
+	public void DeleteAssignedItems(Status status) {
+		itemRepository.deleteAssignedData(status);
 	}
 }

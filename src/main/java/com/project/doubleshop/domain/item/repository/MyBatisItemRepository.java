@@ -4,8 +4,10 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
+import com.project.doubleshop.domain.common.Status;
 import com.project.doubleshop.domain.item.entity.Item;
 import com.project.doubleshop.domain.item.mapper.ItemMapper;
+import com.project.doubleshop.web.item.dto.ItemStatusRequest;
 
 import lombok.RequiredArgsConstructor;
 
@@ -44,5 +46,15 @@ public class MyBatisItemRepository implements ItemRepository {
 	@Override
 	public List<Item> findAll() {
 		return mapper.selectAllItems();
+	}
+
+	@Override
+	public int assignStatus(ItemStatusRequest requestDto) {
+		return mapper.assignItemStatus(requestDto);
+	}
+
+	@Override
+	public int deleteAssignedData(Status status) {
+		return mapper.deleteItem(status);
 	}
 }

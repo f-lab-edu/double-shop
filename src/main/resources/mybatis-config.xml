@@ -5,6 +5,8 @@
 <configuration>
     <typeAliases>
         <typeAlias type="com.project.doubleshop.domain.item.entity.Item" alias="Item"/>
+        <typeAlias type="com.project.doubleshop.domain.common.Status" alias="Status"/>
+        <typeAlias type="com.project.doubleshop.web.item.dto.ItemStatusRequest" alias="ItemStatusRequest"/>
     </typeAliases>
     <mappers>
         <mapper resource="mapper/itemMapper.xml"/>

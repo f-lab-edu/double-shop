@@ -1,9 +1,14 @@
 package com.project.doubleshop.web.item.controller.api;
 
+import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -14,7 +19,9 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.project.doubleshop.domain.item.entity.Item;
 import com.project.doubleshop.domain.item.service.ItemService;
-import com.project.doubleshop.web.item.dto.ItemFormDTO;
+import com.project.doubleshop.web.item.dto.ItemDTO;
+import com.project.doubleshop.web.item.dto.ItemForm;
+import com.project.doubleshop.web.item.dto.ItemStatusRequest;
 import com.project.doubleshop.web.item.exception.InvalidItemArgumentException;
 import com.project.doubleshop.web.item.exception.ItemNotFoundException;
 
@@ -27,40 +34,47 @@ public class ItemController {
 	private final ItemService itemService;
 
 	@GetMapping("item/{id}")
-	public ResponseEntity<Item> findItem(@PathVariable Long id) {
-
-		Item item = itemService.findItem(id)
-			.orElseThrow(() -> new ItemNotFoundException(String.format("item ID[%s] not found", id)));
-
-		return ResponseEntity.ok(item);
+	public ResponseEntity<ItemDTO> findItem(@PathVariable Long id) {
+		return ResponseEntity.ok(
+			new ItemDTO(itemService.findItem(id).orElseThrow(() -> new ItemNotFoundException(String.format("item ID[%s] not found", id)))));
 	}
 
 	@GetMapping("item")
-	public ResponseEntity<List<Item>> findAllItem() {
-		List<Item> items = itemService.findItems()
-			.orElseThrow(() -> new ItemNotFoundException("item list not found"));
-
-		return ResponseEntity.ok(items);
+	public ResponseEntity<List<ItemDTO>> findAllItem() {
+		return ResponseEntity.ok(itemService.findItems().stream().map(ItemDTO::new).collect(Collectors.toList()));
 	}
 
-	@PostMapping("item")
-	public ResponseEntity<Item> newItem(@RequestBody ItemFormDTO itemForm) {
+	@PostMapping(value = "item")
+	public ResponseEntity<ItemDTO> newItem(@RequestBody ItemForm itemForm) {
 		if(itemService.saveItem(Item.createItemInstance(itemForm))) {
-			return ResponseEntity.created(ServletUriComponentsBuilder
+			URI location = ServletUriComponentsBuilder
 				.fromCurrentRequest()
 				.build()
-				.toUri()
-			).build();
+				.toUri();
+
+			return ResponseEntity.created(location).body(new ItemDTO(Item.createItemInstance(itemForm)));
 		} else {
 			throw new InvalidItemArgumentException();
 		}
 	}
 
-	@PutMapping("item/{id}")
-	public ResponseEntity<Item> saveItem(@RequestBody ItemFormDTO itemForm, @PathVariable Long id) {
-		itemService.findItem(id)
-			.orElseThrow(() -> new ItemNotFoundException(String.format("item ID[%s] not found", id)));
+	@PutMapping(value = "item/{id}")
+	public ResponseEntity<ItemDTO> saveItem(@RequestBody ItemForm itemForm, @PathVariable Long id) {
+		itemService.findItem(id).orElseThrow(
+			() -> new ItemNotFoundException(String.format("item ID[%s] not found", id))
+		);
+		return ResponseEntity.ok(new ItemDTO(Item.createItemInstance(itemForm)));
+	}
 
-		return ResponseEntity.ok(Item.createItemInstance(itemForm));
+	@PatchMapping(value = "item/{id}")
+	public ResponseEntity requestUpdateItemStatus(@RequestBody ItemStatusRequest itemStatusRequest, @PathVariable Long id) {
+		itemService.AssignItemStatus(itemStatusRequest);
+		return ResponseEntity.ok().build();
+	}
+
+	@DeleteMapping("item")
+	public ResponseEntity deleteAssignedItems(@RequestBody ItemStatusRequest itemStatusRequest) {
+		itemService.DeleteAssignedItems(itemStatusRequest.getStatus());
+		return ResponseEntity.ok().build();
 	}
 }

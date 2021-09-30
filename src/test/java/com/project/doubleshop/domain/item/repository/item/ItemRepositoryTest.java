@@ -13,9 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
+import com.project.doubleshop.domain.common.Status;
 import com.project.doubleshop.domain.item.entity.Item;
 import com.project.doubleshop.domain.item.repository.ItemRepository;
-import com.project.doubleshop.web.item.dto.ItemFormDTO;
+import com.project.doubleshop.web.item.dto.ItemStatusRequest;
 
 @SpringBootTest
 @ActiveProfiles("test")
@@ -29,7 +30,6 @@ class ItemRepositoryTest {
 	@DisplayName("상품 pk 1번에는 상품 데이터가 존재한다.")
 	void findById() {
 		Item item = itemRepository.findById(1L);
-
 		assertThat(item).isNotNull();
 		assertThat(item.getId()).isEqualTo(1L);
 	}
@@ -52,14 +52,15 @@ class ItemRepositoryTest {
 		Long id = beforeUpdateItem.getId();
 		String changedName = "changed item name";
 
-		Item updatedItemForm = Item.createItemInstance(ItemFormDTO.builder()
+		Item updatedItem = Item.builder()
 			.id(id)
 			.name(changedName)
-			.description("update one item")
+			.description("")
+			.brandName("")
 			.price(1)
-			.build());
+			.build();
 
-		boolean result = itemRepository.save(updatedItemForm);
+		boolean result = itemRepository.save(updatedItem);
 		Item afterUpdateItem = itemRepository.findById(1L);
 
 		assertThat(result).isTrue();
@@ -71,12 +72,12 @@ class ItemRepositoryTest {
 	@Order(4)
 	@DisplayName("하나의 상품을 추가하면, 그 상품의 pk는 15번이고, 전체 상품의 갯수는 15개이다.")
 	void insertOneItem() {
-		Item inputItem = Item.createItemInstance(ItemFormDTO.builder()
+		Item inputItem = Item.builder()
 			.name("newItem")
 			.brandName("newBrand")
 			.description("newDescription")
 			.price(1)
-			.build());
+			.build();
 
 		boolean save = itemRepository.save(inputItem);
 
@@ -88,5 +89,27 @@ class ItemRepositoryTest {
 		assertThat(newItem).isNotNull();
 		assertThat(items.size()).isSameAs(15);
 		assertThat(newItem.getId()).isEqualTo(15);
+	}
+
+	@Test
+	@Order(5)
+	@DisplayName("1번 아이템에 삭제 요청을 할 경우, 1번 아이템의 status는 `DELETE`가 된다.")
+	void assignDeleteOneItem() {
+		ItemStatusRequest itemStatusRequest = new ItemStatusRequest(1L, Status.DELETED);
+		itemRepository.assignStatus(itemStatusRequest);
+
+		Item item = itemRepository.findById(1L);
+
+		assertThat(item.getStatus()).isEqualTo(Status.DELETED);
+	}
+
+	@Test
+	@Order(6)
+	@DisplayName("1번 아이템의 status가 'DELETED'일 경우, 데이터가 삭제된다.")
+	void deleteAssignedItem() {
+		int size = itemRepository.findAll().size();
+		int affectedRowNum = itemRepository.deleteAssignedData(Status.DELETED);
+
+		assertThat(itemRepository.findAll().size()).isSameAs(size - affectedRowNum);
 	}
 }

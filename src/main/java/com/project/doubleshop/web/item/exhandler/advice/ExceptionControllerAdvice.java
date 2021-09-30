@@ -11,7 +11,7 @@ import com.project.doubleshop.web.item.exhandler.HttpErrorResult;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@RestControllerAdvice(basePackages = "com.project.doubleshop.web")
+@RestControllerAdvice
 public class ExceptionControllerAdvice {
 	@ResponseStatus(HttpStatus.NOT_FOUND)
 	@ExceptionHandler(ItemNotFoundException.class)
