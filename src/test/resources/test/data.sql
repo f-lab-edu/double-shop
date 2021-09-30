@@ -1,12 +1,12 @@
 /* 상품 */
 -- 남성 패션
-INSERT INTO ITEM (name, description, brand_name, price, unit,
+INSERT INTO ITEM (name, description, brand_name, price,
                   package_type, origin,
                   model_serial_no, search_keyword,
                   stock, is_oneday_eligible)
 VALUES (
            '어반티 1+1+1 드라이 라운드 쿨티셔츠 3장세트 남여공용 기능성 반팔티 냉감 반팔 티셔츠',
-           '극강의 시원함, 최강의 가성비', '어반티', 14900, '벌',
+           '극강의 시원함, 최강의 가성비', '어반티', 14900,
            '비닐포장', '국내산',
            '1835265762 - 3121080524', '가성비 티셔츠',
            365, true
@@ -14,28 +14,28 @@ VALUES (
 
 -- 뷰티
 INSERT INTO ITEM (name, description, brand_name,
-                  price, unit, volume,
+                  price, volume,
                   package_type, origin, expiration, model_serial_no, search_keyword, stock, is_oneday_eligible)
 VALUES (
            '뉴트로지나 딥클린 포밍 클렌저', '이유있는 1등 클렌저, 뉴트로지나 딥쿨린 데일리 포밍 클렌저', '뉴트로지나',
-           11930, 'g', '100g', '종이박스', '태국/한국', '제조일로부터 2년', '4932903828 - 103419341',
+           11930, '100g', '종이박스', '태국/한국', '제조일로부터 2년', '4932903828 - 103419341',
            '노폐물 제거', 213, true
        );
 
 -- 출산/유아동
-INSERT INTO ITEM (name, description, brand_name, price, unit, volume, package_type, origin, expiration, price_per_100g,
+INSERT INTO ITEM (name, description, brand_name, price, volume, package_type, origin, expiration, price_per_100g,
                   allergic_info, model_serial_no, search_keyword, stock, is_oneday_eligible, is_fresh_eligible)
 VALUES (
-           '앱솔루트 프리미엄 명작 분유 2단계', '내 아이를 위한 고급 분유', '매일유업', 53000, 'g', '800g',
+           '앱솔루트 프리미엄 명작 분유 2단계', '내 아이를 위한 고급 분유', '매일유업', 53000, '800g',
            '종이박스', '국내산', '제조일로부터 2년', 2208, '연유 함유', '7244871 - 32023703', '인기 분유'
            , 321, true, true
        );
 
 -- 식품
-INSERT INTO ITEM (name, description, brand_name, price, unit, volume, package_type, origin, expiration, price_per_100g,
+INSERT INTO ITEM (name, description, brand_name, price, volume, package_type, origin, expiration, price_per_100g,
                   allergic_info, model_serial_no, stock, is_oneday_eligible, is_fresh_eligible)
 VALUES (
-           '목우촌 국내산 소고기 채끝 구이용 (냉장)', '우리가 직접 확인한 양질의 소고기', '목우촌', 17850, 'g', '300g',
+           '목우촌 국내산 소고기 채끝 구이용 (냉장)', '우리가 직접 확인한 양질의 소고기', '목우촌', 17850, '300g',
            '플라스틱', '국내산', '제조일로부터 2주일', 5950, '소고기', '1290671052 - 2301717160', 21, true, true
        );
 
@@ -101,9 +101,9 @@ VALUES (
        );
 
 -- 헬스/건강식품
-INSERT INTO ITEM (name, description, brand_name, price, unit, volume, package_type, origin, expiration,
+INSERT INTO ITEM (name, description, brand_name, price, volume, package_type, origin, expiration,
                   allergic_info, search_keyword, stock, is_oneday_eligible)
 VALUES (
-           '마이밀 마시는 뉴프로틴', '고함량 균형단백질', '마이밀', 14580, '1팩', '190ml', '카드보드 박스', '국내산', '제조일로부터 3개월',
+           '마이밀 마시는 뉴프로틴', '고함량 균형단백질', '마이밀', 14580, '190ml', '카드보드 박스', '국내산', '제조일로부터 3개월',
            '대두 함유', '건강 보조 식품', 23, true
        );

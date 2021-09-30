@@ -33,9 +33,6 @@ public class Item {
     // 상품 가격
     private Integer price;
 
-    // 단위
-    private String unit;
-
     // 용량
     private String volume;
 
@@ -107,7 +104,6 @@ public class Item {
             .description(dto.getDescription())
             .brandName(dto.getBrandName())
             .price(dto.getPrice())
-            .unit(dto.getUnit())
             .volume(dto.getVolume())
             .dimension(dto.getDimension())
             .packageType(dto.getPackageType())
