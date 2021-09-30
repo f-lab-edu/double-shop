@@ -44,7 +44,7 @@ public class ItemController {
 		return ResponseEntity.ok(itemService.findItems().stream().map(ItemDTO::new).collect(Collectors.toList()));
 	}
 
-	@PostMapping(value = "item")
+	@PostMapping("item")
 	public ResponseEntity<ItemDTO> newItem(@RequestBody ItemForm itemForm) {
 		if(itemService.saveItem(Item.createItemInstance(itemForm))) {
 			URI location = ServletUriComponentsBuilder
@@ -58,7 +58,7 @@ public class ItemController {
 		}
 	}
 
-	@PutMapping(value = "item/{id}")
+	@PutMapping("item/{id}")
 	public ResponseEntity<ItemDTO> saveItem(@RequestBody ItemForm itemForm, @PathVariable Long id) {
 		itemService.findItem(id).orElseThrow(
 			() -> new ItemNotFoundException(String.format("item ID[%s] not found", id))
@@ -66,7 +66,7 @@ public class ItemController {
 		return ResponseEntity.ok(new ItemDTO(Item.createItemInstance(itemForm)));
 	}
 
-	@PatchMapping(value = "item/{id}")
+	@PatchMapping("item/{id}")
 	public ResponseEntity requestUpdateItemStatus(@RequestBody ItemStatusRequest itemStatusRequest, @PathVariable Long id) {
 		itemService.AssignItemStatus(itemStatusRequest);
 		return ResponseEntity.ok().build();
