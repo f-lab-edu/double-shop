@@ -25,7 +25,7 @@ import com.project.doubleshop.web.item.dto.ItemStatusRequest;
 @SpringBootTest
 @ActiveProfiles("test")
 @CustomConfigureMockMvc
-class ItemControllerTest {
+class ItemRestControllerTest {
 
 	@Autowired
 	private MockMvc mockMvc;
