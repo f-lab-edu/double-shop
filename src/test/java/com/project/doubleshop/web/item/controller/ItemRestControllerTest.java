@@ -7,7 +7,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.util.Objects;
 
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
@@ -25,6 +28,7 @@ import com.project.doubleshop.web.item.dto.ItemStatusRequest;
 @SpringBootTest
 @ActiveProfiles("test")
 @CustomConfigureMockMvc
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ItemRestControllerTest {
 
 	@Autowired
@@ -37,6 +41,7 @@ class ItemRestControllerTest {
 	private ItemService itemService;
 
 	@Test
+	@Order(1)
 	@DisplayName("1번 상품 조회 성공")
 	void findItem() throws Exception {
 		mockMvc.perform(
@@ -46,10 +51,11 @@ class ItemRestControllerTest {
 			.andDo(print())
 			.andExpect(status().is2xxSuccessful())
 			.andExpect(jsonPath("$.id").value(1))
-			.andExpect(jsonPath("$.name").value("어반티 1+1+1 드라이 라운드 쿨티셔츠 3장세트 남여공용 기능성 반팔티 냉감 반팔 티셔츠"));
+			.andExpect(jsonPath("$.name").exists());
 	}
 
 	@Test
+	@Order(2)
 	@DisplayName("단건 상품 조회 실패")
 	void failFindItem() throws  Exception {
 		mockMvc.perform(
@@ -64,6 +70,7 @@ class ItemRestControllerTest {
 	}
 
 	@Test
+	@Order(3)
 	@DisplayName("전체 상품 리스트 조회")
 	void findAllItem() throws Exception {
 		mockMvc.perform(
@@ -76,6 +83,7 @@ class ItemRestControllerTest {
 	}
 
 	@Test
+	@Order(4)
 	@DisplayName("상품 추가 성공")
 	void createNewItem() throws Exception {
 		Item inputItem = Item.builder()
@@ -98,12 +106,13 @@ class ItemRestControllerTest {
 	}
 
 	@Test
-	@DisplayName("1번 아이템을 삭제로 분류")
+	@Order(5)
+	@DisplayName("10번 아이템을 삭제로 분류")
 	void assignDeleteOneItem() throws Exception {
-		String itemStatusRequest = objectMapper.writeValueAsString(new ItemStatusRequest(1L, Status.DELETED));
+		String itemStatusRequest = objectMapper.writeValueAsString(new ItemStatusRequest(10L, Status.DELETED));
 
 		mockMvc.perform(
-			patch("/api/item/{id}", 1)
+			patch("/api/item/{id}", 10)
 				.contentType(MediaType.APPLICATION_JSON_VALUE)
 				.content(itemStatusRequest)
 				.accept(MediaType.APPLICATION_JSON)
@@ -112,6 +121,7 @@ class ItemRestControllerTest {
 	}
 
 	@Test
+	@Order(6)
 	@DisplayName("2번 아이템 이름 수정")
 	void editOneItem() throws Exception {
 		String changedName = "changedName";
@@ -133,6 +143,7 @@ class ItemRestControllerTest {
 	}
 
 	@Test
+	@Order(7)
 	@DisplayName("9번 아이템을 삭제로 분류한 뒤, 삭제")
 	void deleteOneItem() throws Exception {
 		ItemStatusRequest statusRequest = new ItemStatusRequest(9L, Status.DELETED);
