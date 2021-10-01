@@ -1,5 +1,10 @@
 package com.project.doubleshop.web.member.controller;
 
+import com.project.doubleshop.domain.member.service.LogInService;
+import com.project.doubleshop.web.member.annotation.CurrentMember;
+import com.project.doubleshop.web.member.annotation.LogInCheck;
+import com.project.doubleshop.web.member.dto.LogInRequestDto;
+import com.project.doubleshop.web.member.dto.MemberInfoDto;
 import com.project.doubleshop.web.member.dto.MemberSaveRequestDto;
 import com.project.doubleshop.domain.member.service.MemberService;
 import com.project.doubleshop.domain.member.service.SmsVerificationService;
@@ -19,6 +24,8 @@ public class MemberController {
     private final MemberService memberService;
 
     private final SmsVerificationService smsVerificationService;
+
+    private final LogInService logInService;
 
     // 아이디 중복 체크
     @GetMapping("/{userId}/exists")
@@ -58,6 +65,33 @@ public class MemberController {
         }
 
         return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    // 로그인
+    @PostMapping("/logIn")
+    public ResponseEntity<Void> logIn(@RequestBody LogInRequestDto requestDto) {
+        logInService.existsByUserIdAndPassword(requestDto);
+        logInService.logIn(requestDto);
+
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    // 로그아웃
+    @LogInCheck
+    @GetMapping("/logOut")
+    public ResponseEntity<Void> logOut() {
+        logInService.logOut();
+
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    // 마이 페이지
+    @LogInCheck
+    @GetMapping("/myInfo")
+    public ResponseEntity<MemberInfoDto> getMemberInfo(@CurrentMember String userId) {
+        MemberInfoDto member = logInService.getCurrentMember(userId);
+
+        return ResponseEntity.ok(member);
     }
 
 }
