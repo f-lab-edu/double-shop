@@ -15,6 +15,7 @@ import org.springframework.test.context.ActiveProfiles;
 
 import com.project.doubleshop.domain.common.Status;
 import com.project.doubleshop.domain.item.entity.Item;
+import com.project.doubleshop.domain.item.mapper.ItemMapper;
 import com.project.doubleshop.domain.item.repository.ItemRepository;
 import com.project.doubleshop.web.item.dto.ItemStatusRequest;
 
@@ -22,6 +23,9 @@ import com.project.doubleshop.web.item.dto.ItemStatusRequest;
 @ActiveProfiles("test")
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ItemRepositoryTest {
+	@Autowired
+	ItemMapper itemMapper;
+
 	@Autowired
 	ItemRepository itemRepository;
 
@@ -36,12 +40,13 @@ class ItemRepositoryTest {
 
 	@Test
 	@Order(2)
-	@DisplayName("현재 상품 릴레이션에는 14개의 상품이 저장되어있다.")
+	@DisplayName("전체 상품 조회 테스트")
 	void findAll() {
+		int length = itemMapper.selectAllItems().size();
 		List<Item> items = itemRepository.findAll();
 
 		assertThat(items).isNotNull();
-		assertThat(items.size()).isEqualTo(14);
+		assertThat(items.size()).isEqualTo(length);
 	}
 
 	@Test
@@ -70,8 +75,10 @@ class ItemRepositoryTest {
 
 	@Test
 	@Order(4)
-	@DisplayName("하나의 상품을 추가하면, 그 상품의 pk는 15번이고, 전체 상품의 갯수는 15개이다.")
+	@DisplayName("하나의 상품을 추가하면, 그 상품의 pk는 (기존 상품 리스트 갯수 + 1)이고, 전체 상품의 갯수또한, (기존 상품 리스트 갯수 + 1)이다.")
 	void insertOneItem() {
+		int length = itemMapper.selectAllItems().size();
+
 		Item inputItem = Item.builder()
 			.name("newItem")
 			.brandName("newBrand")
@@ -87,8 +94,8 @@ class ItemRepositoryTest {
 		assertThat(save).isTrue();
 		assertThat(items).isNotNull();
 		assertThat(newItem).isNotNull();
-		assertThat(items.size()).isSameAs(15);
-		assertThat(newItem.getId()).isEqualTo(15);
+		assertThat(items.size()).isSameAs(length + 1);
+		assertThat(newItem.getId()).isEqualTo(length + 1);
 	}
 
 	@Test
