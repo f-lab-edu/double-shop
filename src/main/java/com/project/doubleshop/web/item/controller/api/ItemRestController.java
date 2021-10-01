@@ -59,7 +59,7 @@ public class ItemRestController {
 	}
 
 	@PutMapping("item/{id}")
-	public ResponseEntity<ItemDTO> saveItem(@RequestBody ItemForm itemForm, @PathVariable Long id) {
+	public ResponseEntity<ItemDTO> editItem(@RequestBody ItemForm itemForm, @PathVariable Long id) {
 		itemService.findItem(id).orElseThrow(
 			() -> new ItemNotFoundException(String.format("item ID[%s] not found", id))
 		);
