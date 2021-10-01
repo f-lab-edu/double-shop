@@ -100,12 +100,12 @@ class ItemRepositoryTest {
 
 	@Test
 	@Order(5)
-	@DisplayName("1번 아이템에 삭제 요청을 할 경우, 1번 아이템의 status는 `DELETE`가 된다.")
+	@DisplayName("13번 아이템에 삭제 요청을 할 경우, 13번 아이템의 status는 `DELETE`가 된다.")
 	void assignDeleteOneItem() {
-		ItemStatusRequest itemStatusRequest = new ItemStatusRequest(1L, Status.DELETED);
+		ItemStatusRequest itemStatusRequest = new ItemStatusRequest(13L, Status.DELETED);
 		itemRepository.assignStatus(itemStatusRequest);
 
-		Item item = itemRepository.findById(1L);
+		Item item = itemRepository.findById(13L);
 
 		assertThat(item.getStatus()).isEqualTo(Status.DELETED);
 	}
