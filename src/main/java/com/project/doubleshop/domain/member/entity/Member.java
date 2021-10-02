@@ -4,6 +4,7 @@ import com.project.doubleshop.domain.member.entity.Authority;
 import com.project.doubleshop.domain.member.entity.Grade;
 import com.project.doubleshop.domain.member.entity.Status;
 import com.project.doubleshop.domain.member.entity.Type;
+import com.project.doubleshop.web.member.dto.MemberFindResponseDto;
 import com.project.doubleshop.web.member.dto.MemberInfoDto;
 import lombok.*;
 
@@ -61,6 +62,17 @@ public class Member {
                 .phone(this.getPhone())
                 .email(this.getEmail())
                 .build();
+    }
+
+    public MemberFindResponseDto toMemberFindResponseDto() {
+        return MemberFindResponseDto.builder()
+                .email(this.getEmail())
+                .phone(this.getPhone())
+                .build();
+    }
+
+    public void updatePassword(String password) {
+        this.password = password;
     }
 
 }
