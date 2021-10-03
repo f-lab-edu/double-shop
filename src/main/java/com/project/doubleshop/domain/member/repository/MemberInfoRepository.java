@@ -1,21 +1,19 @@
-package com.project.doubleshop.domain.mapper;
+package com.project.doubleshop.domain.member.repository;
 
 import com.project.doubleshop.domain.member.entity.Member;
 import com.project.doubleshop.web.member.dto.LogInRequestDto;
 import com.project.doubleshop.web.member.dto.MemberInfoDto;
 import com.project.doubleshop.web.member.dto.MemberSaveRequestDto;
-import org.apache.ibatis.annotations.Mapper;
 
 import java.util.Optional;
 
-@Mapper
-public interface MemberInfoMapper {
+public interface MemberInfoRepository {
 
-    void register(MemberSaveRequestDto requestDto);
+    void save(MemberSaveRequestDto requestDto);
 
-    MemberInfoDto findSameUserId(String userId);
+    MemberInfoDto findTopOneByUserId(String userId);
 
-    MemberInfoDto findSameEmail(String email);
+    MemberInfoDto findTopOneByEmail(String email);
 
     Optional<Member> findByUserId(String userId);
 

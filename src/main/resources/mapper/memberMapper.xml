@@ -3,34 +3,34 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.project.doubleshop.domain.mapper.MemberInfoMapper">
+<mapper namespace="com.project.doubleshop.domain.member.mapper.MemberInfoMapper">
 
-    <insert id="register" parameterType="com.project.doubleshop.web.member.dto.MemberSaveRequestDto">
+    <insert id="insertMember" parameterType="com.project.doubleshop.web.member.dto.MemberSaveRequestDto">
         INSERT INTO member (user_id, password, name, phone, email, status)
         VALUES (#{userId}, #{password}, #{name}, #{phone}, #{email}, #{status})
     </insert>
 
-    <select id="findSameUserId" resultType="com.project.doubleshop.web.member.dto.MemberInfoDto">
+    <select id="selectUserId" resultType="com.project.doubleshop.web.member.dto.MemberInfoDto">
         SELECT user_id
         FROM member
         WHERE user_id = #{userId}
         LIMIT 1
     </select>
 
-    <select id="findSameEmail" resultType="com.project.doubleshop.web.member.dto.MemberInfoDto">
+    <select id="selectEmail" resultType="com.project.doubleshop.web.member.dto.MemberInfoDto">
         SELECT email
         FROM member
         WHERE email = #{email}
         LIMIT 1
     </select>
 
-    <select id="findByUserId" resultType="com.project.doubleshop.domain.member.entity.Member">
+    <select id="selectByUserId" resultType="com.project.doubleshop.domain.member.entity.Member">
         SELECT user_id, name, phone, email
         FROM member
         WHERE user_id = #{userId}
     </select>
 
-    <select id="findByUserIdAndPassword" resultType="com.project.doubleshop.web.member.dto.LogInRequestDto">
+    <select id="selectByUserIdAndPassword" resultType="com.project.doubleshop.web.member.dto.LogInRequestDto">
         SELECT user_id, password
         FROM member
         WHERE user_id = #{userId}
