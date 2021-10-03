@@ -1,10 +1,7 @@
 package com.project.doubleshop.web.item.dto;
 
-import static org.springframework.beans.BeanUtils.*;
-
 import java.time.LocalDate;
 
-import com.project.doubleshop.domain.common.Status;
 import com.project.doubleshop.domain.item.entity.Item;
 
 import lombok.Getter;
