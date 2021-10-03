@@ -17,6 +17,7 @@ import com.project.doubleshop.domain.common.Status;
 import com.project.doubleshop.domain.item.entity.Item;
 import com.project.doubleshop.domain.item.mapper.ItemMapper;
 import com.project.doubleshop.domain.item.repository.ItemRepository;
+import com.project.doubleshop.domain.item.service.ItemService;
 import com.project.doubleshop.web.item.dto.ItemStatusRequest;
 
 @SpringBootTest
@@ -28,6 +29,9 @@ class ItemRepositoryTest {
 
 	@Autowired
 	ItemRepository itemRepository;
+
+	@Autowired
+	ItemService itemService;
 
 	@Test
 	@Order(1)
@@ -80,7 +84,7 @@ class ItemRepositoryTest {
 		int length = itemMapper.selectAllItems().size();
 
 		Item inputItem = Item.builder()
-			.name("newItem")
+			.name("itemName")
 			.brandName("newBrand")
 			.description("newDescription")
 			.price(1)
