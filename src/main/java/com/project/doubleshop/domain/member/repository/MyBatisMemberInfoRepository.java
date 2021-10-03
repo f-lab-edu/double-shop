@@ -1,10 +1,7 @@
 package com.project.doubleshop.domain.member.repository;
 
 import com.project.doubleshop.domain.member.entity.Member;
-import com.project.doubleshop.domain.member.mapper.*;
-import com.project.doubleshop.web.member.dto.LogInRequestDto;
-import com.project.doubleshop.web.member.dto.MemberInfoDto;
-import com.project.doubleshop.web.member.dto.MemberSaveRequestDto;
+import com.project.doubleshop.domain.member.mapper.MemberInfoMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -17,28 +14,28 @@ public class MyBatisMemberInfoRepository implements MemberInfoRepository {
     private final MemberInfoMapper mapper;
 
     @Override
-    public void save(MemberSaveRequestDto requestDto) {
-        mapper.insertMember(requestDto);
+    public void save(Member member) {
+        mapper.insertMember(member.toMemberSaveRequestDto());
     }
 
     @Override
-    public MemberInfoDto findTopOneByUserId(String userId) {
-        return mapper.selectUserId(userId);
+    public boolean existsByUserId(String userId) {
+        return mapper.selectUserId(userId) != null;
     }
 
     @Override
-    public MemberInfoDto findTopOneByEmail(String email) {
-        return mapper.selectEmail(email);
+    public boolean existsByEmail(String email) {
+        return mapper.selectEmail(email) != null;
+    }
+
+    @Override
+    public boolean existsByUserIdAndPassword(String userId, String password) {
+        return mapper.selectByUserIdAndPassword(userId, password) != null;
     }
 
     @Override
     public Optional<Member> findByUserId(String userId) {
         return mapper.selectByUserId(userId);
-    }
-
-    @Override
-    public LogInRequestDto findByUserIdAndPassword(String userId, String password) {
-        return mapper.selectByUserIdAndPassword(userId, password);
     }
 
 }

@@ -21,7 +21,7 @@ public class LogInService {
     private final SHA256EncryptionUtil encryptionUtil;
 
     public void logIn(LogInRequestDto requestDto) {
-        existsByUserIdAndPassword(requestDto);
+        checkUserIdAndPassword(requestDto);
 
         String userId = requestDto.getUserId();
 
@@ -32,13 +32,15 @@ public class LogInService {
         session.removeAttribute("userId");
     }
 
-    public void existsByUserIdAndPassword(LogInRequestDto requestDto) {
+    public void checkUserIdAndPassword(LogInRequestDto requestDto) {
         requestDto.encryptPassword(encryptionUtil);
 
         String userId = requestDto.getUserId();
         String password = requestDto.getPassword();
 
-        if (repository.findByUserIdAndPassword(userId, password) == null) {
+        boolean isFound = repository.existsByUserIdAndPassword(userId, password);
+
+        if (!isFound) {
             throw new MemberNotFoundException("아이디 또는 비밀번호가 일치하지 않습니다.");
         }
     }

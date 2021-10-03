@@ -6,6 +6,7 @@ import com.project.doubleshop.domain.member.entity.Status;
 import com.project.doubleshop.domain.member.entity.Type;
 import com.project.doubleshop.web.member.dto.MemberFindResponseDto;
 import com.project.doubleshop.web.member.dto.MemberInfoDto;
+import com.project.doubleshop.web.member.dto.MemberSaveRequestDto;
 import lombok.*;
 
 import javax.validation.constraints.Email;
@@ -66,6 +67,16 @@ public class Member {
 
     public MemberFindResponseDto toMemberFindResponseDto() {
         return MemberFindResponseDto.builder()
+                .email(this.getEmail())
+                .phone(this.getPhone())
+                .build();
+    }
+
+    public MemberSaveRequestDto toMemberSaveRequestDto() {
+        return MemberSaveRequestDto.builder()
+                .userId(this.getUserId())
+                .password(this.getPassword())
+                .name(this.getName())
                 .email(this.getEmail())
                 .phone(this.getPhone())
                 .build();

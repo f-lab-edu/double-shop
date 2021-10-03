@@ -71,7 +71,7 @@ public class MemberController {
     // 로그인
     @PostMapping("/logIn")
     public ResponseEntity<Void> logIn(@RequestBody LogInRequestDto requestDto) {
-        logInService.existsByUserIdAndPassword(requestDto);
+        logInService.checkUserIdAndPassword(requestDto);
         logInService.logIn(requestDto);
 
         return ResponseEntity.status(HttpStatus.OK).build();

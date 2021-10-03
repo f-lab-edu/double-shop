@@ -23,13 +23,13 @@ public class MemberServiceImpl implements MemberService {
     // 아이디 중복 검사
     @Override
     public boolean isIdDuplicate(String userId) {
-        return repository.findTopOneByUserId(userId) != null;
+        return repository.existsByUserId(userId);
     }
 
     // 이메일 중복 검사
     @Override
     public boolean isEmailDuplicate(String email) {
-        return repository.findTopOneByEmail(email) != null;
+        return repository.existsByEmail(email);
     }
 
     // 회원가입
@@ -37,7 +37,7 @@ public class MemberServiceImpl implements MemberService {
     public void registerMember(MemberSaveRequestDto requestDto) {
         requestDto.encryptPassword(encryptionUtil);
 
-        repository.save(requestDto);
+        repository.save(requestDto.toEntity());
     }
 
     @Override
