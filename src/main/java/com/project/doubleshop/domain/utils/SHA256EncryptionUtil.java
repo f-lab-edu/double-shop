@@ -10,8 +10,6 @@ import java.security.NoSuchAlgorithmException;
 public class SHA256EncryptionUtil {
 
     public String encrypt(String str) {
-        String sha = "";
-
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
             byte[] inputBytes = str.getBytes();
@@ -24,12 +22,10 @@ public class SHA256EncryptionUtil {
                 sb.append(Integer.toString((digested[i] & 0xff) + 0x100, 16).substring(1));
             }
 
-            sha = sb.toString();
+            return sb.toString();
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException("Encryption Exception", e);
         }
-
-        return sha;
     }
 
 }
