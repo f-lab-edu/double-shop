@@ -3,6 +3,11 @@ package com.project.doubleshop.domain.item.entity;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Range;
+
 import com.project.doubleshop.domain.common.Status;
 import com.project.doubleshop.web.item.dto.ItemForm;
 
@@ -22,15 +27,19 @@ public class Item {
     private Long id;
 
     // 상품 이름
+    @NotBlank(message = "field 'name' must be provided.")
     private String name;
 
     // 상품 한줄설명
+    @NotBlank(message = "field 'description' must be provided.")
     private String description;
 
     // 브랜드 명
+    @NotBlank(message = "field 'brandName' must be provided.")
     private String brandName;
 
     // 상품 가격
+    @Range(min = 1000, max = 10000000, message = "field 'price' must be between 1,000 and 10,000,000.")
     private Integer price;
 
     // 용량
@@ -99,7 +108,6 @@ public class Item {
     // 상품 인스턴스 생성 로직
     public static Item createItemInstance(ItemForm dto) {
         return Item.builder()
-            .id(dto.getId())
             .name(dto.getName())
             .description(dto.getDescription())
             .brandName(dto.getBrandName())
