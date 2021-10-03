@@ -87,10 +87,10 @@ class ItemRestControllerTest {
 	@DisplayName("상품 추가 성공")
 	void createNewItem() throws Exception {
 		Item inputItem = Item.builder()
-			.name("newItem")
-			.brandName("newBrand")
+			.name("name")
+			.brandName("brandName")
 			.description("newDescription")
-			.price(1)
+			.price(1000)
 			.build();
 
 		String itemForm = objectMapper.writeValueAsString(inputItem);
