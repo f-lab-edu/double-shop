@@ -23,13 +23,13 @@ public class MemberServiceImpl implements MemberService {
     // 아이디 중복 검사
     @Override
     public boolean isIdDuplicate(String userId) {
-        return memberInfoMapper.getIdCount(userId) >= 1;
+        return memberInfoMapper.findSameUserId(userId) != null;
     }
 
     // 이메일 중복 검사
     @Override
     public boolean isEmailDuplicate(String email) {
-        return memberInfoMapper.getEmailCount(email) >= 1;
+        return memberInfoMapper.findSameEmail(email) != null;
     }
 
     // 회원가입

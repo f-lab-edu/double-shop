@@ -1,6 +1,8 @@
 package com.project.doubleshop.domain.mapper;
 
 import com.project.doubleshop.domain.member.entity.Member;
+import com.project.doubleshop.web.member.dto.LogInRequestDto;
+import com.project.doubleshop.web.member.dto.MemberInfoDto;
 import com.project.doubleshop.web.member.dto.MemberSaveRequestDto;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -11,12 +13,12 @@ public interface MemberInfoMapper {
 
     void register(MemberSaveRequestDto requestDto);
 
-    int getIdCount(String userId);
+    MemberInfoDto findSameUserId(String userId);
 
-    int getEmailCount(String email);
+    MemberInfoDto findSameEmail(String email);
 
     Optional<Member> findByUserId(String userId);
 
-    boolean existsByUserIdAndPassword(String userId, String password);
+    LogInRequestDto findByUserIdAndPassword(String userId, String password);
 
 }

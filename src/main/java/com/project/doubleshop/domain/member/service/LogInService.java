@@ -38,7 +38,7 @@ public class LogInService {
         String userId = requestDto.getUserId();
         String password = requestDto.getPassword();
 
-        if (!memberInfoMapper.existsByUserIdAndPassword(userId, password)) {
+        if (memberInfoMapper.findByUserIdAndPassword(userId, password) == null) {
             throw new MemberNotFoundException("아이디 또는 비밀번호가 일치하지 않습니다.");
         }
     }
