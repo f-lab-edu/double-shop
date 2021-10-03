@@ -106,7 +106,7 @@ public class Item {
     private LocalDateTime createTime;
 
     // 상품 인스턴스 생성 로직
-    public static Item createItemInstance(ItemForm dto) {
+    public static Item convertToItem(ItemForm dto) {
         return Item.builder()
             .name(dto.getName())
             .description(dto.getDescription())

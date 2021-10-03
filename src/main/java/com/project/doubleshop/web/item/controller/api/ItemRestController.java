@@ -45,13 +45,13 @@ public class ItemRestController {
 
 	@PostMapping("item")
 	public ResponseEntity<ItemDTO> newItem(@RequestBody ItemForm itemForm) {
-		if(itemService.saveItem(Item.createItemInstance(itemForm))) {
+		if(itemService.saveItem(Item.convertToItem(itemForm))) {
 			URI location = ServletUriComponentsBuilder
 				.fromCurrentRequest()
 				.build()
 				.toUri();
 
-			return ResponseEntity.created(location).body(new ItemDTO(Item.createItemInstance(itemForm)));
+			return ResponseEntity.created(location).body(new ItemDTO(Item.convertToItem(itemForm)));
 		} else {
 			throw new InvalidItemArgumentException();
 		}
@@ -62,7 +62,7 @@ public class ItemRestController {
 		itemService.findItem(id).orElseThrow(
 			() -> new ItemNotFoundException(String.format("item ID[%s] not found", id))
 		);
-		return ResponseEntity.ok(new ItemDTO(Item.createItemInstance(itemForm)));
+		return ResponseEntity.ok(new ItemDTO(Item.convertToItem(itemForm)));
 	}
 
 	@PatchMapping("item/{id}")
