@@ -18,6 +18,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.project.doubleshop.domain.item.entity.Item;
 import com.project.doubleshop.domain.item.service.ItemService;
+import com.project.doubleshop.web.config.support.Pageable;
 import com.project.doubleshop.web.item.dto.ItemDTO;
 import com.project.doubleshop.web.item.dto.ItemForm;
 import com.project.doubleshop.web.item.dto.ItemStatusRequest;
@@ -39,8 +40,9 @@ public class ItemRestController {
 	}
 
 	@GetMapping("item")
-	public ResponseEntity<List<ItemDTO>> findAllItem() {
-		return ResponseEntity.ok(itemService.findItems().stream().map(ItemDTO::new).collect(Collectors.toList()));
+	public ResponseEntity<List<ItemDTO>> findAllItem(Pageable pageable) {
+		System.out.println("dfsdf " + pageable);
+		return ResponseEntity.ok(itemService.findItems(pageable).stream().map(ItemDTO::new).collect(Collectors.toList()));
 	}
 
 	@PostMapping("item")
