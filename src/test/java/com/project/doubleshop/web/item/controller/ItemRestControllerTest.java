@@ -73,11 +73,8 @@ class ItemRestControllerTest {
 	@DisplayName("전체 상품 리스트 조회 - 페이징")
 	void findAllItem() throws Exception {
 
-		String requestPageable = objectMapper.writeValueAsString(new SimpleOffsetPageRequest());
-
 		mockMvc.perform(
 			get("/api/item")
-
 				.accept(MediaType.APPLICATION_JSON)
 		)
 			.andDo(print())

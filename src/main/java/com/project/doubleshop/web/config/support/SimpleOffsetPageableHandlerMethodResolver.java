@@ -42,7 +42,7 @@ public class SimpleOffsetPageableHandlerMethodResolver implements HandlerMethodA
 			return null;
 		}
 
-		int offset = hasText(offsetString) ? parseAndApplyBoundaries(offsetString, Integer.MAX_VALUE) : simpleOffsetPageRequest.offset();
+		long offset = hasText(offsetString) ? parseAndApplyBoundaries(offsetString, Integer.MAX_VALUE) : simpleOffsetPageRequest.offset();
 		int limit = hasText(limitString) ? parseAndApplyBoundaries(limitString, DEFAULT_LIMIT_MAX_SIZE) : simpleOffsetPageRequest.limit();
 
 		limit = limit < 1 ? simpleOffsetPageRequest.limit() : limit;
