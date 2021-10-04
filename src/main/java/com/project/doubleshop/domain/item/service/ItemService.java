@@ -1,5 +1,6 @@
 package com.project.doubleshop.domain.item.service;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -16,6 +17,7 @@ import com.project.doubleshop.domain.item.repository.ItemRepository;
 import com.project.doubleshop.web.config.support.Pageable;
 import com.project.doubleshop.web.item.dto.ItemStatusRequest;
 import com.project.doubleshop.web.item.exception.InvalidItemArgumentException;
+import com.project.doubleshop.web.item.exception.ItemNotFoundException;
 
 import lombok.RequiredArgsConstructor;
 
@@ -49,12 +51,18 @@ public class ItemService {
 	}
 
 	@Transactional
-	public void AssignItemStatus(ItemStatusRequest requestDTO) {
-		itemRepository.assignStatus(requestDTO);
+	public void updateItemStatus(ItemStatusRequest requestDTO) {
+		Item item = itemRepository.findById(requestDTO.getId());
+		if(item == null) {
+			throw new ItemNotFoundException(String.format("item ID '%s' not found", requestDTO.getId()));
+		}
+		if(Status.of(requestDTO.getStatus().name()) == null) {
+			throw new IllegalArgumentException(String.format("request status value '%s' not found", requestDTO.getStatus().name()));
+		}
 	}
 
 	@Transactional
-	public void DeleteAssignedItems(Status status) {
-		itemRepository.deleteAssignedData(status);
+	public void DeleteItems(Status status) {
+		itemRepository.deleteData(status);
 	}
 }

@@ -15,6 +15,6 @@ public interface ItemMapper {
     Item selectById(Long id);
     List<Item> selectAllItems(Pageable pageable);
     int updateItem(Item item);
-    int assignItemStatus(ItemStatusRequest itemStatusRequest);
+    int updateItemStatus(ItemStatusRequest itemStatusRequest);
     int deleteItem(Status status);
 }
