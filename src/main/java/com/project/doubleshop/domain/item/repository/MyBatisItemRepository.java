@@ -40,12 +40,12 @@ public class MyBatisItemRepository implements ItemRepository {
 	}
 
 	@Override
-	public int assignStatus(ItemStatusRequest requestDto) {
-		return mapper.assignItemStatus(requestDto);
+	public int updateStatus(ItemStatusRequest requestDto) {
+		return mapper.updateItemStatus(requestDto);
 	}
 
 	@Override
-	public int deleteAssignedData(Status status) {
+	public int deleteData(Status status) {
 		return mapper.deleteItem(status);
 	}
 }

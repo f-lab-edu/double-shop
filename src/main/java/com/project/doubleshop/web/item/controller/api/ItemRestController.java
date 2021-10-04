@@ -69,13 +69,13 @@ public class ItemRestController {
 
 	@PatchMapping("item/{id}")
 	public ResponseEntity requestUpdateItemStatus(@RequestBody ItemStatusRequest itemStatusRequest, @PathVariable Long id) {
-		itemService.AssignItemStatus(itemStatusRequest);
+		itemService.updateItemStatus(itemStatusRequest);
 		return ResponseEntity.ok().build();
 	}
 
 	@DeleteMapping("item")
 	public ResponseEntity deleteAssignedItems(@RequestBody ItemStatusRequest itemStatusRequest) {
-		itemService.DeleteAssignedItems(itemStatusRequest.getStatus());
+		itemService.DeleteItems(itemStatusRequest.getStatus());
 		return ResponseEntity.ok().build();
 	}
 }

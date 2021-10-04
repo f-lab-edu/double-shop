@@ -4,8 +4,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import java.util.Objects;
-
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
@@ -23,7 +21,6 @@ import com.project.doubleshop.domain.annotation.CustomConfigureMockMvc;
 import com.project.doubleshop.domain.common.Status;
 import com.project.doubleshop.domain.item.entity.Item;
 import com.project.doubleshop.domain.item.service.ItemService;
-import com.project.doubleshop.web.config.support.Pageable;
 import com.project.doubleshop.web.config.support.SimpleOffsetPageRequest;
 import com.project.doubleshop.web.item.dto.ItemStatusRequest;
 
@@ -115,7 +112,7 @@ class ItemRestControllerTest {
 	@Order(5)
 	@DisplayName("10번 아이템을 삭제로 분류")
 	void assignDeleteOneItem() throws Exception {
-		String itemStatusRequest = objectMapper.writeValueAsString(new ItemStatusRequest(10L, Status.DELETED));
+		String itemStatusRequest = objectMapper.writeValueAsString(new ItemStatusRequest(10L, Status.TO_BE_DELETED));
 
 		mockMvc.perform(
 			patch("/api/item/{id}", 10)
@@ -152,8 +149,8 @@ class ItemRestControllerTest {
 	@Order(7)
 	@DisplayName("9번 아이템을 삭제로 분류한 뒤, 삭제")
 	void deleteOneItem() throws Exception {
-		ItemStatusRequest statusRequest = new ItemStatusRequest(9L, Status.DELETED);
-		itemService.AssignItemStatus(statusRequest);
+		ItemStatusRequest statusRequest = new ItemStatusRequest(9L, Status.TO_BE_DELETED);
+		itemService.updateItemStatus(statusRequest);
 
 		String itemStatusRequest = objectMapper.writeValueAsString(statusRequest);
 
