@@ -3,13 +3,16 @@ package com.project.doubleshop.domain.item.entity;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PastOrPresent;
 
 import org.hibernate.validator.constraints.Range;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.project.doubleshop.domain.common.Status;
 import com.project.doubleshop.web.item.dto.ItemForm;
+import com.project.doubleshop.web.item.exception.InvalidItemStockQuantityException;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -39,7 +42,7 @@ public class Item {
     private String brandName;
 
     // 상품 가격
-    @Range(min = 1000, max = 10000000, message = "field 'price' must be between 1,000 and 10,000,000.")
+    @Range(min = 1000, max = 10000000, message = "field 'price' must be between 1000 and 10000000")
     private Integer price;
 
     // 용량
@@ -67,15 +70,18 @@ public class Item {
     private String modelSerialNo;
 
     // 상품 평가 점수
+    @Min(0)
     private Integer rating;
 
     // 검색 키워드
     private String searchKeyword;
 
     // 총 재고수량
+    @Range(min = 0, message = "field 'stock' must have more than 0")
     private Integer stock;
 
     // 할인가
+    @Min(0)
     private Integer discountPrice;
 
     // 작가
@@ -88,6 +94,7 @@ public class Item {
     private String isbn;
 
     // 발행일
+    @PastOrPresent(message = "field 'publishedTime' must be present or past")
     private LocalDate publishedTime;
 
     // 하루배송가능여부
@@ -100,9 +107,11 @@ public class Item {
     private Status status;
 
     // 상태 업데이트 시간
+    @PastOrPresent(message = "field 'statusUpdateTime' must be present or past")
     private LocalDateTime statusUpdateTime;
 
     // 등록된 시간
+    @PastOrPresent(message = "field 'createTime' must be present or past")
     private LocalDateTime createTime;
 
     // 상품 인스턴스 생성 로직
@@ -133,11 +142,31 @@ public class Item {
             .build();
     }
 
-    public void removeStock(int stock) {
+    public void decreaseStock(int stock) {
+        validateStockParameter(stock);
         this.stock -= stock;
     }
 
-    public void addStock(int stock) {
+    public void setDescription() {
+        decreaseStock(1);
+    }
+
+    public void increaseStock(int stock) {
+        validateStockParameter(stock);
         this.stock += stock;
+    }
+
+    public void increaseStock() {
+        increaseStock(1);
+    }
+
+    private void validateStockParameter(int stock) {
+        if (stock < 0) {
+            throw new IllegalArgumentException(
+                String.format(
+                    "com.project.doubleshop.domain.item.entity.decreaseStock(%d), parameter 'stock' must have positive integer value.",
+                    stock)
+            );
+        }
     }
 }
