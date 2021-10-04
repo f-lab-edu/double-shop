@@ -5,7 +5,7 @@ import lombok.Getter;
 @Getter
 public class SimpleOffsetPageRequest implements Pageable {
 
-	private int offset;
+	private long offset;
 
 	private int limit;
 
@@ -13,7 +13,7 @@ public class SimpleOffsetPageRequest implements Pageable {
 		this(0, 9);
 	}
 
-	public SimpleOffsetPageRequest(int offset, int limit) {
+	public SimpleOffsetPageRequest(long offset, int limit) {
 		if(offset < 0) {
 			throw new IllegalArgumentException("Offset must be greater or equals to zero.");
 		}
@@ -26,7 +26,7 @@ public class SimpleOffsetPageRequest implements Pageable {
 	}
 
 	@Override
-	public int offset() {
+	public long offset() {
 		return this.offset;
 	}
 

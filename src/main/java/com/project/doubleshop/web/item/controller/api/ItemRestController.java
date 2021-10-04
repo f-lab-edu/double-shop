@@ -41,7 +41,6 @@ public class ItemRestController {
 
 	@GetMapping("item")
 	public ResponseEntity<List<ItemDTO>> findAllItem(Pageable pageable) {
-		System.out.println("dfsdf " + pageable);
 		return ResponseEntity.ok(itemService.findItems(pageable).stream().map(ItemDTO::new).collect(Collectors.toList()));
 	}
 
