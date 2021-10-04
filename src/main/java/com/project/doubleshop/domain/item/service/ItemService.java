@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.project.doubleshop.domain.common.Status;
 import com.project.doubleshop.domain.item.entity.Item;
 import com.project.doubleshop.domain.item.repository.ItemRepository;
+import com.project.doubleshop.web.config.support.Pageable;
 import com.project.doubleshop.web.item.dto.ItemStatusRequest;
 import com.project.doubleshop.web.item.exception.InvalidItemArgumentException;
 
@@ -43,8 +44,8 @@ public class ItemService {
 		return Optional.ofNullable(itemRepository.findById(itemId));
 	}
 
-	public List<Item> findItems() {
-		return itemRepository.findAll();
+	public List<Item> findItems(Pageable pageable) {
+		return itemRepository.findAll(pageable);
 	}
 
 	@Transactional

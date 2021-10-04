@@ -18,6 +18,8 @@ import com.project.doubleshop.domain.item.entity.Item;
 import com.project.doubleshop.domain.item.mapper.ItemMapper;
 import com.project.doubleshop.domain.item.repository.ItemRepository;
 import com.project.doubleshop.domain.item.service.ItemService;
+import com.project.doubleshop.web.config.support.Pageable;
+import com.project.doubleshop.web.config.support.SimpleOffsetPageRequest;
 import com.project.doubleshop.web.item.dto.ItemStatusRequest;
 
 @SpringBootTest
@@ -33,6 +35,8 @@ class ItemRepositoryTest {
 	@Autowired
 	ItemService itemService;
 
+	Pageable pageable = new SimpleOffsetPageRequest();
+
 	@Test
 	@Order(1)
 	@DisplayName("상품 pk 1번에는 상품 데이터가 존재한다.")
@@ -46,8 +50,8 @@ class ItemRepositoryTest {
 	@Order(2)
 	@DisplayName("전체 상품 조회 테스트")
 	void findAll() {
-		int length = itemMapper.selectAllItems().size();
-		List<Item> items = itemRepository.findAll();
+		int length = itemMapper.selectAllItems(pageable).size();
+		List<Item> items = itemRepository.findAll(pageable);
 
 		assertThat(items).isNotNull();
 		assertThat(items.size()).isEqualTo(length);
@@ -79,10 +83,9 @@ class ItemRepositoryTest {
 
 	@Test
 	@Order(4)
-	@DisplayName("하나의 상품을 추가하면, 그 상품의 pk는 (기존 상품 리스트 갯수 + 1)이고, 전체 상품의 갯수또한, (기존 상품 리스트 갯수 + 1)이다.")
+	@DisplayName("상품 등록이 이상없이 완료되면, 결과는 true 여야 한다.")
 	void insertOneItem() {
-		int length = itemMapper.selectAllItems().size();
-
+		int length = itemMapper.selectAllItems(pageable).size();
 		Item inputItem = Item.builder()
 			.name("itemName")
 			.brandName("newBrand")
@@ -92,14 +95,7 @@ class ItemRepositoryTest {
 
 		boolean save = itemRepository.save(inputItem);
 
-		List<Item> items = itemRepository.findAll();
-		Item newItem = itemRepository.findById((long)items.size());
-
 		assertThat(save).isTrue();
-		assertThat(items).isNotNull();
-		assertThat(newItem).isNotNull();
-		assertThat(items.size()).isSameAs(length + 1);
-		assertThat(newItem.getId()).isEqualTo(length + 1);
 	}
 
 	@Test
@@ -112,15 +108,5 @@ class ItemRepositoryTest {
 		Item item = itemRepository.findById(13L);
 
 		assertThat(item.getStatus()).isEqualTo(Status.DELETED);
-	}
-
-	@Test
-	@Order(6)
-	@DisplayName("1번 아이템의 status가 'DELETED'일 경우, 데이터가 삭제된다.")
-	void deleteAssignedItem() {
-		int size = itemRepository.findAll().size();
-		int affectedRowNum = itemRepository.deleteAssignedData(Status.DELETED);
-
-		assertThat(itemRepository.findAll().size()).isSameAs(size - affectedRowNum);
 	}
 }

@@ -23,6 +23,8 @@ import com.project.doubleshop.domain.annotation.CustomConfigureMockMvc;
 import com.project.doubleshop.domain.common.Status;
 import com.project.doubleshop.domain.item.entity.Item;
 import com.project.doubleshop.domain.item.service.ItemService;
+import com.project.doubleshop.web.config.support.Pageable;
+import com.project.doubleshop.web.config.support.SimpleOffsetPageRequest;
 import com.project.doubleshop.web.item.dto.ItemStatusRequest;
 
 @SpringBootTest
@@ -71,10 +73,14 @@ class ItemRestControllerTest {
 
 	@Test
 	@Order(3)
-	@DisplayName("전체 상품 리스트 조회")
+	@DisplayName("전체 상품 리스트 조회 - 페이징")
 	void findAllItem() throws Exception {
+
+		String requestPageable = objectMapper.writeValueAsString(new SimpleOffsetPageRequest());
+
 		mockMvc.perform(
 			get("/api/item")
+
 				.accept(MediaType.APPLICATION_JSON)
 		)
 			.andDo(print())

@@ -3,6 +3,7 @@ package com.project.doubleshop.domain.item.repository;
 import java.util.List;
 
 import com.project.doubleshop.domain.item.entity.Item;
+import com.project.doubleshop.web.config.support.Pageable;
 import com.project.doubleshop.web.item.dto.ItemStatusRequest;
 
 public interface ItemRepository extends Manageable<ItemStatusRequest> {
@@ -25,5 +26,5 @@ public interface ItemRepository extends Manageable<ItemStatusRequest> {
 	 * 데이터 리스트 조회
 	 * @return 조회가 완료된 스키마 데이터들과 매핑된 Collection 오브젝트
 	 */
-	List<Item> findAll();
+	List<Item> findAll(Pageable pageable);
 }
