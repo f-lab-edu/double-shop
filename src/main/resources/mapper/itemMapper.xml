@@ -24,7 +24,7 @@
         select id, name, description, brand_name, price, volume, dimension, package_type, origin, expiration, price_per_100g,
                 allergic_info, model_serial_no, rating, search_keyword, stock, discount_price, author, publisher, isbn, published_time,
                is_oneday_eligible, is_fresh_eligible, status, status_update_time
-        from item order by id desc limit #{limit} offset #{offset}
+        from item order by id desc limit #{limit} offset #{page}
     </select>
     <update id="updateItem" parameterType="Item">
         update item set
