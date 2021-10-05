@@ -70,11 +70,13 @@ class ItemRestControllerTest {
 
 	@Test
 	@Order(3)
-	@DisplayName("전체 상품 리스트 조회 - 페이징")
+	@DisplayName("전체 상품 리스트 조회. 2번 페이지 조회")
 	void findAllItem() throws Exception {
 
 		mockMvc.perform(
 			get("/api/item")
+				.param("page","1")
+				.param("limit", "9")
 				.accept(MediaType.APPLICATION_JSON)
 		)
 			.andDo(print())

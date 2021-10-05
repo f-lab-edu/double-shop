@@ -11,7 +11,7 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 
 public class SimpleOffsetPageableHandlerMethodResolver implements HandlerMethodArgumentResolver {
 
-	private static final String DEFAULT_OFFSET_PARAMETER = "offset";
+	private static final String DEFAULT_OFFSET_PARAMETER = "page";
 
 	private static final String DEFAULT_LIMIT_PARAMETER = "limit";
 
@@ -42,13 +42,15 @@ public class SimpleOffsetPageableHandlerMethodResolver implements HandlerMethodA
 			return null;
 		}
 
-		long offset = hasText(offsetString) ? parseAndApplyBoundaries(offsetString, Integer.MAX_VALUE) : simpleOffsetPageRequest.offset();
 		int limit = hasText(limitString) ? parseAndApplyBoundaries(limitString, DEFAULT_LIMIT_MAX_SIZE) : simpleOffsetPageRequest.limit();
+		long page = hasText(offsetString) ? parseAndApplyBoundaries(offsetString, Integer.MAX_VALUE) : simpleOffsetPageRequest.page();
 
 		limit = limit < 1 ? simpleOffsetPageRequest.limit() : limit;
 		limit = min(limit, DEFAULT_LIMIT_MAX_SIZE);
 
-		return new SimpleOffsetPageRequest(offset, limit);
+		page = page * limit;
+
+		return new SimpleOffsetPageRequest(page, limit);
 	}
 
 	private int parseAndApplyBoundaries(String parameter, int upper) {
