@@ -69,12 +69,10 @@ class ItemRestControllerTest {
 
 	@Test
 	@Order(3)
-	@DisplayName("전체 상품 리스트 조회. 2번 페이지 조회")
-	void findAllItem() throws Exception {
-
+	@DisplayName("전체 상품 리스트 조회. 1번 페이지 조회")
+	void findFirstPageItem() throws Exception {
 		mockMvc.perform(
 			get("/api/item")
-
 				.accept(MediaType.APPLICATION_JSON)
 		)
 			.andDo(print())
@@ -82,6 +80,20 @@ class ItemRestControllerTest {
 			.andExpect(jsonPath("$[0].id").exists());
 	}
 
+	@Test
+	@Order(3)
+	@DisplayName("전체 상품 리스트 조회. 2번 페이지 조회")
+	void FindSecondPageItem() throws Exception {
+		mockMvc.perform(
+			get("/api/item")
+				.param("page", "1")
+				.param("size", "9")
+				.accept(MediaType.APPLICATION_JSON)
+		)
+			.andDo(print())
+			.andExpect(status().is2xxSuccessful())
+			.andExpect(jsonPath("$[0].id").exists());
+	}
 	@Test
 	@Order(4)
 	@DisplayName("상품 추가 성공")
