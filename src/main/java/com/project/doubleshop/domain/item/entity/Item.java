@@ -147,7 +147,7 @@ public class Item {
         this.stock -= stock;
     }
 
-    public void setDescription() {
+    public void decreaseStock() {
         decreaseStock(1);
     }
 
