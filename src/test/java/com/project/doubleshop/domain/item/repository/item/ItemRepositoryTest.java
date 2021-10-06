@@ -19,7 +19,7 @@ import com.project.doubleshop.domain.item.mapper.ItemMapper;
 import com.project.doubleshop.domain.item.repository.ItemRepository;
 import com.project.doubleshop.domain.item.service.ItemService;
 import com.project.doubleshop.web.config.support.Pageable;
-import com.project.doubleshop.web.config.support.SimpleOffsetPageRequest;
+import com.project.doubleshop.web.config.support.SimplePageRequest;
 import com.project.doubleshop.web.item.dto.ItemStatusRequest;
 
 @SpringBootTest
@@ -35,7 +35,7 @@ class ItemRepositoryTest {
 	@Autowired
 	ItemService itemService;
 
-	Pageable pageable = new SimpleOffsetPageRequest(1, 9);
+	Pageable pageable = new SimplePageRequest(1, 9);
 
 	@Test
 	@Order(1)
