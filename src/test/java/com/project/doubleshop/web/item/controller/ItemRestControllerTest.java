@@ -21,7 +21,6 @@ import com.project.doubleshop.domain.annotation.CustomConfigureMockMvc;
 import com.project.doubleshop.domain.common.Status;
 import com.project.doubleshop.domain.item.entity.Item;
 import com.project.doubleshop.domain.item.service.ItemService;
-import com.project.doubleshop.web.config.support.SimpleOffsetPageRequest;
 import com.project.doubleshop.web.item.dto.ItemStatusRequest;
 
 @SpringBootTest
@@ -75,8 +74,7 @@ class ItemRestControllerTest {
 
 		mockMvc.perform(
 			get("/api/item")
-				.param("page","1")
-				.param("limit", "9")
+
 				.accept(MediaType.APPLICATION_JSON)
 		)
 			.andDo(print())
