@@ -1,5 +1,6 @@
 package com.project.doubleshop.web.config.support;
 
+import static com.project.doubleshop.web.config.support.PageConst.*;
 import static java.lang.Math.*;
 import static org.springframework.util.StringUtils.*;
 
@@ -9,19 +10,15 @@ import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
+import com.project.doubleshop.web.item.exception.InvalidParameterValueException;
+
 public class SimpleOffsetPageableHandlerMethodResolver implements HandlerMethodArgumentResolver {
 
-	private static final String DEFAULT_OFFSET_PARAMETER = "page";
+	private SimplePageRequest simplePageRequest;
 
-	private static final String DEFAULT_LIMIT_PARAMETER = "limit";
+	private String pageParameterName = DEFAULT_PAGE_PARAMETER;
 
-	private static final int DEFAULT_LIMIT_MAX_SIZE = 9;
-
-	private String offsetParameterName = DEFAULT_OFFSET_PARAMETER;
-
-	private String limitParameterName = DEFAULT_LIMIT_PARAMETER;
-
-	private SimpleOffsetPageRequest simpleOffsetPageRequest;
+	private String sizeParameterName = DEFAULT_SIZE_PARAMETER;
 
 	@Override
 	public boolean supportsParameter(MethodParameter parameter) {
@@ -33,24 +30,27 @@ public class SimpleOffsetPageableHandlerMethodResolver implements HandlerMethodA
 		MethodParameter parameter, ModelAndViewContainer mavContainer,
 		NativeWebRequest webRequest, WebDataBinderFactory binderFactory) {
 
-		String offsetString = webRequest.getParameter(offsetParameterName);
-		String limitString = webRequest.getParameter(limitParameterName);
+		String pageString = webRequest.getParameter(pageParameterName);
+		String sizeString = webRequest.getParameter(sizeParameterName);
 
-		boolean isPageAndLimitGiven = hasText(offsetString) && hasText(limitString);
+		boolean hasPageString = hasText(pageString);
+		boolean hasSizeString = hasText(sizeString);
 
-		if(!isPageAndLimitGiven && simpleOffsetPageRequest == null) {
+		boolean isPageAndLimitGiven = hasPageString && hasSizeString;
+
+		if(!isPageAndLimitGiven && simplePageRequest == null) {
 			return null;
 		}
 
-		int limit = hasText(limitString) ? parseAndApplyBoundaries(limitString, DEFAULT_LIMIT_MAX_SIZE) : simpleOffsetPageRequest.limit();
-		long page = hasText(offsetString) ? parseAndApplyBoundaries(offsetString, Integer.MAX_VALUE) : simpleOffsetPageRequest.page();
+		int size = hasSizeString ? parseAndApplyBoundaries(sizeString, DEFAULT_MAX_SIZE) : simplePageRequest.size();
+		long page = hasPageString ? parseAndApplyBoundaries(pageString, Integer.MAX_VALUE) : simplePageRequest.page();
 
-		limit = limit < 1 ? simpleOffsetPageRequest.limit() : limit;
-		limit = min(limit, DEFAULT_LIMIT_MAX_SIZE);
+		size = size < 1 ? simplePageRequest.size() : size;
+		size = min(size, DEFAULT_MAX_SIZE);
 
-		page = page * limit;
+		page = page * size;
 
-		return new SimpleOffsetPageRequest(page, limit);
+		return new SimplePageRequest(page, size);
 	}
 
 	private int parseAndApplyBoundaries(String parameter, int upper) {
@@ -58,16 +58,16 @@ public class SimpleOffsetPageableHandlerMethodResolver implements HandlerMethodA
 		return parsed < 0 ? 0 : min(parsed, upper);
 	}
 
-	public void setSimpleOffsetPageRequest(SimpleOffsetPageRequest simpleOffsetPageRequest) {
-		this.simpleOffsetPageRequest = simpleOffsetPageRequest;
+	public void setSimpleOffsetPageRequest(SimplePageRequest simplePageRequest) {
+		this.simplePageRequest = simplePageRequest;
 	}
 
-	public void setOffsetParameterName(String offsetParameterName) {
-		this.offsetParameterName = offsetParameterName;
+	public void setPageParameterName(String offsetParameterName) {
+		this.pageParameterName = offsetParameterName;
 	}
 
-	public void setLimitParameterName(String limitParameterName) {
-		this.limitParameterName = limitParameterName;
+	public void setSizeParameterName(String sizeParameterName) {
+		this.sizeParameterName = sizeParameterName;
 	}
 
 	private int toInt(String str, int defaultValue) {
@@ -77,7 +77,7 @@ public class SimpleOffsetPageableHandlerMethodResolver implements HandlerMethodA
 			try {
 				return Integer.parseInt(str);
 			} catch (NumberFormatException e) {
-				return defaultValue;
+				throw new InvalidParameterValueException("parameter value must be integer type.");
 			}
 		}
 	}

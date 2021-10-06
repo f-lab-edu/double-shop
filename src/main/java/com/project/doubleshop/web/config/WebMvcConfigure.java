@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import com.project.doubleshop.web.config.support.SimpleOffsetPageRequest;
+import com.project.doubleshop.web.config.support.SimplePageRequest;
 import com.project.doubleshop.web.config.support.SimpleOffsetPageableHandlerMethodResolver;
 
 @Configuration
@@ -16,7 +16,7 @@ public class WebMvcConfigure implements WebMvcConfigurer {
 	@Bean
 	public SimpleOffsetPageableHandlerMethodResolver simpleOffsetPageableHandlerMethodResolver() {
 		SimpleOffsetPageableHandlerMethodResolver resolver = new SimpleOffsetPageableHandlerMethodResolver();
-		resolver.setSimpleOffsetPageRequest(new SimpleOffsetPageRequest(0, 9));
+		resolver.setSimpleOffsetPageRequest(new SimplePageRequest(0, 9));
 		return resolver;
 	}
 

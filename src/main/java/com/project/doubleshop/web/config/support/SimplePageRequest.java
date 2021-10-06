@@ -1,28 +1,35 @@
 package com.project.doubleshop.web.config.support;
 
+import static com.project.doubleshop.web.config.support.PageConst.*;
+
 import lombok.Getter;
 
 @Getter
-public class SimpleOffsetPageRequest implements Pageable {
+public class SimplePageRequest implements Pageable {
 
-	private long page;
+	private final long page;
 
-	private int limit;
+	private final int size;
 
-	public SimpleOffsetPageRequest() {
-		this(0, 9);
+	/**
+	 * 리졸버에 기본 생성자로 확장할 시, 기본값이 들어간 페이징 관련 파라미터 값을 전달.
+	 * DEFAULT_PAGE_NUMBER - 기본 페이지 번호(0)
+	 * DEFAULT_MAX_SIZE - 기본 페이지당 최대 사이즈(9)
+	 */
+	public SimplePageRequest() {
+		this(DEFAULT_PAGE_NUMBER, DEFAULT_MAX_SIZE);
 	}
 
-	public SimpleOffsetPageRequest(long page, int limit) {
+	public SimplePageRequest(long page, int size) {
 		if(page < 0) {
 			throw new IllegalArgumentException("Page must be greater or equals to zero.");
 		}
-		if(limit < 1) {
+		if(size < 1) {
 			throw new IllegalArgumentException("Limit must be greater than zero.");
 		}
 
 		this.page = page;
-		this.limit = limit;
+		this.size = size;
 	}
 
 	@Override
@@ -31,15 +38,15 @@ public class SimpleOffsetPageRequest implements Pageable {
 	}
 
 	@Override
-	public int limit() {
-		return this.limit;
+	public int size() {
+		return this.size;
 	}
 
 	@Override
 	public String toString() {
-		return "SimpleOffsetPageRequest{" +
-			"offset=" + page +
-			", limit=" + limit +
+		return "SimplePageRequest{" +
+			"page=" + page +
+			", size=" + size +
 			'}';
 	}
 }
