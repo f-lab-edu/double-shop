@@ -21,10 +21,10 @@ public class SimplePageRequest implements Pageable {
 	}
 
 	public SimplePageRequest(long page, int size) {
-		if(page < 0) {
+		if (page < 0) {
 			throw new IllegalArgumentException("Page must be greater or equals to zero.");
 		}
-		if(size < 1) {
+		if (size < 1) {
 			throw new IllegalArgumentException("Limit must be greater than zero.");
 		}
 

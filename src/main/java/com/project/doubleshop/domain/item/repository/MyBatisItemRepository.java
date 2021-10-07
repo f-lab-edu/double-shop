@@ -21,7 +21,7 @@ public class MyBatisItemRepository implements ItemRepository {
 	@Override
 	public boolean save(Item item) {
 		int affectedRowCnt;
-		if(item.getId() != null) {
+		if (item.getId() != null) {
 			affectedRowCnt = mapper.updateItem(item);
 		} else {
 			affectedRowCnt = mapper.insertItem(item);
