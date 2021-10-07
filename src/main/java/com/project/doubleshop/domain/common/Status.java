@@ -7,7 +7,7 @@ public enum Status {
 
 	public static Status of(String value) {
 		for (Status status : Status.values()) {
-			if(status.name().equalsIgnoreCase(value)) {
+			if (status.name().equalsIgnoreCase(value)) {
 				return status;
 			}
 		}

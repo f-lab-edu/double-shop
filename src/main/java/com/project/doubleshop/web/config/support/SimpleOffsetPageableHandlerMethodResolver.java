@@ -38,7 +38,7 @@ public class SimpleOffsetPageableHandlerMethodResolver implements HandlerMethodA
 
 		boolean isPageAndLimitGiven = hasPageString && hasSizeString;
 
-		if(!isPageAndLimitGiven && simplePageRequest == null) {
+		if (!isPageAndLimitGiven && simplePageRequest == null) {
 			return null;
 		}
 

@@ -32,7 +32,7 @@ public class ItemService {
 	@Transactional
 	public boolean saveItem(Item item) {
 		Set<ConstraintViolation<Item>> violations = validator.validate(item);
-		if(!violations.isEmpty()) {
+		if (!violations.isEmpty()) {
 			StringBuilder sb = new StringBuilder();
 			for (ConstraintViolation<Item> violation : violations) {
 				sb.append(violation.getMessage()).append(" ");
@@ -53,10 +53,10 @@ public class ItemService {
 	@Transactional
 	public void updateItemStatus(ItemStatusRequest requestDTO) {
 		Item item = itemRepository.findById(requestDTO.getId());
-		if(item == null) {
+		if (item == null) {
 			throw new ItemNotFoundException(String.format("item ID '%s' not found", requestDTO.getId()));
 		}
-		if(Status.of(requestDTO.getStatus().name()) == null) {
+		if (Status.of(requestDTO.getStatus().name()) == null) {
 			throw new IllegalArgumentException(String.format("request status value '%s' not found", requestDTO.getStatus().name()));
 		}
 	}
