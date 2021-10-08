@@ -3,13 +3,20 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+    <settings>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
     <typeAliases>
         <typeAlias type="com.project.doubleshop.domain.item.entity.Item" alias="Item"/>
         <typeAlias type="com.project.doubleshop.domain.common.Status" alias="Status"/>
         <typeAlias type="com.project.doubleshop.web.item.dto.ItemStatusRequest" alias="ItemStatusRequest"/>
-        <typeAlias type="com.project.doubleshop.web.config.support.Pageable" alias="Pageable" />
+        <typeAlias type="com.project.doubleshop.web.config.support.Pageable" alias="Pageable"/>
+        <typeAlias type="com.project.doubleshop.domain.category.entity.Category" alias="Category"/>
+        <typeAlias type="com.project.doubleshop.domain.category.entity.CategoryType" alias="CategoryType"/>
+        <typeAlias type="com.project.doubleshop.domain.category.entity.DepthLevel" alias="DepthLevel"/>
     </typeAliases>
     <mappers>
         <mapper resource="mapper/itemMapper.xml"/>
+        <mapper resource="mapper/categoryMapper.xml"/>
     </mappers>
 </configuration>
