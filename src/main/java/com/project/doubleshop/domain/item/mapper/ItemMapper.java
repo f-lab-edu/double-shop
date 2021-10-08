@@ -12,7 +12,7 @@ import com.project.doubleshop.web.item.dto.ItemStatusRequest;
 @Mapper
 public interface ItemMapper {
     int insertItem(Item item);
-    Item selectById(Long id);
+    Item selectByItemId(Long id);
     List<Item> selectAllItems(Pageable pageable);
     int updateItem(Item item);
     int updateItemStatus(ItemStatusRequest itemStatusRequest);
