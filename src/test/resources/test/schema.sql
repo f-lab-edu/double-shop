@@ -36,5 +36,7 @@ CREATE TABLE  IF NOT EXISTS CATEGORY
     category_type               varchar(50)    NULL DEFAULT 'NOT_ASSIGNED',
     depth_level                 varchar(50)    NULL DEFAULT 'DEPTH_ONE',
     is_refundable               boolean        NULL DEFAULT false,
+    status                     varchar(50)    NULL DEFAULT 'ACTIVATED',
+    status_update_time         timestamp      NULL DEFAULT Now(),
     CONSTRAINT PK_CATEGORY PRIMARY KEY (id)
 );

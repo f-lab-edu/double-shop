@@ -9,7 +9,7 @@
     <typeAliases>
         <typeAlias type="com.project.doubleshop.domain.item.entity.Item" alias="Item"/>
         <typeAlias type="com.project.doubleshop.domain.common.Status" alias="Status"/>
-        <typeAlias type="com.project.doubleshop.web.item.dto.ItemStatusRequest" alias="ItemStatusRequest"/>
+        <typeAlias type="com.project.doubleshop.web.common.StatusRequest" alias="StatusRequest"/>
         <typeAlias type="com.project.doubleshop.web.config.support.Pageable" alias="Pageable"/>
         <typeAlias type="com.project.doubleshop.domain.category.entity.Category" alias="Category"/>
         <typeAlias type="com.project.doubleshop.domain.category.entity.CategoryType" alias="CategoryType"/>

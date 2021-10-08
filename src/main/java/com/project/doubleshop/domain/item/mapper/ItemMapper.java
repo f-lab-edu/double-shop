@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import com.project.doubleshop.domain.common.Status;
 import com.project.doubleshop.domain.item.entity.Item;
 import com.project.doubleshop.web.config.support.Pageable;
-import com.project.doubleshop.web.item.dto.ItemStatusRequest;
+import com.project.doubleshop.web.common.StatusRequest;
 
 @Mapper
 public interface ItemMapper {
@@ -15,6 +15,6 @@ public interface ItemMapper {
     Item selectByItemId(Long id);
     List<Item> selectAllItems(Pageable pageable);
     int updateItem(Item item);
-    int updateItemStatus(ItemStatusRequest itemStatusRequest);
+    int updateItemStatus(StatusRequest statusRequest);
     int deleteItem(Status status);
 }
