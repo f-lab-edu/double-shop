@@ -28,3 +28,12 @@ CREATE TABLE  IF NOT EXISTS ITEM
     created_time               timestamp      NULL DEFAULT Now(),
     CONSTRAINT PK_ITEM PRIMARY KEY (id)
 );
+
+CREATE TABLE  IF NOT EXISTS CATEGORY
+(
+    id                          bigserial      NOT NULL,
+    name                        varchar(50)    NOT NULL,
+    category_type               varchar(50)    NOT NULL,
+    depth_level                 varchar(50)    NOT NULL,
+    is_refundable               boolean        NULL default false
+);
