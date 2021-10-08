@@ -21,9 +21,9 @@ import com.project.doubleshop.domain.item.service.ItemService;
 import com.project.doubleshop.web.config.support.Pageable;
 import com.project.doubleshop.web.item.dto.ItemDTO;
 import com.project.doubleshop.web.item.dto.ItemForm;
-import com.project.doubleshop.web.item.dto.ItemStatusRequest;
+import com.project.doubleshop.web.common.StatusRequest;
 import com.project.doubleshop.web.item.exception.InvalidItemArgumentException;
-import com.project.doubleshop.web.item.exception.ItemNotFoundException;
+import com.project.doubleshop.web.item.exception.DataNotFoundException;
 
 import lombok.RequiredArgsConstructor;
 
@@ -36,7 +36,7 @@ public class ItemRestController {
 	@GetMapping("item/{id}")
 	public ResponseEntity<ItemDTO> findItem(@PathVariable Long id) {
 		return ResponseEntity.ok(
-			new ItemDTO(itemService.findItem(id).orElseThrow(() -> new ItemNotFoundException(String.format("item ID[%s] not found", id)))));
+			new ItemDTO(itemService.findItemById(id).orElseThrow(() -> new DataNotFoundException(String.format("item ID[%s] not found", id)))));
 	}
 
 	@GetMapping("item")
@@ -60,21 +60,21 @@ public class ItemRestController {
 
 	@PutMapping("item/{id}")
 	public ResponseEntity<ItemDTO> editItem(@RequestBody ItemForm itemForm, @PathVariable Long id) {
-		itemService.findItem(id).orElseThrow(
-			() -> new ItemNotFoundException(String.format("item ID[%s] not found", id))
+		itemService.findItemById(id).orElseThrow(
+			() -> new DataNotFoundException(String.format("item ID[%s] not found", id))
 		);
 		return ResponseEntity.ok(new ItemDTO(Item.convertToItem(itemForm)));
 	}
 
 	@PatchMapping("item/{id}")
-	public ResponseEntity requestUpdateItemStatus(@RequestBody ItemStatusRequest itemStatusRequest, @PathVariable Long id) {
-		itemService.updateItemStatus(itemStatusRequest);
+	public ResponseEntity requestUpdateItemStatus(@RequestBody StatusRequest statusRequest, @PathVariable Long id) {
+		itemService.updateItemStatus(statusRequest);
 		return ResponseEntity.ok().build();
 	}
 
 	@DeleteMapping("item")
-	public ResponseEntity deleteAssignedItems(@RequestBody ItemStatusRequest itemStatusRequest) {
-		itemService.DeleteItems(itemStatusRequest.getStatus());
+	public ResponseEntity deleteAssignedItems(@RequestBody StatusRequest statusRequest) {
+		itemService.DeleteItems(statusRequest.getStatus());
 		return ResponseEntity.ok().build();
 	}
 }

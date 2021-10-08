@@ -20,7 +20,7 @@ import com.project.doubleshop.domain.item.repository.ItemRepository;
 import com.project.doubleshop.domain.item.service.ItemService;
 import com.project.doubleshop.web.config.support.Pageable;
 import com.project.doubleshop.web.config.support.SimplePageRequest;
-import com.project.doubleshop.web.item.dto.ItemStatusRequest;
+import com.project.doubleshop.web.common.StatusRequest;
 
 @SpringBootTest
 @ActiveProfiles("test")
@@ -91,9 +91,14 @@ class ItemRepositoryTest {
 			.brandName("newBrand")
 			.description("newDescription")
 			.price(1)
+			.status(Status.ACTIVATED)
+			.isOnedayEligible(true)
+			.isFreshEligible(true)
 			.build();
 
 		boolean save = itemRepository.save(inputItem);
+
+		System.out.println(itemRepository.findById(15L));
 
 		assertThat(save).isTrue();
 	}
@@ -102,8 +107,8 @@ class ItemRepositoryTest {
 	@Order(5)
 	@DisplayName("13번 아이템에 삭제 요청을 할 경우, 13번 아이템의 status는 `DELETE`가 된다.")
 	void assignDeleteOneItem() {
-		ItemStatusRequest itemStatusRequest = new ItemStatusRequest(13L, Status.TO_BE_DELETED);
-		itemRepository.updateStatus(itemStatusRequest);
+		StatusRequest statusRequest = new StatusRequest(13L, Status.TO_BE_DELETED);
+		itemRepository.updateStatus(statusRequest);
 
 		Item item = itemRepository.findById(13L);
 
