@@ -1,0 +1,27 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.doubleshop.domain.category.mapper.CategoryMapper">
+    <insert id="insertCategory" parameterType="Category" useGeneratedKeys="true">
+        insert into category (name, category_type, depth_level, is_refundable)
+        values (#{name}, #{categoryType}, #{depthLevel}, #{isRefundable})
+    </insert>
+    <select id="selectByCategoryId" resultType="Category" parameterType="long">
+        select id, name, category_type, depth_level, is_refundable
+        from category where id = #{id}
+    </select>
+    <select id="selectAllCategories" resultType="Category">
+        select id, name, category_type, depth_level, is_refundable from category
+    </select>
+    <update id="updateCategory" parameterType="Category">
+        update category set
+                            name = #{name},
+                            category_type = #{categoryType},
+                            depth_level = #{depthLevel},
+                            is_refundable = #{isRefundable}
+        where id = #{id}
+    </update>
+    <delete id="deleteCategory" parameterType="long">
+        delete from category where id = #{id}
+    </delete>
+</mapper>
