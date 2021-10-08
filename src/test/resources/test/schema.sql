@@ -32,8 +32,9 @@ CREATE TABLE  IF NOT EXISTS ITEM
 CREATE TABLE  IF NOT EXISTS CATEGORY
 (
     id                          bigserial      NOT NULL,
-    name                        varchar(50)    NOT NULL,
-    category_type               varchar(50)    NOT NULL,
-    depth_level                 varchar(50)    NOT NULL,
-    is_refundable               boolean        NULL default false
+    name                        varchar(50)    NOT NULL DEFAULT '',
+    category_type               varchar(50)    NULL DEFAULT 'NOT_ASSIGNED',
+    depth_level                 varchar(50)    NULL DEFAULT 'DEPTH_ONE',
+    is_refundable               boolean        NULL DEFAULT false,
+    CONSTRAINT PK_CATEGORY PRIMARY KEY (id)
 );
