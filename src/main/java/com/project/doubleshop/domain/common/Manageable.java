@@ -1,4 +1,4 @@
-package com.project.doubleshop.domain.item.repository;
+package com.project.doubleshop.domain.common;
 
 import com.project.doubleshop.domain.common.Status;
 

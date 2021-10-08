@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.project.doubleshop.web.item.exception.InvalidItemArgumentException;
-import com.project.doubleshop.web.item.exception.ItemNotFoundException;
+import com.project.doubleshop.web.item.exception.DataNotFoundException;
 import com.project.doubleshop.web.item.exhandler.HttpErrorResult;
 
 import lombok.extern.slf4j.Slf4j;
@@ -15,8 +15,8 @@ import lombok.extern.slf4j.Slf4j;
 @RestControllerAdvice
 public class ExceptionControllerAdvice {
 	@ResponseStatus(HttpStatus.NOT_FOUND)
-	@ExceptionHandler(ItemNotFoundException.class)
-	public HttpErrorResult itemExceptionHandler(ItemNotFoundException e) {
+	@ExceptionHandler(DataNotFoundException.class)
+	public HttpErrorResult notFoundExceptionHandler(DataNotFoundException e) {
 		log.error("[itemExceptionHandler] ex", e);
 		return new HttpErrorResult(HttpStatus.NOT_FOUND.getReasonPhrase(), e.getMessage());
 	}
