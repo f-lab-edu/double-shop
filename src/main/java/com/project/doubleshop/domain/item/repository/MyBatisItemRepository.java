@@ -8,7 +8,7 @@ import com.project.doubleshop.domain.common.Status;
 import com.project.doubleshop.domain.item.entity.Item;
 import com.project.doubleshop.domain.item.mapper.ItemMapper;
 import com.project.doubleshop.web.config.support.Pageable;
-import com.project.doubleshop.web.item.dto.ItemStatusRequest;
+import com.project.doubleshop.web.common.StatusRequest;
 
 import lombok.RequiredArgsConstructor;
 
@@ -40,7 +40,7 @@ public class MyBatisItemRepository implements ItemRepository {
 	}
 
 	@Override
-	public int updateStatus(ItemStatusRequest requestDto) {
+	public int updateStatus(StatusRequest requestDto) {
 		return mapper.updateItemStatus(requestDto);
 	}
 

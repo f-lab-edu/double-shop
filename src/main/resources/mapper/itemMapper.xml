@@ -55,7 +55,7 @@
                         created_time = #{createTime}
         where id = #{id}
     </update>
-    <update id="updateItemStatus" parameterType="ItemStatusRequest">
+    <update id="updateItemStatus" parameterType="StatusRequest">
         update item set status = #{status} where id = #{id}
     </update>
     <delete id="deleteItem" parameterType="Status">

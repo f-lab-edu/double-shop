@@ -1,5 +1,9 @@
 package com.project.doubleshop.domain.category.entity;
 
+import java.time.LocalDateTime;
+
+import com.project.doubleshop.domain.common.Status;
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -26,14 +30,9 @@ public class Category {
 	// 환불가능 여부
 	private boolean isRefundable;
 
-	@Override
-	public String toString() {
-		return "Category{" +
-			"id=" + id +
-			", name='" + name + '\'' +
-			", categoryType=" + categoryType +
-			", depthLevel=" + depthLevel +
-			", isRefundable=" + isRefundable +
-			'}';
-	}
+	// 카테고리 상태
+	private Status status;
+
+	// 카테고리 상태 업데이트 시간
+	private LocalDateTime statusUpdateTime;
 }
