@@ -43,6 +43,12 @@ public class CategoryService {
 		if (Status.of(requestDTO.getStatus().name()) == null) {
 			throw new IllegalArgumentException(String.format("request status value '%s' not found", requestDTO.getStatus().name()));
 		}
+		categoryRepository.updateStatus(requestDTO);
+	}
+
+	@Transactional
+	public void updateCategoryStatus(Status status, Long itemId) {
+		updateCategoryStatus(new StatusRequest(itemId, status));
 	}
 
 	@Transactional
