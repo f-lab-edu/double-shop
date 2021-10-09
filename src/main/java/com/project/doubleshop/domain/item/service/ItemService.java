@@ -15,7 +15,7 @@ import com.project.doubleshop.domain.item.entity.Item;
 import com.project.doubleshop.domain.item.repository.ItemRepository;
 import com.project.doubleshop.web.config.support.Pageable;
 import com.project.doubleshop.web.common.StatusRequest;
-import com.project.doubleshop.web.item.exception.InvalidItemArgumentException;
+import com.project.doubleshop.web.item.exception.InvalidArgumentException;
 import com.project.doubleshop.web.item.exception.DataNotFoundException;
 
 import lombok.RequiredArgsConstructor;
@@ -37,7 +37,7 @@ public class ItemService {
 			for (ConstraintViolation<Item> violation : violations) {
 				sb.append(violation.getMessage()).append(" ");
 			}
-			throw new InvalidItemArgumentException(sb.toString());
+			throw new InvalidArgumentException(sb.toString());
 		}
 		return itemRepository.save(item);
 	}
@@ -62,7 +62,7 @@ public class ItemService {
 	}
 
 	@Transactional
-	public void DeleteItems(Status status) {
+	public void deleteItems(Status status) {
 		itemRepository.deleteData(status);
 	}
 }

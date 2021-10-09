@@ -22,7 +22,7 @@ import com.project.doubleshop.web.config.support.Pageable;
 import com.project.doubleshop.web.item.dto.ItemDTO;
 import com.project.doubleshop.web.item.dto.ItemForm;
 import com.project.doubleshop.web.common.StatusRequest;
-import com.project.doubleshop.web.item.exception.InvalidItemArgumentException;
+import com.project.doubleshop.web.item.exception.InvalidArgumentException;
 import com.project.doubleshop.web.item.exception.DataNotFoundException;
 
 import lombok.RequiredArgsConstructor;
@@ -54,7 +54,7 @@ public class ItemRestController {
 
 			return ResponseEntity.created(location).body(new ItemDTO(Item.convertToItem(itemForm)));
 		} else {
-			throw new InvalidItemArgumentException();
+			throw new InvalidArgumentException();
 		}
 	}
 
@@ -74,7 +74,7 @@ public class ItemRestController {
 
 	@DeleteMapping("item")
 	public ResponseEntity deleteAssignedItems(@RequestBody StatusRequest statusRequest) {
-		itemService.DeleteItems(statusRequest.getStatus());
+		itemService.deleteItems(statusRequest.getStatus());
 		return ResponseEntity.ok().build();
 	}
 }
