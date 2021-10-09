@@ -30,16 +30,23 @@ public class ItemService {
 
 	@Transactional
 	public boolean saveItem(Item item) {
-		Set<ConstraintViolation<Item>> violations = validator.validate(item);
-		// 테스트용 service layered validation - 실질적으로 사용하지는 않는 validation 추후 개선할 예정.
-		if (!violations.isEmpty()) {
-			StringBuilder sb = new StringBuilder();
-			for (ConstraintViolation<Item> violation : violations) {
-				sb.append(violation.getMessage()).append(" ");
-			}
-			throw new InvalidArgumentException(sb.toString());
-		}
+		// Set<ConstraintViolation<Item>> violations = validator.validate(item);
+		// // 테스트용 service layered validation - 실질적으로 사용하지는 않는 validation 추후 개선할 예정.
+		// if (!violations.isEmpty()) {
+		// 	StringBuilder sb = new StringBuilder();
+		// 	for (ConstraintViolation<Item> violation : violations) {
+		// 		sb.append(violation.getMessage()).append(" ");
+		// 	}
+		// 	throw new InvalidArgumentException(sb.toString());
+		// }
 		return itemRepository.save(item);
+	}
+
+	@Transactional
+	public Item saveItem(Item item, Long itemId) {
+		findItemById(itemId).orElseThrow(() -> new DataNotFoundException(String.format("item ID '%s' not found", itemId)));
+		itemRepository.save(item);
+		return itemRepository.findById(itemId);
 	}
 
 	public Optional<Item> findItemById(Long itemId) {
@@ -63,12 +70,13 @@ public class ItemService {
 	}
 
 	@Transactional
-	public void updateItemStatus(Status status, Long itemId) {
+	public Item updateItemStatus(Status status, Long itemId) {
 		updateItemStatus(new StatusRequest(itemId, status));
+		return findItemById(itemId).orElseThrow(() -> new DataNotFoundException(String.format("item ID '%s' not found", itemId)));
 	}
 
 	@Transactional
-	public void deleteItems(Status status) {
-		itemRepository.deleteData(status);
+	public Integer deleteItems(Status status) {
+		return itemRepository.deleteData(status);
 	}
 }

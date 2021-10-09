@@ -117,6 +117,7 @@ public class Item {
     // 상품 인스턴스 생성 로직
     public static Item convertToItem(ItemForm form) {
         return Item.builder()
+            .id(form.getId())
             .name(form.getName())
             .description(form.getDescription())
             .brandName(form.getBrandName())

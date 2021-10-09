@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -34,17 +35,6 @@ import lombok.RequiredArgsConstructor;
 public class ItemRestController {
 	private final ItemService itemService;
 
-	@GetMapping("item/{id}")
-	public ResponseEntity<ItemDTO> findItem(@PathVariable Long id) {
-		return ResponseEntity.ok(
-			new ItemDTO(itemService.findItemById(id).orElseThrow(() -> new DataNotFoundException(String.format("item ID[%s] not found", id)))));
-	}
-
-	@GetMapping("item")
-	public ResponseEntity<List<ItemDTO>> findAllItem(Pageable pageable) {
-		return ResponseEntity.ok(itemService.findItems(pageable).stream().map(ItemDTO::new).collect(Collectors.toList()));
-	}
-
 	@PostMapping("item")
 	public ResponseEntity<ItemDTO> newItem(@RequestBody ItemForm itemForm) {
 		if(itemService.saveItem(Item.convertToItem(itemForm))) {
@@ -59,23 +49,32 @@ public class ItemRestController {
 		}
 	}
 
+	@GetMapping("item/{id}")
+	public ResponseEntity<ItemDTO> findItem(@PathVariable Long id) {
+		return ResponseEntity.ok(
+			new ItemDTO(itemService.findItemById(id).orElseThrow(() -> new DataNotFoundException(String.format("item ID[%s] not found", id)))));
+	}
+
+	@GetMapping("item")
+	public ResponseEntity<List<ItemDTO>> findAllItem(Pageable pageable) {
+		return ResponseEntity.ok(itemService.findItems(pageable).stream().map(ItemDTO::new).collect(Collectors.toList()));
+	}
+
+
+
 	@PutMapping("item/{id}")
 	public ResponseEntity<ItemDTO> editItem(@RequestBody ItemForm itemForm, @PathVariable Long id) {
-		itemService.findItemById(id).orElseThrow(
-			() -> new DataNotFoundException(String.format("item ID[%s] not found", id))
-		);
-		return ResponseEntity.ok(new ItemDTO(Item.convertToItem(itemForm)));
+		Item item = itemService.saveItem(Item.convertToItem(itemForm), id);
+		return ResponseEntity.ok(new ItemDTO(item));
 	}
 
 	@PatchMapping("item/{id}")
-	public ResponseEntity requestUpdateItemStatus(@RequestBody Status status, @PathVariable Long id) {
-		itemService.updateItemStatus(status, id);
-		return ResponseEntity.ok().build();
+	public ResponseEntity<ItemDTO> requestUpdateItemStatus(@RequestParam Status status, @PathVariable Long id) {
+		return ResponseEntity.ok(new ItemDTO(itemService.updateItemStatus(status, id)));
 	}
 
 	@DeleteMapping("item")
-	public ResponseEntity deleteAssignedItems(@RequestBody StatusRequest statusRequest) {
-		itemService.deleteItems(statusRequest.getStatus());
-		return ResponseEntity.ok().build();
+	public ResponseEntity deleteAssignedItems(@RequestParam Status status) {
+		return ResponseEntity.ok(itemService.deleteItems(status));
 	}
 }
