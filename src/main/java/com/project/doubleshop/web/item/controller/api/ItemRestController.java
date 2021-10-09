@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.project.doubleshop.domain.common.Status;
 import com.project.doubleshop.domain.item.entity.Item;
 import com.project.doubleshop.domain.item.service.ItemService;
 import com.project.doubleshop.web.config.support.Pageable;
@@ -67,8 +68,8 @@ public class ItemRestController {
 	}
 
 	@PatchMapping("item/{id}")
-	public ResponseEntity requestUpdateItemStatus(@RequestBody StatusRequest statusRequest, @PathVariable Long id) {
-		itemService.updateItemStatus(statusRequest);
+	public ResponseEntity requestUpdateItemStatus(@RequestBody Status status, @PathVariable Long id) {
+		itemService.updateItemStatus(status, id);
 		return ResponseEntity.ok().build();
 	}
 

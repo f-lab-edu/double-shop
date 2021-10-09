@@ -19,6 +19,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.project.doubleshop.domain.category.entity.Category;
 import com.project.doubleshop.domain.category.service.CategoryService;
+import com.project.doubleshop.domain.common.Status;
 import com.project.doubleshop.web.category.controller.dto.CategoryDTO;
 import com.project.doubleshop.web.category.controller.dto.CategoryForm;
 import com.project.doubleshop.web.common.StatusRequest;
@@ -70,8 +71,8 @@ public class CategoryController {
 	}
 
 	@PatchMapping("category/{id}")
-	public ResponseEntity requestUpdateCategoryStatus(@RequestBody StatusRequest statusRequest, @PathVariable Long id) {
-		categoryService.updateCategoryStatus(statusRequest);
+	public ResponseEntity requestUpdateCategoryStatus(@RequestBody Status status, @PathVariable Long id) {
+		categoryService.updateCategoryStatus(status, id);
 		return ResponseEntity.ok().build();
 	}
 

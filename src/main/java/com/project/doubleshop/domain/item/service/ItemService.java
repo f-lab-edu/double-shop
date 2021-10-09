@@ -59,6 +59,12 @@ public class ItemService {
 		if (Status.of(requestDTO.getStatus().name()) == null) {
 			throw new IllegalArgumentException(String.format("request status value '%s' not found", requestDTO.getStatus().name()));
 		}
+		itemRepository.updateStatus(requestDTO);
+	}
+
+	@Transactional
+	public void updateItemStatus(Status status, Long itemId) {
+		updateItemStatus(new StatusRequest(itemId, status));
 	}
 
 	@Transactional
