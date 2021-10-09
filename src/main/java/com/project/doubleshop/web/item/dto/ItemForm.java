@@ -75,10 +75,10 @@ public class ItemForm {
 	private LocalDate publishedTime;
 
 	// 하루배송가능여부
-	private boolean isOnedayEligible;
+	private Boolean isOnedayEligible;
 
 	// 당일배송가능여부
-	private boolean isFreshEligible;
+	private Boolean isFreshEligible;
 
 	public ItemForm(Item source) {
 		this.id = source.getId();
@@ -102,7 +102,7 @@ public class ItemForm {
 		this.publisher = source.getPublisher();
 		this.isbn = source.getIsbn();
 		this.publishedTime = source.getPublishedTime();
-		this.isOnedayEligible = source.isOnedayEligible();
-		this.isFreshEligible = source.isFreshEligible();
+		this.isOnedayEligible = source.getIsOnedayEligible();
+		this.isFreshEligible = source.getIsFreshEligible();
 	}
 }
