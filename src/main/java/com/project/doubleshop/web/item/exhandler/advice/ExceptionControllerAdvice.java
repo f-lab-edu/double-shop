@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.project.doubleshop.web.item.exception.InvalidItemArgumentException;
+import com.project.doubleshop.web.item.exception.InvalidArgumentException;
 import com.project.doubleshop.web.item.exception.DataNotFoundException;
 import com.project.doubleshop.web.item.exhandler.HttpErrorResult;
 
@@ -22,8 +22,8 @@ public class ExceptionControllerAdvice {
 	}
 
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	@ExceptionHandler(InvalidItemArgumentException.class)
-	public HttpErrorResult badRequestHandler(InvalidItemArgumentException e) {
+	@ExceptionHandler(InvalidArgumentException.class)
+	public HttpErrorResult badRequestHandler(InvalidArgumentException e) {
 		log.error("[badRequestHandler] ex", e);
 		return new HttpErrorResult(HttpStatus.BAD_REQUEST.getReasonPhrase(), e.getMessage());
 	}
