@@ -7,28 +7,30 @@ import com.project.doubleshop.domain.category.entity.CategoryType;
 import com.project.doubleshop.domain.category.entity.DepthLevel;
 import com.project.doubleshop.domain.common.Status;
 
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
 public class CategoryDTO {
 
 	// 카테고리 pk
-	private final Long id;
+	private Long id;
 
 	// 카테고리 이름
-	private final String name;
+	private String name;
 
 	// 카테고리 타입
-	private final CategoryType categoryType;
+	private CategoryType categoryType;
 
 	// 카테고리 레벨
-	private final DepthLevel depthLevel;
+	private DepthLevel depthLevel;
 
 	// 환불가능 여부
-	private final boolean isRefundable;
+	private Boolean isRefundable;
 
 	// 카테고리 상태
-	private final Status status;
+	private Status status;
 
 	// 카테고리 상태 업데이트 시간
 	private LocalDateTime statusUpdateTime;
@@ -38,7 +40,8 @@ public class CategoryDTO {
 		this.name = source.getName();
 		this.categoryType = source.getCategoryType();
 		this.depthLevel = source.getDepthLevel();
-		this.isRefundable = source.isRefundable();
+		this.isRefundable = source.getIsRefundable();
 		this.status = source.getStatus();
+		this.statusUpdateTime = source.getStatusUpdateTime();
 	}
 }

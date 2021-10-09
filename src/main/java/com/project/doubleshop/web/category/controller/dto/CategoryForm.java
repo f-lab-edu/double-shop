@@ -15,6 +15,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class CategoryForm {
 
+	// 카테고리 번호
+	private Long id;
+
 	// 카테고리 이름
 	private String name;
 
@@ -25,7 +28,7 @@ public class CategoryForm {
 	private DepthLevel depthLevel;
 
 	// 환불가능 여부
-	private boolean isRefundable;
+	private Boolean isRefundable;
 
 	// 카테고리 상태
 	private Status status;
@@ -34,10 +37,12 @@ public class CategoryForm {
 	private LocalDateTime statusUpdateTime;
 
 	public CategoryForm(Category source) {
+		this.id = source.getId();
 		this.name = source.getName();
 		this.categoryType = source.getCategoryType();
 		this.depthLevel = source.getDepthLevel();
-		this.isRefundable = source.isRefundable();
+		this.isRefundable = source.getIsRefundable();
 		this.status = source.getStatus();
+		this.statusUpdateTime = source.getStatusUpdateTime();
 	}
 }

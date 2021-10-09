@@ -11,7 +11,7 @@
         from category where id = #{id}
     </select>
     <select id="selectAllCategories" resultType="Category">
-        select id, name, category_type, depth_level, is_refundable from category
+        select id, name, category_type, depth_level, is_refundable, status, status_update_time from category
     </select>
     <update id="updateCategory" parameterType="Category">
         update category set

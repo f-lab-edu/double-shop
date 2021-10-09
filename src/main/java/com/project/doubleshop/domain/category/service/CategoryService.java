@@ -26,6 +26,13 @@ public class CategoryService {
 		return categoryRepository.save(category);
 	}
 
+	@Transactional
+	public Category saveCategory(Category category, Long categoryId) {
+		findCategoryById(categoryId).orElseThrow(() -> new DataNotFoundException(String.format("category ID '%s' not found", categoryId)));
+		categoryRepository.save(category);
+		return categoryRepository.findById(categoryId);
+	}
+
 	public Optional<Category> findCategoryById(Long categoryId) {
 		return Optional.ofNullable(categoryRepository.findById(categoryId));
 	}
@@ -47,12 +54,13 @@ public class CategoryService {
 	}
 
 	@Transactional
-	public void updateCategoryStatus(Status status, Long itemId) {
-		updateCategoryStatus(new StatusRequest(itemId, status));
+	public Category updateCategoryStatus(Status status, Long categoryId) {
+		updateCategoryStatus(new StatusRequest(categoryId, status));
+		return findCategoryById(categoryId).orElseThrow(() -> new DataNotFoundException(String.format("category ID '%s' not found", categoryId)));
 	}
 
 	@Transactional
-	public void deleteItems(Status status) {
-		categoryRepository.deleteData(status);
+	public Integer deleteCategories(Status status) {
+		return categoryRepository.deleteData(status);
 	}
 }
