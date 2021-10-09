@@ -1,23 +1,19 @@
-package com.project.doubleshop.domain.category.entity;
+package com.project.doubleshop.web.category.controller.dto;
 
 import java.time.LocalDateTime;
 
+import com.project.doubleshop.domain.category.entity.Category;
+import com.project.doubleshop.domain.category.entity.CategoryType;
+import com.project.doubleshop.domain.category.entity.DepthLevel;
 import com.project.doubleshop.domain.common.Status;
-import com.project.doubleshop.web.category.controller.dto.CategoryForm;
 
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Builder
 @Getter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-@AllArgsConstructor
-public class Category {
-	// 카테고리 pk
-	private Long id;
+public class CategoryForm {
 
 	// 카테고리 이름
 	private String name;
@@ -37,13 +33,11 @@ public class Category {
 	// 카테고리 상태 업데이트 시간
 	private LocalDateTime statusUpdateTime;
 
-	// 카테고리 인스턴스 생성 로직
-	public static Category convertToCategory(CategoryForm form) {
-		return Category.builder()
-			.name(form.getName())
-			.categoryType(form.getCategoryType())
-			.depthLevel(form.getDepthLevel())
-			.isRefundable(form.isRefundable())
-			.build();
+	public CategoryForm(Category source) {
+		this.name = source.getName();
+		this.categoryType = source.getCategoryType();
+		this.depthLevel = source.getDepthLevel();
+		this.isRefundable = source.isRefundable();
+		this.status = source.getStatus();
 	}
 }

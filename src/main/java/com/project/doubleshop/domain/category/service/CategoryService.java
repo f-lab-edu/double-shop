@@ -46,7 +46,7 @@ public class CategoryService {
 	}
 
 	@Transactional
-	public void DeleteItems(Status status) {
+	public void deleteItems(Status status) {
 		categoryRepository.deleteData(status);
 	}
 }
