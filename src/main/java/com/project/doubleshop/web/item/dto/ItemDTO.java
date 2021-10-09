@@ -72,10 +72,10 @@ public class ItemDTO {
 	private final LocalDate publishedTime;
 
 	// 하루배송가능여부
-	private final boolean isOnedayEligible;
+	private final Boolean isOnedayEligible;
 
 	// 당일배송가능여부
-	private final boolean isFreshEligible;
+	private final Boolean isFreshEligible;
 
 	public ItemDTO(Item source) {
 		this.id = source.getId();
@@ -99,7 +99,7 @@ public class ItemDTO {
 		this.publisher = source.getPublisher();
 		this.isbn = source.getIsbn();
 		this.publishedTime = source.getPublishedTime();
-		this.isOnedayEligible = source.isOnedayEligible();
-		this.isFreshEligible = source.isFreshEligible();
+		this.isOnedayEligible = source.getIsOnedayEligible();
+		this.isFreshEligible = source.getIsFreshEligible();
 	}
 }

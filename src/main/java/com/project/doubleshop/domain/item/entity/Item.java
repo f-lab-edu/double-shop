@@ -98,10 +98,10 @@ public class Item {
     private LocalDate publishedTime;
 
     // 하루배송가능여부
-    private boolean isOnedayEligible;
+    private Boolean isOnedayEligible;
 
     // 당일배송가능여부
-    private boolean isFreshEligible;
+    private Boolean isFreshEligible;
 
     // 상태
     private Status status;
@@ -138,8 +138,8 @@ public class Item {
             .publisher(form.getPublisher())
             .isbn(form.getIsbn())
             .publishedTime(form.getPublishedTime())
-            .isOnedayEligible(form.isOnedayEligible())
-            .isFreshEligible(form.isFreshEligible())
+            .isOnedayEligible(form.getIsOnedayEligible())
+            .isFreshEligible(form.getIsFreshEligible())
             .build();
     }
 
