@@ -29,7 +29,7 @@ public class Category {
 	private DepthLevel depthLevel;
 
 	// 환불가능 여부
-	private boolean isRefundable;
+	private Boolean isRefundable;
 
 	// 카테고리 상태
 	private Status status;
@@ -40,10 +40,26 @@ public class Category {
 	// 카테고리 인스턴스 생성 로직
 	public static Category convertToCategory(CategoryForm form) {
 		return Category.builder()
+			.id(form.getId())
 			.name(form.getName())
 			.categoryType(form.getCategoryType())
 			.depthLevel(form.getDepthLevel())
-			.isRefundable(form.isRefundable())
+			.isRefundable(form.getIsRefundable())
+			.status(form.getStatus())
+			.statusUpdateTime(form.getStatusUpdateTime())
 			.build();
+	}
+
+	@Override
+	public String toString() {
+		return "Category{" +
+			"id=" + id +
+			", name='" + name + '\'' +
+			", categoryType=" + categoryType +
+			", depthLevel=" + depthLevel +
+			", isRefundable=" + isRefundable +
+			", status=" + status +
+			", statusUpdateTime=" + statusUpdateTime +
+			'}';
 	}
 }

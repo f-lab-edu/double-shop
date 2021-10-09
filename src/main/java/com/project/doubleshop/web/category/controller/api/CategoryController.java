@@ -3,7 +3,6 @@ package com.project.doubleshop.web.category.controller.api;
 import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -22,7 +22,6 @@ import com.project.doubleshop.domain.category.service.CategoryService;
 import com.project.doubleshop.domain.common.Status;
 import com.project.doubleshop.web.category.controller.dto.CategoryDTO;
 import com.project.doubleshop.web.category.controller.dto.CategoryForm;
-import com.project.doubleshop.web.common.StatusRequest;
 import com.project.doubleshop.web.item.exception.DataNotFoundException;
 import com.project.doubleshop.web.item.exception.InvalidArgumentException;
 
@@ -63,22 +62,18 @@ public class CategoryController {
 	}
 
 	@PutMapping("category/{id}")
-	public ResponseEntity editCategory(@RequestBody CategoryForm categoryForm, @PathVariable Long id) {
-		categoryService.findCategoryById(id).orElseThrow(
-			() -> new DataNotFoundException(String.format("category ID[%s] not found", id))
-		);
-		return ResponseEntity.ok(new CategoryDTO(Category.convertToCategory(categoryForm)));
+	public ResponseEntity<CategoryDTO> editCategory(@RequestBody CategoryForm categoryForm, @PathVariable Long id) {
+		Category category = categoryService.saveCategory(Category.convertToCategory(categoryForm), id);
+		return ResponseEntity.ok(new CategoryDTO(category));
 	}
 
 	@PatchMapping("category/{id}")
-	public ResponseEntity requestUpdateCategoryStatus(@RequestBody Status status, @PathVariable Long id) {
-		categoryService.updateCategoryStatus(status, id);
-		return ResponseEntity.ok().build();
+	public ResponseEntity<CategoryDTO> requestUpdateCategoryStatus(@RequestParam Status status, @PathVariable Long id) {
+		return ResponseEntity.ok(new CategoryDTO(categoryService.updateCategoryStatus(status, id)));
 	}
 
 	@DeleteMapping("category")
-	public ResponseEntity deleteAssignedCategory(@RequestBody StatusRequest statusRequest) {
-		categoryService.deleteItems(statusRequest.getStatus());
-		return ResponseEntity.ok().build();
+	public ResponseEntity deleteAssignedCategory(@RequestParam Status status) {
+		return ResponseEntity.ok(categoryService.deleteCategories(status));
 	}
 }
