@@ -103,6 +103,8 @@ class ItemRestControllerTest {
 			.brandName("brandName")
 			.description("newDescription")
 			.price(1000)
+			.isOnedayEligible(true)
+			.isFreshEligible(true)
 			.build();
 
 		String itemForm = objectMapper.writeValueAsString(inputItem);
@@ -121,12 +123,11 @@ class ItemRestControllerTest {
 	@Order(5)
 	@DisplayName("10번 아이템을 삭제로 분류")
 	void assignDeleteOneItem() throws Exception {
-		String itemStatusRequest = objectMapper.writeValueAsString(new StatusRequest(10L, Status.TO_BE_DELETED));
 
 		mockMvc.perform(
 			patch("/api/item/{id}", 10)
 				.contentType(MediaType.APPLICATION_JSON_VALUE)
-				.content(itemStatusRequest)
+				.param("status", Status.TO_BE_DELETED.name())
 				.accept(MediaType.APPLICATION_JSON)
 		).andDo(print())
 			.andExpect(status().is2xxSuccessful());
@@ -161,11 +162,9 @@ class ItemRestControllerTest {
 		StatusRequest statusRequest = new StatusRequest(9L, Status.TO_BE_DELETED);
 		itemService.updateItemStatus(statusRequest);
 
-		String itemStatusRequest = objectMapper.writeValueAsString(statusRequest);
-
 		mockMvc.perform(delete("/api/item")
 				.contentType(MediaType.APPLICATION_JSON_VALUE)
-				.content(itemStatusRequest)
+				.param("status", Status.TO_BE_DELETED.name())
 				.accept(MediaType.APPLICATION_JSON)
 		).andDo(print())
 			.andExpect(status().is2xxSuccessful());

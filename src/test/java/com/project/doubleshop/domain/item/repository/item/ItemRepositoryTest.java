@@ -52,7 +52,6 @@ class ItemRepositoryTest {
 	void findAll() {
 		int length = itemMapper.selectAllItems(pageable).size();
 		List<Item> items = itemRepository.findAll(pageable);
-		items.forEach(item -> System.out.println(item.getId()));
 		assertThat(items).isNotNull();
 		assertThat(items.size()).isEqualTo(length);
 	}
