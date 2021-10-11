@@ -14,6 +14,7 @@
         <typeAlias type="com.project.doubleshop.domain.category.entity.Category" alias="Category"/>
         <typeAlias type="com.project.doubleshop.domain.category.entity.CategoryType" alias="CategoryType"/>
         <typeAlias type="com.project.doubleshop.domain.category.entity.DepthLevel" alias="DepthLevel"/>
+        <typeAlias type="com.project.doubleshop.domain.common.mapper.param.RequestItemsWithCategory" alias="RequestItemsWithCategory"/>
     </typeAliases>
     <mappers>
         <mapper resource="mapper/itemMapper.xml"/>
