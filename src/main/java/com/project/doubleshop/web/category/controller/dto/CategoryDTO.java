@@ -29,19 +29,11 @@ public class CategoryDTO {
 	// 환불가능 여부
 	private Boolean isRefundable;
 
-	// 카테고리 상태
-	private Status status;
-
-	// 카테고리 상태 업데이트 시간
-	private LocalDateTime statusUpdateTime;
-
 	public CategoryDTO(Category source) {
 		this.id = source.getId();
 		this.name = source.getName();
 		this.categoryType = source.getCategoryType();
 		this.depthLevel = source.getDepthLevel();
 		this.isRefundable = source.getIsRefundable();
-		this.status = source.getStatus();
-		this.statusUpdateTime = source.getStatusUpdateTime();
 	}
 }

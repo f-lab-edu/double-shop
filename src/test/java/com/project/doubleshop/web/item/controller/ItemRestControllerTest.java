@@ -18,6 +18,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.project.doubleshop.domain.annotation.CustomConfigureMockMvc;
+import com.project.doubleshop.domain.category.service.CategoryService;
 import com.project.doubleshop.domain.common.Status;
 import com.project.doubleshop.domain.item.entity.Item;
 import com.project.doubleshop.domain.item.service.ItemService;
@@ -37,6 +38,9 @@ class ItemRestControllerTest {
 
 	@Autowired
 	private ItemService itemService;
+
+	@Autowired
+	private CategoryService categoryService;
 
 	@Test
 	@Order(1)
@@ -98,13 +102,15 @@ class ItemRestControllerTest {
 	@Order(4)
 	@DisplayName("상품 추가 성공")
 	void createNewItem() throws Exception {
+
 		Item inputItem = Item.builder()
-			.name("name")
+			.name("옷")
 			.brandName("brandName")
 			.description("newDescription")
 			.price(1000)
 			.isOnedayEligible(true)
 			.isFreshEligible(true)
+			.categoryId(1L)
 			.build();
 
 		String itemForm = objectMapper.writeValueAsString(inputItem);

@@ -114,6 +114,9 @@ public class Item {
     @PastOrPresent(message = "field 'createTime' must be present or past")
     private LocalDateTime createTime;
 
+    // 카테고리 외래키
+    private Long categoryId;
+
     // 상품 인스턴스 생성 로직
     public static Item convertToItem(ItemForm form) {
         return Item.builder()
@@ -140,6 +143,7 @@ public class Item {
             .publishedTime(form.getPublishedTime())
             .isOnedayEligible(form.getIsOnedayEligible())
             .isFreshEligible(form.getIsFreshEligible())
+            .categoryId(form.getCategoryId())
             .build();
     }
 
@@ -170,4 +174,5 @@ public class Item {
             );
         }
     }
+    
 }
