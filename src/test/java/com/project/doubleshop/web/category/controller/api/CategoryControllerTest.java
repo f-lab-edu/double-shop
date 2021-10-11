@@ -66,8 +66,6 @@ class CategoryControllerTest {
 			.andExpect(jsonPath("$.categoryType").exists())
 			.andExpect(jsonPath("$.depthLevel").exists())
 			.andExpect(jsonPath("$.isRefundable").exists())
-			.andExpect(jsonPath("$.status").exists())
-			.andExpect(jsonPath("$.statusUpdateTime").exists())
 		;
 
 	}
@@ -76,16 +74,7 @@ class CategoryControllerTest {
 	@Order(2)
 	@DisplayName("카테고리 단건 조회 성공")
 	void findCategory() throws Exception {
-		Category category = categoryService.findCategoryById(1L).orElseGet(() ->
-			Category.builder()
-				.name("패션 잡화")
-				.categoryType(CategoryType.CLOTH)
-				.depthLevel(DepthLevel.DEPTH_ONE)
-				.isRefundable(true)
-				.status(Status.ACTIVATED)
-				.statusUpdateTime(LocalDateTime.now())
-				.build()
-		);
+		Category category = categoryService.findCategoryById(1L);
 
 		categoryService.saveCategory(category);
 
@@ -95,12 +84,6 @@ class CategoryControllerTest {
 				.accept(MediaType.APPLICATION_JSON)
 		).andDo(print())
 			.andExpect(status().is2xxSuccessful())
-			.andExpect(jsonPath("$.name").exists())
-			.andExpect(jsonPath("$.categoryType").exists())
-			.andExpect(jsonPath("$.depthLevel").exists())
-			.andExpect(jsonPath("$.isRefundable").exists())
-			.andExpect(jsonPath("$.status").exists())
-			.andExpect(jsonPath("$.statusUpdateTime").exists())
 		;
 	}
 
@@ -119,8 +102,6 @@ class CategoryControllerTest {
 			.andExpect(jsonPath("$[0].categoryType").exists())
 			.andExpect(jsonPath("$[0].depthLevel").exists())
 			.andExpect(jsonPath("$[0].isRefundable").exists())
-			.andExpect(jsonPath("$[0].status").exists())
-			.andExpect(jsonPath("$[0].statusUpdateTime").exists())
 		;
 	}
 
@@ -149,8 +130,6 @@ class CategoryControllerTest {
 			.andExpect(jsonPath("$.categoryType").exists())
 			.andExpect(jsonPath("$.depthLevel").exists())
 			.andExpect(jsonPath("$.isRefundable").exists())
-			.andExpect(jsonPath("$.status").exists())
-			.andExpect(jsonPath("$.statusUpdateTime").exists())
 			;
 	}
 
@@ -159,7 +138,7 @@ class CategoryControllerTest {
 	@DisplayName("카테고리 삭제 요청 성공")
 	void requestUpdateCategoryStatus() throws Exception {
 		mockMvc.perform(
-			patch("/api/category/{id}", 1)
+			patch("/api/category/{id}", 2)
 				.param("status", Status.TO_BE_DELETED.name())
 		).andDo(print())
 			.andExpect(status().is2xxSuccessful())
