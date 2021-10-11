@@ -2,13 +2,13 @@ package com.project.doubleshop.domain.member.repository;
 
 import com.project.doubleshop.domain.member.entity.Member;
 import com.project.doubleshop.domain.member.mapper.MemberInfoMapper;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
 @Repository
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class MyBatisMemberInfoRepository implements MemberInfoRepository {
 
     private final MemberInfoMapper mapper;

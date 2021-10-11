@@ -2,7 +2,7 @@ package com.project.doubleshop.web.config;
 
 import com.project.doubleshop.domain.member.service.LogInService;
 import com.project.doubleshop.web.member.annotation.CurrentMember;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.core.MethodParameter;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.support.WebDataBinderFactory;
@@ -11,7 +11,7 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
 @Component
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class LogInMemberArgumentResolver implements HandlerMethodArgumentResolver {
 
     private final LogInService logInService;

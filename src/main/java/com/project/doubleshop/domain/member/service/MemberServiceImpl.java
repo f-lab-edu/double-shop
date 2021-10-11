@@ -8,17 +8,17 @@ import com.project.doubleshop.domain.utils.SHA256EncryptionUtil;
 import com.project.doubleshop.web.member.dto.MemberFindResponseDto;
 import com.project.doubleshop.web.member.dto.MemberSaveRequestDto;
 import com.project.doubleshop.web.member.dto.PasswordChangeRequestDto;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@AllArgsConstructor
 @Service
+@RequiredArgsConstructor
 public class MemberServiceImpl implements MemberService {
 
-    private MemberInfoRepository repository;
+    private final MemberInfoRepository repository;
 
-    private SHA256EncryptionUtil encryptionUtil;
+    private final SHA256EncryptionUtil encryptionUtil;
 
     // 아이디 중복 검사
     @Override
