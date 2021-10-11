@@ -80,6 +80,9 @@ public class ItemForm {
 	// 당일배송가능여부
 	private Boolean isFreshEligible;
 
+	// 카테고리
+	private Long categoryId;
+
 	public ItemForm(Item source) {
 		this.id = source.getId();
 		this.name = source.getName();
@@ -104,5 +107,6 @@ public class ItemForm {
 		this.publishedTime = source.getPublishedTime();
 		this.isOnedayEligible = source.getIsOnedayEligible();
 		this.isFreshEligible = source.getIsFreshEligible();
+		this.categoryId = source.getCategoryId();
 	}
 }
