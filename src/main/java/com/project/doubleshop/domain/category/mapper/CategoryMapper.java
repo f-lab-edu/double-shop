@@ -3,6 +3,7 @@ package com.project.doubleshop.domain.category.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.project.doubleshop.domain.category.entity.Category;
 import com.project.doubleshop.domain.common.Status;
