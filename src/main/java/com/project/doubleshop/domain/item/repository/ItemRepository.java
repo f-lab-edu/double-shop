@@ -3,6 +3,7 @@ package com.project.doubleshop.domain.item.repository;
 import java.util.List;
 
 import com.project.doubleshop.domain.common.Manageable;
+import com.project.doubleshop.domain.common.mapper.param.RequestItemsWithCategory;
 import com.project.doubleshop.domain.item.entity.Item;
 import com.project.doubleshop.web.config.support.Pageable;
 import com.project.doubleshop.web.common.StatusRequest;
@@ -28,4 +29,11 @@ public interface ItemRepository extends Manageable<StatusRequest> {
 	 * @return 조회가 완료된 스키마 데이터들과 매핑된 Collection 오브젝트
 	 */
 	List<Item> findAll(Pageable pageable);
+
+	/**
+	 * 카테고리별 페이징이 적용된 상품 리스트 조회
+	 * @param request 카테고리 fk 번호와 페이징 관련 파라미터
+	 * @return 특정 카테고리로 정리된 상품 Collection
+	 */
+	List<Item> findAllWithCategory(RequestItemsWithCategory request);
 }

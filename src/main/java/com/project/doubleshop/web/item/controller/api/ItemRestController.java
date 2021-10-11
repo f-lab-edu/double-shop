@@ -17,10 +17,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.project.doubleshop.domain.category.entity.Category;
+import com.project.doubleshop.domain.category.service.CategoryService;
 import com.project.doubleshop.domain.common.Status;
 import com.project.doubleshop.domain.item.entity.Item;
 import com.project.doubleshop.domain.item.service.ItemService;
 import com.project.doubleshop.web.config.support.Pageable;
+import com.project.doubleshop.web.item.dto.ItemApiResult;
 import com.project.doubleshop.web.item.dto.ItemDTO;
 import com.project.doubleshop.web.item.dto.ItemForm;
 import com.project.doubleshop.web.common.StatusRequest;
@@ -33,26 +36,26 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("api")
 @RequiredArgsConstructor
 public class ItemRestController {
+
 	private final ItemService itemService;
+
+	private final CategoryService categoryService;
 
 	@PostMapping("item")
 	public ResponseEntity<ItemDTO> newItem(@RequestBody ItemForm itemForm) {
-		if(itemService.saveItem(Item.convertToItem(itemForm))) {
-			URI location = ServletUriComponentsBuilder
-				.fromCurrentRequest()
-				.build()
-				.toUri();
-
-			return ResponseEntity.created(location).body(new ItemDTO(Item.convertToItem(itemForm)));
-		} else {
-			throw new InvalidArgumentException();
-		}
+		Item item = itemService.saveItemWithCategory(Item.convertToItem(itemForm));
+		URI location = ServletUriComponentsBuilder
+			.fromCurrentRequest()
+			.build()
+			.toUri();
+		return ResponseEntity.created(location).body(new ItemDTO(item));
 	}
 
 	@GetMapping("item/{id}")
-	public ResponseEntity<ItemDTO> findItem(@PathVariable Long id) {
-		return ResponseEntity.ok(
-			new ItemDTO(itemService.findItemById(id).orElseThrow(() -> new DataNotFoundException(String.format("item ID[%s] not found", id)))));
+	public ResponseEntity<ItemApiResult> findItem(@PathVariable Long id) {
+		Item item = itemService.findItemByIdWithCategory(id);
+		Category category = categoryService.findCategoryById(item.getCategoryId());
+		return ResponseEntity.ok(new ItemApiResult(item, category));
 	}
 
 	@GetMapping("item")
