@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.project.doubleshop.domain.common.Status;
+import com.project.doubleshop.domain.common.mapper.param.RequestItemsWithCategory;
 import com.project.doubleshop.domain.item.entity.Item;
 import com.project.doubleshop.web.config.support.Pageable;
 import com.project.doubleshop.web.common.StatusRequest;
@@ -14,6 +15,7 @@ public interface ItemMapper {
     int insertItem(Item item);
     Item selectByItemId(Long id);
     List<Item> selectAllItems(Pageable pageable);
+    List<Item> selectItemsWithCategory(RequestItemsWithCategory request);
     int updateItem(Item item);
     int updateItemStatus(StatusRequest statusRequest);
     int deleteItem(Status status);
