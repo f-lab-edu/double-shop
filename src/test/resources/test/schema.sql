@@ -26,6 +26,7 @@ CREATE TABLE  IF NOT EXISTS ITEM
     status                     varchar(50)    NULL DEFAULT 'ACTIVATED',
     status_update_time         timestamp      NULL DEFAULT Now(),
     created_time               timestamp      NULL DEFAULT Now(),
+    category_id                bigint         NULL,
     CONSTRAINT PK_ITEM PRIMARY KEY (id)
 );
 
@@ -40,3 +41,5 @@ CREATE TABLE  IF NOT EXISTS CATEGORY
     status_update_time         timestamp      NULL DEFAULT Now(),
     CONSTRAINT PK_CATEGORY PRIMARY KEY (id)
 );
+
+ALTER TABLE ITEM ADD CONSTRAINT FK_CATEGORY FOREIGN KEY (category_id) REFERENCES CATEGORY (id);
