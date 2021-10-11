@@ -34,3 +34,4 @@ build/
 ### application profile ###
 **/application-local.properties
 bin/
+src/main/resources/application.yml
