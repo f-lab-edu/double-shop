@@ -3,3 +3,14 @@ spring:
     url: jdbc:postgresql://localhost:5432/doubleshop
     username: dev
     password: dev
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: user.accnt.update@gmail.com
+    password: zeppelin123$
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
