@@ -86,4 +86,8 @@ public class Member {
         this.password = password;
     }
 
+    public boolean isBanned() {
+        return this.status == Status.BANNED;
+    }
+
 }
