@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import com.project.doubleshop.domain.common.Status;
+import com.project.doubleshop.domain.common.mapper.param.RequestItemsWithCategory;
 import com.project.doubleshop.domain.item.entity.Item;
 import com.project.doubleshop.domain.item.mapper.ItemMapper;
 import com.project.doubleshop.web.config.support.Pageable;
@@ -37,6 +38,11 @@ public class MyBatisItemRepository implements ItemRepository {
 	@Override
 	public List<Item> findAll(Pageable pageable) {
 		return mapper.selectAllItems(pageable);
+	}
+
+	@Override
+	public List<Item> findAllWithCategory(RequestItemsWithCategory request) {
+		return mapper.selectItemsWithCategory(request);
 	}
 
 	@Override

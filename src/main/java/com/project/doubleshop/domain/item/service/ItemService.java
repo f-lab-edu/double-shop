@@ -10,11 +10,14 @@ import javax.validation.Validator;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.project.doubleshop.domain.category.service.CategoryService;
 import com.project.doubleshop.domain.common.Status;
+import com.project.doubleshop.domain.common.mapper.param.RequestItemsWithCategory;
 import com.project.doubleshop.domain.item.entity.Item;
 import com.project.doubleshop.domain.item.repository.ItemRepository;
 import com.project.doubleshop.web.config.support.Pageable;
 import com.project.doubleshop.web.common.StatusRequest;
+import com.project.doubleshop.web.item.dto.ItemApiResult;
 import com.project.doubleshop.web.item.exception.InvalidArgumentException;
 import com.project.doubleshop.web.item.exception.DataNotFoundException;
 
@@ -25,6 +28,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ItemService {
 	private final ItemRepository itemRepository;
+
+	private final CategoryService categoryService;
 
 	private final Validator validator;
 
@@ -44,17 +49,41 @@ public class ItemService {
 
 	@Transactional
 	public Item saveItem(Item item, Long itemId) {
-		findItemById(itemId).orElseThrow(() -> new DataNotFoundException(String.format("item ID '%s' not found", itemId)));
+		findItemById(itemId).orElseThrow(() -> new DataNotFoundException(String.format("item ID '%s' not found.", itemId)));
 		itemRepository.save(item);
 		return itemRepository.findById(itemId);
+	}
+
+	@Transactional
+	public Item saveItemWithCategory(Item item) {
+		Long categoryId = item.getCategoryId();
+		categoryService.findCategoryById(categoryId);
+		saveItem(item);
+		return item;
 	}
 
 	public Optional<Item> findItemById(Long itemId) {
 		return Optional.ofNullable(itemRepository.findById(itemId));
 	}
 
+	public Item findItemByIdWithCategory(Long itemId) {
+		Item item = itemRepository.findById(itemId);
+		if (item == null) {
+			throw new DataNotFoundException(String.format("item ID '%s' not found.", itemId));
+		}
+		Long categoryId = item.getCategoryId();
+		if (categoryId == null) {
+			throw new DataNotFoundException(String.format("category ID '%s' not found.", categoryId));
+		}
+		return item;
+	}
+
 	public List<Item> findItems(Pageable pageable) {
 		return itemRepository.findAll(pageable);
+	}
+
+	public List<Item> findItemsWithCategory(RequestItemsWithCategory request) {
+		return itemRepository.findAllWithCategory(request);
 	}
 
 	@Transactional
