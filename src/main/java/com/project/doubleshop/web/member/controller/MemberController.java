@@ -7,7 +7,7 @@ import com.project.doubleshop.web.member.annotation.LogInCheck;
 import com.project.doubleshop.web.member.dto.*;
 import com.project.doubleshop.domain.member.service.MemberService;
 import com.project.doubleshop.domain.member.service.SmsVerificationService;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
-@AllArgsConstructor
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/members")
 public class MemberController {
 
@@ -29,13 +29,13 @@ public class MemberController {
     private final LogInService logInService;
 
     // 아이디 중복 체크
-    @GetMapping("/{userId}/exists")
+    @GetMapping("/user-id/{userId}/exists")
     public ResponseEntity<Boolean> checkIdDuplicate(@PathVariable String userId) {
         return ResponseEntity.ok(memberService.isIdDuplicate(userId));
     }
 
     // 이메일 중복 체크
-    @GetMapping("/{email}/exists")
+    @GetMapping("/email/{email}/exists")
     public ResponseEntity<Boolean> checkEmailDuplicate(@PathVariable String email) {
         return ResponseEntity.ok(memberService.isEmailDuplicate(email));
     }
@@ -58,12 +58,8 @@ public class MemberController {
 
     // 인증 번호 비교
     @GetMapping("/sms-verification/confirms")
-    public ResponseEntity<Void> verifySms(@RequestParam String phoneNum, String inputNum, HttpSession session) {
-        boolean result = smsVerificationService.verifySms(phoneNum, inputNum, session);
-
-        if (!result) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        }
+    public ResponseEntity<Void> verifySms(@RequestParam SmsVerificationRequestDto requestDto, HttpSession session) {
+        smsVerificationService.verifySms(requestDto, session);
 
         return ResponseEntity.status(HttpStatus.OK).build();
     }
@@ -71,7 +67,6 @@ public class MemberController {
     // 로그인
     @PostMapping("/logIn")
     public ResponseEntity<Void> logIn(@RequestBody LogInRequestDto requestDto) {
-        logInService.checkUserIdAndPassword(requestDto);
         logInService.logIn(requestDto);
 
         return ResponseEntity.status(HttpStatus.OK).build();
