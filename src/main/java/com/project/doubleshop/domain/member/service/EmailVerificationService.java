@@ -16,8 +16,8 @@ import java.util.Random;
 @RequiredArgsConstructor
 public class EmailVerificationService {
 
-    public static String senderAddress;
-    public static final int LIMIT_TIME = 60 * 10;
+    private static String senderAddress;
+    private static final int LIMIT_TIME = 60 * 10;
 
     private final JavaMailSender mailSender;
 
