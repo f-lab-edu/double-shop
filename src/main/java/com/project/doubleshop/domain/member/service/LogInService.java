@@ -12,6 +12,9 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
 
+import static com.project.doubleshop.domain.utils.constants.MemberConstants.AUTH;
+import static com.project.doubleshop.domain.utils.constants.MemberConstants.USER_ID;
+
 @Service
 @RequiredArgsConstructor
 public class LogInService {
@@ -29,11 +32,11 @@ public class LogInService {
 
         setMemberAuthority(userId);
 
-        session.setAttribute("userId", userId);
+        session.setAttribute(USER_ID, userId);
     }
 
     public void logOut() {
-        session.removeAttribute("userId");
+        session.removeAttribute(USER_ID);
     }
 
     public void checkUserIdAndPassword(LogInRequestDto requestDto) {
@@ -50,7 +53,7 @@ public class LogInService {
     }
 
     public String getLogInMember() {
-        return (String) session.getAttribute("userId");
+        return (String) session.getAttribute(USER_ID);
     }
 
     public MemberInfoDto getCurrentMember(String userId) {
@@ -66,7 +69,7 @@ public class LogInService {
                 .orElseThrow(() -> new MemberNotFoundException("존재하지 않는 사용자입니다."));
 
         checkIfBanned(member);
-        session.setAttribute("auth", member.getAuthority());
+        session.setAttribute(AUTH, member.getAuthority());
     }
 
     private void checkIfBanned(Member member) {
