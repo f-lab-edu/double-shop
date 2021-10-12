@@ -1,5 +1,7 @@
 package com.project.doubleshop.domain.member.service;
 
+import com.project.doubleshop.domain.exception.AuthenticationNumberMismatchException;
+import com.project.doubleshop.web.member.dto.SmsVerificationRequestDto;
 import com.twilio.Twilio;
 import com.twilio.exception.TwilioException;
 import com.twilio.rest.api.v2010.account.Message;
@@ -21,7 +23,7 @@ public class SmsVerificationService {
     public static final String SENDER_NUM = "+14405167177";
 
     // 인증 번호를 전송하고, 발송 데이터를 세션에 저장
-    public int sendSms(String country, String phoneNum, HttpSession session) {
+    public void sendSms(String country, String phoneNum, HttpSession session) {
 
         // 인증 번호 생성 (100000 ~ 999999)
         int authNum = randomRange(100000, 999999);
@@ -45,17 +47,20 @@ public class SmsVerificationService {
 
         session.setAttribute(phoneNum, authNum);
         session.setMaxInactiveInterval(60 * 10); // 인증 번호의 유효 시간 설정 (10분)
-
-        return authNum;
     }
 
     // 사용자가 입력한 인증 번호와 세션에 저장된 인증 번호 비교
-    public boolean verifySms(String phoneNum, String inputNum, HttpSession session) {
+    public void verifySms(SmsVerificationRequestDto requestDto, HttpSession session) {
+        String phoneNum = requestDto.getPhoneNum();
+        String inputNum = requestDto.getVerificationNum();
+
         boolean result = session.getAttribute(phoneNum).equals(inputNum);
 
-        session.removeAttribute("phoneNum");
+        if (!result) {
+            throw new AuthenticationNumberMismatchException("인증번호가 일치하지 않습니다.");
+        }
 
-        return result;
+        session.removeAttribute("phoneNum");
     }
 
     private static int randomRange(int n1, int n2) {
