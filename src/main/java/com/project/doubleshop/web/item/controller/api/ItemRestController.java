@@ -26,9 +26,6 @@ import com.project.doubleshop.web.config.support.Pageable;
 import com.project.doubleshop.web.item.dto.ItemApiResult;
 import com.project.doubleshop.web.item.dto.ItemDTO;
 import com.project.doubleshop.web.item.dto.ItemForm;
-import com.project.doubleshop.web.common.StatusRequest;
-import com.project.doubleshop.web.item.exception.InvalidArgumentException;
-import com.project.doubleshop.web.item.exception.DataNotFoundException;
 
 import lombok.RequiredArgsConstructor;
 
@@ -65,13 +62,14 @@ public class ItemRestController {
 
 
 
-	@PutMapping("item/{id}")
-	public ResponseEntity<ItemDTO> editItem(@RequestBody ItemForm itemForm, @PathVariable Long id) {
+	@PatchMapping("item/{id}")
+	public ResponseEntity<ItemApiResult> editItem(@RequestBody ItemForm itemForm, @PathVariable Long id) {
 		Item item = itemService.saveItem(Item.convertToItem(itemForm), id);
-		return ResponseEntity.ok(new ItemDTO(item));
+		Category category = categoryService.findCategoryById(item.getCategoryId());
+		return ResponseEntity.ok(new ItemApiResult(item, category));
 	}
 
-	@PatchMapping("item/{id}")
+	@PatchMapping("item/{id}/status")
 	public ResponseEntity<ItemDTO> requestUpdateItemStatus(@RequestParam Status status, @PathVariable Long id) {
 		return ResponseEntity.ok(new ItemDTO(itemService.updateItemStatus(status, id)));
 	}
