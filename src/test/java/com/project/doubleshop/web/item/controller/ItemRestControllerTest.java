@@ -131,7 +131,7 @@ class ItemRestControllerTest {
 	void assignDeleteOneItem() throws Exception {
 
 		mockMvc.perform(
-			patch("/api/item/{id}", 10)
+			patch("/api/item/{id}/status", 10)
 				.contentType(MediaType.APPLICATION_JSON_VALUE)
 				.param("status", Status.TO_BE_DELETED.name())
 				.accept(MediaType.APPLICATION_JSON)
@@ -149,10 +149,12 @@ class ItemRestControllerTest {
 			.name(changedName)
 			.description("")
 			.brandName("")
-			.price(1)
+			.price(10000)
+			.status(Status.ACTIVATED)
+			.categoryId(1L)
 			.build());
 
-		mockMvc.perform(put("/api/item/{id}", 2)
+		mockMvc.perform(patch("/api/item/{id}", 2)
 					.contentType(MediaType.APPLICATION_JSON_VALUE)
 					.content(itemForm)
 					.accept(MediaType.APPLICATION_JSON)
