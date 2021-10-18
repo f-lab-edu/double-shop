@@ -13,7 +13,7 @@ public enum Status {
 		this.i = i;
 	}
 
-	public static Status valueOf(int value) {
+	public static Status of(int value) {
 		switch (value) {
 			case ACTIVATED_CODE:
 				return Status.ACTIVATED;
