@@ -23,7 +23,7 @@ CREATE TABLE  IF NOT EXISTS ITEM
     published_time             date           NULL DEFAULT Now(),
     is_oneday_eligible         boolean        NULL DEFAULT false,
     is_fresh_eligible          boolean        NULL DEFAULT false,
-    status                     varchar(50)    NULL DEFAULT 'ACTIVATED',
+    status                     integer        DEFAULT 2001,
     status_update_time         timestamp      NULL DEFAULT Now(),
     created_time               timestamp      NULL DEFAULT Now(),
     category_id                bigint         DEFAULT NULL,
@@ -37,7 +37,7 @@ CREATE TABLE  IF NOT EXISTS CATEGORY
     category_type               varchar(50)    NULL DEFAULT 'NOT_ASSIGNED',
     depth_level                 varchar(50)    NULL DEFAULT 'DEPTH_ONE',
     is_refundable               boolean        NULL DEFAULT false,
-    status                     varchar(50)    NULL DEFAULT 'ACTIVATED',
+    status                     integer         DEFAULT 2001,
     status_update_time         timestamp      NULL DEFAULT Now(),
     CONSTRAINT PK_CATEGORY PRIMARY KEY (id)
 );

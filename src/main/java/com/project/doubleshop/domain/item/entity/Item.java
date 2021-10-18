@@ -144,6 +144,7 @@ public class Item {
             .isOnedayEligible(form.getIsOnedayEligible())
             .isFreshEligible(form.getIsFreshEligible())
             .categoryId(form.getCategoryId())
+            .status(form.getStatus())
             .build();
     }
 

@@ -1,11 +1,11 @@
 INSERT INTO CATEGORY (name, category_type, depth_level, is_refundable, status, status_update_time)
 VALUEs (
-           '패션', 'CLOTH', 'DEPTH_ONE', true, 'ACTIVATED', Now()
+           '패션', 'CLOTH', 'DEPTH_ONE', true, 2001, Now()
        );
 
 INSERT INTO CATEGORY (name, category_type, depth_level, is_refundable, status, status_update_time)
 VALUEs (
-           '패션2', 'CLOTH', 'DEPTH_ONE', true, 'ACTIVATED', Now()
+           '패션2', 'CLOTH', 'DEPTH_ONE', true, 2001, Now()
        );
 
 /* 상품 */

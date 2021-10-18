@@ -2,6 +2,7 @@ package com.project.doubleshop.web.item.dto;
 
 import java.time.LocalDate;
 
+import com.project.doubleshop.domain.common.Status;
 import com.project.doubleshop.domain.item.entity.Item;
 
 import lombok.AccessLevel;
@@ -82,6 +83,9 @@ public class ItemForm {
 
 	// 카테고리
 	private Long categoryId;
+
+	// 상태
+	private Status status;
 
 	public ItemForm(Item source) {
 		this.id = source.getId();
