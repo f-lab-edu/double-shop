@@ -17,16 +17,16 @@ public class StatusTypeHandler extends BaseTypeHandler<Status> {
 
 	@Override
 	public Status getNullableResult(ResultSet rs, String columnName) throws SQLException {
-		return Status.valueOf(rs.getInt(columnName));
+		return Status.of(rs.getInt(columnName));
 	}
 
 	@Override
 	public Status getNullableResult(ResultSet rs, int columnIndex) throws SQLException {
-		return Status.valueOf(rs.getInt(columnIndex));
+		return Status.of(rs.getInt(columnIndex));
 	}
 
 	@Override
 	public Status getNullableResult(CallableStatement cs, int columnIndex) throws SQLException {
-		return Status.valueOf(cs.getInt(columnIndex));
+		return Status.of(cs.getInt(columnIndex));
 	}
 }
