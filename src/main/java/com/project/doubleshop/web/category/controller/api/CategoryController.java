@@ -43,16 +43,14 @@ public class CategoryController {
 
 	@PostMapping("category")
 	public ResponseEntity<CategoryDTO> newCategory(@RequestBody CategoryForm categoryForm) {
-		if (categoryService.saveCategory(Category.convertToCategory(categoryForm))) {
-			URI location = ServletUriComponentsBuilder
-				.fromCurrentRequest()
-				.build()
-				.toUri();
+		Category category = categoryService.getInsertedCategory(Category.convertToCategory(categoryForm));
 
-			return ResponseEntity.created(location).body(new CategoryDTO(Category.convertToCategory(categoryForm)));
-		} else {
-			throw new InvalidArgumentException();
-		}
+		URI location = ServletUriComponentsBuilder
+			.fromCurrentRequest()
+			.build()
+			.toUri();
+
+		return ResponseEntity.created(location).body(new CategoryDTO(category));
 	}
 
 	@GetMapping("category/{id}")
