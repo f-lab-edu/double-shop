@@ -15,19 +15,19 @@ import lombok.NoArgsConstructor;
 public class CategoryDTO {
 
 	// 카테고리 pk
-	private Long id;
+	private final Long id;
 
 	// 카테고리 이름
-	private String name;
+	private final String name;
 
 	// 카테고리 타입
-	private CategoryType categoryType;
+	private final CategoryType categoryType;
 
 	// 카테고리 레벨
-	private DepthLevel depthLevel;
+	private final DepthLevel depthLevel;
 
 	// 환불가능 여부
-	private Boolean isRefundable;
+	private final Boolean isRefundable;
 
 	public CategoryDTO(Category source) {
 		this.id = source.getId();
