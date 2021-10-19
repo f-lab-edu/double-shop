@@ -20,12 +20,12 @@ CREATE TABLE  IF NOT EXISTS ITEM
     author                     varchar(50)    DEFAULT NULL,
     publisher                  varchar(50)    DEFAULT NULL,
     isbn                       varchar(50)    DEFAULT NULL,
-    published_time             date           NULL DEFAULT Now(),
-    is_oneday_eligible         boolean        NULL DEFAULT false,
-    is_fresh_eligible          boolean        NULL DEFAULT false,
+    published_time             date           DEFAULT NULL,
+    is_oneday_eligible         boolean        DEFAULT false,
+    is_fresh_eligible          boolean        DEFAULT false,
     status                     integer        DEFAULT 2001,
-    status_update_time         timestamp      NULL DEFAULT Now(),
-    created_time               timestamp      NULL DEFAULT Now(),
+    status_update_time         timestamp      DEFAULT Now(),
+    created_time               timestamp      DEFAULT Now(),
     category_id                bigint         DEFAULT NULL,
     CONSTRAINT PK_ITEM PRIMARY KEY (id)
 );
