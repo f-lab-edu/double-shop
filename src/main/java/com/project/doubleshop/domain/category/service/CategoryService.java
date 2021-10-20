@@ -28,7 +28,7 @@ public class CategoryService {
 
 	@Transactional
 	public Category getInsertedCategory(Category category) {
-		if(saveCategory(category)) {
+		if (saveCategory(category)) {
 			return category;
 		} else {
 			throw new DataNotFoundException(String.format("inserted category id %d not found", category.getId()));
