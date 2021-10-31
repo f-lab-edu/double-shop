@@ -61,10 +61,7 @@ class ItemRestControllerTest {
 				.accept(MediaType.APPLICATION_JSON)
 		)
 			.andDo(print())
-			.andExpect(status().is4xxClientError())
-			.andExpect(jsonPath("$.id").doesNotExist())
-			.andExpect(jsonPath("$.statusCode").value(HttpStatus.NOT_FOUND.getReasonPhrase()))
-			.andExpect(jsonPath("$.message").exists());
+			.andExpect(status().is4xxClientError());
 	}
 
 	@Test
