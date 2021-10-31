@@ -28,19 +28,19 @@ public class TestItem {
 	private Long id;
 
 	// 상품 이름
-	@NotBlank(message = "field 'name' must be provided.")
+	@NotBlank(message = "{blank}")
 	private String name;
 
 	// 상품 한줄설명
-	@NotBlank(message = "field 'description' must be provided.")
+	@NotBlank(message = "{blank}")
 	private String description;
 
 	// 브랜드 명
-	@NotBlank(message = "field 'brandName' must be provided.")
+	@NotBlank(message = "{blank}")
 	private String brandName;
 
 	// 상품 가격
-	@Range(min = 1000, max = 10000000, message = "field 'price' must be between 1000 and 10000000")
+	@Range(min = 1000, max = 10000000, message = "{range}")
 	private Integer price;
 
 	// 용량
@@ -75,7 +75,7 @@ public class TestItem {
 	private String searchKeyword;
 
 	// 총 재고수량
-	@Range(min = 0, message = "field 'stock' must have more than 0")
+	@Range(min = 0, message = "{range}")
 	private Integer stock;
 
 	// 할인가
@@ -92,7 +92,7 @@ public class TestItem {
 	private String isbn;
 
 	// 발행일
-	@PastOrPresent(message = "field 'publishedTime' must be present or past")
+	@PastOrPresent(message = "{past.present}")
 	private LocalDate publishedTime;
 
 	// 하루배송가능여부
@@ -105,11 +105,11 @@ public class TestItem {
 	private Status status;
 
 	// 상태 업데이트 시간
-	@PastOrPresent(message = "field 'statusUpdateTime' must be present or past")
+	@PastOrPresent(message = "{past.present}")
 	private LocalDateTime statusUpdateTime;
 
 	// 등록된 시간
-	@PastOrPresent(message = "field 'createTime' must be present or past")
+	@PastOrPresent(message = "{past.present}")
 	private LocalDateTime createTime;
 
 	// 상품 인스턴스 생성 로직
