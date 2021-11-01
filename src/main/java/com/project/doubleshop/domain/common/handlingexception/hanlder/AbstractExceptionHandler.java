@@ -2,12 +2,16 @@ package com.project.doubleshop.domain.common.handlingexception.hanlder;
 
 import java.util.Collection;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.http.HttpStatus;
 
 import com.project.doubleshop.domain.common.handlingexception.ErrorResponse;
 import com.project.doubleshop.domain.common.handlingexception.SimpleFieldError;
 
 public abstract class AbstractExceptionHandler<T extends Throwable> {
+
+	protected final Log log = LogFactory.getLog(this.getClass());
 
 	private String exceptionName;
 
