@@ -6,10 +6,12 @@ import java.util.Optional;
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
+import javax.validation.Valid;
 import javax.validation.Validator;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 
 import com.project.doubleshop.domain.common.Status;
 import com.project.doubleshop.domain.item.entity.Item;
@@ -21,6 +23,7 @@ import com.project.doubleshop.web.item.exception.ItemNotFoundException;
 
 import lombok.RequiredArgsConstructor;
 
+@Validated
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -30,7 +33,7 @@ public class ItemService {
 	private final Validator validator;
 
 	@Transactional
-	public boolean saveItem(Item item) {
+	public boolean saveItem(@Valid Item item) {
 		Set<ConstraintViolation<Item>> violations = validator.validate(item);
 		if (!violations.isEmpty()) {
 			StringBuilder sb = new StringBuilder();

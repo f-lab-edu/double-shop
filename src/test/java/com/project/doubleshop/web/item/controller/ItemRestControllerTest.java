@@ -97,9 +97,9 @@ class ItemRestControllerTest {
 	void createNewItem() throws Exception {
 		Item inputItem = Item.builder()
 			.name("name")
-			.brandName("brandName")
+			.brandName("")
 			.description("newDescription")
-			.price(1000)
+			.price(1)
 			.build();
 
 		String itemForm = objectMapper.writeValueAsString(inputItem);
@@ -110,8 +110,9 @@ class ItemRestControllerTest {
 				.content(itemForm)
 				.accept(MediaType.APPLICATION_JSON)
 		).andDo(print())
-			.andExpect(status().isCreated())
-			.andExpect(jsonPath("$.name").exists());
+			.andExpect(status().is4xxClientError())
+			// .andExpect(jsonPath("$.name").exists())
+		;
 	}
 
 	@Test
