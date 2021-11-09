@@ -42,7 +42,7 @@ class CategoryControllerTest {
 	private CategoryService categoryService;
 
 	@Test
-	@Order(5)
+	@Order(1)
 	@DisplayName("카테고리 추가 성공")
 	void newCategory() throws Exception {
 
@@ -71,17 +71,17 @@ class CategoryControllerTest {
 
 	}
 
-	@Test
-	@Order(2)
-	@DisplayName("카테고리 단건 조회 성공")
-	void findCategory() throws Exception {
-		mockMvc.perform(
-			get("/api/category/{id}", 1)
-				.contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON)
-		)
-			// .andDo(print())
-			.andExpect(status().is2xxSuccessful())
-		;
-	}
+	// @Test
+	// @Order(2)
+	// @DisplayName("카테고리 단건 조회 성공")
+	// void findCategory() throws Exception {
+	// 	mockMvc.perform(
+	// 		get("/api/category/{id}", 1)
+	// 			.contentType(MediaType.APPLICATION_JSON)
+	// 			.accept(MediaType.APPLICATION_JSON)
+	// 	)
+	// 		// .andDo(print())
+	// 		.andExpect(status().is2xxSuccessful())
+	// 	;
+	// }
 }
