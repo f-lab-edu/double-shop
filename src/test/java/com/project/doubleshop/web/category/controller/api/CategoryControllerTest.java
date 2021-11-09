@@ -42,7 +42,7 @@ class CategoryControllerTest {
 	private CategoryService categoryService;
 
 	@Test
-	@Order(1)
+	@Order(5)
 	@DisplayName("카테고리 추가 성공")
 	void newCategory() throws Exception {
 
@@ -75,10 +75,6 @@ class CategoryControllerTest {
 	@Order(2)
 	@DisplayName("카테고리 단건 조회 성공")
 	void findCategory() throws Exception {
-		Category category = categoryService.findCategoryById(1L);
-
-		categoryService.saveCategory(category);
-
 		mockMvc.perform(
 			get("/api/category/{id}", 1)
 				.contentType(MediaType.APPLICATION_JSON)
