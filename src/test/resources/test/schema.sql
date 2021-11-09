@@ -34,9 +34,9 @@ CREATE TABLE  IF NOT EXISTS CATEGORY
 (
     id                          bigserial      NOT NULL,
     name                        varchar(50)    NOT NULL,
-    category_type               varchar(50)    DEFAULT 'NOT_ASSIGNED',
-    depth_level                 varchar(50)    DEFAULT 'DEPTH_ONE',
-    is_refundable               boolean        DEFAULT false,
+    category_type               varchar(50)    NULL DEFAULT 'NOT_ASSIGNED',
+    depth_level                 varchar(50)    NULL DEFAULT 'DEPTH_ONE',
+    is_refundable               boolean        NULL DEFAULT false,
     status                     integer         DEFAULT 2001,
     status_update_time         timestamp      NULL DEFAULT Now(),
     CONSTRAINT PK_CATEGORY PRIMARY KEY (id)
