@@ -4,6 +4,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import java.time.LocalDateTime;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
@@ -18,10 +20,14 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.project.doubleshop.domain.annotation.CustomConfigureMockMvc;
+import com.project.doubleshop.domain.category.entity.Category;
+import com.project.doubleshop.domain.category.entity.CategoryType;
+import com.project.doubleshop.domain.category.entity.DepthLevel;
 import com.project.doubleshop.domain.category.service.CategoryService;
 import com.project.doubleshop.domain.common.Status;
 import com.project.doubleshop.domain.item.entity.Item;
 import com.project.doubleshop.domain.item.service.ItemService;
+import com.project.doubleshop.web.category.controller.dto.CategoryForm;
 import com.project.doubleshop.web.common.StatusRequest;
 
 @SpringBootTest
@@ -176,5 +182,49 @@ class ItemRestControllerTest {
 				.accept(MediaType.APPLICATION_JSON)
 		).andDo(print())
 			.andExpect(status().is2xxSuccessful());
+	}
+
+	@Test
+	@Order(8)
+	@DisplayName("카테고리 추가 성공")
+	void newCategory() throws Exception {
+
+		String categoryForm = objectMapper.writeValueAsString(new CategoryForm(Category.builder()
+			.name("패션 잡화")
+			.categoryType(CategoryType.CLOTH)
+			.depthLevel(DepthLevel.DEPTH_ONE)
+			.isRefundable(true)
+			.status(Status.ACTIVATED)
+			.statusUpdateTime(LocalDateTime.now())
+			.build()));
+
+		mockMvc.perform(
+			post("/api/category")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(categoryForm)
+				.accept(MediaType.APPLICATION_JSON)
+		)
+			// .andDo(print())
+			.andExpect(status().isCreated())
+			.andExpect(jsonPath("$.name").exists())
+			.andExpect(jsonPath("$.categoryType").exists())
+			.andExpect(jsonPath("$.depthLevel").exists())
+			.andExpect(jsonPath("$.isRefundable").exists())
+		;
+
+	}
+
+	@Test
+	@Order(9)
+	@DisplayName("카테고리 단건 조회 성공")
+	void findCategory() throws Exception {
+		mockMvc.perform(
+			get("/api/category/{id}", 1)
+				.contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON)
+		)
+			// .andDo(print())
+			.andExpect(status().is2xxSuccessful())
+		;
 	}
 }
