@@ -220,8 +220,8 @@ class ItemRestControllerTest {
 	void findCategory() throws Exception {
 		mockMvc.perform(
 			get("/api/category/{id}", 1)
-				.contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON)
+				.param("page", "1")
+				.param("size", "9")
 		)
 			// .andDo(print())
 			.andExpect(status().is2xxSuccessful())
