@@ -3,3 +3,9 @@ spring:
     url: jdbc:postgresql://localhost:5432/doubleshop
     username: dev
     password: dev
+mybatis:
+  config-location: classpath:mybatis-config.xml
+logging:
+  level:
+    org:
+      springframework: info

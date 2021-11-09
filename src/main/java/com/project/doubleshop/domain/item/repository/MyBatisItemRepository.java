@@ -1,0 +1,51 @@
+package com.project.doubleshop.domain.item.repository;
+
+import java.util.List;
+
+import org.springframework.stereotype.Repository;
+
+import com.project.doubleshop.domain.common.Status;
+import com.project.doubleshop.domain.item.entity.Item;
+import com.project.doubleshop.domain.item.mapper.ItemMapper;
+import com.project.doubleshop.web.config.support.Pageable;
+import com.project.doubleshop.web.item.dto.ItemStatusRequest;
+
+import lombok.RequiredArgsConstructor;
+
+@Repository
+@RequiredArgsConstructor
+public class MyBatisItemRepository implements ItemRepository {
+
+	private final ItemMapper mapper;
+
+	@Override
+	public boolean save(Item item) {
+		int affectedRowCnt;
+		if (item.getId() != null) {
+			affectedRowCnt = mapper.updateItem(item);
+		} else {
+			affectedRowCnt = mapper.insertItem(item);
+		}
+		return affectedRowCnt != 0;
+	}
+
+	@Override
+	public Item findById(Long id) {
+		return mapper.selectById(id);
+	}
+
+	@Override
+	public List<Item> findAll(Pageable pageable) {
+		return mapper.selectAllItems(pageable);
+	}
+
+	@Override
+	public int updateStatus(ItemStatusRequest requestDto) {
+		return mapper.updateItemStatus(requestDto);
+	}
+
+	@Override
+	public int deleteData(Status status) {
+		return mapper.deleteItem(status);
+	}
+}

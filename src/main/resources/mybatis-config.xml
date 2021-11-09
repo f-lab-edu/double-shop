@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <typeAliases>
+        <typeAlias type="com.project.doubleshop.domain.item.entity.Item" alias="Item"/>
+        <typeAlias type="com.project.doubleshop.domain.common.Status" alias="Status"/>
+        <typeAlias type="com.project.doubleshop.web.item.dto.ItemStatusRequest" alias="ItemStatusRequest"/>
+        <typeAlias type="com.project.doubleshop.web.config.support.Pageable" alias="Pageable" />
+    </typeAliases>
+    <mappers>
+        <mapper resource="mapper/itemMapper.xml"/>
+    </mappers>
+</configuration>
