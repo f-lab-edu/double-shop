@@ -60,7 +60,8 @@ class CategoryControllerTest {
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(categoryForm)
 				.accept(MediaType.APPLICATION_JSON)
-		).andDo(print())
+		)
+			// .andDo(print())
 			.andExpect(status().isCreated())
 			.andExpect(jsonPath("$.name").exists())
 			.andExpect(jsonPath("$.categoryType").exists())
@@ -82,7 +83,8 @@ class CategoryControllerTest {
 			get("/api/category/{id}", 1)
 				.contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON)
-		).andDo(print())
+		)
+			// .andDo(print())
 			.andExpect(status().is2xxSuccessful())
 		;
 	}
@@ -124,7 +126,8 @@ class CategoryControllerTest {
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(categoryForm)
 				.accept(MediaType.APPLICATION_JSON)
-		).andDo(print())
+		)
+			// .andDo(print())
 			.andExpect(status().is2xxSuccessful())
 			.andExpect(jsonPath("$.name").value("패션 잡화2"))
 			.andExpect(jsonPath("$.categoryType").exists())
@@ -152,7 +155,8 @@ class CategoryControllerTest {
 		mockMvc.perform(
 			delete("/api/category")
 				.param("status", Status.TO_BE_DELETED.name())
-		).andDo(print())
+		)
+			// .andDo(print())
 			.andExpect(status().is2xxSuccessful())
 		;
 	}
