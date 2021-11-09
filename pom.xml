@@ -51,11 +51,6 @@
             <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.github.wannidev</groupId>
-            <artifactId>simplehandlingexception</artifactId>
-            <version>0.0.2</version>
-        </dependency>
-        <dependency>
             <groupId>com.twilio.sdk</groupId>
             <artifactId>twilio</artifactId>
             <version>8.19.1</version>
