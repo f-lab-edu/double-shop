@@ -16,6 +16,11 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 @ContextConfiguration(classes = TestConfig.class)
 class DoubleShopApplicationTests {
 
+    static {
+        System.setProperty("spring.config.location",
+                "classpath:/application.yml,classpath:/application-keystore.yml");
+    }
+
     @Autowired
     ItemMapper itemMapper;
 
