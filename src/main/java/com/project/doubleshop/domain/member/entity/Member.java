@@ -4,6 +4,9 @@ import com.project.doubleshop.domain.member.entity.Authority;
 import com.project.doubleshop.domain.member.entity.Grade;
 import com.project.doubleshop.domain.member.entity.Status;
 import com.project.doubleshop.domain.member.entity.Type;
+import com.project.doubleshop.web.member.dto.MemberFindResponseDto;
+import com.project.doubleshop.web.member.dto.MemberInfoDto;
+import com.project.doubleshop.web.member.dto.MemberSaveRequestDto;
 import lombok.*;
 
 import javax.validation.constraints.Email;
@@ -52,5 +55,39 @@ public class Member {
     private Integer count; // 로그인 횟수
 
     private Date lastLoginTime; // 마지막 로그인 시간
+
+    public MemberInfoDto toMemberInfoDto() {
+        return MemberInfoDto.builder()
+                .userId(this.getUserId())
+                .name(this.getName())
+                .phone(this.getPhone())
+                .email(this.getEmail())
+                .build();
+    }
+
+    public MemberFindResponseDto toMemberFindResponseDto() {
+        return MemberFindResponseDto.builder()
+                .email(this.getEmail())
+                .phone(this.getPhone())
+                .build();
+    }
+
+    public MemberSaveRequestDto toMemberSaveRequestDto() {
+        return MemberSaveRequestDto.builder()
+                .userId(this.getUserId())
+                .password(this.getPassword())
+                .name(this.getName())
+                .email(this.getEmail())
+                .phone(this.getPhone())
+                .build();
+    }
+
+    public void updatePassword(String password) {
+        this.password = password;
+    }
+
+    public boolean isBanned() {
+        return this.status == Status.BANNED;
+    }
 
 }
