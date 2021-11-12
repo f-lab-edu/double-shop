@@ -9,18 +9,18 @@ public class AuthenticationResult {
 
 	private final String sessionToken;
 
-	private final Member member;
+	private final SimpleToken simpleToken;
 
-	public AuthenticationResult(String sessionToken, Member member) {
+	public AuthenticationResult(String sessionToken, SimpleToken simpleToken) {
 		this.sessionToken = sessionToken;
-		this.member = member;
+		this.simpleToken = simpleToken;
 	}
 
 	@Override
 	public String toString() {
 		return "AuthenticationResult{" +
 			"sessionToken='" + sessionToken + '\'' +
-			", member=" + member +
+			", simpleToken=" + simpleToken +
 			'}';
 	}
 }
