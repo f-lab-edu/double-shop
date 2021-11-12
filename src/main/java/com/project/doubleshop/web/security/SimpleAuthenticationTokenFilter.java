@@ -34,7 +34,7 @@ import lombok.extern.slf4j.Slf4j;
 public class SimpleAuthenticationTokenFilter extends GenericFilterBean {
 
 	// 세션 서버를 적용하기 전까지 작동여부만 확인하기 위한 임시 해시맵.
-	private static final Map<String, SimpleToken> sessionMap = new ConcurrentHashMap<>();
+	static final Map<String, SimpleToken> sessionMap = new ConcurrentHashMap<>();
 
 	private final String headerKey;
 

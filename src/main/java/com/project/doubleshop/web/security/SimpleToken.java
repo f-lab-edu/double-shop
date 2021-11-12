@@ -20,6 +20,13 @@ public class SimpleToken {
 
 	private String[] roles;
 
+	public SimpleToken(Long userId, String name, String email, String[] roles) {
+		this.userId = userId;
+		this.name = name;
+		this.email = email;
+		this.roles = roles;
+	}
+
 	public SimpleToken(Long userId, String name, String email, Date issuedAt, Date expiredAt, String[] roles) {
 		this.userId = userId;
 		this.name = name;

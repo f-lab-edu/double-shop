@@ -28,6 +28,10 @@ public class SimpleAuthenticationToken extends AbstractAuthenticationToken {
 		this.credentials = credential;
 	}
 
+	AuthenticationRequest authenticationRequest() {
+		return new AuthenticationRequest(String.valueOf(principal), credentials);
+	}
+
 	@Override
 	public Object getPrincipal() {
 		return principal;
@@ -51,4 +55,5 @@ public class SimpleAuthenticationToken extends AbstractAuthenticationToken {
 			", credentials='" + "[PROTECTED]" + '\'' +
 			'}';
 	}
+
 }
