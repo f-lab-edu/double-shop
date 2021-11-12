@@ -11,7 +11,7 @@ public class SimpleAuthenticationToken extends AbstractAuthenticationToken {
 
 	private String credentials;
 
-	public SimpleAuthenticationToken(Object principal, String credential) {
+	public SimpleAuthenticationToken(String principal, String credential) {
 		super(null);
 		super.setAuthenticated(false);
 
