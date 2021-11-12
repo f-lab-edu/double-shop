@@ -20,7 +20,7 @@ public class SimpleAuthenticationToken extends AbstractAuthenticationToken {
 	}
 
 	public SimpleAuthenticationToken(
-		Collection<? extends GrantedAuthority> authorities, Object principal, String credential) {
+			Object principal, String credential, Collection<? extends GrantedAuthority> authorities) {
 		super(authorities);
 		super.setAuthenticated(true);
 
