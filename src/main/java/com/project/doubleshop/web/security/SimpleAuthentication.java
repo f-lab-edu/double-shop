@@ -5,14 +5,14 @@ import lombok.Getter;
 @Getter
 public class SimpleAuthentication {
 
-	private final Long id;
+	private final Long userId;
 
 	private final String name;
 
 	private final String email;
 
-	public SimpleAuthentication(Long id, String name, String email) {
-		this.id = id;
+	public SimpleAuthentication(Long userId, String name, String email) {
+		this.userId = userId;
 		this.name = name;
 		this.email = email;
 	}
