@@ -1,0 +1,3 @@
+token:
+  header: x-auth-token
+  expirySeconds: 1800
