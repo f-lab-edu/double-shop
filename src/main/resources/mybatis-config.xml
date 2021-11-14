@@ -15,6 +15,7 @@
         <typeAlias type="com.project.doubleshop.domain.category.entity.CategoryType" alias="CategoryType"/>
         <typeAlias type="com.project.doubleshop.domain.category.entity.DepthLevel" alias="DepthLevel"/>
         <typeAlias type="com.project.doubleshop.domain.common.mapper.param.RequestItemsWithCategory" alias="RequestItemsWithCategory"/>
+        <typeAlias type="com.project.doubleshop.domain.member.entity.v2.Member" alias="Member"/>
     </typeAliases>
     <typeHandlers>
         <typeHandler handler="com.project.doubleshop.domain.common.StatusTypeHandler" />
@@ -22,5 +23,6 @@
     <mappers>
         <mapper resource="mapper/itemMapper.xml"/>
         <mapper resource="mapper/categoryMapper.xml"/>
+        <mapper resource="mapper/authenticationMemberMapper.xml"/>
     </mappers>
 </configuration>
