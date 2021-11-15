@@ -51,7 +51,7 @@ public class MemberController {
     // SMS 인증 번호 전송
     @GetMapping("/sms-verification/sends")
     public ResponseEntity<Void> sendSms(@RequestParam String phoneNum, HttpSession session) {
-        smsVerificationService.sendSms("82", phoneNum, session);
+        smsVerificationService.sendMessage(phoneNum, session);
 
         return ResponseEntity.status(HttpStatus.OK).build();
     }
@@ -59,7 +59,7 @@ public class MemberController {
     // 인증 번호 비교
     @GetMapping("/sms-verification/confirms")
     public ResponseEntity<Void> verifySms(@RequestParam SmsVerificationRequestDto requestDto, HttpSession session) {
-        smsVerificationService.verifySms(requestDto, session);
+        smsVerificationService.verifyMessage(requestDto, session);
 
         return ResponseEntity.status(HttpStatus.OK).build();
     }
