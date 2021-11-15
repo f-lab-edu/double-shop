@@ -2,7 +2,7 @@ package com.project.doubleshop.web.security;
 
 import static com.project.doubleshop.web.security.SimpleAuthenticationTokenFilter.*;
 import static org.springframework.security.core.authority.AuthorityUtils.*;
-import static org.springframework.util.TypeUtils.*;
+import static org.springframework.util.ClassUtils.*;
 
 import java.util.UUID;
 
