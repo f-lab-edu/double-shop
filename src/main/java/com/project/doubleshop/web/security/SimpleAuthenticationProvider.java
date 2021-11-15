@@ -16,7 +16,8 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import com.project.doubleshop.domain.exception.MemberNotFoundException;
-import com.project.doubleshop.domain.member.entity.Member;
+import com.project.doubleshop.domain.member.entity.v2.Member;
+import com.project.doubleshop.domain.member.service.AuthMemberService;
 import com.project.doubleshop.domain.member.service.MemberService;
 
 import lombok.RequiredArgsConstructor;
@@ -24,7 +25,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class SimpleAuthenticationProvider implements AuthenticationProvider {
 
-	private final MemberService memberService;
+	private final AuthMemberService memberService;
 
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
@@ -40,7 +41,7 @@ public class SimpleAuthenticationProvider implements AuthenticationProvider {
 
 			// 세션 서버 선택이 확정되면, 코드 변경.
 			String tokenKey = UUID.randomUUID().toString();
-			SimpleToken tokenValue = new SimpleToken(member.getUserId(), member.getName(), member.getEmail(),
+			SimpleToken tokenValue = new SimpleToken(member.getId(), member.getName(), member.getEmail(),
 				new String[] {Role.USER.value()});
 
 			sessionMap.put(tokenKey, tokenValue);
