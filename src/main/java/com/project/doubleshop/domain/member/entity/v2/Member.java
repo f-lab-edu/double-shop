@@ -1,5 +1,7 @@
 package com.project.doubleshop.domain.member.entity.v2;
 
+import static java.time.LocalDateTime.*;
+
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -8,6 +10,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.project.doubleshop.domain.common.Status;
 import com.project.doubleshop.domain.member.entity.Authority;
@@ -70,4 +74,14 @@ public class Member {
 	@PastOrPresent(message = "field 'statusUpdateTime' must be present or past")
 	private LocalDateTime statusUpdateTime;
 
+	public void login(PasswordEncoder passwordEncoder, String credential) {
+		if (!passwordEncoder.matches(credential, password)) {
+			throw new IllegalArgumentException("Bad credential");
+		}
+	}
+
+	public void afterSuccessLogin() {
+		count++;
+		lastLoginTime = now();
+	}
 }
