@@ -1,6 +1,6 @@
 package com.project.doubleshop.domain.member.service;
 
-import com.project.doubleshop.domain.utils.verification.email.EmailContentTemplate;
+import com.project.doubleshop.domain.utils.verification.MessageContentTemplate;
 import com.project.doubleshop.web.member.dto.EmailVerificationRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -53,7 +53,7 @@ public class EmailVerificationService {
 
     // 이메일 내용 생성
     public String makeEmailContent(String verificationNumber) {
-        EmailContentTemplate content = new EmailContentTemplate();
+        MessageContentTemplate content = new MessageContentTemplate();
 
         content.setVerificationNum(verificationNumber);
 
