@@ -38,7 +38,7 @@ public class SimpleAuthenticationTokenFilter extends GenericFilterBean {
 
 	private final String headerKey;
 
-	private final SimpleTokenConfigure simpleTokenConfigure;
+	private final int expirySeconds;
 
 	@Override
 	public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain chain) throws
@@ -59,7 +59,7 @@ public class SimpleAuthenticationTokenFilter extends GenericFilterBean {
 					if (!isExpired(currentToken)) {
 						// refresh expired(if remain 10 min below)
 						if (canRefresh(currentToken, 600)) {
-							currentToken.resetExpiry(simpleTokenConfigure.getExpirySeconds());
+							currentToken.resetExpiry(expirySeconds);
 						}
 
 						Long userId = currentToken.getUserId();
