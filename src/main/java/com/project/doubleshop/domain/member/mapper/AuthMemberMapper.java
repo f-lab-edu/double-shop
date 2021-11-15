@@ -9,4 +9,6 @@ public interface AuthMemberMapper {
 	int insertMember(Member member);
 	Member selectMemberById(Long id);
 	Member selectMemberByEmail(String email);
+	Member selectMemberByUserId(String userId);
+	int updateMember(Member member);
 }
