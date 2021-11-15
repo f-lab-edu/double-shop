@@ -1,9 +1,9 @@
-package com.project.doubleshop.domain.utils.verification.email;
+package com.project.doubleshop.domain.utils.verification;
 
 import lombok.Setter;
 
 @Setter
-public class EmailContentTemplate {
+public class MessageContentTemplate {
 
     private String verificationNum;
 
