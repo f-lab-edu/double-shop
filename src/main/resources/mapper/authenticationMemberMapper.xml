@@ -4,7 +4,7 @@
 <mapper namespace="com.project.doubleshop.domain.member.mapper.AuthMemberMapper">
     <insert id="insertMember" parameterType="Member" useGeneratedKeys="true" keyProperty="id">
         insert into member (user_id, password, name, email, phone, count, last_login_time, status, status_update_time)
-        values (#{userId, #{password}, #{name}, #{email}, #{phone}, #{count}, #{lastLoginTime}, #{status}, #{statusUpdateTime})
+        values (#{userId}, #{password}, #{name}, #{email}, #{phone}, #{count}, #{lastLoginTime}, #{status}, #{statusUpdateTime})
     </insert>
     <select id="selectMemberById" resultType="Member" parameterType="long">
         select id, user_id, password,
