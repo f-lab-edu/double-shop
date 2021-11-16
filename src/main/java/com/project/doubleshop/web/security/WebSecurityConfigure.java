@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.AccessDecisionManager;
@@ -24,16 +23,12 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.security.web.util.matcher.RegexRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 
-import com.project.doubleshop.domain.member.service.AuthMemberService;
-
 import lombok.RequiredArgsConstructor;
 
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class WebSecurityConfigure extends WebSecurityConfigurerAdapter {
-
-	private final AuthMemberService authMemberService;
 
 	private final SimpleTokenConfigure simpleTokenConfigure;
 
@@ -46,14 +41,14 @@ public class WebSecurityConfigure extends WebSecurityConfigurerAdapter {
 		return new SimpleAuthenticationTokenFilter(simpleTokenConfigure.getHeader(), simpleTokenConfigure.getExpirySeconds());
 	}
 
-	@Autowired
-	public void configureAuthentication(AuthenticationManagerBuilder builder, SimpleAuthenticationProvider authenticationProvider) {
-		builder.authenticationProvider(authenticationProvider);
+	@Override
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+		auth.authenticationProvider(simpleAuthenticationProvider());
 	}
 
 	@Bean
 	public SimpleAuthenticationProvider simpleAuthenticationProvider() {
-		return new SimpleAuthenticationProvider(authMemberService);
+		return new SimpleAuthenticationProvider();
 	}
 
 	@Bean
