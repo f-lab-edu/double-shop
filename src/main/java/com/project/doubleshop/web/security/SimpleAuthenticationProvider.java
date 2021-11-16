@@ -18,14 +18,15 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import com.project.doubleshop.domain.exception.MemberNotFoundException;
 import com.project.doubleshop.domain.member.entity.v2.Member;
 import com.project.doubleshop.domain.member.service.AuthMemberService;
-import com.project.doubleshop.domain.member.service.MemberService;
 
-import lombok.RequiredArgsConstructor;
-
-@RequiredArgsConstructor
 public class SimpleAuthenticationProvider implements AuthenticationProvider {
 
-	private final AuthMemberService memberService;
+	private AuthMemberService authMemberService;
+
+	@Autowired
+	public void setAuthMemberService(AuthMemberService authMemberService) {
+		this.authMemberService = authMemberService;
+	}
 
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
@@ -35,7 +36,7 @@ public class SimpleAuthenticationProvider implements AuthenticationProvider {
 
 	private Authentication processMemberAuthentication(AuthenticationRequest request) {
 		try {
-			Member member = memberService.login(request.getPrincipal(), request.getCredential());
+			Member member = authMemberService.login(request.getPrincipal(), request.getCredential());
 			SimpleAuthenticationToken authenticated =
 				new SimpleAuthenticationToken(member.getId(), null, createAuthorityList(Role.USER.value()));
 
