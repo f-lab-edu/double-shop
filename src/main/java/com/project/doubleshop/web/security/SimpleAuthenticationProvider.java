@@ -42,7 +42,7 @@ public class SimpleAuthenticationProvider implements AuthenticationProvider {
 
 			// 세션 서버 선택이 확정되면, 코드 변경.
 			String tokenKey = UUID.randomUUID().toString();
-			SimpleToken tokenValue = new SimpleToken(member.getId(), member.getName(), member.getEmail(),
+			SimpleToken tokenValue = new SimpleToken(member.getId(), member.getUserId(), member.getName(), member.getEmail(),
 				new String[] {Role.USER.value()});
 
 			sessionMap.put(tokenKey, tokenValue);

@@ -6,12 +6,9 @@ import static java.util.stream.Collectors.*;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.stream.Collectors;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -62,15 +59,16 @@ public class SimpleAuthenticationTokenFilter extends GenericFilterBean {
 							currentToken.resetExpiry(expirySeconds);
 						}
 
-						Long userId = currentToken.getUserId();
+						Long id = currentToken.getId();
+						String userId = currentToken.getUserId();
 						String name = currentToken.getName();
 						String email = currentToken.getEmail();
 
 						List<GrantedAuthority> authorities = obtainAuthorities(currentToken);
 
-						if (nonNull(userId) && nonNull(name) && nonNull(email) && authorities.size() > 0) {
+						if (nonNull(id) && nonNull(userId) && nonNull(name) && nonNull(email) && authorities.size() > 0) {
 							SimpleAuthenticationToken authentication =
-								new SimpleAuthenticationToken(new SimpleAuthentication(userId, name, email), null, authorities);
+								new SimpleAuthenticationToken(new SimpleAuthentication(id, userId, name, email), null, authorities);
 							authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 							SecurityContextHolder.getContext().setAuthentication(authentication);
 						}

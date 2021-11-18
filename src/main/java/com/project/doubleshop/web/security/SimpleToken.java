@@ -8,7 +8,9 @@ import lombok.Getter;
 @Getter
 public class SimpleToken {
 
-	private Long userId;
+	private Long id;
+
+	private String userId;
 
 	private String name;
 
@@ -20,15 +22,23 @@ public class SimpleToken {
 
 	private String[] roles;
 
-	public SimpleToken(Long userId, String name, String email, String[] roles) {
+	public SimpleToken(Long id, String name, String email, String[] roles) {
+		this.id = id;
+		this.name = name;
+		this.email = email;
+		this.roles = roles;
+	}
+
+	public SimpleToken(Long id, String userId, String name, String email, String[] roles) {
+		this.id = id;
 		this.userId = userId;
 		this.name = name;
 		this.email = email;
 		this.roles = roles;
 	}
 
-	public SimpleToken(Long userId, String name, String email, Date issuedAt, Date expiredAt, String[] roles) {
-		this.userId = userId;
+	public SimpleToken(Long id, String name, String email, Date issuedAt, Date expiredAt, String[] roles) {
+		this.id = id;
 		this.name = name;
 		this.email = email;
 		this.issuedAt = issuedAt;
@@ -44,7 +54,7 @@ public class SimpleToken {
 	@Override
 	public String toString() {
 		return "SimpleToken{" +
-			"userId=" + userId +
+			"id=" + id +
 			", issuedAt=" + issuedAt +
 			", expiredAt=" + expiredAt +
 			", roles=" + Arrays.toString(roles) +
