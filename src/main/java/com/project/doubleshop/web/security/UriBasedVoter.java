@@ -47,7 +47,7 @@ public class UriBasedVoter implements AccessDecisionVoter<FilterInvocation> {
 		Long targetId = idExtractor.apply(request.getRequestURI());
 
 		// 본인 확인
-		if (principal.getMemberId().equals(targetId)) {
+		if (principal.getId().equals(targetId)) {
 			return ACCESS_GRANTED;
 		}
 
