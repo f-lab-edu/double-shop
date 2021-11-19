@@ -12,10 +12,6 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
 
-/**
- * Twilio API를 활용한 SMS
- * 회원가입 시 사용자가 입력한 휴대폰 번호로 인증 번호 전송
- */
 @Service
 public class TwilioSmsVerificationService implements SmsVerificationService {
 
@@ -28,11 +24,9 @@ public class TwilioSmsVerificationService implements SmsVerificationService {
     @Value("${sender-num}")
     private String SENDER_NUM;
 
-    // 인증 번호를 전송하고, 발송 데이터를 세션에 저장
     @Override
     public void sendMessage(String phoneNum, HttpSession session) {
 
-        // 인증 번호 생성 (100000 ~ 999999)
         String authNum = SmsVerificationService.makeAuthNumber();
 
         // 수신자 휴대폰 번호: +(국가 번호) (전화 번호)
@@ -56,7 +50,6 @@ public class TwilioSmsVerificationService implements SmsVerificationService {
         session.setMaxInactiveInterval(60 * 10); // 인증 번호의 유효 시간 설정 (10분)
     }
 
-    // 사용자가 입력한 인증 번호와 세션에 저장된 인증 번호 비교
     @Override
     public void verifyMessage(SmsVerificationRequestDto requestDto, HttpSession session) {
         String phoneNum = requestDto.getPhoneNum();
