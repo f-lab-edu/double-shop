@@ -31,6 +31,11 @@ public class AuthMemberService {
 		return member;
 	}
 
+	public Member findById(Long id) {
+		return Optional.of(authMemberRepository.findById(id)).orElseThrow(
+			() -> new MemberNotFoundException(String.format("id [%s] NotFound", id)));
+	}
+
 	private void update(Member member) {
 		authMemberRepository.save(member);
 	}
