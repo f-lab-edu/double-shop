@@ -17,11 +17,14 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.web.filter.GenericFilterBean;
+
+import com.project.doubleshop.web.security.redis.SessionService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -33,9 +36,16 @@ public class SimpleAuthenticationTokenFilter extends GenericFilterBean {
 	// 세션 서버를 적용하기 전까지 작동여부만 확인하기 위한 임시 해시맵.
 	static final Map<String, SimpleToken> sessionMap = new ConcurrentHashMap<>();
 
+	private SessionService sessionService;
+
 	private final String headerKey;
 
 	private final int expirySeconds;
+
+	@Autowired
+	public void setSessionService(SessionService sessionService) {
+		this.sessionService = sessionService;
+	}
 
 	@Override
 	public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain chain) throws
@@ -49,7 +59,8 @@ public class SimpleAuthenticationTokenFilter extends GenericFilterBean {
 			if (tokenKey != null) {
 				try {
 					// verify token
-					SimpleToken currentToken = sessionMap.get(tokenKey);
+					// SimpleToken currentToken = sessionMap.get(tokenKey);
+					SimpleToken currentToken = sessionService.findBySessionId(tokenKey);
 					log.debug("authentication parse from: {}", currentToken);
 
 					// if not expired
@@ -57,6 +68,7 @@ public class SimpleAuthenticationTokenFilter extends GenericFilterBean {
 						// refresh expired(if remain 10 min below)
 						if (canRefresh(currentToken, 600)) {
 							currentToken.resetExpiry(expirySeconds);
+							sessionService.resetExpiry(tokenKey, currentToken);
 						}
 
 						Long id = currentToken.getId();
