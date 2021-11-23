@@ -3,9 +3,13 @@ package com.project.doubleshop.web.security;
 import java.util.Arrays;
 import java.util.Date;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class SimpleToken {
 
 	private Long id;
@@ -22,30 +26,6 @@ public class SimpleToken {
 
 	private String[] roles;
 
-	public SimpleToken(Long id, String name, String email, String[] roles) {
-		this.id = id;
-		this.name = name;
-		this.email = email;
-		this.roles = roles;
-	}
-
-	public SimpleToken(Long id, String userId, String name, String email, String[] roles) {
-		this.id = id;
-		this.userId = userId;
-		this.name = name;
-		this.email = email;
-		this.roles = roles;
-	}
-
-	public SimpleToken(Long id, String name, String email, Date issuedAt, Date expiredAt, String[] roles) {
-		this.id = id;
-		this.name = name;
-		this.email = email;
-		this.issuedAt = issuedAt;
-		this.expiredAt = expiredAt;
-		this.roles = roles;
-	}
-
 	public void resetExpiry(int expirySeconds) {
 		Date now = new Date();
 		this.expiredAt = new Date(now.getTime() + expirySeconds * 1000L);
@@ -55,6 +35,9 @@ public class SimpleToken {
 	public String toString() {
 		return "SimpleToken{" +
 			"id=" + id +
+			", userId='" + userId + '\'' +
+			", name='" + name + '\'' +
+			", email='" + email + '\'' +
 			", issuedAt=" + issuedAt +
 			", expiredAt=" + expiredAt +
 			", roles=" + Arrays.toString(roles) +
