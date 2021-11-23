@@ -74,6 +74,13 @@ public class Member {
 	@PastOrPresent(message = "field 'statusUpdateTime' must be present or past")
 	private LocalDateTime statusUpdateTime;
 
+	private LocalDateTime createTime;
+
+	public Member(String userId, String password, String name, String email, String phone) {
+		this(null, userId, password, name, email, phone, 0, null,
+			Status.ACTIVATED, LocalDateTime.now(), LocalDateTime.now());
+	}
+
 	public void login(PasswordEncoder passwordEncoder, String credential) {
 		if (!passwordEncoder.matches(credential, password)) {
 			throw new IllegalArgumentException("Bad credential");
@@ -83,5 +90,22 @@ public class Member {
 	public void afterSuccessLogin() {
 		count++;
 		lastLoginTime = now();
+	}
+
+	@Override
+	public String toString() {
+		return "Member{" +
+			"id=" + id +
+			", userId='" + userId + '\'' +
+			", password='" + password + '\'' +
+			", name='" + name + '\'' +
+			", email='" + email + '\'' +
+			", phone='" + phone + '\'' +
+			", count=" + count +
+			", lastLoginTime=" + lastLoginTime +
+			", status=" + status +
+			", statusUpdateTime=" + statusUpdateTime +
+			", createTime=" + createTime +
+			'}';
 	}
 }
