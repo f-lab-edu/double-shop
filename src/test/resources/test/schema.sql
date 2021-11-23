@@ -47,12 +47,13 @@ ALTER TABLE ITEM ADD CONSTRAINT FK_CATEGORY FOREIGN KEY (category_id) REFERENCES
 CREATE TABLE IF NOT EXISTS MEMBER (
     id                          bigserial      NOT NULL,
     user_id                     varchar(50)    NOT NULL,
-    password                    varchar(50)    NOT NULL,
+    password                    varchar(255)    NOT NULL,
     name                        varchar(50)    NOT NULL,
     email                       varchar(50)    NOT NULL,
     phone                       varchar(50)    NOT NULL,
     count                       integer        NULL DEFAULT 0,
     last_login_time             timestamp      DEFAULT NULL,
     status                      integer        NULL DEFAULT 2001,
-    status_update_time          timestamp      NULL DEFAULT now()
+    status_update_time          timestamp      NULL DEFAULT now(),
+    create_time                 timestamp      NULL DEFAULT now()
 );
