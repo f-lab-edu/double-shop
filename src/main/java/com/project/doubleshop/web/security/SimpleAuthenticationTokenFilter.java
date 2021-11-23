@@ -7,8 +7,6 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -33,9 +31,6 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class SimpleAuthenticationTokenFilter extends GenericFilterBean {
 
-	// 세션 서버를 적용하기 전까지 작동여부만 확인하기 위한 임시 해시맵.
-	static final Map<String, SimpleToken> sessionMap = new ConcurrentHashMap<>();
-
 	private SessionService sessionService;
 
 	private final String headerKey;
@@ -59,7 +54,6 @@ public class SimpleAuthenticationTokenFilter extends GenericFilterBean {
 			if (tokenKey != null) {
 				try {
 					// verify token
-					// SimpleToken currentToken = sessionMap.get(tokenKey);
 					SimpleToken currentToken = sessionService.findBySessionId(tokenKey);
 					log.debug("authentication parse from: {}", currentToken);
 
