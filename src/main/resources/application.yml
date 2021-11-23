@@ -29,3 +29,6 @@ azure:
     refresh-interval: 1800000
     enabled: true
     secret-keys: account-sid, auth-token, sender-num
+token:
+  header: x-auth-token
+  expirySeconds: 1800
