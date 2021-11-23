@@ -43,4 +43,10 @@ public class AuthMemberService {
 	public Optional<Member> findByUserId(String userId) {
 		return Optional.of(authMemberRepository.findByUserId(userId));
 	}
+
+	public Member join(String userId, String credential, String name, String email, String phone) {
+		Member member = new Member(userId, passwordEncoder.encode(credential), name, email, phone);
+		authMemberRepository.save(member);
+		return member;
+	}
 }
