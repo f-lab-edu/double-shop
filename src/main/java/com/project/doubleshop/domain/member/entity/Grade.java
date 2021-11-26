@@ -5,6 +5,7 @@ package com.project.doubleshop.domain.member.entity;
  * SILVER: 실버 회원
  * GOLD: 골드 회원
  */
+@Deprecated
 public enum Grade {
     NORMAL,
     SILVER,
