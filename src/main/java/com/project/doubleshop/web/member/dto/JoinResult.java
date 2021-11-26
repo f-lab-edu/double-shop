@@ -1,4 +1,4 @@
-package com.project.doubleshop.web.security;
+package com.project.doubleshop.web.member.dto;
 
 import java.time.LocalDateTime;
 

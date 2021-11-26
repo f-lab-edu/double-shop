@@ -1,4 +1,4 @@
-package com.project.doubleshop.web.security;
+package com.project.doubleshop.web.config.security;
 
 import static java.util.Objects.*;
 import static java.util.stream.Collectors.*;
@@ -22,7 +22,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.web.filter.GenericFilterBean;
 
-import com.project.doubleshop.web.security.redis.SessionService;
+import com.project.doubleshop.web.config.security.redis.SessionService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

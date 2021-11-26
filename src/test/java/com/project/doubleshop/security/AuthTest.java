@@ -10,7 +10,6 @@ import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ActiveProfiles;
 
 
@@ -18,8 +17,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.project.doubleshop.domain.annotation.CustomConfigureMockMvc;
 import com.project.doubleshop.domain.member.entity.v2.Member;
 import com.project.doubleshop.domain.member.service.AuthMemberService;
-import com.project.doubleshop.web.security.AuthenticationRequest;
-import com.project.doubleshop.web.security.JoinRequest;
+import com.project.doubleshop.web.member.dto.AuthenticationRequest;
+import com.project.doubleshop.web.member.dto.JoinRequest;
 
 
 @SpringBootTest
@@ -31,9 +30,6 @@ public class AuthTest {
 
 	@Autowired
 	AuthMemberService authMemberService;
-
-	@Autowired
-	PasswordEncoder passwordEncoder;
 
 	@Autowired
 	ObjectMapper objectMapper;

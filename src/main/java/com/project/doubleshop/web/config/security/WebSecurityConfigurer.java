@@ -1,4 +1,4 @@
-package com.project.doubleshop.web.security;
+package com.project.doubleshop.web.config.security;
 
 import java.util.ArrayList;
 import java.util.List;

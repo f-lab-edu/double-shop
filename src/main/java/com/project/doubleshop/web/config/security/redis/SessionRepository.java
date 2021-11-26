@@ -1,6 +1,6 @@
-package com.project.doubleshop.web.security.redis;
+package com.project.doubleshop.web.config.security.redis;
 
-import com.project.doubleshop.web.security.SimpleToken;
+import com.project.doubleshop.web.config.security.SimpleToken;
 
 public interface SessionRepository {
 

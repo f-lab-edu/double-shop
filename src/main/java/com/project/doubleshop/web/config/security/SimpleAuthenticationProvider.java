@@ -1,4 +1,4 @@
-package com.project.doubleshop.web.security;
+package com.project.doubleshop.web.config.security;
 
 import static org.springframework.security.core.authority.AuthorityUtils.*;
 import static org.springframework.util.ClassUtils.*;
@@ -18,7 +18,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import com.project.doubleshop.domain.exception.MemberNotFoundException;
 import com.project.doubleshop.domain.member.entity.v2.Member;
 import com.project.doubleshop.domain.member.service.AuthMemberService;
-import com.project.doubleshop.web.security.redis.SessionService;
+import com.project.doubleshop.web.config.security.redis.SessionService;
+import com.project.doubleshop.web.member.dto.AuthenticationRequest;
+import com.project.doubleshop.web.member.dto.AuthenticationResult;
 
 import lombok.RequiredArgsConstructor;
 
