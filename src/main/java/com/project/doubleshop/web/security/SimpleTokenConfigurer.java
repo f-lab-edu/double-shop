@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @ConfigurationProperties(prefix = "token")
-public class SimpleTokenConfigure {
+public class SimpleTokenConfigurer {
 
 	private String header;
 

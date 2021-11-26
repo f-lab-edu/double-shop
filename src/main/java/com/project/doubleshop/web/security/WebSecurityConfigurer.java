@@ -28,9 +28,9 @@ import lombok.RequiredArgsConstructor;
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
-public class WebSecurityConfigure extends WebSecurityConfigurerAdapter {
+public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
 
-	private final SimpleTokenConfigure simpleTokenConfigure;
+	private final SimpleTokenConfigurer simpleTokenConfigurer;
 
 	private final SimpleAccessDeniedHandler accessDeniedHandler;
 
@@ -38,7 +38,7 @@ public class WebSecurityConfigure extends WebSecurityConfigurerAdapter {
 
 	@Bean
 	public SimpleAuthenticationTokenFilter simpleAuthenticationTokenFilter() {
-		return new SimpleAuthenticationTokenFilter(simpleTokenConfigure.getHeader(), simpleTokenConfigure.getExpirySeconds());
+		return new SimpleAuthenticationTokenFilter(simpleTokenConfigurer.getHeader(), simpleTokenConfigurer.getExpirySeconds());
 	}
 
 	@Override
