@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.doubleshop.domain.exception.UnauthenticatedMemberException;
-import com.project.doubleshop.web.security.AuthenticationResultDto;
-import com.project.doubleshop.web.security.AuthenticationRequest;
-import com.project.doubleshop.web.security.AuthenticationResult;
-import com.project.doubleshop.web.security.SimpleAuthenticationToken;
+import com.project.doubleshop.web.member.dto.AuthenticationResultDto;
+import com.project.doubleshop.web.member.dto.AuthenticationRequest;
+import com.project.doubleshop.web.member.dto.AuthenticationResult;
+import com.project.doubleshop.web.config.security.SimpleAuthenticationToken;
 
 import lombok.RequiredArgsConstructor;
 

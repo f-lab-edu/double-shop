@@ -1,4 +1,4 @@
-package com.project.doubleshop.web.security.redis;
+package com.project.doubleshop.web.config.security.redis;
 
 import java.time.Duration;
 
@@ -6,8 +6,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Repository;
 
-import com.project.doubleshop.domain.member.entity.v2.Member;
-import com.project.doubleshop.web.security.SimpleToken;
+import com.project.doubleshop.web.config.security.SimpleToken;
 
 import lombok.RequiredArgsConstructor;
 

@@ -1,4 +1,6 @@
-package com.project.doubleshop.web.security;
+package com.project.doubleshop.web.member.dto;
+
+import com.project.doubleshop.web.config.security.SimpleToken;
 
 import lombok.Getter;
 

@@ -1,7 +1,6 @@
-package com.project.doubleshop.web.security;
+package com.project.doubleshop.web.member.dto;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 import com.project.doubleshop.domain.member.entity.v2.Member;
 

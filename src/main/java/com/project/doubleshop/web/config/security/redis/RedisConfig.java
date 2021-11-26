@@ -1,4 +1,4 @@
-package com.project.doubleshop.web.security.redis;
+package com.project.doubleshop.web.config.security.redis;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

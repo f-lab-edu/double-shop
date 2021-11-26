@@ -8,13 +8,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.project.doubleshop.domain.exception.MemberNotFoundException;
 import com.project.doubleshop.domain.member.entity.v2.Member;
 import com.project.doubleshop.domain.member.service.AuthMemberService;
-import com.project.doubleshop.web.security.JoinRequest;
-import com.project.doubleshop.web.security.JoinResult;
-import com.project.doubleshop.web.security.MemberDto;
-import com.project.doubleshop.web.security.SimpleAuthentication;
+import com.project.doubleshop.web.member.dto.JoinRequest;
+import com.project.doubleshop.web.member.dto.JoinResult;
+import com.project.doubleshop.web.member.dto.MemberDto;
+import com.project.doubleshop.web.config.security.SimpleAuthentication;
 
 import lombok.RequiredArgsConstructor;
 
