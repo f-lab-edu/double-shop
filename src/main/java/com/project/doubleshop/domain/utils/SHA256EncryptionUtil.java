@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+@Deprecated
 // 비밀번호 암호화 - SHA-256(복호화 불가능)
 @Component
 public class SHA256EncryptionUtil {
