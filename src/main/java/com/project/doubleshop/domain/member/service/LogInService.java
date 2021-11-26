@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import static com.project.doubleshop.domain.utils.constants.MemberConstants.AUTH;
 import static com.project.doubleshop.domain.utils.constants.MemberConstants.USER_ID;
 
+@Deprecated
 @Service
 @RequiredArgsConstructor
 public class LogInService {
