@@ -5,6 +5,7 @@ package com.project.doubleshop.domain.member.entity;
  * SELLER: 판매자
  * ADMIN: 관리자
  */
+@Deprecated
 public enum Authority {
     CONSUMER,
     SELLER,

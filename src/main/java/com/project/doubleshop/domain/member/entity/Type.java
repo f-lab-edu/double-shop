@@ -5,6 +5,7 @@ package com.project.doubleshop.domain.member.entity;
  * NAVER: 네이버 계정 사용자
  * KAKAO: 카카오 계정 사용자
  */
+@Deprecated
 public enum Type {
     REGULAR,
     NAVER,

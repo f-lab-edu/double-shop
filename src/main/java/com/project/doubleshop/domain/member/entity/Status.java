@@ -5,6 +5,7 @@ package com.project.doubleshop.domain.member.entity;
  * DORMANT: 휴면 계정
  * BANNED: 사용 정지된 계정
  */
+@Deprecated
 public enum Status {
     NORMAL,
     DORMANT,
