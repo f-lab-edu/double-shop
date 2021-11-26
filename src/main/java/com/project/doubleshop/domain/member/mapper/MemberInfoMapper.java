@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import java.util.Optional;
 
+@Deprecated
 @Mapper
 public interface MemberInfoMapper {
 
