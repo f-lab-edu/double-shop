@@ -1,6 +1,5 @@
 package com.project.doubleshop.web.security;
 
-import static com.project.doubleshop.web.security.SimpleAuthenticationTokenFilter.*;
 import static org.springframework.security.core.authority.AuthorityUtils.*;
 import static org.springframework.util.ClassUtils.*;
 
@@ -28,7 +27,7 @@ public class SimpleAuthenticationProvider implements AuthenticationProvider {
 
 	private AuthMemberService authMemberService;
 
-	private SimpleTokenConfigure simpleTokenConfigure;
+	private SimpleTokenConfigurer simpleTokenConfigurer;
 
 	private SessionService sessionService;
 
@@ -38,8 +37,8 @@ public class SimpleAuthenticationProvider implements AuthenticationProvider {
 	}
 
 	@Autowired
-	public void setSimpleTokenConfigure(SimpleTokenConfigure simpleTokenConfigure) {
-		this.simpleTokenConfigure = simpleTokenConfigure;
+	public void setSimpleTokenConfigurer(SimpleTokenConfigurer simpleTokenConfigurer) {
+		this.simpleTokenConfigurer = simpleTokenConfigurer;
 	}
 
 	@Autowired
@@ -60,7 +59,7 @@ public class SimpleAuthenticationProvider implements AuthenticationProvider {
 				new SimpleAuthenticationToken(member.getId(), null, createAuthorityList(Role.USER.value()));
 
 			Date now = new Date();
-			int expirySeconds = simpleTokenConfigure.getExpirySeconds();
+			int expirySeconds = simpleTokenConfigurer.getExpirySeconds();
 
 			// 세션 서버 선택이 확정되면, 코드 변경.
 			String tokenKey = UUID.randomUUID().toString();
