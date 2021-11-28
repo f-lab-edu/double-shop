@@ -1,6 +1,5 @@
 package com.project.doubleshop.domain.member.service;
 
-import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -8,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.project.doubleshop.domain.exception.MemberNotFoundException;
-import com.project.doubleshop.domain.member.entity.v2.Member;
+import com.project.doubleshop.domain.member.entity.Member;
 import com.project.doubleshop.domain.member.repository.AuthMemberRepository;
 
 import lombok.RequiredArgsConstructor;

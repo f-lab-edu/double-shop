@@ -2,7 +2,7 @@ package com.project.doubleshop.domain.member.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.project.doubleshop.domain.member.entity.v2.Member;
+import com.project.doubleshop.domain.member.entity.Member;
 
 @Mapper
 public interface AuthMemberMapper {

@@ -15,7 +15,7 @@ import org.springframework.test.context.ActiveProfiles;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.project.doubleshop.domain.annotation.CustomConfigureMockMvc;
-import com.project.doubleshop.domain.member.entity.v2.Member;
+import com.project.doubleshop.domain.member.entity.Member;
 import com.project.doubleshop.domain.member.service.AuthMemberService;
 import com.project.doubleshop.web.member.dto.AuthenticationRequest;
 import com.project.doubleshop.web.member.dto.JoinRequest;

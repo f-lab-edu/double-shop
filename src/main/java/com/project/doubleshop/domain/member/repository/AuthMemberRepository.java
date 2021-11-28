@@ -1,6 +1,6 @@
 package com.project.doubleshop.domain.member.repository;
 
-import com.project.doubleshop.domain.member.entity.v2.Member;
+import com.project.doubleshop.domain.member.entity.Member;
 
 public interface AuthMemberRepository {
 
