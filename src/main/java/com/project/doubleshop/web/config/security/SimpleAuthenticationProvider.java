@@ -16,7 +16,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import com.project.doubleshop.domain.exception.MemberNotFoundException;
-import com.project.doubleshop.domain.member.entity.v2.Member;
+import com.project.doubleshop.domain.member.entity.Member;
 import com.project.doubleshop.domain.member.service.AuthMemberService;
 import com.project.doubleshop.web.config.security.redis.SessionService;
 import com.project.doubleshop.web.member.dto.AuthenticationRequest;

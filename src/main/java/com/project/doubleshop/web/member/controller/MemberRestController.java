@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.project.doubleshop.domain.member.entity.v2.Member;
+import com.project.doubleshop.domain.member.entity.Member;
 import com.project.doubleshop.domain.member.service.AuthMemberService;
 import com.project.doubleshop.web.member.dto.JoinRequest;
 import com.project.doubleshop.web.member.dto.JoinResult;

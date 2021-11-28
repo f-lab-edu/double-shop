@@ -1,9 +1,8 @@
-package com.project.doubleshop.domain.member.entity.v2;
+package com.project.doubleshop.domain.member.entity;
 
 import static java.time.LocalDateTime.*;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -14,12 +13,6 @@ import javax.validation.constraints.Size;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.project.doubleshop.domain.common.Status;
-import com.project.doubleshop.domain.member.entity.Authority;
-import com.project.doubleshop.domain.member.entity.Grade;
-import com.project.doubleshop.domain.member.entity.Type;
-import com.project.doubleshop.web.member.dto.MemberFindResponseDto;
-import com.project.doubleshop.web.member.dto.MemberInfoDto;
-import com.project.doubleshop.web.member.dto.MemberSaveRequestDto;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

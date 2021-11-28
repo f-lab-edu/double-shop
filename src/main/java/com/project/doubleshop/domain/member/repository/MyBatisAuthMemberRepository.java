@@ -2,7 +2,7 @@ package com.project.doubleshop.domain.member.repository;
 
 import org.springframework.stereotype.Repository;
 
-import com.project.doubleshop.domain.member.entity.v2.Member;
+import com.project.doubleshop.domain.member.entity.Member;
 import com.project.doubleshop.domain.member.mapper.AuthMemberMapper;
 
 import lombok.RequiredArgsConstructor;
