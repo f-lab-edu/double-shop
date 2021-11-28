@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
-
+@Deprecated
 @Repository
 @RequiredArgsConstructor
 public class MyBatisMemberInfoRepository implements MemberInfoRepository {
