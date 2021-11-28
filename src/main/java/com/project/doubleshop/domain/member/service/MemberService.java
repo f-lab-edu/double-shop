@@ -4,7 +4,7 @@ import com.project.doubleshop.web.member.dto.MemberFindRequestDto;
 import com.project.doubleshop.web.member.dto.MemberFindResponseDto;
 import com.project.doubleshop.web.member.dto.MemberSaveRequestDto;
 import com.project.doubleshop.web.member.dto.PasswordChangeRequestDto;
-
+@Deprecated
 public interface MemberService {
 
     boolean isIdDuplicate(String userId);
