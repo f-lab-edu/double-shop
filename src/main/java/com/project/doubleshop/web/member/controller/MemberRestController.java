@@ -1,5 +1,7 @@
 package com.project.doubleshop.web.member.controller;
 
+import java.util.Map;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,5 +36,11 @@ public class MemberRestController {
 		Member member = authMemberService.join(joinRequest.getUserId(), joinRequest.getCredential(), joinRequest.getName(),
 			joinRequest.getEmail(), joinRequest.getPhone());
 		return ResponseEntity.ok(new JoinResult(member));
+	}
+
+	@PostMapping("member/exists")
+	public ResponseEntity<Boolean> checkDuplicate(Map<String, String> request) {
+		String requestKey = request.containsKey("userId") ? request.get("userId") : request.get("email");
+		return ResponseEntity.ok(authMemberService.checkDuplicate(requestKey));
 	}
 }

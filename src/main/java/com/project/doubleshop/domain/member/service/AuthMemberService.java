@@ -1,5 +1,6 @@
 package com.project.doubleshop.domain.member.service;
 
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -44,9 +45,22 @@ public class AuthMemberService {
 		return Optional.of(authMemberRepository.findByUserId(userId));
 	}
 
+	public Optional<Member> findByEmail(String email) {
+		return Optional.of(authMemberRepository.findByEmail(email));
+	}
+
 	public Member join(String userId, String credential, String name, String email, String phone) {
 		Member member = new Member(userId, passwordEncoder.encode(credential), name, email, phone);
 		authMemberRepository.save(member);
 		return member;
 	}
+
+	public Boolean checkDuplicate(String request) {
+		if (request.equals("userId")) {
+			return findByUserId(request).isPresent();
+		}
+		return findByEmail(request).isPresent();
+	}
+
+
 }
