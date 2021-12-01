@@ -1,4 +1,4 @@
-package com.project.doubleshop.web.config.security.redis;
+package com.project.doubleshop.domain.member.repository.session;
 
 import java.time.Duration;
 
