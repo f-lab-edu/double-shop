@@ -1,4 +1,4 @@
-package com.project.doubleshop.domain.member.repository.session;
+package com.project.doubleshop.web.config.security.redis;
 
 import com.project.doubleshop.web.config.security.SimpleToken;
 
