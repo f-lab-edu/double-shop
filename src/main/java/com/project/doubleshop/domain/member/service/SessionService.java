@@ -1,8 +1,9 @@
-package com.project.doubleshop.web.config.security.redis;
+package com.project.doubleshop.domain.member.service;
 
 import org.springframework.stereotype.Service;
 
 import com.project.doubleshop.web.config.security.SimpleToken;
+import com.project.doubleshop.domain.member.repository.SessionRepository;
 
 import lombok.RequiredArgsConstructor;
 
