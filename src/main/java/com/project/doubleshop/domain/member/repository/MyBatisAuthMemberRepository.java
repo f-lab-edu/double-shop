@@ -42,4 +42,9 @@ public class MyBatisAuthMemberRepository implements AuthMemberRepository {
 		return mapper.selectMemberByUserId(userId);
 	}
 
+	@Override
+	public Boolean saveProfile(Member member) {
+		return mapper.updateMemberProfile(member) == 1;
+	}
+
 }
