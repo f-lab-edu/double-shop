@@ -17,7 +17,7 @@ public class RedisSessionRepository implements SessionRepository {
 
 	private final RedisTemplate<String, Object> redisTemplate;
 
-	@Value("${token.expiry-seconds}")
+	@Value("${token.expirySeconds}")
 	private int expirySeconds;
 
 	@Override
@@ -35,11 +35,12 @@ public class RedisSessionRepository implements SessionRepository {
 	@Override
 	public Boolean updateSession(String sessionId, SimpleToken simpleToken) {
 		ValueOperations<String, Object> ops = redisTemplate.opsForValue();
-		return ops.setIfPresent(sessionId, simpleToken);
+		return ops.setIfPresent(sessionId, simpleToken, Duration.ofSeconds(expirySeconds));
 	}
 
 	@Override
 	public Boolean deleteSession(String sessionId) {
 		return redisTemplate.delete(sessionId);
 	}
+
 }
