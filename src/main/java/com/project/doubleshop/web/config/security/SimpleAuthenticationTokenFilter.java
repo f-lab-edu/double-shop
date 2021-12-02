@@ -16,26 +16,30 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.web.filter.GenericFilterBean;
 
-import com.project.doubleshop.web.config.security.redis.SessionService;
+import com.project.doubleshop.domain.member.service.SessionService;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@RequiredArgsConstructor
 public class SimpleAuthenticationTokenFilter extends GenericFilterBean {
 
 	private SessionService sessionService;
 
-	private final String headerKey;
+	@Value("${token.header}")
+	private String headerKey;
 
-	private final int expirySeconds;
+	@Value("${token.expirySeconds}")
+	private int expirySeconds;
+
+	@Value("${token.resetSeconds}")
+	private int resetSeconds;
 
 	@Autowired
 	public void setSessionService(SessionService sessionService) {
@@ -56,11 +60,10 @@ public class SimpleAuthenticationTokenFilter extends GenericFilterBean {
 					// verify token
 					SimpleToken currentToken = sessionService.findBySessionId(tokenKey);
 					log.debug("authentication parse from: {}", currentToken);
-
 					// if not expired
 					if (!isExpired(currentToken)) {
 						// refresh expired(if remain 10 min below)
-						if (canRefresh(currentToken, 600)) {
+						if (canRefresh(currentToken, resetSeconds)) {
 							currentToken.resetExpiry(expirySeconds);
 							sessionService.resetExpiry(tokenKey, currentToken);
 						}
@@ -99,7 +102,7 @@ public class SimpleAuthenticationTokenFilter extends GenericFilterBean {
 
 	private boolean isExpired(SimpleToken token) {
 		long remain  = token.getExpiredAt().getTime() - System.currentTimeMillis();
-		return remain > 0;
+		return remain < 0;
 	}
 
 	private boolean canRefresh(SimpleToken token, int seconds) {
