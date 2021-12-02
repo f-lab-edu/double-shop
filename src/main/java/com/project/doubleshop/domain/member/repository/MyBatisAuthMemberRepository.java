@@ -47,4 +47,9 @@ public class MyBatisAuthMemberRepository implements AuthMemberRepository {
 		return mapper.updateMemberProfile(member) == 1;
 	}
 
+	@Override
+	public Boolean savePassword(Member member) {
+		return mapper.updateMemberPassword(member) == 1;
+	}
+
 }
