@@ -38,9 +38,13 @@ public class MemberRestController {
 		return ResponseEntity.ok(new JoinResult(member));
 	}
 
-	@PostMapping("member/exists")
-	public ResponseEntity<Boolean> checkDuplicate(Map<String, String> request) {
-		String requestKey = request.containsKey("userId") ? request.get("userId") : request.get("email");
-		return ResponseEntity.ok(authMemberService.checkDuplicate(requestKey));
+	@GetMapping("member/exists/id")
+	public ResponseEntity<Boolean> checkDuplicateUserId(@RequestBody Map<String, String> requestMap) {
+		return ResponseEntity.ok(authMemberService.checkDuplicate(requestMap));
+	}
+
+	@GetMapping("member/exists/email")
+	public ResponseEntity<Boolean> checkDuplicateEmail(@RequestBody Map<String, String> requestMap) {
+		return ResponseEntity.ok(authMemberService.checkDuplicate(requestMap));
 	}
 }
