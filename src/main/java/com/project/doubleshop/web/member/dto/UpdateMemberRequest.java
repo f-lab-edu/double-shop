@@ -12,8 +12,6 @@ import lombok.Getter;
 @AllArgsConstructor
 public class UpdateMemberRequest {
 
-	private Long id;
-
 	private String userId;
 
 	private String name;
