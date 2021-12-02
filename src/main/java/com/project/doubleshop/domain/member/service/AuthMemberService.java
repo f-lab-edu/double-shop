@@ -77,14 +77,31 @@ public class AuthMemberService {
 	}
 
 	@Transactional
-	public void updateProfile(Long id, String userId, String name, String email, String phone) {
-		authMemberRepository.saveProfile(
+	public Boolean updateProfile(Long id, String userId, String name, String email, String phone) {
+		return authMemberRepository.saveProfile(
 			Member.builder()
 				.id(id)
 				.userId(userId)
 				.name(name)
 				.email(email)
 				.phone(phone)
+				.build()
+		);
+	}
+
+	@Transactional
+	public Boolean changePassword(Long id, Map<String, String> requestMap) {
+
+		String reqPassword = "password";
+
+		if (!requestMap.containsKey(reqPassword)) {
+			throw new IllegalArgumentException("must use parameter 'password'");
+		}
+
+		return authMemberRepository.savePassword(
+			Member.builder()
+				.id(id)
+				.password(passwordEncoder.encode(requestMap.get(reqPassword)))
 				.build()
 		);
 	}

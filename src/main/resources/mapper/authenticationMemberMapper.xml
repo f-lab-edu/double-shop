@@ -48,4 +48,8 @@
                           phone = #{phone}
         where id = #{id}
     </update>
+    <update id="updateMemberPassword" parameterType="Member">
+        update member set password = #{password}
+        where id = #{id}
+    </update>
 </mapper>
