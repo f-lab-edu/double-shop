@@ -2,8 +2,11 @@ package com.project.doubleshop.web.member.controller;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.project.doubleshop.domain.member.entity.Member;
 import com.project.doubleshop.domain.member.service.AuthMemberService;
+import com.project.doubleshop.domain.member.service.SessionService;
 import com.project.doubleshop.web.member.dto.JoinRequest;
 import com.project.doubleshop.web.member.dto.JoinResult;
 import com.project.doubleshop.web.member.dto.MemberDto;
@@ -29,6 +33,8 @@ public class MemberRestController {
 
 	private final AuthMemberService authMemberService;
 
+	private final SessionService sessionService;
+
 	@GetMapping("member/me")
 	public ResponseEntity<MemberDto> me(@AuthenticationPrincipal SimpleAuthentication authentication) {
 		return ResponseEntity.ok(new MemberDto(authMemberService.findById(authentication.getId())));
@@ -39,6 +45,12 @@ public class MemberRestController {
 		Member member = authMemberService.join(requestBody.getUserId(), requestBody.getCredential(), requestBody.getName(),
 			requestBody.getEmail(), requestBody.getPhone());
 		return ResponseEntity.ok(new JoinResult(member));
+	}
+
+	@DeleteMapping("member/{id}/log-out")
+	public ResponseEntity<Boolean> logOut(@PathVariable Long id, HttpServletRequest request) {
+		String tokenHeader = request.getHeader("x-auth-token");
+		return ResponseEntity.ok(sessionService.invalidSession(tokenHeader));
 	}
 
 	@PatchMapping("member/{id}/profile")
