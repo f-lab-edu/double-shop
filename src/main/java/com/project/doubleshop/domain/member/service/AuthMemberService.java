@@ -1,5 +1,9 @@
 package com.project.doubleshop.domain.member.service;
 
+import static com.project.doubleshop.domain.utils.EmailUtils.*;
+import static java.util.regex.Pattern.*;
+
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -9,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.project.doubleshop.domain.exception.MemberNotFoundException;
 import com.project.doubleshop.domain.member.entity.Member;
 import com.project.doubleshop.domain.member.repository.AuthMemberRepository;
+import com.project.doubleshop.domain.utils.EmailUtils;
 
 import lombok.RequiredArgsConstructor;
 
@@ -41,25 +46,36 @@ public class AuthMemberService {
 	}
 
 	public Optional<Member> findByUserId(String userId) {
-		return Optional.of(authMemberRepository.findByUserId(userId));
+		return Optional.ofNullable(authMemberRepository.findByUserId(userId));
 	}
 
 	public Optional<Member> findByEmail(String email) {
-		return Optional.of(authMemberRepository.findByEmail(email));
+		return Optional.ofNullable(authMemberRepository.findByEmail(email));
 	}
 
+	@Transactional
 	public Member join(String userId, String credential, String name, String email, String phone) {
 		Member member = new Member(userId, passwordEncoder.encode(credential), name, email, phone);
 		authMemberRepository.save(member);
 		return member;
 	}
 
-	public Boolean checkDuplicate(String request) {
-		if (request.equals("userId")) {
-			return findByUserId(request).isPresent();
+	public Boolean checkDuplicate(Map<String, String> requestMap) {
+		String requestUserId = "userId";
+		String requestEmail = "email";
+
+		if (requestMap.containsKey(requestUserId)) {
+			return findByUserId(requestMap.getOrDefault(requestUserId, "")).isPresent();
+		} else {
+
+			if (requestMap.containsKey(requestEmail)) {
+				String email = requestMap.getOrDefault(requestEmail, "");
+				if (checkEmail(email)) {
+					return findByEmail(email).isPresent();
+				}
+			}
 		}
-		return findByEmail(request).isPresent();
+
+		throw new IllegalArgumentException("must use 'userId' or 'email'. otherwise, check your uri");
 	}
-
-
 }

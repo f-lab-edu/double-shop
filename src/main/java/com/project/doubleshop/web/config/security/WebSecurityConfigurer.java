@@ -38,7 +38,7 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
 
 	@Bean
 	public SimpleAuthenticationTokenFilter simpleAuthenticationTokenFilter() {
-		return new SimpleAuthenticationTokenFilter(simpleTokenConfigurer.getHeader(), simpleTokenConfigurer.getExpirySeconds());
+		return new SimpleAuthenticationTokenFilter();
 	}
 
 	@Override
@@ -93,12 +93,12 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
 				.authenticationEntryPoint(unauthorizedHandler)
 				.and()
 			.sessionManagement()
-				.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
+				.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 				.and()
 			.authorizeRequests()
 				.antMatchers("/api/auth").permitAll()
 				.antMatchers("/api/member/join").permitAll()
-				.antMatchers("/api/member/exists").permitAll()
+				.antMatchers("/api/member/exists/**").permitAll()
 				.antMatchers("/api/member/**").hasRole(Role.USER.name())
 				.accessDecisionManager(accessDecisionManager())
 				.anyRequest().permitAll()
