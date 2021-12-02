@@ -1,8 +1,6 @@
 package com.project.doubleshop.domain.member.service;
 
 import static com.project.doubleshop.domain.utils.EmailUtils.*;
-import static java.util.regex.Pattern.*;
-
 import java.util.Map;
 import java.util.Optional;
 
@@ -13,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.project.doubleshop.domain.exception.MemberNotFoundException;
 import com.project.doubleshop.domain.member.entity.Member;
 import com.project.doubleshop.domain.member.repository.AuthMemberRepository;
-import com.project.doubleshop.domain.utils.EmailUtils;
 
 import lombok.RequiredArgsConstructor;
 
@@ -77,5 +74,18 @@ public class AuthMemberService {
 		}
 
 		throw new IllegalArgumentException("must use 'userId' or 'email'. otherwise, check your uri");
+	}
+
+	@Transactional
+	public void updateProfile(Long id, String userId, String name, String email, String phone) {
+		authMemberRepository.saveProfile(
+			Member.builder()
+				.id(id)
+				.userId(userId)
+				.name(name)
+				.email(email)
+				.phone(phone)
+				.build()
+		);
 	}
 }

@@ -39,5 +39,13 @@
                           status = #{status},
                           status_update_time = #{statusUpdateTime},
                           create_time = #{createTime}
+        where id = #{id}
+    </update>
+    <update id="updateMemberProfile" parameterType="Member">
+        update member set user_id = #{userId},
+                          name = #{name},
+                          email = #{email},
+                          phone = #{phone}
+        where id = #{id}
     </update>
 </mapper>
