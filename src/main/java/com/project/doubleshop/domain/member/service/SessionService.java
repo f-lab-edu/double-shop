@@ -24,7 +24,7 @@ public class SessionService {
 		sessionRepository.updateSession(tokenKey, simpleToken);
 	}
 
-	public void invalidSession(String tokenKey) {
-		sessionRepository.deleteSession(tokenKey);
+	public Boolean invalidSession(String tokenKey) {
+		return sessionRepository.deleteSession(tokenKey);
 	};
 }
