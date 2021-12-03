@@ -23,14 +23,14 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.web.filter.GenericFilterBean;
 
-import com.project.doubleshop.domain.member.service.SessionService;
+import com.project.doubleshop.domain.member.service.TokenService;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class SimpleAuthenticationTokenFilter extends GenericFilterBean {
 
-	private SessionService sessionService;
+	private TokenService tokenService;
 
 	@Value("${token.header}")
 	private String headerKey;
@@ -42,8 +42,8 @@ public class SimpleAuthenticationTokenFilter extends GenericFilterBean {
 	private int resetSeconds;
 
 	@Autowired
-	public void setSessionService(SessionService sessionService) {
-		this.sessionService = sessionService;
+	public void setSessionService(TokenService tokenService) {
+		this.tokenService = tokenService;
 	}
 
 	@Override
@@ -58,14 +58,14 @@ public class SimpleAuthenticationTokenFilter extends GenericFilterBean {
 			if (tokenKey != null) {
 				try {
 					// verify token
-					SimpleToken currentToken = sessionService.findBySessionId(tokenKey);
+					SimpleToken currentToken = tokenService.findBySessionId(tokenKey);
 					log.debug("authentication parse from: {}", currentToken);
 					// if not expired
 					if (!isExpired(currentToken)) {
 						// refresh expired(if remain 10 min below)
 						if (canRefresh(currentToken, resetSeconds)) {
 							currentToken.resetExpiry(expirySeconds);
-							sessionService.resetExpiry(tokenKey, currentToken);
+							tokenService.resetExpiry(tokenKey, currentToken);
 						}
 
 						Long id = currentToken.getId();

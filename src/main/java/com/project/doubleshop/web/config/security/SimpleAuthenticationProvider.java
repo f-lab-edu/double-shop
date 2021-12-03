@@ -18,7 +18,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import com.project.doubleshop.domain.exception.MemberNotFoundException;
 import com.project.doubleshop.domain.member.entity.Member;
 import com.project.doubleshop.domain.member.service.AuthMemberService;
-import com.project.doubleshop.domain.member.service.SessionService;
+import com.project.doubleshop.domain.member.service.TokenService;
 import com.project.doubleshop.web.member.dto.AuthenticationRequest;
 import com.project.doubleshop.web.member.dto.AuthenticationResult;
 
@@ -31,7 +31,7 @@ public class SimpleAuthenticationProvider implements AuthenticationProvider {
 
 	private SimpleTokenConfigurer simpleTokenConfigurer;
 
-	private SessionService sessionService;
+	private TokenService tokenService;
 
 	@Autowired
 	public void setAuthMemberService(AuthMemberService authMemberService) {
@@ -44,8 +44,8 @@ public class SimpleAuthenticationProvider implements AuthenticationProvider {
 	}
 
 	@Autowired
-	public void setSessionService(SessionService sessionService) {
-		this.sessionService = sessionService;
+	public void setTokenService(TokenService tokenService) {
+		this.tokenService = tokenService;
 	}
 
 	@Override
@@ -68,7 +68,7 @@ public class SimpleAuthenticationProvider implements AuthenticationProvider {
 			SimpleToken tokenValue = new SimpleToken(member.getId(), member.getUserId(), member.getName(),
 				member.getEmail(), now, new Date(now.getTime() + expirySeconds * 1000L), new String[] {Role.USER.value()});
 
-			sessionService.saveSession(tokenKey, tokenValue);
+			tokenService.saveSession(tokenKey, tokenValue);
 			authenticated.setDetails(new AuthenticationResult(tokenKey, tokenValue));
 			return authenticated;
 		} catch (MemberNotFoundException e) {

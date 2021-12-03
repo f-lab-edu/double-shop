@@ -13,7 +13,7 @@ import lombok.RequiredArgsConstructor;
 
 @Repository
 @RequiredArgsConstructor
-public class RedisSessionRepository implements SessionRepository {
+public class RedisTokenRepository implements TokenRepository {
 
 	private final RedisTemplate<String, Object> redisTemplate;
 

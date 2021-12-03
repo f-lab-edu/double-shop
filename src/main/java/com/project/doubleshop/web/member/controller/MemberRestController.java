@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.project.doubleshop.domain.member.entity.Member;
 import com.project.doubleshop.domain.member.service.AuthMemberService;
-import com.project.doubleshop.domain.member.service.SessionService;
+import com.project.doubleshop.domain.member.service.TokenService;
 import com.project.doubleshop.web.member.dto.JoinRequest;
 import com.project.doubleshop.web.member.dto.JoinResult;
 import com.project.doubleshop.web.member.dto.MemberDto;
@@ -33,7 +33,7 @@ public class MemberRestController {
 
 	private final AuthMemberService authMemberService;
 
-	private final SessionService sessionService;
+	private final TokenService tokenService;
 
 	@GetMapping("member/me")
 	public ResponseEntity<MemberDto> me(@AuthenticationPrincipal SimpleAuthentication authentication) {
@@ -50,7 +50,7 @@ public class MemberRestController {
 	@DeleteMapping("member/{id}/log-out")
 	public ResponseEntity<Boolean> logOut(@PathVariable Long id, HttpServletRequest request) {
 		String tokenHeader = request.getHeader("x-auth-token");
-		return ResponseEntity.ok(sessionService.invalidSession(tokenHeader));
+		return ResponseEntity.ok(tokenService.invalidSession(tokenHeader));
 	}
 
 	@PatchMapping("member/{id}/profile")
