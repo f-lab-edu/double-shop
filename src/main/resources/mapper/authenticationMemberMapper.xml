@@ -3,33 +3,33 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.project.doubleshop.domain.member.mapper.AuthMemberMapper">
     <insert id="insertMember" parameterType="Member" useGeneratedKeys="true" keyProperty="id">
-        insert into member (user_id, password, name, email,
+        INSERT INTO MEMBER (user_id, password, name, email,
                             phone, count, last_login_time, status,
                             status_update_time, create_time)
-        values (#{userId}, #{password}, #{name}, #{email},
+        VALUES (#{userId}, #{password}, #{name}, #{email},
                 #{phone}, #{count}, #{lastLoginTime}, #{status},
                 #{statusUpdateTime}, #{createTime})
     </insert>
     <select id="selectMemberById" resultType="Member" parameterType="long">
-        select id, user_id, password,
+        SELECT id, user_id, password,
                name, email, phone, count,
                last_login_time, status, status_update_time, create_time
-        from member where id = #{id}
+        FROM MEMBER WHERE id = #{id}
     </select>
     <select id="selectMemberByEmail" resultType="Member" parameterType="string">
-        select id, user_id, password,
+        SELECT id, user_id, password,
                name, email, phone, count,
                last_login_time, status, status_update_time, create_time
-        from member where email = #{email}
+        FROM MEMBER WHERE email = #{email}
     </select>
     <select id="selectMemberByUserId" resultType="Member" parameterType="string">
-        select id, user_id, password,
+        SELECT id, user_id, password,
                name, email, phone, count,
                last_login_time, status, status_update_time, create_time
-        from member where user_id = #{userId}
+        FROM MEMBER WHERE user_id = #{userId}
     </select>
     <update id="updateMember" parameterType="Member">
-        update member set user_id = #{userId},
+        UPDATE MEMBER SET user_id = #{userId},
                           password = #{password},
                           name = #{name},
                           email = #{email},
@@ -39,17 +39,17 @@
                           status = #{status},
                           status_update_time = #{statusUpdateTime},
                           create_time = #{createTime}
-        where id = #{id}
+        WHERE id = #{id}
     </update>
     <update id="updateMemberProfile" parameterType="Member">
-        update member set user_id = #{userId},
+        UPDATE MEMBER SET user_id = #{userId},
                           name = #{name},
                           email = #{email},
                           phone = #{phone}
-        where id = #{id}
+        WHERE id = #{id}
     </update>
     <update id="updateMemberPassword" parameterType="Member">
-        update member set password = #{password}
-        where id = #{id}
+        UPDATE MEMBER SET password = #{password}
+        WHERE id = #{id}
     </update>
 </mapper>
