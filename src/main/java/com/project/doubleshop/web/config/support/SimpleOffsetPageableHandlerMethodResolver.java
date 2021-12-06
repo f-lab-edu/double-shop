@@ -77,7 +77,7 @@ public class SimpleOffsetPageableHandlerMethodResolver implements HandlerMethodA
 			try {
 				return Integer.parseInt(str);
 			} catch (NumberFormatException e) {
-				throw new InvalidParameterValueException("parameter value must be integer type.");
+				throw new InvalidParameterValueException("Parameter value must be integer type.");
 			}
 		}
 	}

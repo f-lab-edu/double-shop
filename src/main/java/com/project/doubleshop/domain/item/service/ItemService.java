@@ -49,7 +49,7 @@ public class ItemService {
 
 	@Transactional
 	public Item saveItem(Item item, Long itemId) {
-		findItemById(itemId).orElseThrow(() -> new DataNotFoundException(String.format("item ID '%s' not found.", itemId)));
+		findItemById(itemId).orElseThrow(() -> new DataNotFoundException(String.format("Item ID '%s' not found.", itemId)));
 		itemRepository.save(item);
 		return itemRepository.findById(itemId);
 	}
@@ -69,11 +69,11 @@ public class ItemService {
 	public Item findItemByIdWithCategory(Long itemId) {
 		Item item = itemRepository.findById(itemId);
 		if (item == null) {
-			throw new DataNotFoundException(String.format("item ID '%s' not found.", itemId));
+			throw new DataNotFoundException(String.format("Item ID '%s' not found.", itemId));
 		}
 		Long categoryId = item.getCategoryId();
 		if (categoryId == null) {
-			throw new DataNotFoundException(String.format("category ID '%s' not found.", categoryId));
+			throw new DataNotFoundException(String.format("Category ID '%s' not found.", categoryId));
 		}
 		return item;
 	}
@@ -90,10 +90,10 @@ public class ItemService {
 	public void updateItemStatus(StatusRequest requestDTO) {
 		Item item = itemRepository.findById(requestDTO.getId());
 		if (item == null) {
-			throw new DataNotFoundException(String.format("item ID '%s' not found", requestDTO.getId()));
+			throw new DataNotFoundException(String.format("Item ID '%s' not found", requestDTO.getId()));
 		}
 		if (Status.of(requestDTO.getStatus().name()) == null) {
-			throw new IllegalArgumentException(String.format("request status value '%s' not found", requestDTO.getStatus().name()));
+			throw new IllegalArgumentException(String.format("Request status value '%s' not found", requestDTO.getStatus().name()));
 		}
 		itemRepository.updateStatus(requestDTO);
 	}
@@ -101,7 +101,7 @@ public class ItemService {
 	@Transactional
 	public Item updateItemStatus(Status status, Long itemId) {
 		updateItemStatus(new StatusRequest(itemId, status));
-		return findItemById(itemId).orElseThrow(() -> new DataNotFoundException(String.format("item ID '%s' not found", itemId)));
+		return findItemById(itemId).orElseThrow(() -> new DataNotFoundException(String.format("Item ID '%s' not found", itemId)));
 	}
 
 	@Transactional

@@ -59,7 +59,7 @@ public class SimpleAuthenticationTokenFilter extends GenericFilterBean {
 				try {
 					// verify token
 					SimpleToken currentToken = tokenService.findBySessionId(tokenKey);
-					log.debug("authentication parse from: {}", currentToken);
+					log.debug("Authentication parse from: {}", currentToken);
 					// if not expired
 					if (!isExpired(currentToken)) {
 						// refresh expired(if remain 10 min below)
