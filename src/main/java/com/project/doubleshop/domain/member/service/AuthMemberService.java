@@ -26,7 +26,7 @@ public class AuthMemberService {
 	@Transactional
 	public Member login(String userId, String password) {
 		Member member = findByUserId(userId).orElseThrow(
-			() -> new MemberNotFoundException(String.format("userId [%s] NotFound", userId)));
+			() -> new MemberNotFoundException(String.format("UserId [%s] NotFound", userId)));
 		member.login(passwordEncoder, password);
 		member.afterSuccessLogin();
 		update(member);
@@ -35,7 +35,7 @@ public class AuthMemberService {
 
 	public Member findById(Long id) {
 		return Optional.of(authMemberRepository.findById(id)).orElseThrow(
-			() -> new MemberNotFoundException(String.format("id [%s] NotFound", id)));
+			() -> new MemberNotFoundException(String.format("Id [%s] NotFound", id)));
 	}
 
 	private void update(Member member) {
@@ -62,18 +62,22 @@ public class AuthMemberService {
 		String requestEmail = "email";
 
 		if (requestMap.containsKey(requestUserId)) {
-			return findByUserId(requestMap.getOrDefault(requestUserId, "")).isPresent();
+			String userId = requestMap.get(requestUserId);
+			if (userId == null) {
+				return false;
+			}
+			return findByUserId(userId).isPresent();
 		} else {
 
 			if (requestMap.containsKey(requestEmail)) {
-				String email = requestMap.getOrDefault(requestEmail, "");
+				String email = requestMap.get(requestEmail);
 				if (checkEmail(email)) {
 					return findByEmail(email).isPresent();
 				}
 			}
 		}
 
-		throw new IllegalArgumentException("must use 'userId' or 'email'. otherwise, check your uri");
+		throw new IllegalArgumentException("Must use 'userId' or 'email'. Otherwise, check your parameter");
 	}
 
 	@Transactional
@@ -95,7 +99,7 @@ public class AuthMemberService {
 		String reqPassword = "password";
 
 		if (!requestMap.containsKey(reqPassword)) {
-			throw new IllegalArgumentException("must use parameter 'password'");
+			throw new IllegalArgumentException("Must use parameter 'password'");
 		}
 
 		return authMemberRepository.savePassword(
