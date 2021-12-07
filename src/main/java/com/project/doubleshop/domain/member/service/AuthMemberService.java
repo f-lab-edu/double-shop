@@ -64,7 +64,7 @@ public class AuthMemberService {
 		if (requestMap.containsKey(requestUserId)) {
 			String userId = requestMap.get(requestUserId);
 			if (userId == null) {
-				return false;
+				throw new IllegalArgumentException("Must use 'userId'.");
 			}
 			return findByUserId(userId).isPresent();
 		} else {
