@@ -1,0 +1,43 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.doubleshop.domain.member.mapper.AuthMemberMapper">
+    <insert id="insertMember" parameterType="Member" useGeneratedKeys="true" keyProperty="id">
+        insert into member (user_id, password, name, email,
+                            phone, count, last_login_time, status,
+                            status_update_time, create_time)
+        values (#{userId}, #{password}, #{name}, #{email},
+                #{phone}, #{count}, #{lastLoginTime}, #{status},
+                #{statusUpdateTime}, #{createTime})
+    </insert>
+    <select id="selectMemberById" resultType="Member" parameterType="long">
+        select id, user_id, password,
+               name, email, phone, count,
+               last_login_time, status, status_update_time, create_time
+        from member where id = #{id}
+    </select>
+    <select id="selectMemberByEmail" resultType="Member" parameterType="string">
+        select id, user_id, password,
+               name, email, phone, count,
+               last_login_time, status, status_update_time, create_time
+        from member where email = #{email}
+    </select>
+    <select id="selectMemberByUserId" resultType="Member" parameterType="string">
+        select id, user_id, password,
+               name, email, phone, count,
+               last_login_time, status, status_update_time, create_time
+        from member where user_id = #{userId}
+    </select>
+    <update id="updateMember" parameterType="Member">
+        update member set user_id = #{userId},
+                          password = #{password},
+                          name = #{name},
+                          email = #{email},
+                          phone = #{phone},
+                          count = #{count},
+                          last_login_time = #{lastLoginTime},
+                          status = #{status},
+                          status_update_time = #{statusUpdateTime},
+                          create_time = #{createTime}
+    </update>
+</mapper>
