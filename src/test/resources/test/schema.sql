@@ -57,3 +57,9 @@ CREATE TABLE IF NOT EXISTS MEMBER (
     status_update_time         TIMESTAMP      NULL DEFAULT NOW(),
     create_time                TIMESTAMP      NULL DEFAULT NOW()
 );
+
+CREATE TABLE IF NOT EXISTS DELIVERY (
+  id                           BIGSERIAL      NOT NULL,
+  waybill_num                  VARCHAR(50)    NOT NULL,
+  memo                         VARCHAR(255)   NOT NULL
+);
