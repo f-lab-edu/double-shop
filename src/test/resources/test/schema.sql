@@ -61,5 +61,7 @@ CREATE TABLE IF NOT EXISTS MEMBER (
 CREATE TABLE IF NOT EXISTS DELIVERY (
   id                           BIGSERIAL      NOT NULL,
   waybill_number               VARCHAR(50)    NOT NULL,
-  memo                         VARCHAR(255)   NOT NULL
+  memo                         VARCHAR(255)   NOT NULL,
+  status                       INTEGER        DEFAULT 2001,
+  status_update_time           TIMESTAMP      NULL DEFAULT NOW()
 );
