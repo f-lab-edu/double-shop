@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.doubleshop.domain.delivery.mapper.DeliveryMapper">
+    <insert id="insertDelivery" parameterType="Delivery" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO DELIVERY (waybill_number, memo, status, status_update_time)
+        VALUES (#{waybillNumber}, #{memo}, #{status}, #{statusUpdateTime})
+    </insert>
+    <select id="selectByDeliveryId" parameterType="long" resultType="Delivery">
+        SELECT id, waybill_number, memo, status, status_update_time
+        FROM DELIVERY WHERE id = #{id}
+    </select>
+    <select id="selectAllDelivery" resultType="Item" parameterType="Pageable">
+        SELECT id, waybill_number, memo, status, status_update_time
+        FROM DELIVERY ORDER BY id DESC LIMIT #{size} OFFSET #{page}
+    </select>
+    <update id="updateDelivery" parameterType="Delivery">
+        UPDATE DELIVERY SET
+                            waybill_number = #{waybillNumber},
+                            memo = #{memo},
+                            status = #{status},
+                            status_update_time = #{statusUpdateTime}
+        WHERE id = #{id}
+    </update>
+    <delete id="deleteDelivery" parameterType="Status">
+        DELETE FROM DELIVERY WHERE status = #{DELETE}
+    </delete>
+</mapper>
