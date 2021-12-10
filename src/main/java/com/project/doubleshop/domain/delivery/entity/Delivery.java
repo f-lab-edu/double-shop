@@ -24,6 +24,12 @@ public class Delivery {
 	// 배송 메모
 	private String memo;
 
+	// 배송 등록일
+	private LocalDateTime createTime;
+
+	// 배송 수정일
+	private LocalDateTime updateTime;
+
 	// 상태
 	private Status status;
 
