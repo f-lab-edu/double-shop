@@ -4,21 +4,23 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.project.doubleshop.domain.delivery.mapper.DeliveryMapper">
     <insert id="insertDelivery" parameterType="Delivery" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO DELIVERY (waybill_number, memo, status, status_update_time)
-        VALUES (#{waybillNumber}, #{memo}, #{status}, #{statusUpdateTime})
+        INSERT INTO DELIVERY (waybill_number, memo, create_time, status, status_update_time)
+        VALUES (#{waybillNumber}, #{memo}, #{createTime}, #{status}, #{statusUpdateTime})
     </insert>
     <select id="selectByDeliveryId" parameterType="long" resultType="Delivery">
-        SELECT id, waybill_number, memo, status, status_update_time
+        SELECT id, waybill_number, memo, status, create_time, update_time, status_update_time
         FROM DELIVERY WHERE id = #{id}
     </select>
     <select id="selectAllDelivery" resultType="Item" parameterType="Pageable">
-        SELECT id, waybill_number, memo, status, status_update_time
+        SELECT id, waybill_number, memo, status, create_time, update_time, status_update_time
         FROM DELIVERY ORDER BY id DESC LIMIT #{size} OFFSET #{page}
     </select>
     <update id="updateDelivery" parameterType="Delivery">
         UPDATE DELIVERY SET
                             waybill_number = #{waybillNumber},
                             memo = #{memo},
+                            create_time = #{createTime},
+                            update_time = #{updateTime},
                             status = #{status},
                             status_update_time = #{statusUpdateTime}
         WHERE id = #{id}

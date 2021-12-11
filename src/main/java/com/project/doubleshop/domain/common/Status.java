@@ -22,7 +22,7 @@ public enum Status {
 			case TO_BE_DELETED_CODE:
 				return Status.TO_BE_DELETED;
 			default:
-				throw new AssertionError(String.format("unknown Status value : %d", value));
+				throw new AssertionError(String.format("Unknown Status value : %d", value));
 		}
 	}
 

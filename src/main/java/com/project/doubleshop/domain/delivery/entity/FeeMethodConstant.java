@@ -1,0 +1,6 @@
+package com.project.doubleshop.domain.delivery.entity;
+
+public class FeeMethodConstant {
+	public static final int PREPAID_CODE = 7270;
+	public static final int POSTPAID_CODE = 7271;
+}
