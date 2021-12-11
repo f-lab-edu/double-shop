@@ -62,6 +62,8 @@ CREATE TABLE IF NOT EXISTS DELIVERY (
   id                           BIGSERIAL      NOT NULL,
   waybill_number               VARCHAR(50)    NOT NULL,
   memo                         VARCHAR(255)   NOT NULL,
+  create_time                  TIMESTAMP      NULL DEFAULT NOW(),
+  update_time                  TIMESTAMP      NULL DEFAULT NOW(),
   status                       INTEGER        DEFAULT 2001,
   status_update_time           TIMESTAMP      NULL DEFAULT NOW()
 );
