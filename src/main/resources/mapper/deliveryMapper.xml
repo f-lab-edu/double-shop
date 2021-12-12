@@ -11,7 +11,7 @@
         SELECT id, waybill_number, memo, status, create_time, update_time, status_update_time
         FROM DELIVERY WHERE id = #{id}
     </select>
-    <select id="selectAllDelivery" resultType="Item" parameterType="Pageable">
+    <select id="selectAllDelivery" resultType="Delivery" parameterType="Pageable">
         SELECT id, waybill_number, memo, status, create_time, update_time, status_update_time
         FROM DELIVERY ORDER BY id DESC LIMIT #{size} OFFSET #{page}
     </select>

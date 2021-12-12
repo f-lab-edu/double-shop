@@ -4,8 +4,31 @@
 <mapper namespace="com.project.doubleshop.domain.delivery.mapper.DeliveryPolicyMapper">
     <insert id="insertDeliveryPolicy" parameterType="DeliveryPolicy" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO DELIVERY_POLICY (name, company, fee_policy, fee_method,
-                                     fee_price, island_mountainous_fee)
-        VALUES (#{name}, #{company}, #{feePolicy}, #{feeMethod}, #{feePrice}, #{islandMountainousFee})
+                                     fee_price, island_mountainous_fee, status, status_update_time)
+        VALUES (#{name}, #{company}, #{feePolicy}, #{feeMethod}, #{feePrice}, #{islandMountainousFee}, #{status}, #{statusUpdateTime})
     </insert>
-    <select id=""
+    <select id="selectByDeliveryPolicy"  parameterType="long" resultType="DeliveryPolicy">
+        SELECT id, name, company, fee_policy, fee_method,
+               fee_price, island_mountainous_fee, status, status_update_time
+        FROM DELIVERY_POLICY WHERE id = #{id}
+    </select>
+    <select id="selectAllDeliveryPolicy" resultType="DeliveryPolicy" parameterType="Pageable">
+        SELECT id, name, company, fee_policy, fee_method,
+               fee_price, island_mountainous_fee, status, status_update_time
+        FROM DELIVERY_POLICY ORDER BY id DESC LIMIT #{size} OFFSET #{page}
+    </select>
+    <update id="updateDeliveryPolicy" parameterType="DeliveryPolicy">
+        UPDATE DELIVERY_POLICY SET
+                                   name = #{name},
+                                   company = #{company},
+                                   fee_policy = #{feePolicy},
+                                   fee_method = #{feeMethod},
+                                   fee_price = #{feePrice},
+                                   status = #{status},
+                                   status_update_time = #{statusUpdateTime}
+        WHERE id = #{id}
+    </update>
+    <delete id="deleteDeliveryDriver" parameterType="Status">
+        DELETE FROM DELIVERY_POLICY WHERE status = #{DELETE}
+    </delete>
 </mapper>
