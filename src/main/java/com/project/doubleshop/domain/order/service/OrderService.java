@@ -7,11 +7,13 @@ import com.project.doubleshop.domain.member.repository.AuthMemberRepository;
 import com.project.doubleshop.domain.order.entity.Order;
 import com.project.doubleshop.domain.order.entity.OrderItem;
 import com.project.doubleshop.domain.order.repository.OrderRepository;
+import com.project.doubleshop.web.order.dto.OrderDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
@@ -26,43 +28,24 @@ public class OrderService {
 
     // 주문 생성 메서드
     @Transactional
-    public Long order(String userId, Long itemId, int count) {
+    public Long order(String userId, OrderDto orderDto) {
         // 엔티티 조회
         Member member = authMemberRepository.findByUserId(userId);
-        Item item = itemRepository.findById(itemId);
+        Item item = itemRepository.findById(orderDto.getItemId());
 
-        // 배송 정보 생성
-//        Delivery delivery = new Delivery();
-//        delivery.setAddress(member.getAddress());
+        List<OrderItem> orderItems = new ArrayList<>();
 
         // 주문 상품 생성
-        OrderItem orderItem = OrderItem.createOrderItem(item, item.getPrice(), count);
+        OrderItem orderItem = OrderItem.createOrderItem(item, orderDto.getCount());
+        orderItems.add(orderItem);
 
         // 주문 생성
-        Order order = Order.createOrder(member.get(), orderItem);
+        Order order = Order.createOrder(member, orderItems);
 
         // 주문 저장
         orderRepository.save(order);
 
         return order.getId();
     }
-
-    // 주문 취소 메서드
-    @Transactional
-    public void cancelOrder(Long orderId) {
-        // 주문 엔티티 조회
-        Order order = orderRepository.findById(orderId);
-
-        // 주문 취소
-        order.cancel();
-    }
-
-    // 검색
-
-    /*
-    public List<Order> findOrders(OrderSearch orderSearch) {
-        return orderSearch;
-    }
-     */
 
 }
