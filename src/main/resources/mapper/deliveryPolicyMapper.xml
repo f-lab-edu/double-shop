@@ -28,7 +28,7 @@
                                    status_update_time = #{statusUpdateTime}
         WHERE id = #{id}
     </update>
-    <delete id="deleteDeliveryDriver" parameterType="Status">
+    <delete id="deleteDeliveryPolicy" parameterType="Status">
         DELETE FROM DELIVERY_POLICY WHERE status = #{DELETE}
     </delete>
 </mapper>

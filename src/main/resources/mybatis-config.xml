@@ -22,12 +22,15 @@
     </typeAliases>
     <typeHandlers>
         <typeHandler handler="com.project.doubleshop.domain.common.StatusTypeHandler" />
+        <typeHandler handler="com.project.doubleshop.domain.delivery.entity.FeeMethodTypeHandler"/>
+        <typeHandler handler="com.project.doubleshop.domain.delivery.entity.FeePolicyTypeHandler"/>
     </typeHandlers>
     <mappers>
         <mapper resource="mapper/itemMapper.xml"/>
         <mapper resource="mapper/categoryMapper.xml"/>
         <mapper resource="mapper/authenticationMemberMapper.xml"/>
         <mapper resource="mapper/deliveryMapper.xml"/>
+        <mapper resource="mapper/deliveryDriverMapper.xml"/>
         <mapper resource="mapper/deliveryPolicyMapper.xml"/>
     </mappers>
 </configuration>
