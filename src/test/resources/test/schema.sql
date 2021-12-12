@@ -59,11 +59,33 @@ CREATE TABLE IF NOT EXISTS MEMBER (
 );
 
 CREATE TABLE IF NOT EXISTS DELIVERY (
-  id                           BIGSERIAL      NOT NULL,
-  waybill_number               VARCHAR(50)    NOT NULL,
-  memo                         VARCHAR(255)   NOT NULL,
-  create_time                  TIMESTAMP      NULL DEFAULT NOW(),
-  update_time                  TIMESTAMP      NULL DEFAULT NOW(),
-  status                       INTEGER        DEFAULT 2001,
-  status_update_time           TIMESTAMP      NULL DEFAULT NOW()
+    id                         BIGSERIAL      NOT NULL,
+    waybill_number             VARCHAR(50)    NOT NULL,
+    memo                       VARCHAR(255)   NOT NULL,
+    create_time                TIMESTAMP      NULL DEFAULT NOW(),
+    update_time                TIMESTAMP      NULL DEFAULT NOW(),
+    status                     INTEGER        DEFAULT 2001,
+    status_update_time         TIMESTAMP      NULL DEFAULT NOW()
+);
+
+CREATE TABLE IF NOT EXISTS DELIVERY_DRIVER (
+    id                         BIGSERIAL      NOT NULL,
+    name                       VARCHAR(50)    NOT NULL,
+    phone                      VARCHAR(50)    NOT NULL,
+    create_time                TIMESTAMP      NULL DEFAULT NOW(),
+    update_time                TIMESTAMP      NULL DEFAULT NOW(),
+    status                     INTEGER        DEFAULT 2001,
+    status_update_time         TIMESTAMP      NULL DEFAULT NOW()
+);
+
+CREATE TABLE IF NOT EXISTS DELIVERY_POLICY (
+    id                         BIGSERIAL      NOT NULL,
+    name                       VARCHAR(50)    NOT NULL,
+    company                    VARCHAR(50)    NOT NULL,
+    fee_policy                 INTEGER        DEFAULT 1002,
+    fee_method                 INTEGER        DEFAULT 7270,
+    fee_price                  INTEGER        NOT NULL,
+    island_mountainous_fee     INTEGER        NOT NULL,
+    status                     INTEGER        DEFAULT 2001,
+    status_update_time         TIMESTAMP      NULL DEFAULT NOW()
 );
