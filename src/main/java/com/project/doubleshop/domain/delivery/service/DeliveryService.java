@@ -26,8 +26,9 @@ public class DeliveryService {
 	}
 
 	@Transactional
-	public Delivery saveItem(Delivery delivery, Long deliveryId) {
-		findByDeliveryId(deliveryId).orElseThrow(() -> new DataNotFoundException(String.format("Delivery ID '%s' not found.", delivery)));
+	public Delivery saveDelivery(Delivery delivery, Long deliveryId) {
+		findByDeliveryId(deliveryId).orElseThrow(() ->
+			new DataNotFoundException(String.format("Delivery ID '%s' not found.", delivery)));
 		deliveryRepository.save(delivery);
 		return deliveryRepository.findById(deliveryId);
 	}
