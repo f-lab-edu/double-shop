@@ -29,6 +29,6 @@
         WHERE id = #{id}
     </update>
     <delete id="deleteDeliveryPolicy" parameterType="Status">
-        DELETE FROM DELIVERY_POLICY WHERE status = #{DELETE}
+        DELETE FROM DELIVERY_POLICY WHERE status = #{TO_BE_DELETED}
     </delete>
 </mapper>

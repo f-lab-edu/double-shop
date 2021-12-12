@@ -26,8 +26,7 @@ CREATE TABLE  IF NOT EXISTS ITEM
     status                     INTEGER        DEFAULT 2001,
     status_update_time         TIMESTAMP      DEFAULT NOW(),
     created_time               TIMESTAMP      DEFAULT NOW(),
-    category_id                BIGINT         DEFAULT NULL,
-    CONSTRAINT PK_ITEM PRIMARY KEY (id)
+    category_id                BIGINT         DEFAULT NULL
 );
 
 CREATE TABLE  IF NOT EXISTS CATEGORY
@@ -38,8 +37,7 @@ CREATE TABLE  IF NOT EXISTS CATEGORY
     depth_level                VARCHAR(50)    NULL DEFAULT 'DEPTH_ONE',
     is_refundable              BOOLEAN        NULL DEFAULT FALSE,
     status                     INTEGER        DEFAULT 2001,
-    status_update_time         TIMESTAMP      NULL DEFAULT NOW(),
-    CONSTRAINT PK_CATEGORY PRIMARY KEY (id)
+    status_update_time         TIMESTAMP      NULL DEFAULT NOW()
 );
 
 ALTER TABLE ITEM ADD CONSTRAINT FK_CATEGORY FOREIGN KEY (category_id) REFERENCES CATEGORY (id);
@@ -65,7 +63,9 @@ CREATE TABLE IF NOT EXISTS DELIVERY (
     create_time                TIMESTAMP      NULL DEFAULT NOW(),
     update_time                TIMESTAMP      NULL DEFAULT NOW(),
     status                     INTEGER        DEFAULT 2001,
-    status_update_time         TIMESTAMP      NULL DEFAULT NOW()
+    status_update_time         TIMESTAMP      NULL DEFAULT NOW(),
+    delivery_policy_id         BIGINT         DEFAULT NULL,
+    delivery_driver_id         BIGINT         DEFAULT NULL
 );
 
 CREATE TABLE IF NOT EXISTS DELIVERY_DRIVER (
@@ -89,3 +89,6 @@ CREATE TABLE IF NOT EXISTS DELIVERY_POLICY (
     status                     INTEGER        DEFAULT 2001,
     status_update_time         TIMESTAMP      NULL DEFAULT NOW()
 );
+
+ALTER TABLE DELIVERY ADD CONSTRAINT FK_DELIVERY_POLICY FOREIGN KEY (delivery_policy_id) REFERENCES DELIVERY_POLICY (id);
+ALTER TABLE DELIVERY ADD CONSTRAINT FK_DELIVERY_DRIVER FOREIGN KEY (delivery_driver_id) REFERENCES DELIVERY_DRIVER (id);

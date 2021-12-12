@@ -4,15 +4,15 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.project.doubleshop.domain.delivery.mapper.DeliveryMapper">
     <insert id="insertDelivery" parameterType="Delivery" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO DELIVERY (waybill_number, memo, create_time, status, status_update_time)
-        VALUES (#{waybillNumber}, #{memo}, #{createTime}, #{status}, #{statusUpdateTime})
+        INSERT INTO DELIVERY (waybill_number, memo, create_time, status, status_update_time, delivery_policy_id, delivery_driver_id)
+        VALUES (#{waybillNumber}, #{memo}, #{createTime}, #{status}, #{statusUpdateTime}, #{deliveryPolicyId}, #{deliveryDriverId})
     </insert>
     <select id="selectByDeliveryId" parameterType="long" resultType="Delivery">
-        SELECT id, waybill_number, memo, status, create_time, update_time, status_update_time
+        SELECT id, waybill_number, memo, status, create_time, update_time, status_update_time, delivery_policy_id
         FROM DELIVERY WHERE id = #{id}
     </select>
     <select id="selectAllDelivery" resultType="Delivery" parameterType="Pageable">
-        SELECT id, waybill_number, memo, status, create_time, update_time, status_update_time
+        SELECT id, waybill_number, memo, status, create_time, update_time, status_update_time, delivery_policy_id
         FROM DELIVERY ORDER BY id DESC LIMIT #{size} OFFSET #{page}
     </select>
     <update id="updateDelivery" parameterType="Delivery">
@@ -22,10 +22,12 @@
                             create_time = #{createTime},
                             update_time = #{updateTime},
                             status = #{status},
-                            status_update_time = #{statusUpdateTime}
+                            status_update_time = #{statusUpdateTime},
+                            delivery_policy_id = #{deliveryPolicyId},
+                            delivery_driver_id = #{deliveryDriverId}
         WHERE id = #{id}
     </update>
     <delete id="deleteDelivery" parameterType="Status">
-        DELETE FROM DELIVERY WHERE status = #{DELETE}
+        DELETE FROM DELIVERY WHERE status = #{TO_BE_DELETED}
     </delete>
 </mapper>
