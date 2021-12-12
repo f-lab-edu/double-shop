@@ -20,8 +20,6 @@ public class Order {
 
     private List<OrderItem> orderItems = new ArrayList<>(); // 주문 상품
 
-//    private Delivery delivery; // 배송 정보
-
     private LocalDateTime orderDate; // 주문일자
 
     private OrderStatus status; // 주문 상태
@@ -34,13 +32,12 @@ public class Order {
     }
 
     /* 주문 생성 메서드 */
-    public static Order createOrder(Member member, /*Delivery delivery,*/ OrderItem ... orderItems) {
+    public static Order createOrder(Member member, List<OrderItem> orderItems) {
         Order order = new Order();
         order.setMember(member);
-//        order.setDelivery(delivery);
 
         for (OrderItem orderItem : orderItems) {
-            order.addOrderItem(orderItem);
+            order.addOrderItem(orderItem); // 여러 개의 상품을 주문할 수 있도록 Order 객체에 orderItem 추가
         }
 
         order.setStatus(OrderStatus.ORDERED);
@@ -49,23 +46,11 @@ public class Order {
         return order;
     }
 
-    /* 비즈니스 로직 */
-    public void cancel() {
-        if (false /*delivery.getStatus() == DeliveryStatus.COMPLETE*/) {
-            throw new IllegalStateException("배송 완료된 상품은 취소할 수 없습니다.");
-        }
-
-        this.setStatus(OrderStatus.CANCELED);
-        orderItems.forEach(OrderItem::cancel);
-        // 주문에 담은 각 상품들에 cancel을 날려주어 상품 도메인에 각 상품의 개수를 더한다.
-    }
-
-    // orderItems에 들어 있는 상품들 각각의 수량과 가격을 계산해주어야 하기 때문에,
-    // OrderItem에도 조회 로직을 추가한다.
-    public Long getTotalPrice() {
+    // 총 주문 가격 계산
+    public int getTotalPrice() {
         return orderItems
                 .stream()
-                .mapToLong(OrderItem::getTotalPrice)
+                .mapToInt(OrderItem::getTotalPrice)
                 .sum();
     }
     
