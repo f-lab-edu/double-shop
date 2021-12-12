@@ -17,6 +17,8 @@
         <typeAlias type="com.project.doubleshop.domain.common.mapper.param.RequestItemsWithCategory" alias="RequestItemsWithCategory"/>
         <typeAlias type="com.project.doubleshop.domain.member.entity.Member" alias="Member"/>
         <typeAlias type="com.project.doubleshop.domain.delivery.entity.Delivery" alias="Delivery"/>
+        <typeAlias type="com.project.doubleshop.domain.delivery.entity.DeliveryDriver" alias="DeliveryDriver"/>
+        <typeAlias type="com.project.doubleshop.domain.delivery.entity.DeliveryPolicy" />
     </typeAliases>
     <typeHandlers>
         <typeHandler handler="com.project.doubleshop.domain.common.StatusTypeHandler" />
@@ -26,5 +28,6 @@
         <mapper resource="mapper/categoryMapper.xml"/>
         <mapper resource="mapper/authenticationMemberMapper.xml"/>
         <mapper resource="mapper/deliveryMapper.xml"/>
+        <mapper resource="mapper/deliveryPolicyMapper.xml"/>
     </mappers>
 </configuration>

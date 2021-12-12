@@ -1,5 +1,9 @@
 package com.project.doubleshop.domain.delivery.entity;
 
+import java.time.LocalDateTime;
+
+import com.project.doubleshop.domain.common.Status;
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -31,4 +35,10 @@ public class DeliveryPolicy {
 
 	// 산간도서지역비용
 	private int islandMountainousFee;
+
+	// 상태
+	private Status status;
+
+	// 상태 업데이트 시간
+	private LocalDateTime statusUpdateTime;
 }
