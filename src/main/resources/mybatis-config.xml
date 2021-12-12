@@ -24,6 +24,7 @@
         <typeHandler handler="com.project.doubleshop.domain.common.StatusTypeHandler" />
         <typeHandler handler="com.project.doubleshop.domain.delivery.entity.FeeMethodTypeHandler"/>
         <typeHandler handler="com.project.doubleshop.domain.delivery.entity.FeePolicyTypeHandler"/>
+        <typeHandler handler="com.project.doubleshop.domain.delivery.entity.DeliveryStatusTypeHandler"/>
     </typeHandlers>
     <mappers>
         <mapper resource="mapper/itemMapper.xml"/>

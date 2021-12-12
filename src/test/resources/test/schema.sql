@@ -62,6 +62,7 @@ CREATE TABLE IF NOT EXISTS DELIVERY (
     memo                       VARCHAR(255)   NOT NULL,
     create_time                TIMESTAMP      NULL DEFAULT NOW(),
     update_time                TIMESTAMP      NULL DEFAULT NOW(),
+    delivery_status            INTEGER        DEFAULT 4001,
     status                     INTEGER        DEFAULT 2001,
     status_update_time         TIMESTAMP      NULL DEFAULT NOW(),
     delivery_policy_id         BIGINT         DEFAULT NULL,
