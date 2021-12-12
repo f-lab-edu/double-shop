@@ -22,24 +22,25 @@ public class OrderItem {
     private Integer price; // 구매가
 
     /* 생성 메서드 */
-    public static OrderItem createOrderItem(Item item, int price, int count) {
+    public static OrderItem createOrderItem(Item item, int count) {
         OrderItem orderItem = new OrderItem();
+
         orderItem.setItem(item);
-        orderItem.setPrice(price);
         orderItem.setCount(count);
 
-        item.decreaseStock(count);
+        orderItem.setPrice(item.getPrice()); // 상품 가격을 주문 가격으로 설정
+
+        item.decreaseStock(count); // 주문 수량만큼 재고 수량을 감소
 
         return orderItem;
     }
 
-    /* 비즈니스 로직 */
-    public void cancel() { // 재고 증가
-        getItem().increaseStock(count);
-    }
+//    public void cancel() { // 재고 증가
+//        getItem().increaseStock(count);
+//    }
 
     public int getTotalPrice() {
-        return getPrice() * getCount();
+        return price * count; // 주문 가격과 수량을 곱하여 주문 총 가격을 계산
     }
 
 }
