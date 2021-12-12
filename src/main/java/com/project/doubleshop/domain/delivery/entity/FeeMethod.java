@@ -23,6 +23,15 @@ public enum FeeMethod {
 		}
 	}
 
+	public static FeeMethod of(String value) {
+		for (FeeMethod feeMethod : FeeMethod.values()) {
+			if (feeMethod.name().equalsIgnoreCase(value)) {
+				return feeMethod;
+			}
+		}
+		return null;
+	}
+
 	public int getValue() {
 		return i;
 	}
