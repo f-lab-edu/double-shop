@@ -3,7 +3,7 @@ package com.project.doubleshop.domain.order.service;
 import com.project.doubleshop.domain.item.entity.Item;
 import com.project.doubleshop.domain.item.repository.ItemRepository;
 import com.project.doubleshop.domain.member.entity.Member;
-import com.project.doubleshop.domain.member.repository.MemberInfoRepository;
+import com.project.doubleshop.domain.member.repository.AuthMemberRepository;
 import com.project.doubleshop.domain.order.entity.Order;
 import com.project.doubleshop.domain.order.entity.OrderItem;
 import com.project.doubleshop.domain.order.repository.OrderRepository;
@@ -20,7 +20,7 @@ public class OrderService {
 
     private final OrderRepository orderRepository;
 
-    private final MemberInfoRepository memberInfoRepository;
+    private final AuthMemberRepository authMemberRepository;
 
     private final ItemRepository itemRepository;
 
@@ -28,7 +28,7 @@ public class OrderService {
     @Transactional
     public Long order(String userId, Long itemId, int count) {
         // 엔티티 조회
-        Optional<Member> member = memberInfoRepository.findByUserId(userId);
+        Member member = authMemberRepository.findByUserId(userId);
         Item item = itemRepository.findById(itemId);
 
         // 배송 정보 생성
