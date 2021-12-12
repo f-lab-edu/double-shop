@@ -12,5 +12,7 @@ public interface AuthMemberRepository {
 
 	Member findByUserId(String userId);
 
+	Boolean saveProfile(Member member);
 
+	Boolean savePassword(Member build);
 }

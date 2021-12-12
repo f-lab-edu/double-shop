@@ -11,4 +11,6 @@ public interface AuthMemberMapper {
 	Member selectMemberByEmail(String email);
 	Member selectMemberByUserId(String userId);
 	int updateMember(Member member);
+	int updateMemberProfile(Member member);
+	int updateMemberPassword(Member member);
 }

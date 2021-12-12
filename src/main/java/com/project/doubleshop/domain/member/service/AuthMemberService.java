@@ -1,5 +1,7 @@
 package com.project.doubleshop.domain.member.service;
 
+import static com.project.doubleshop.domain.utils.EmailUtils.*;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -24,7 +26,7 @@ public class AuthMemberService {
 	@Transactional
 	public Member login(String userId, String password) {
 		Member member = findByUserId(userId).orElseThrow(
-			() -> new MemberNotFoundException(String.format("userId [%s] NotFound", userId)));
+			() -> new MemberNotFoundException(String.format("UserId [%s] NotFound", userId)));
 		member.login(passwordEncoder, password);
 		member.afterSuccessLogin();
 		update(member);
@@ -33,7 +35,7 @@ public class AuthMemberService {
 
 	public Member findById(Long id) {
 		return Optional.of(authMemberRepository.findById(id)).orElseThrow(
-			() -> new MemberNotFoundException(String.format("id [%s] NotFound", id)));
+			() -> new MemberNotFoundException(String.format("Id [%s] NotFound", id)));
 	}
 
 	private void update(Member member) {
@@ -41,25 +43,70 @@ public class AuthMemberService {
 	}
 
 	public Optional<Member> findByUserId(String userId) {
-		return Optional.of(authMemberRepository.findByUserId(userId));
+		return Optional.ofNullable(authMemberRepository.findByUserId(userId));
 	}
 
 	public Optional<Member> findByEmail(String email) {
-		return Optional.of(authMemberRepository.findByEmail(email));
+		return Optional.ofNullable(authMemberRepository.findByEmail(email));
 	}
 
+	@Transactional
 	public Member join(String userId, String credential, String name, String email, String phone) {
 		Member member = new Member(userId, passwordEncoder.encode(credential), name, email, phone);
 		authMemberRepository.save(member);
 		return member;
 	}
 
-	public Boolean checkDuplicate(String request) {
-		if (request.equals("userId")) {
-			return findByUserId(request).isPresent();
+	public Boolean checkDuplicate(Map<String, String> requestMap) {
+		String requestUserId = "userId";
+		String requestEmail = "email";
+
+		if (requestMap.containsKey(requestUserId)) {
+			String userId = requestMap.get(requestUserId);
+			if (userId == null) {
+				throw new IllegalArgumentException("Must use 'userId'.");
+			}
+			return findByUserId(userId).isPresent();
+		} else {
+
+			if (requestMap.containsKey(requestEmail)) {
+				String email = requestMap.get(requestEmail);
+				if (checkEmail(email)) {
+					return findByEmail(email).isPresent();
+				}
+			}
 		}
-		return findByEmail(request).isPresent();
+
+		throw new IllegalArgumentException("Must use 'userId' or 'email'. Otherwise, check your parameter");
 	}
 
+	@Transactional
+	public Boolean updateProfile(Long id, String userId, String name, String email, String phone) {
+		return authMemberRepository.saveProfile(
+			Member.builder()
+				.id(id)
+				.userId(userId)
+				.name(name)
+				.email(email)
+				.phone(phone)
+				.build()
+		);
+	}
 
+	@Transactional
+	public Boolean changePassword(Long id, Map<String, String> requestMap) {
+
+		String reqPassword = "password";
+
+		if (!requestMap.containsKey(reqPassword)) {
+			throw new IllegalArgumentException("Must use parameter 'password'");
+		}
+
+		return authMemberRepository.savePassword(
+			Member.builder()
+				.id(id)
+				.password(passwordEncoder.encode(requestMap.get(reqPassword)))
+				.build()
+		);
+	}
 }

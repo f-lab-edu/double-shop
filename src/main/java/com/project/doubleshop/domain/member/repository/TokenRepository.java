@@ -1,8 +1,8 @@
-package com.project.doubleshop.web.config.security.redis;
+package com.project.doubleshop.domain.member.repository;
 
 import com.project.doubleshop.web.config.security.SimpleToken;
 
-public interface SessionRepository {
+public interface TokenRepository {
 
 	void save(String sessionId, SimpleToken simpleToken);
 
