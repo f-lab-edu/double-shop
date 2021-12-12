@@ -14,5 +14,5 @@ public interface DeliveryPolicyMapper {
 	DeliveryPolicy selectByDeliveryPolicy(Long id);
 	List<DeliveryPolicy> selectAllDeliveryPolicy(Pageable pageable);
 	int updateDeliveryPolicy(DeliveryPolicy deliveryPolicy);
-	int deleteDeliveryDriver(Status status);
+	int deleteDeliveryPolicy(Status status);
 }
