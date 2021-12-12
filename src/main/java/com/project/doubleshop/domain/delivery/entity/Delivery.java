@@ -35,5 +35,11 @@ public class Delivery {
 
 	// 상태 업데이트 시간
 	private LocalDateTime statusUpdateTime;
+
+	// 배송정책 fk
+	private Long deliveryPolicyId;
+
+	// 배송기사 fk
+	private Long deliveryDriverId;
 }
 
