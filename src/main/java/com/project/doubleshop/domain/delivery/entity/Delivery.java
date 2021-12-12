@@ -30,6 +30,9 @@ public class Delivery {
 	// 배송 수정일
 	private LocalDateTime updateTime;
 
+	// 배송 상태
+	private DeliveryStatus deliveryStatus;
+
 	// 상태
 	private Status status;
 
