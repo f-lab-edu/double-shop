@@ -3,6 +3,7 @@ package com.project.doubleshop.domain.delivery.entity;
 import java.time.LocalDateTime;
 
 import com.project.doubleshop.domain.common.Status;
+import com.project.doubleshop.web.delivery.dto.DeliveryForm;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -44,5 +45,16 @@ public class Delivery {
 
 	// 배송기사 fk
 	private Long deliveryDriverId;
+
+	public static Delivery convertToDelivery(DeliveryForm form) {
+		return Delivery.builder()
+			.id(form.getId())
+			.waybillNumber(form.getWaybillNumber())
+			.memo(form.getMemo())
+			.deliveryStatus(form.getDeliveryStatus())
+			.deliveryPolicyId(form.getDeliveryPolicyId())
+			.deliveryDriverId(form.getDeliveryDriverId())
+			.build();
+	}
 }
 
