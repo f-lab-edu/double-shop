@@ -32,10 +32,9 @@ class DeliveryServiceTest {
 	@Test
 	@DisplayName("배송등록 성공")
 	void saveDelivery() {
-		Delivery deliveryForm = mock(Delivery.class);
-		given(deliveryRepository.save(deliveryForm)).willReturn(true);
+		given(deliveryRepository.save(DELIVERY_FORM)).willReturn(true);
 
-		boolean result = deliveryService.saveDelivery(deliveryForm);
+		boolean result = deliveryService.saveDelivery(DELIVERY_FORM);
 
 		assertThat(result).isTrue();
 	}
@@ -61,16 +60,17 @@ class DeliveryServiceTest {
 	@Test
 	@DisplayName("배송 수정 성공")
 	void updateDelivery() {
-		given(deliveryRepository.findById(DELIVERY_1.getId())).willReturn(DELIVERY_1);
+		given(deliveryRepository.findById(ID)).willReturn(DELIVERY_1);
 		given(deliveryRepository.save(DELIVERY_1)).willReturn(true);
 
-		deliveryService.saveDelivery(DELIVERY_1, DELIVERY_1.getId());
+		deliveryService.saveDelivery(DELIVERY_1, ID);
 
 		then(deliveryRepository).should(times(1)).save(DELIVERY_1);
 	}
 
 	@Test
-	void findAllDelivery() {
+	@DisplayName("배송 목록 조회 성공")
+	void findAllDeliveries() {
 		given(deliveryRepository.findAll(pageable)).willReturn(anyList());
 
 		deliveryService.findDeliveries(pageable);

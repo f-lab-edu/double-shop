@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import com.project.doubleshop.domain.common.Status;
 import com.project.doubleshop.domain.delivery.entity.Delivery;
+import com.project.doubleshop.domain.delivery.entity.DeliveryDriver;
 import com.project.doubleshop.domain.delivery.entity.DeliveryPolicy;
 import com.project.doubleshop.domain.delivery.entity.DeliveryStatus;
 import com.project.doubleshop.domain.delivery.entity.FeeMethod;
@@ -54,6 +55,28 @@ public class MockDelivery {
 		public static final int ISLAND_MOUNTAINOUS_FEE = 2700;
 		public static final Status STATUS = Status.ACTIVATED;
 		public static final LocalDateTime STATUS_UPDATE_TIME = LocalDateTime.of(2021, 11, 13, 9, 27, 1);
+
+		public static final DeliveryPolicy DELIVERY_POLICY_1 = DeliveryPolicy.builder()
+			.id(ID)
+			.name(NAME)
+			.company(COMPANY)
+			.feePolicy(FEE_POLICY)
+			.feeMethod(FEE_METHOD)
+			.feePrice(FEE_PRICE)
+			.islandMountainousFee(ISLAND_MOUNTAINOUS_FEE)
+			.status(STATUS)
+			.statusUpdateTime(STATUS_UPDATE_TIME)
+			.build();
+
+		public static final DeliveryPolicy DELIVERY_POLICY_FORM = DeliveryPolicy.builder()
+			.name(NAME)
+			.company(COMPANY)
+			.feePolicy(FEE_POLICY)
+			.feeMethod(FEE_METHOD)
+			.feePrice(FEE_PRICE)
+			.islandMountainousFee(ISLAND_MOUNTAINOUS_FEE)
+			.status(STATUS)
+			.build();
 	}
 
 	public static class DeliveryDriver1 {
@@ -64,5 +87,22 @@ public class MockDelivery {
 		public static final LocalDateTime UPDATE_TIME = null;
 		public static final Status STATUS = Status.ACTIVATED;
 		public static final LocalDateTime STATUS_UPDATE_TIME = CREATE_TIME;
+
+		public static final DeliveryDriver DELIVERY_DRIVER_1 = DeliveryDriver.builder()
+			.id(ID)
+			.name(NAME)
+			.phone(PHONE)
+			.createTime(CREATE_TIME)
+			.updateTime(UPDATE_TIME)
+			.status(STATUS)
+			.statusUpdateTime(STATUS_UPDATE_TIME)
+			.build();
+
+		public static final DeliveryDriver DELIVERY_DRIVER_FORM = DeliveryDriver.builder()
+			.name(NAME)
+			.phone(PHONE)
+			.createTime(CREATE_TIME)
+			.status(STATUS)
+			.build();
 	}
 }
