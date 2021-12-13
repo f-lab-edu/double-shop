@@ -35,9 +35,9 @@ public class OrderItem {
         return orderItem;
     }
 
-//    public void cancel() { // 재고 증가
-//        getItem().increaseStock(count);
-//    }
+    public void cancel() { // 재고 증가
+        getItem().increaseStock(count);
+    }
 
     public int getTotalPrice() {
         return price * count; // 주문 가격과 수량을 곱하여 주문 총 가격을 계산
