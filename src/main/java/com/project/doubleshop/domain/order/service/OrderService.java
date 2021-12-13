@@ -7,7 +7,10 @@ import com.project.doubleshop.domain.member.repository.AuthMemberRepository;
 import com.project.doubleshop.domain.order.entity.Order;
 import com.project.doubleshop.domain.order.entity.OrderItem;
 import com.project.doubleshop.domain.order.repository.OrderRepository;
+import com.project.doubleshop.web.config.support.Pageable;
 import com.project.doubleshop.web.order.dto.OrderDto;
+import com.project.doubleshop.web.order.dto.OrderHistoryDto;
+import com.project.doubleshop.web.order.dto.OrderItemDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -46,6 +49,28 @@ public class OrderService {
         orderRepository.save(order);
 
         return order.getId();
+    }
+
+    public List<OrderHistoryDto> findOrders(String userId, Pageable pageable) {
+        // 주문 목록 조회
+        List<Order> orders = orderRepository.findAll(userId, pageable);
+
+        List<OrderHistoryDto> orderHistoryDtos = new ArrayList<>();
+
+        // 주문 리스트를 순회하면서 구매 내역 페이지에 전달할 DTO 생성
+        for (Order order : orders) {
+            OrderHistoryDto orderHistoryDto = new OrderHistoryDto(order);
+            List<OrderItem> orderItems = order.getOrderItems();
+
+            for (OrderItem orderItem : orderItems) {
+                OrderItemDto orderItemDto = new OrderItemDto(orderItem);
+                orderHistoryDto.addOrderItemDto(orderItemDto);
+            }
+
+            orderHistoryDtos.add(orderHistoryDto);
+        }
+
+        return orderHistoryDtos;
     }
 
 }
