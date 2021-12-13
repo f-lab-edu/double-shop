@@ -4,8 +4,10 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
+import com.project.doubleshop.domain.common.Status;
 import com.project.doubleshop.domain.delivery.entity.Delivery;
 import com.project.doubleshop.domain.delivery.mapper.DeliveryMapper;
+import com.project.doubleshop.web.common.StatusRequest;
 import com.project.doubleshop.web.config.support.Pageable;
 
 import lombok.RequiredArgsConstructor;
@@ -35,5 +37,15 @@ public class MyBatisDeliveryRepository implements DeliveryRepository {
 	@Override
 	public List<Delivery> findAll(Pageable pageable) {
 		return mapper.selectAllDelivery(pageable);
+	}
+
+	@Override
+	public int updateStatus(StatusRequest requestDTO) {
+		return mapper.updateDeliveryStatus(requestDTO);
+	}
+
+	@Override
+	public int deleteData(Status status) {
+		return mapper.deleteDelivery(status);
 	}
 }

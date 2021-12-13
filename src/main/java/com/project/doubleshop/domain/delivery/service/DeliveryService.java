@@ -6,8 +6,10 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.project.doubleshop.domain.common.Status;
 import com.project.doubleshop.domain.delivery.entity.Delivery;
 import com.project.doubleshop.domain.delivery.repository.DeliveryRepository;
+import com.project.doubleshop.web.common.StatusRequest;
 import com.project.doubleshop.web.config.support.Pageable;
 import com.project.doubleshop.web.item.exception.DataNotFoundException;
 
@@ -43,5 +45,37 @@ public class DeliveryService {
 
 	public List<Delivery> findDeliveries(Pageable pageable) {
 		return deliveryRepository.findAll(pageable);
+	}
+
+	@Transactional
+	public Delivery getInsertedDelivery(Delivery delivery) {
+		if (saveDelivery(delivery)) {
+			return delivery;
+		} else {
+			throw new DataNotFoundException(String.format("Inserted delivery id %d not found", delivery.getId()));
+		}
+	}
+
+	@Transactional
+	public void updateDeliveryStatus(StatusRequest requestDTO) {
+		Delivery delivery = deliveryRepository.findById(requestDTO.getId());
+		if (delivery == null) {
+			throw new DataNotFoundException(String.format("Delivery Id '%s' not found.", requestDTO.getId()));
+		}
+		if (Status.of(requestDTO.getStatus().name()) == null) {
+			throw new IllegalArgumentException(String.format("Request status value '%s' not found", requestDTO.getStatus().name()));
+		}
+		deliveryRepository.updateStatus(requestDTO);
+	}
+
+	@Transactional
+	public Delivery updateDeliveryStatus(Status status, Long deliveryId) {
+		updateDeliveryStatus(new StatusRequest(deliveryId, status));
+		return findById(deliveryId);
+	}
+
+	@Transactional
+	public Integer deleteDeliveries(Status status) {
+		return deliveryRepository.deleteData(status);
 	}
 }
