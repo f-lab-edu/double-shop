@@ -28,13 +28,17 @@ public class DeliveryService {
 	@Transactional
 	public Delivery saveDelivery(Delivery delivery, Long deliveryId) {
 		findByDeliveryId(deliveryId).orElseThrow(() ->
-			new DataNotFoundException(String.format("Delivery ID '%s' not found.", delivery)));
+			new DataNotFoundException(String.format("Delivery ID '%s' not found.", deliveryId)));
 		deliveryRepository.save(delivery);
 		return deliveryRepository.findById(deliveryId);
 	}
 
 	public Optional<Delivery> findByDeliveryId(Long deliveryId) {
 		return Optional.ofNullable(deliveryRepository.findById(deliveryId));
+	}
+
+	public Delivery findById(Long deliveryId) {
+		return findByDeliveryId(deliveryId).orElseThrow(() -> new DataNotFoundException(String.format("Delivery ID '%s' not found.", deliveryId)));
 	}
 
 	public List<Delivery> findDeliveries(Pageable pageable) {
