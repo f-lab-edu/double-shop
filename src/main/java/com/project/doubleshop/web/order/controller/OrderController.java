@@ -47,4 +47,15 @@ public class OrderController {
         return new ResponseEntity<List<OrderHistoryDto>>(orderHistoryDtoList, HttpStatus.OK);
     }
 
+    @PostMapping("order/{orderId}/cancel")
+    public ResponseEntity cancelOrder(@PathVariable("orderId") Long orderId, Principal principal) {
+        if (!orderService.validateOrder(orderId, principal.getName())) {
+            return new ResponseEntity<String>("권한이 없습니다.", HttpStatus.FORBIDDEN);
+        }
+
+        orderService.cancelOrder(orderId);
+
+        return new ResponseEntity<Long>(orderId, HttpStatus.OK);
+    }
+
 }
