@@ -73,4 +73,21 @@ public class OrderService {
         return orderHistoryDtos;
     }
 
+    public boolean validateOrder(Long orderId, String userId) {
+        Member member = authMemberRepository.findByUserId(userId);
+        Order order = orderRepository.findById(orderId);
+        Member savedMember = order.getMember();
+
+        if (!member.getUserId().equals(savedMember.getUserId())) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public void cancelOrder(Long orderId) {
+        Order order = orderRepository.findById(orderId);
+        order.cancelOrder();
+    }
+
 }
