@@ -40,4 +40,9 @@ public class DeliveryPolicyService {
 	public List<DeliveryPolicy> findDeliveryPolicies(Pageable pageable) {
 		return deliveryPolicyRepository.findAll(pageable);
 	}
+
+	public DeliveryPolicy findById(Long deliveryPolicyId) {
+		return findByDeliveryPolicyId(deliveryPolicyId).orElseThrow(() ->
+			new DataNotFoundException(String.format("Delivery ID '%s' not found.", deliveryPolicyId)));
+	}
 }
