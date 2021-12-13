@@ -40,4 +40,9 @@ public class DeliveryDriverService {
 	public List<DeliveryDriver> findDeliverDrivers(Pageable pageable) {
 		return deliveryDriverRepository.findAll(pageable);
 	}
+
+	public DeliveryDriver findById(Long deliveryDriverId) {
+		return findByDeliverDriverId(deliveryDriverId).orElseThrow(() ->
+			new DataNotFoundException(String.format("DeliveryDriver ID '%s' not found.", deliveryDriverId)));
+	}
 }
