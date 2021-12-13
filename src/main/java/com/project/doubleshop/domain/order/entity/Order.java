@@ -57,5 +57,13 @@ public class Order {
                 .mapToInt(OrderItem::getTotalPrice)
                 .sum();
     }
+
+    public void cancelOrder() {
+        status = OrderStatus.CANCELED;
+
+        for (OrderItem orderItem : orderItems) {
+            orderItem.cancel();
+        }
+    }
     
 }
