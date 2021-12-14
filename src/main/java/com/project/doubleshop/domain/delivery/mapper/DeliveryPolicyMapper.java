@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.project.doubleshop.domain.common.Status;
 import com.project.doubleshop.domain.delivery.entity.DeliveryPolicy;
+import com.project.doubleshop.web.common.StatusRequest;
 import com.project.doubleshop.web.config.support.Pageable;
 
 @Mapper
@@ -15,4 +16,5 @@ public interface DeliveryPolicyMapper {
 	List<DeliveryPolicy> selectAllDeliveryPolicy(Pageable pageable);
 	int updateDeliveryPolicy(DeliveryPolicy deliveryPolicy);
 	int deleteDeliveryPolicy(Status status);
+	int updateDeliveryPolicyStatus(StatusRequest statusRequest);
 }

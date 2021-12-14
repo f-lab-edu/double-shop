@@ -28,6 +28,9 @@
                                    status_update_time = #{statusUpdateTime}
         WHERE id = #{id}
     </update>
+    <update id="updateDeliveryPolicyStatus" parameterType="StatusRequest">
+        UPDATE DELIVERY_POLICY SET status = #{status} WHERE id = #{id}
+    </update>
     <delete id="deleteDeliveryPolicy" parameterType="Status">
         DELETE FROM DELIVERY_POLICY WHERE status = #{TO_BE_DELETED}
     </delete>
