@@ -3,6 +3,7 @@ package com.project.doubleshop.domain.delivery.entity;
 import java.time.LocalDateTime;
 
 import com.project.doubleshop.domain.common.Status;
+import com.project.doubleshop.web.delivery.dto.DeliveryDriverForm;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -35,4 +36,12 @@ public class DeliveryDriver {
 
 	// 상태 변경시간
 	private LocalDateTime statusUpdateTime;
+
+	public static DeliveryDriver convertToDeliveryDriver(DeliveryDriverForm form) {
+		return DeliveryDriver.builder()
+			.id(form.getId())
+			.name(form.getName())
+			.phone(form.getPhone())
+			.build();
+	}
 }

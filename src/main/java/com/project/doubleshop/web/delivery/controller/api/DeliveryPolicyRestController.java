@@ -73,7 +73,7 @@ public class DeliveryPolicyRestController {
 	}
 
 	@DeleteMapping
-	public ResponseEntity<Integer> deleteAssignedDeliveries(@RequestBody Status status) {
+	public ResponseEntity<Integer> deleteAssignedDeliveryPolicies(@RequestBody Status status) {
 		return ResponseEntity.ok(deliveryPolicyService.deleteDeliveryPolices(status));
 	}
 }

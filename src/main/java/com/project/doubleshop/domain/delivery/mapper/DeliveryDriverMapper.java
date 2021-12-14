@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.project.doubleshop.domain.common.Status;
 import com.project.doubleshop.domain.delivery.entity.DeliveryDriver;
+import com.project.doubleshop.web.common.StatusRequest;
 import com.project.doubleshop.web.config.support.Pageable;
 
 @Mapper
@@ -15,4 +16,5 @@ public interface DeliveryDriverMapper {
 	List<DeliveryDriver> selectAllDeliveryDriver(Pageable pageable);
 	int updateDeliveryDriver(DeliveryDriver deliveryDriver);
 	int deleteDeliveryDriver(Status status);
+	int updateDeliveryDriverStatus(StatusRequest statusRequest);
 }
