@@ -28,6 +28,9 @@
                                     status_update_time = #{statusUpdateTime}
         WHERE id = #{id}
     </update>
+    <update id="updateDeliveryDriverStatus" parameterType="StatusRequest">
+        UPDATE DELIVERY_DRIVER SET status = #{status} WHERE id = #{id}
+    </update>
     <delete id="deleteDeliveryDriver" parameterType="Status">
         DELETE FROM DELIVERY_DRIVER WHERE status = #{TO_BE_DELETED}
     </delete>

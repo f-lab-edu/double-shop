@@ -75,6 +75,7 @@ public class DeliveryPolicyService {
 		return findById(deliveryPolicyId);
 	}
 
+	@Transactional
 	public Integer deleteDeliveryPolices(Status status) {
 		return deliveryPolicyRepository.deleteData(status);
 	}
