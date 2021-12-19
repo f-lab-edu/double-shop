@@ -9,4 +9,6 @@ import lombok.RequiredArgsConstructor;
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class DeliveryManagementService {
+	private final DeliveryService deliveryService;
+	
 }
