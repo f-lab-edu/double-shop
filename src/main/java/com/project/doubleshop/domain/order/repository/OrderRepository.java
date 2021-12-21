@@ -1,18 +1,18 @@
 package com.project.doubleshop.domain.order.repository;
 
 import com.project.doubleshop.domain.order.entity.Order;
-import com.project.doubleshop.web.config.support.Pageable;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
 public interface OrderRepository {
 
-    public void save(Order order);
+    boolean save(Order order);
 
-    public Order findById(Long id);
+    Order findById(Long id);
 
-    public List<Order> findAll(String userId, Pageable pageable);
+    List<Order> findAll(String userId, Pageable pageable);
 
-    public Long count(String userId);
+    Long count(String userId);
 
 }

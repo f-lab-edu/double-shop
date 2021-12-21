@@ -7,11 +7,8 @@ import java.util.List;
 
 @Mapper
 public interface OrderMapper {
-
     int insertOrder(Order order);
-
-    Order selectById(Long id);
-
+    Order selectByOrderId(Long id);
     List<Order> selectAll();
-
+    int updateOrder(Order order);
 }
