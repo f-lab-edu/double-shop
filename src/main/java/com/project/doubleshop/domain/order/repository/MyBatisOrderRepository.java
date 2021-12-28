@@ -1,7 +1,10 @@
 package com.project.doubleshop.domain.order.repository;
 
+import com.project.doubleshop.domain.common.Status;
 import com.project.doubleshop.domain.order.entity.Order;
 import com.project.doubleshop.domain.order.mapper.OrderMapper;
+import com.project.doubleshop.web.common.StatusRequest;
+import com.project.doubleshop.web.config.support.Pageable;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -14,31 +17,36 @@ public class MyBatisOrderRepository implements OrderRepository {
     private final OrderMapper mapper;
 
     @Override
-    public void save(Order order) {
+    public boolean save(Order order) {
+        int affectedRowCnt;
+
+        if (order.getId() != null) {
+            affectedRowCnt = mapper.updateOrder(order);
+        } else {
+            affectedRowCnt = mapper.insertOrder(order);
+        }
+
+        return affectedRowCnt != 0;
     }
 
     @Override
     public Order findById(Long id) {
-        return null;
+        return mapper.selectByOrderId(id);
     }
 
     @Override
-    public List<Order> findAllByString(OrderSearch orderSearch) {
-        // 주문 상태 검색
-
-        // 회원 이름 검색
-
-        return null;
+    public List<Order> findAll(Pageable pageable) {
+        return mapper.selectAllOrders(pageable);
     }
 
     @Override
-    public List<Order> findAllWithMemberDelivery() {
-        return null;
+    public int updateStatus(StatusRequest requestDTO) {
+        return mapper.updateOrderStatus(requestDTO);
     }
 
     @Override
-    public List<Order> findAllWithItem() {
-        return null;
+    public int deleteData(Status status) {
+        return mapper.deleteOrder(status);
     }
 
 }
