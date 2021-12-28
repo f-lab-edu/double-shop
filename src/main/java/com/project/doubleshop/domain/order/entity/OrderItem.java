@@ -2,6 +2,7 @@ package com.project.doubleshop.domain.order.entity;
 
 import com.project.doubleshop.domain.item.entity.Item;
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,6 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
+@AllArgsConstructor
 public class OrderItem {
 
     private Long orderId; // 주문 ID
