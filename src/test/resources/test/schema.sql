@@ -93,3 +93,26 @@ CREATE TABLE IF NOT EXISTS DELIVERY_POLICY (
 
 ALTER TABLE DELIVERY ADD CONSTRAINT FK_DELIVERY_POLICY FOREIGN KEY (delivery_policy_id) REFERENCES DELIVERY_POLICY (id);
 ALTER TABLE DELIVERY ADD CONSTRAINT FK_DELIVERY_DRIVER FOREIGN KEY (delivery_driver_id) REFERENCES DELIVERY_DRIVER (id);
+
+CREATE TABLE IF NOT EXISTS "ORDER" (
+    id                         BIGSERIAL      NOT NULL,
+    member_id                  BIGINT         DEFAULT NULL,
+    ordered_at                 TIMESTAMP      NULL DEFAULT NOW(),
+    order_status               INTEGER        DEFAULT 5001,
+    total_price                INTEGER        NOT NULL,
+    status                     INTEGER        DEFAULT 2001,
+    status_update_time         TIMESTAMP      NULL DEFAULT NOW()
+);
+
+CREATE TABLE IF NOT EXISTS ORDER_ITEM (
+    order_id                   BIGINT         DEFAULT NULL,
+    item_id                    BIGINT         DEFAULT NULL,
+    count                      INTEGER        NULL DEFAULT 0,
+    price                      INTEGER        NOT NULL,
+    status                     INTEGER        DEFAULT 2001,
+    status_update_time         TIMESTAMP      NULL DEFAULT NOW()
+);
+
+ALTER TABLE "ORDER" ADD CONSTRAINT FK_MEMBER FOREIGN KEY (member_id) REFERENCES MEMBER (id);
+ALTER TABLE ORDER_ITEM ADD CONSTRAINT FK_ORDER FOREIGN KEY (order_id) REFERENCES "ORDER" (id);
+ALTER TABLE ORDER_ITEM ADD CONSTRAINT FK_ITEM FOREIGN KEY (item_id) REFERENCES ITEM (id);
