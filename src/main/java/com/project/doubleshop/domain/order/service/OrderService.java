@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -51,9 +52,13 @@ public class OrderService {
         return order.getId();
     }
 
+    public Optional<Order> findByOrderId(Long orderId) {
+        return Optional.ofNullable(orderRepository.findById(orderId));
+    }
+
     public List<OrderHistoryDto> findOrders(String userId, Pageable pageable) {
         // 주문 목록 조회
-        List<Order> orders = orderRepository.findAll(userId, pageable);
+        List<Order> orders = orderRepository.findAll(pageable);
 
         List<OrderHistoryDto> orderHistoryDtos = new ArrayList<>();
 
