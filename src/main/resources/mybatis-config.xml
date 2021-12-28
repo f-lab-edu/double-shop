@@ -19,6 +19,7 @@
         <typeAlias type="com.project.doubleshop.domain.delivery.entity.Delivery" alias="Delivery"/>
         <typeAlias type="com.project.doubleshop.domain.delivery.entity.DeliveryDriver" alias="DeliveryDriver"/>
         <typeAlias type="com.project.doubleshop.domain.delivery.entity.DeliveryPolicy" />
+        <typeAlias type="com.project.doubleshop.domain.order.entity.Order" />
     </typeAliases>
     <typeHandlers>
         <typeHandler handler="com.project.doubleshop.domain.common.StatusTypeHandler" />
@@ -33,5 +34,6 @@
         <mapper resource="mapper/deliveryMapper.xml"/>
         <mapper resource="mapper/deliveryDriverMapper.xml"/>
         <mapper resource="mapper/deliveryPolicyMapper.xml"/>
+        <mapper resource="mapper/orderMapper.xml"/>
     </mappers>
 </configuration>
