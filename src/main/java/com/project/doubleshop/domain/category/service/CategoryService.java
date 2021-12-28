@@ -31,7 +31,7 @@ public class CategoryService {
 		if (saveCategory(category)) {
 			return category;
 		} else {
-			throw new DataNotFoundException(String.format("inserted category id %d not found", category.getId()));
+			throw new DataNotFoundException(String.format("Inserted category id %d not found", category.getId()));
 		}
 	}
 
