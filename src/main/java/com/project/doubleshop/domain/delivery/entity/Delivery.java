@@ -1,6 +1,7 @@
 package com.project.doubleshop.domain.delivery.entity;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 import com.project.doubleshop.domain.common.Status;
 import com.project.doubleshop.web.delivery.dto.DeliveryForm;
@@ -40,6 +41,9 @@ public class Delivery {
 	// 상태 업데이트 시간
 	private LocalDateTime statusUpdateTime;
 
+	// 주문 fk
+	private Long orderId;
+
 	// 배송정책 fk
 	private Long deliveryPolicyId;
 
@@ -55,6 +59,21 @@ public class Delivery {
 			.deliveryPolicyId(form.getDeliveryPolicyId())
 			.deliveryDriverId(form.getDeliveryDriverId())
 			.build();
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+		Delivery delivery = (Delivery)o;
+		return id.equals(delivery.id);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
 	}
 }
 

@@ -12,8 +12,5 @@ public interface OrderRepository {
 
     Order findById(Long id);
 
-    List<Order> findAll(String userId, Pageable pageable);
-
-    Long count(String userId);
-
+    List<Order> findAll();
 }

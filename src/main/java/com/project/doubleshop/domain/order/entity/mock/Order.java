@@ -14,7 +14,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Order {
-
 	private Long id;
 
 	private Long memberId;
@@ -23,9 +22,12 @@ public class Order {
 
 	private Integer totalPrice;
 
+	private boolean isCanceled;
+
 	private Status status;
 
 	private LocalDateTime statusUpdateTime;
 
 	private LocalDateTime createTime;
+
 }

@@ -4,19 +4,13 @@ import java.util.List;
 
 import com.project.doubleshop.domain.order.entity.mock.OrderItem;
 
-public interface DeliveryProcessManagement {
+public interface DeliveryProcessManagement<T, S> {
 
-	void doProcess(List<OrderItem> orderItems);
+	void doProcess();
 
-	Boolean preparation();
+	List<T> doPreparation();
 
-	void hold();
+	S statusPreparation();
 
-	void ready();
-
-	void start();
-
-	void onGoing();
-
-	void complete();
+	S statusHold();
 }

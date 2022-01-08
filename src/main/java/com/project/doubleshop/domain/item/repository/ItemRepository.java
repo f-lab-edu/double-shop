@@ -36,4 +36,6 @@ public interface ItemRepository extends Manageable<StatusRequest> {
 	 * @return 특정 카테고리로 정리된 상품 Collection
 	 */
 	List<Item> findAllWithCategory(RequestItemsWithCategory request);
+
+	List<Item> findItemsByOrderIds(List<Long> ids);
 }
