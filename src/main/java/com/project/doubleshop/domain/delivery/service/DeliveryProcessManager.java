@@ -59,7 +59,7 @@ public class DeliveryProcessManager implements DeliveryProcessManagement<Deliver
 				break;
 		}
 	}
-	
+
 	private List<Delivery> doDeliveryBegin() {
 
 		// 있다면, 주문 상품의 우선순위에 따라, 재배열
@@ -94,7 +94,7 @@ public class DeliveryProcessManager implements DeliveryProcessManagement<Deliver
 			.stream().filter(d -> d.getStatus().equals(Status.ACTIVATED))
 			.collect(Collectors.toList());
 
-		List<Delivery> toPrepareDeliveries = deliveryRepository.findPreparedDeliveries(statusProductPreparation());
+		List<Delivery> toPrepareDeliveries = deliveryRepository.findDeliveriesByDeliveryStatus(statusProductPreparation());
 
 		List<Long> deliveryIds = toPrepareDeliveries
 			.stream()

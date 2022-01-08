@@ -18,7 +18,7 @@ public interface DeliveryRepository extends Manageable<StatusRequest> {
 
 	void bulkInsert(List<Delivery> deliveries);
 
-	List<Delivery> findPreparedDeliveries(DeliveryStatus statusPreparation);
+	List<Delivery> findDeliveriesByDeliveryStatus(DeliveryStatus statusPreparation);
 
 	void bulkUpdateDeliveryStatus(List<Long> deliveryIds, DeliveryStatus statusBeginning);
 }
