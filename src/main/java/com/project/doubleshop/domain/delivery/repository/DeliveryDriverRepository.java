@@ -17,4 +17,6 @@ public interface DeliveryDriverRepository extends Manageable<StatusRequest> {
 	DeliveryDriver findById(Long id);
 
 	List<DeliveryDriver> findAll(Pageable pageable);
+
+	List<DeliveryDriver> findValidDrivers();
 }

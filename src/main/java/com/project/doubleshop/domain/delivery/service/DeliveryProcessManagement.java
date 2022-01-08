@@ -6,11 +6,15 @@ import com.project.doubleshop.domain.order.entity.mock.OrderItem;
 
 public interface DeliveryProcessManagement<T, S> {
 
-	void doProcess();
+	void doProcess(String phase);
 
-	List<T> doPreparation();
+	S statusProductPreparation();
 
-	S statusPreparation();
+	S statusDeliveryHold();
 
-	S statusHold();
+	S statusDeliveryPreparation();
+
+	S statusDeliveryOngoing();
+
+	S statusDeliveryComplete();
 }

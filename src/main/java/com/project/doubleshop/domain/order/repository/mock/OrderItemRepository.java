@@ -12,5 +12,5 @@ public interface OrderItemRepository {
 
 	List<OrderItem> findAll();
 
-	List<OrderItem> findOrdersByOrderIds(List<Long> ids);
+	List<OrderItem> findOrderItemsByOrderIds(List<Long> ids);
 }

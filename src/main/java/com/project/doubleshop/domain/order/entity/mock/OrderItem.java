@@ -18,4 +18,6 @@ public class OrderItem {
 	private Integer count;
 
 	private Integer price;
+
+	private Integer priority;
 }
