@@ -46,6 +46,12 @@ public class MyBatisItemRepository implements ItemRepository {
 	}
 
 	@Override
+	public List<Item> findItemsByOrderIds(List<Long> ids) {
+		/*TODO 'ids'에 해당하는 모든 상품 데이터를 조회하는 데이터 액세스 로직 구현하기*/
+		return null;
+	}
+
+	@Override
 	public int updateStatus(StatusRequest requestDto) {
 		return mapper.updateItemStatus(requestDto);
 	}

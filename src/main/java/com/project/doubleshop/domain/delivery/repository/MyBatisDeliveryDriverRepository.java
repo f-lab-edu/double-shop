@@ -40,6 +40,12 @@ public class MyBatisDeliveryDriverRepository implements DeliveryDriverRepository
 	}
 
 	@Override
+	public List<DeliveryDriver> findValidDrivers() {
+		/*TODO Status가 ACTIVATED인 모든 운전수들을 조회하는 데이터 액세스 로직 구현하기*/
+		return null;
+	}
+
+	@Override
 	public int updateStatus(StatusRequest requestDTO) {
 		return mapper.updateDeliveryDriverStatus(requestDTO);
 	}

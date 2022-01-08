@@ -20,9 +20,12 @@ public class DeliveryDriverForm {
 	// 핸드폰 번호
 	private String phone;
 
+	private Integer capacity;
+
 	public DeliveryDriverForm(DeliveryDriver source) {
 		this.id = source.getId();
 		this.name = source.getName();
 		this.phone = source.getPhone();
+		this.capacity = source.getCapacity();
 	}
 }

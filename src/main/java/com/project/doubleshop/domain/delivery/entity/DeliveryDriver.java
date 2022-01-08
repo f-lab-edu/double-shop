@@ -25,6 +25,9 @@ public class DeliveryDriver {
 	// 핸드폰 번호
 	private String phone;
 
+	// 물건 적재한도 g
+	private Integer capacity;
+
 	// 등록일
 	private LocalDateTime createTime;
 
@@ -42,6 +45,7 @@ public class DeliveryDriver {
 			.id(form.getId())
 			.name(form.getName())
 			.phone(form.getPhone())
+			.capacity(form.getCapacity())
 			.build();
 	}
 }

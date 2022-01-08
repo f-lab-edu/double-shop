@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import com.project.doubleshop.domain.common.Status;
 import com.project.doubleshop.domain.delivery.entity.Delivery;
+import com.project.doubleshop.domain.delivery.entity.DeliveryStatus;
 import com.project.doubleshop.domain.delivery.mapper.DeliveryMapper;
 import com.project.doubleshop.web.common.StatusRequest;
 import com.project.doubleshop.web.config.support.Pageable;
@@ -37,6 +38,21 @@ public class MyBatisDeliveryRepository implements DeliveryRepository {
 	@Override
 	public List<Delivery> findAll(Pageable pageable) {
 		return mapper.selectAllDelivery(pageable);
+	}
+
+	@Override
+	public void bulkInsert(List<Delivery> deliveries) {
+		/*TODO 2건 이상의 배송 데이터를 insert하는 데이터 액세스 로직 구현하기*/
+	}
+
+	@Override
+	public List<Delivery> findDeliveriesByDeliveryStatus(DeliveryStatus statusPreparation) {
+		return null;
+	}
+
+	@Override
+	public void bulkUpdateDeliveryStatus(List<Long> deliveryIds, DeliveryStatus statusBeginning) {
+
 	}
 
 	@Override

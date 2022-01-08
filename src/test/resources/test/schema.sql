@@ -73,6 +73,7 @@ CREATE TABLE IF NOT EXISTS DELIVERY_DRIVER (
     id                         BIGSERIAL      NOT NULL,
     name                       VARCHAR(50)    NOT NULL,
     phone                      VARCHAR(50)    NOT NULL,
+    capacity                   INTEGER        NOT NULL,
     create_time                TIMESTAMP      NULL DEFAULT NOW(),
     update_time                TIMESTAMP      NULL DEFAULT NOW(),
     status                     INTEGER        DEFAULT 2001,

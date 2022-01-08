@@ -17,6 +17,9 @@ public class DeliveryDriverDTO {
 	// 핸드폰 번호
 	private final String phone;
 
+	// 적재한도 g
+	private final Integer capacity;
+
 	// 등록일
 	private final LocalDateTime createTime;
 
@@ -27,6 +30,7 @@ public class DeliveryDriverDTO {
 		this.id = source.getId();
 		this.name = source.getName();
 		this.phone = source.getPhone();
+		this.capacity = source.getCapacity();
 		this.createTime = source.getCreateTime();
 		this.updateTime = source.getUpdateTime();
 	}
