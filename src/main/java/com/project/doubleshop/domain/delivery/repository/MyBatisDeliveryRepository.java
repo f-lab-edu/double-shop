@@ -52,13 +52,18 @@ public class MyBatisDeliveryRepository implements DeliveryRepository {
 	}
 
 	@Override
-	public void bulkUpdateDeliveryStatusByOrderIds(List<Long> deliveryIds, DeliveryStatus statusBeginning) {
+	public void bulkUpdateDeliveryStatusByOrderIds(List<Long> deliveryIds, DeliveryStatus deliveryStatus) {
 		/*TODO 주문 fk를 통해, 배송 상태를 업데이트 하는 데이터 액세스 로직 구현하기*/
 	}
 
 	@Override
-	public void batchUpdate(List<DispatchDriver> result) {
+	public void batchUpdateDeliveryDriver(List<DispatchDriver> ids) {
 		/*TODO 전달 받은 result를 활용하여, 배치 업데이트 쿼리를 실행하는 로직 구현하기*/
+	}
+
+	@Override
+	public void batchUpdateDeliveryStatusByDeliveryId(List<Long> invalidIds, DeliveryStatus deliveryStatus) {
+		/*TODO 전달 받은 배송 id 리스트를 받아, 배송 상태를 업데이트하는 데이터 액세스 로직 구현하기*/
 	}
 
 	@Override

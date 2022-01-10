@@ -1,17 +1,15 @@
 package com.project.doubleshop.domain.delivery.service;
 
 import java.time.LocalDateTime;
-import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Deque;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
 import java.util.Set;
 import java.util.stream.Collectors;
-
-import org.springframework.stereotype.Service;
 
 import com.project.doubleshop.domain.common.Status;
 import com.project.doubleshop.domain.delivery.entity.Delivery;
@@ -52,12 +50,12 @@ public class DeliveryProcessManager implements DeliveryProcessManagement<Deliver
 				// 배송 준비 -> 배송 시작(요청)
 				deliveries = doDeliveryBegin();
 				break;
-			case "3":
-				// 배송 시작 -> 배송 중
-				break;
-			case "4":
-				// 배송 중 -> 배송 완료 || 배송 보류
-				break;
+			// case "3":
+			// 	// 배송 시작 -> 배송 중
+			// 	break;
+			// case "4":
+			// 	// 배송 중 -> 배송 완료 || 배송 보류
+			// 	break;
 		}
 	}
 
@@ -95,47 +93,81 @@ public class DeliveryProcessManager implements DeliveryProcessManagement<Deliver
 		);
 
 		// 배송의 주문 타입에 따라, 배송 순서 재배열
-		List<DeliveryInfo> list = new ArrayList<>();
+		List<DeliveryInfo> deliveries = new ArrayList<>();
 		for (Long deliveryId : deliveryAndOrder.keySet()) {
 			Long orderId = deliveryAndOrder.get(deliveryId);
 			Integer priority = priorityPerOrder.get(orderId);
 			Integer weight = weightPerOrder.get(orderId);
-			list.add(new DeliveryInfo(deliveryId, priority, weight));
+			deliveries.add(new DeliveryInfo(deliveryId, priority, weight));
 		}
-		list.sort(Comparator.comparingInt(DeliveryInfo::getPriority));
 
 		// 정렬 된 배송을 통해, 배송 운전기사와 배차 작업 수행.
-		List<DispatchDriver> result = dispatchDriverToDelivery(drivers, list);
+		List<DispatchDriver> result = dispatchDriverToDelivery(drivers, deliveries);
 
-		deliveryRepository.batchUpdate(result);
+		if (result != null) {
+			deliveryRepository.batchUpdateDeliveryDriver(result);
+			if (result.size() < deliveries.size()) {
+				Set<Long> ids = result.stream().map(DispatchDriver::getDeliveryId).collect(Collectors.toSet());
+				List<Long> invalidIds = deliveries.stream()
+					.map(DeliveryInfo::getDeliveryId)
+					.filter(deliveryId -> !ids.contains(deliveryId))
+					.collect(Collectors.toList());
+
+				deliveryRepository.batchUpdateDeliveryStatusByDeliveryId(invalidIds, statusDeliveryHold());
+			}
+		}
 
 		return toBeginDeliveries;
 	}
 
-	private List<DispatchDriver> dispatchDriverToDelivery (List<DeliveryDriver> drivers, List<DeliveryInfo> list) {
-		int len = list.size();
-		Deque<DeliveryInfo> deque = new ArrayDeque<>(len);
-		deque.addAll(list);
+	private List<DispatchDriver> dispatchDriverToDelivery (List<DeliveryDriver> drivers, List<DeliveryInfo> deliveries) {
+		if (drivers.isEmpty() || deliveries.isEmpty()) {
+			return null;
+		}
+
+		deliveries.sort((o1, o2) -> {
+			if (o1.getPriority().equals(o2.getPriority())) {
+				return o2.getWeight() - o1.getWeight();
+			} else {
+				return o1.getPriority() - o2.getPriority();
+			}
+		});
+
+		Queue<DeliveryInfo> deliveryQueue = new LinkedList<>();
+		deliveryQueue.addAll(deliveries);
+
 		DeliveryDriver[] deliveryDrivers = drivers.toArray(new DeliveryDriver[0]);
-		List<DispatchDriver> result = new ArrayList<>(len);
-		DeliveryInfo deliveryInfo = deque.pop();
-		int weight = deliveryInfo.getWeight();
+		Arrays.sort(deliveryDrivers, (o1, o2) -> o2.getCapacity() - o1.getCapacity());
+		List<DispatchDriver> result = new ArrayList<>();
+
 		int idx = 0;
+		DeliveryInfo deliveryInfo = deliveryQueue.remove();
+		int weight = deliveryInfo.getWeight();
+		Integer max = deliveryDrivers[0].getCapacity();
 		while (idx < deliveryDrivers.length) {
-			DeliveryDriver driver = deliveryDrivers[idx];
-			Integer capacity = driver.getCapacity();
-			result.add(new DispatchDriver(deliveryInfo.getDeliveryId(), driver.getId()));
-			while (capacity >= weight) {
-				driver.decreaseCapacity(capacity);
-				if (deque.isEmpty()) {
-					break;
+			DeliveryDriver deliveryDriver = deliveryDrivers[idx];
+			Integer capacity = deliveryDriver.getCapacity();
+			if (capacity < weight) {
+				if (weight <= max) {
+					deliveryQueue.add(deliveryInfo);
 				}
-				deliveryInfo = deque.poll();
+				deliveryInfo = deliveryQueue.remove();
+				weight = deliveryInfo.getWeight();
+			}
+			while (capacity >= weight) {
+				deliveryDriver.decreaseCapacity(weight);
+				capacity = deliveryDriver.getCapacity();
+				result.add(new DispatchDriver(deliveryInfo.getDeliveryId(), deliveryDriver.getId()));
+				if (deliveryQueue.isEmpty()) {
+					return result;
+				}
+				deliveryInfo = deliveryQueue.remove();
 				weight = deliveryInfo.getWeight();
 			}
 			idx++;
 		}
 		return result;
+
 	}
 
 	public List<Delivery> doDeliveriesPreparation() {

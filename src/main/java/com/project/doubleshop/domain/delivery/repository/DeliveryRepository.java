@@ -21,7 +21,9 @@ public interface DeliveryRepository extends Manageable<StatusRequest> {
 
 	List<Delivery> findDeliveriesByDeliveryStatus(DeliveryStatus statusPreparation);
 
-	void bulkUpdateDeliveryStatusByOrderIds(List<Long> deliveryIds, DeliveryStatus statusBeginning);
+	void bulkUpdateDeliveryStatusByOrderIds(List<Long> deliveryIds, DeliveryStatus deliveryStatus);
 
-	void batchUpdate(List<DispatchDriver> result);
+	void batchUpdateDeliveryDriver(List<DispatchDriver> result);
+
+	void batchUpdateDeliveryStatusByDeliveryId(List<Long> invalidIds, DeliveryStatus deliveryStatus);
 }
