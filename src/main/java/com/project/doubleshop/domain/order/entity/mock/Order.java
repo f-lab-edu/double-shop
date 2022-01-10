@@ -24,6 +24,8 @@ public class Order {
 
 	private boolean isCanceled;
 
+	private OrderType orderType;
+
 	private Status status;
 
 	private LocalDateTime statusUpdateTime;
