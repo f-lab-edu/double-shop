@@ -46,7 +46,7 @@ public class MyBatisItemRepository implements ItemRepository {
 	}
 
 	@Override
-	public List<Item> findItemsByOrderIds(List<Long> ids) {
+	public List<Item> findItemsByIds(List<Long> ids) {
 		/*TODO 'ids'에 해당하는 모든 상품 데이터를 조회하는 데이터 액세스 로직 구현하기*/
 		return null;
 	}

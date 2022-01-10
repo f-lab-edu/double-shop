@@ -48,4 +48,11 @@ public class DeliveryDriver {
 			.capacity(form.getCapacity())
 			.build();
 	}
+
+	public void decreaseCapacity(Integer capacity) {
+		if (this.capacity < capacity) {
+			throw new IllegalArgumentException("invalid capacity");
+		}
+		this.capacity -= capacity;
+	}
 }

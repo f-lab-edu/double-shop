@@ -19,5 +19,5 @@ public class OrderItem {
 
 	private Integer price;
 
-	private Integer priority;
+	private Integer itemWeight;
 }

@@ -37,5 +37,5 @@ public interface ItemRepository extends Manageable<StatusRequest> {
 	 */
 	List<Item> findAllWithCategory(RequestItemsWithCategory request);
 
-	List<Item> findItemsByOrderIds(List<Long> ids);
+	List<Item> findItemsByIds(List<Long> ids);
 }
