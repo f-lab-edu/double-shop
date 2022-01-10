@@ -13,4 +13,7 @@ public interface OrderRepository {
     Order findById(Long id);
 
     List<Order> findAll();
+
+    // TODO order pk를 모아서 in(...)로 주문 목록을 조회하는 쿼리문 구현.
+	List<Order> findByIds(List<Long> orderIds);
 }

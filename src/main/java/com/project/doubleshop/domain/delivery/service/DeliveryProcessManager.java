@@ -2,7 +2,6 @@ package com.project.doubleshop.domain.delivery.service;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import com.project.doubleshop.domain.common.Status;
 import com.project.doubleshop.domain.delivery.entity.Delivery;
-import com.project.doubleshop.domain.delivery.entity.DeliveryDriver;
 import com.project.doubleshop.domain.delivery.entity.DeliveryStatus;
 import com.project.doubleshop.domain.delivery.repository.DeliveryDriverRepository;
 import com.project.doubleshop.domain.delivery.repository.DeliveryRepository;
@@ -62,52 +60,60 @@ public class DeliveryProcessManager implements DeliveryProcessManagement<Deliver
 
 	private List<Delivery> doDeliveryBegin() {
 
-		// 있다면, 주문 상품의 우선순위에 따라, 재배열
-		List<Long> orderIds = new ArrayList<>();
-		List<Long> deliveryIds = new ArrayList<>();
-
-		// 배송 상태를 업데이트할 배송의 pk와 주문 fk 수집.
-		toOngoingDeliveries.forEach(d -> {
-			orderIds.add(d.getOrderId());
-			deliveryIds.add(d.getId());
-		});
-
-		// 수집한 주문 상품들의 우선순위 수집.
-		List<OrderItem> orderItems = orderItemRepository.findOrderItemsByOrderIds(orderIds);
-
-		// 주문 상품들의 우선순위 점수 합산하여, 주문 하나당 우선순위 점수 수집.
-		Map<Long, Integer> map = new HashMap<>();
-		for (OrderItem orderItem : orderItems) {
-			Long orderId = orderItem.getOrderId();
-			map.put(orderId, orderItem.getPriority() + map.getOrDefault(orderId, 0));
-		}
-
-		// 주문 fk를 통해, 배송에 배치된 주문의 우선순위 점수에 따라, 배송순서 재배열 후, 배송 상태를 '배송 준비중'으로 전환
-		toOngoingDeliveries.sort(Comparator.comparingInt(o -> map.get(o.getOrderId())));
+		// List<DeliveryDriver> drivers = deliveryDriverRepository.findValidDrivers()
+		// 	.stream().filter(d -> d.getStatus().equals(Status.ACTIVATED))
+		// 	.collect(Collectors.toList());
+		//
+		// List<Delivery> toBeginDeliveries = deliveryRepository.findDeliveriesByDeliveryStatus(statusProductPreparation());
+		//
+		// List<Long> orderIds = new ArrayList<>();
+		//
+		// // 배송 상태를 업데이트할 배송의 pk와 주문 fk 수집.
+		// toBeginDeliveries.forEach(d -> {
+		// 	orderIds.add(d.getOrderId());
+		// });
+		//
+		// // 수집한 주문 상품들의 우선순위 수집.
+		// List<OrderItem> orderItems = orderItemRepository.findOrderItemsByOrderIds(orderIds);
+		//
+		// // 주문 상품들의 우선순위 점수 합산하여, 주문 하나당 우선순위 점수 수집.
+		// Map<Long, Integer> map = new HashMap<>();
+		// for (OrderItem orderItem : orderItems) {
+		// 	Long orderId = orderItem.getOrderId();
+		// 	map.put(orderId, orderItem.getPriority() + map.getOrDefault(orderId, 0));
+		// }
+		//
+		// toBeginDeliveries.sort(Comparator.comparingInt(o -> map.get(o.getOrderId())));
 
 		return null;
 	}
 
 	public List<Delivery> doDeliveriesPreparation() {
-		// 유효한 배송 기사가 있는가?
-		List<DeliveryDriver> drivers = deliveryDriverRepository.findValidDrivers()
-			.stream().filter(d -> d.getStatus().equals(Status.ACTIVATED))
-			.collect(Collectors.toList());
 
+		// 상품 준비 단계에 있는 배송들의 주문 fk 조회
 		List<Delivery> toPrepareDeliveries = deliveryRepository.findDeliveriesByDeliveryStatus(statusProductPreparation());
-
-		List<Long> deliveryIds = toPrepareDeliveries
-			.stream()
-			.map(Delivery::getId)
+		List<Long> orderIds = toPrepareDeliveries.stream()
+			.map(Delivery::getOrderId)
 			.collect(Collectors.toList());
 
-		if (!drivers.isEmpty()) {
-			// 배차가 가능한 배송차량이 있으면, 전부 '배송 준비'
-			deliveryRepository.bulkUpdateDeliveryStatus(deliveryIds, statusDeliveryPreparation());
-		} else {
-			// 배차가 가능한 배송차량이 없으면, 상품 준비가 가능한, 배송은 전부 보류처리
-			deliveryRepository.bulkUpdateDeliveryStatus(deliveryIds, statusDeliveryHold());
+		// 주문 fk에 속하는 주문 조회
+		List<Order> orders = orderRepository.findByIds(orderIds);
+
+		// 그 주문에서, 취소된 것과 그렇지 않은 것을 분류
+		List<Long> isCanceled = new ArrayList<>();
+		List<Long> isNotCanceled = new ArrayList<>();
+
+		for (Order order : orders) {
+			if (order.isCanceled()) {
+				isCanceled.add(order.getId());
+			} else {
+				isNotCanceled.add(order.getId());
+			}
 		}
+
+		// 분류하고, 해당 배송들의 배송상태 업데이트
+		deliveryRepository.bulkUpdateDeliveryStatusByOrderIds(isCanceled, statusDeliveryHold());
+		deliveryRepository.bulkUpdateDeliveryStatusByOrderIds(isNotCanceled, statusDeliveryPreparation());
 		return toPrepareDeliveries;
 	}
 
