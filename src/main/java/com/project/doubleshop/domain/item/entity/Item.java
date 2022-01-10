@@ -103,6 +103,9 @@ public class Item {
     // 당일배송가능여부
     private Boolean isFreshEligible;
 
+    // 무게
+    private Integer weight;
+
     // 상태
     private Status status;
 
@@ -143,6 +146,7 @@ public class Item {
             .publishedTime(form.getPublishedTime())
             .isOnedayEligible(form.getIsOnedayEligible())
             .isFreshEligible(form.getIsFreshEligible())
+            .weight(form.getWeight())
             .categoryId(form.getCategoryId())
             .status(form.getStatus())
             .build();

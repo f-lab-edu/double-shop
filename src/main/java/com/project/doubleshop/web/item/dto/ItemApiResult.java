@@ -80,6 +80,9 @@ public class ItemApiResult {
 	// 당일배송가능여부
 	private final Boolean isFreshEligible;
 
+	// 무게
+	private final Integer weight;
+
 	// 등록된 시간
 	private final LocalDateTime createTime;
 
@@ -110,6 +113,7 @@ public class ItemApiResult {
 		this.publishedTime = item.getPublishedTime();
 		this.isOnedayEligible = item.getIsOnedayEligible();
 		this.isFreshEligible = item.getIsFreshEligible();
+		this.weight = item.getWeight();
 		this.createTime = item.getCreateTime();
 		this.category = new CategoryDTO(category);
 	}

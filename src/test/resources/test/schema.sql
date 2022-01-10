@@ -23,6 +23,7 @@ CREATE TABLE  IF NOT EXISTS ITEM
     published_time             DATE           DEFAULT NULL,
     is_oneday_eligible         BOOLEAN        DEFAULT false,
     is_fresh_eligible          BOOLEAN        DEFAULT false,
+    weight                     INTEGER        NOT NULL,
     status                     INTEGER        DEFAULT 2001,
     status_update_time         TIMESTAMP      DEFAULT NOW(),
     created_time               TIMESTAMP      DEFAULT NOW(),

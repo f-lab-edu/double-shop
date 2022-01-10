@@ -77,6 +77,9 @@ public class ItemDTO {
 	// 당일배송가능여부
 	private final Boolean isFreshEligible;
 
+	// 무게
+	private final Integer weight;
+
 	public ItemDTO(Item source) {
 		this.id = source.getId();
 		this.name = source.getName();
@@ -101,5 +104,6 @@ public class ItemDTO {
 		this.publishedTime = source.getPublishedTime();
 		this.isOnedayEligible = source.getIsOnedayEligible();
 		this.isFreshEligible = source.getIsFreshEligible();
+		this.weight = source.getWeight();
 	}
 }

@@ -7,29 +7,29 @@
                           dimension, package_type, origin, expiration,
                           price_per_100g, allergic_info, model_serial_no, rating, search_keyword,
                           stock, discount_price, author, publisher, isbn,
-                          published_time, is_oneday_eligible, is_fresh_eligible, status, status_update_time, category_id)
+                          published_time, is_oneday_eligible, is_fresh_eligible, weight, status, status_update_time, category_id)
         VALUES (#{name}, #{description},#{brandName}, #{price},
                 #{volume}, #{dimension}, #{packageType}, #{origin}, #{expiration},
                 #{pricePer100g}, #{allergicInfo}, #{modelSerialNo}, #{rating}, #{searchKeyword},
                 #{stock}, #{discountPrice}, #{author}, #{publisher}, #{isbn},
-                #{publishedTime}, #{isOnedayEligible}, #{isFreshEligible}, #{status}, #{statusUpdateTime}, #{categoryId})
+                #{publishedTime}, #{isOnedayEligible}, #{isFreshEligible}, #{weight}, #{status}, #{statusUpdateTime}, #{categoryId})
     </insert>
     <select id="selectByItemId" parameterType="long" resultType="Item">
         SELECT id, name, description, brand_name, price, volume, dimension, package_type, origin, expiration, price_per_100g,
                allergic_info, model_serial_no, rating, search_keyword, stock, discount_price, author, publisher, isbn, published_time,
-               is_oneday_eligible, is_fresh_eligible, status, status_update_time, category_id
+               is_oneday_eligible, is_fresh_eligible, weight, status, status_update_time, category_id
         FROM ITEM WHERE id = #{id}
     </select>
     <select id="selectAllItems" resultType="Item" parameterType="Pageable">
         SELECT id, name, description, brand_name, price, volume, dimension, package_type, origin, expiration, price_per_100g,
                 allergic_info, model_serial_no, rating, search_keyword, stock, discount_price, author, publisher, isbn, published_time,
-               is_oneday_eligible, is_fresh_eligible, status, status_update_time, category_id
+               is_oneday_eligible, is_fresh_eligible, weight, status, status_update_time, category_id
         FROM ITEM ORDER BY id DESC LIMIT #{size} OFFSET #{page}
     </select>
     <select id="selectItemsWithCategory" resultType="Item" parameterType="RequestItemsWithCategory">
         SELECT id, name, description, brand_name, price, volume, dimension, package_type, origin, expiration, price_per_100g,
                allergic_info, model_serial_no, rating, search_keyword, stock, discount_price, author, publisher, isbn, published_time,
-               is_oneday_eligible, is_fresh_eligible, status, status_update_time, category_id
+               is_oneday_eligible, is_fresh_eligible, weight, status, status_update_time, category_id
         FROM ITEM WHERE category_id = #{categoryId} ORDER BY id DESC LIMIT #{size} OFFSET #{page}
     </select>
     <update id="updateItem" parameterType="Item">
@@ -56,6 +56,7 @@
                         published_time  = #{publishedTime},
                         is_oneday_eligible = #{isOnedayEligible},
                         is_fresh_eligible = #{isFreshEligible},
+                        weight = #{weight},
                         status= #{status},
                         status_update_time = #{statusUpdateTime},
                         created_time = #{createTime},
