@@ -58,7 +58,7 @@ public class DeliveryProcessManager implements DeliveryProcessManagement<Deliver
 			// 	break;
 		}
 	}
-
+	/** 배송 준비 -> 배송 시작 */
 	private List<Delivery> doDeliveryBegin() {
 
 		// 배송기사를 조회한다.
@@ -120,6 +120,7 @@ public class DeliveryProcessManager implements DeliveryProcessManagement<Deliver
 		return toBeginDeliveries;
 	}
 
+	// 배차 알고리즘
 	private List<DispatchDriver> dispatchDriverToDelivery (List<DeliveryDriver> drivers, List<DeliveryInfo> deliveries) {
 		if (drivers.isEmpty() || deliveries.isEmpty()) {
 			return null;
@@ -170,6 +171,7 @@ public class DeliveryProcessManager implements DeliveryProcessManagement<Deliver
 
 	}
 
+	/** 상품 준비 -> 배송 준비 */
 	public List<Delivery> doDeliveriesPreparation() {
 
 		// 상품 준비 단계에 있는 배송들의 주문 fk 조회

@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 
 import com.project.doubleshop.domain.order.entity.mock.Order;
 
+// TODO 주문 도메인 데이터 액세스 & 서비스 로직 구현.
 public interface OrderRepository {
 
     boolean save(Order order);
