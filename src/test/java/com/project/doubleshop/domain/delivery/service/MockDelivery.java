@@ -83,6 +83,7 @@ public class MockDelivery {
 		public static final Long ID = 1L;
 		public static final String NAME = "김기사";
 		public static final String PHONE = "010-1234-5678";
+		public static final Integer CAPACITY = 2500;
 		public static final LocalDateTime CREATE_TIME = LocalDateTime.of(2021, 10, 13, 9, 27, 1);
 		public static final LocalDateTime UPDATE_TIME = null;
 		public static final Status STATUS = Status.ACTIVATED;
@@ -92,6 +93,7 @@ public class MockDelivery {
 			.id(ID)
 			.name(NAME)
 			.phone(PHONE)
+			.capacity(CAPACITY)
 			.createTime(CREATE_TIME)
 			.updateTime(UPDATE_TIME)
 			.status(STATUS)
@@ -101,6 +103,7 @@ public class MockDelivery {
 		public static final DeliveryDriver DELIVERY_DRIVER_FORM = DeliveryDriver.builder()
 			.name(NAME)
 			.phone(PHONE)
+			.capacity(CAPACITY)
 			.createTime(CREATE_TIME)
 			.status(STATUS)
 			.build();

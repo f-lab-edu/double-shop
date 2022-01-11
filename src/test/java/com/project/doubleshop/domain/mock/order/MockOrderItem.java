@@ -3,6 +3,7 @@ package com.project.doubleshop.domain.mock.order;
 import static com.project.doubleshop.domain.mock.item.MockItem.*;
 import static com.project.doubleshop.domain.mock.order.MockOrder.*;
 
+import com.project.doubleshop.domain.item.service.MockItem;
 import com.project.doubleshop.domain.order.entity.mock.OrderItem;
 
 public class MockOrderItem {
@@ -10,11 +11,11 @@ public class MockOrderItem {
 
 		public static final Long ORDER_ID = Order1.ID;
 
-		public static final Long ITEM_ID = Item1.ID;
+		public static final Long ITEM_ID = MockItem.Item1.ID;
 
 		public static final Integer COUNT = 2;
 
-		public static final Integer PRICE = Item1.PRICE;
+		public static final Integer PRICE = MockItem.Item1.PRICE;
 
 		public static final OrderItem ORDER_ITEM = OrderItem.builder()
 			.orderId(ORDER_ID)
