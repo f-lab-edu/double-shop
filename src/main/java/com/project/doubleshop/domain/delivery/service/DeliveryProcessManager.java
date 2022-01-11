@@ -137,16 +137,15 @@ public class DeliveryProcessManager implements DeliveryProcessManagement<Deliver
 		Queue<DeliveryInfo> deliveryQueue = new LinkedList<>();
 		deliveryQueue.addAll(deliveries);
 
-		DeliveryDriver[] deliveryDrivers = drivers.toArray(new DeliveryDriver[0]);
-		Arrays.sort(deliveryDrivers, (o1, o2) -> o2.getCapacity() - o1.getCapacity());
+		drivers.sort((o1, o2) -> o2.getCapacity() - o1.getCapacity());
 		List<DispatchDriver> result = new ArrayList<>();
 
 		int idx = 0;
 		DeliveryInfo deliveryInfo = deliveryQueue.remove();
 		int weight = deliveryInfo.getWeight();
-		Integer max = deliveryDrivers[0].getCapacity();
-		while (idx < deliveryDrivers.length) {
-			DeliveryDriver deliveryDriver = deliveryDrivers[idx];
+		Integer max = drivers.get(0).getCapacity();
+		while (idx < drivers.size()) {
+			DeliveryDriver deliveryDriver = drivers.get(idx);
 			Integer capacity = deliveryDriver.getCapacity();
 			if (capacity < weight) {
 				if (weight <= max) {
