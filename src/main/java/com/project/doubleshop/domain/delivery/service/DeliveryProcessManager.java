@@ -247,7 +247,7 @@ public class DeliveryProcessManager implements DeliveryProcessManagement<Deliver
 					.build()
 			);
 		});
-		deliveryRepository.bulkInsert(result);
+		deliveryRepository.batchInsert(result);
 		return result;
 	}
 

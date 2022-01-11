@@ -42,7 +42,7 @@ public class MyBatisDeliveryRepository implements DeliveryRepository {
 	}
 
 	@Override
-	public void bulkInsert(List<Delivery> deliveries) {
+	public void batchInsert(List<Delivery> deliveries) {
 		/*TODO 2건 이상의 배송 데이터를 insert하는 데이터 액세스 로직 구현하기*/
 	}
 
