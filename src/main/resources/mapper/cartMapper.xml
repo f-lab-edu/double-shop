@@ -8,4 +8,11 @@
             (#{cart.memberId}, #{cart.itemId})
         </foreach>
     </insert>
+    <delete id="deleteCart">
+        DELETE FROM CART WHERE
+        <foreach item="id" index="index" collection="list"
+            open="id IN (" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
 </mapper>

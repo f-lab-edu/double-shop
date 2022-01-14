@@ -9,4 +9,5 @@ import com.project.doubleshop.domain.cart.entity.Cart;
 @Mapper
 public interface CartMapper {
 	int insertCart(List<Cart> carts);
+	int deleteCart(List<Long> cartIds);
 }
