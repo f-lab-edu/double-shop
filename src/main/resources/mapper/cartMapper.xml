@@ -1,0 +1,11 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.doubleshop.domain.cart.mapper.CartMapper">
+    <insert id="insertCart" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO CART (member_id, item_id) VALUES
+        <foreach item="cart" collection="list" separator=",">
+            (#{cart.memberId}, #{cart.itemId})
+        </foreach>
+    </insert>
+</mapper>
