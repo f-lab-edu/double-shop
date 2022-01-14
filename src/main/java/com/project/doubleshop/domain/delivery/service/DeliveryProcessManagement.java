@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.project.doubleshop.domain.order.entity.mock.OrderItem;
 
-public interface DeliveryProcessManagement<T, S> {
+public interface DeliveryProcessManagement<S> {
 
 	void doProcess(String phase);
 
