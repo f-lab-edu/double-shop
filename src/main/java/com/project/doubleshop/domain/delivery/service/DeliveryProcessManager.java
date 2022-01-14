@@ -26,7 +26,7 @@ import com.project.doubleshop.domain.order.repository.mock.OrderRepository;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class DeliveryProcessManager implements DeliveryProcessManagement<Delivery, DeliveryStatus> {
+public class DeliveryProcessManager implements DeliveryProcessManagement<DeliveryStatus> {
 
 	private final ItemRepository itemRepository;
 	private final OrderRepository orderRepository;
@@ -56,6 +56,8 @@ public class DeliveryProcessManager implements DeliveryProcessManagement<Deliver
 			// case "4":
 			// 	// 배송 중 -> 배송 완료 || 배송 보류
 			// 	break;
+			default:
+				throw new IllegalArgumentException(String.format("phase %s is not available", phase));
 		}
 	}
 	/** 배송 준비 -> 배송 시작 */
@@ -115,6 +117,8 @@ public class DeliveryProcessManager implements DeliveryProcessManagement<Deliver
 
 				deliveryRepository.batchUpdateDeliveryStatusByDeliveryId(invalidIds, statusDeliveryHold());
 			}
+		} else {
+			return null;
 		}
 
 		return toBeginDeliveries;
