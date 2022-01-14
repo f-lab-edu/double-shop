@@ -50,8 +50,10 @@ public class DeliveryDriver {
 	}
 
 	public void decreaseCapacity(Integer capacity) {
-		if (this.capacity < capacity) {
-			throw new IllegalArgumentException("invalid capacity");
+		if (capacity == null) {
+			throw new NullPointerException("Capacity must be provided.");
+		} else if (this.capacity < capacity) {
+			throw new IllegalArgumentException("Capacity must be less than before");
 		}
 		this.capacity -= capacity;
 	}
