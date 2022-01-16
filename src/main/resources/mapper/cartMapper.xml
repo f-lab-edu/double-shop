@@ -8,11 +8,12 @@
     <insert id="insertCart" parameterType="Cart" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO CART (member_id, item_id) VALUES (#{memberId}, #{itemId})
     </insert>
-    <delete id="deleteCart">
+    <delete id="deleteCart" parameterType="long">
         DELETE FROM CART WHERE
         <foreach item="id" index="index" collection="list"
             open="id IN (" separator="," close=")">
             #{id}
         </foreach>
+        AND member_id = #{memberId}
     </delete>
 </mapper>
