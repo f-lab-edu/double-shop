@@ -33,8 +33,7 @@ public class CartRestController {
 	}
 
 	@PostMapping("member/{memberId}/cart/{itemId}")
-	public ResponseEntity<CartDto> saveNewCart(@PathVariable Long memberId,
-		@PathVariable Long itemId, @RequestBody CartDto cartDto) {
+	public ResponseEntity<CartDto> saveNewCart(@PathVariable Long memberId, @PathVariable Long itemId) {
 		Cart cart = Cart.builder()
 			.memberId(memberId)
 			.itemId(itemId)
