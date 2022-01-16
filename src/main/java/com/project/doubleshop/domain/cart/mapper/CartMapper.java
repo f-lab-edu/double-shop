@@ -10,5 +10,5 @@ import com.project.doubleshop.domain.cart.entity.Cart;
 public interface CartMapper {
 	List<Cart> selectCartByMemberId(Long memberId);
 	int insertCart(Cart cart);
-	int deleteCart(List<Long> cartIds);
+	int deleteCart(Long memberId, List<Long> cartIds);
 }

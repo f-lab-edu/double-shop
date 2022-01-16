@@ -29,7 +29,7 @@ public class CartService {
 	}
 
 	@Transactional
-	public Integer deleteCarts(List<Long> cartIds) {
-		return cartRepository.deleteCarts(cartIds);
+	public Integer deleteCarts(Long memberId, List<Long> cartIds) {
+		return cartRepository.deleteCarts(memberId, cartIds);
 	}
 }

@@ -7,5 +7,5 @@ import com.project.doubleshop.domain.cart.entity.Cart;
 public interface CartRepository {
 	List<Cart> findCartsByMemberId(Long memberId);
 	boolean saveCart(Cart cart);
-	int deleteCarts(List<Long> cartIds);
+	int deleteCarts(Long memberId, List<Long> cartIds);
 }
