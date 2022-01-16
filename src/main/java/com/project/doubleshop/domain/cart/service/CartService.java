@@ -18,8 +18,6 @@ public class CartService {
 
 	private final CartRepository cartRepository;
 
-	private final AuthMemberService authMemberService;
-
 	public List<Cart> findCartsByMemberId(Long memberId) {
 		return cartRepository.findCartsByMemberId(memberId);
 	}
@@ -28,10 +26,6 @@ public class CartService {
 	public Cart saveNewCart(Cart cart) {
 		cartRepository.saveCart(cart);
 		return cart;
-	}
-
-	public List<Cart> findCarts(Long memberId) {
-		return cartRepository.findCartsByMemberId(memberId);
 	}
 
 	@Transactional
