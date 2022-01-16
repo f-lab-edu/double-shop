@@ -2,6 +2,16 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.project.doubleshop.domain.cart.mapper.CartMapper">
+    <select id="selectCartById" resultType="Cart" parameterType="long">
+        SELECT (id, member_id, item_id) FROM CART WHERE id = #{id}
+    </select>
+    <select id="selectCartInIds" resultType="Cart">
+        SELECT (id, member_id, item_id) FROM CART WHERE
+        <foreach item="id" index="index" collection="list"
+                 open="id IN (" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
     <select id="selectCartByMemberId" resultType="Cart" parameterType="long">
         SELECT (id, member_id, item_id) FROM CART WHERE member_id = #{memberId}
     </select>
