@@ -5,6 +5,7 @@ import java.util.List;
 import com.project.doubleshop.domain.cart.entity.Cart;
 
 public interface CartRepository {
-	int saveCarts(List<Cart> carts);
-	int deleteCarts(List<Long> itemIds);
+	List<Cart> findCartsByMemberId(Long memberId);
+	boolean saveCart(Cart cart);
+	int deleteCarts(List<Long> cartIds);
 }
