@@ -16,6 +16,16 @@ public class MyBatisCartRepository implements CartRepository {
 	private final CartMapper mapper;
 
 	@Override
+	public Cart findCartById(Long cartId) {
+		return mapper.selectCartById(cartId);
+	}
+
+	@Override
+	public List<Cart> findCartInIds(List<Long> cartIds) {
+		return mapper.selectCartInIds(cartIds);
+	}
+
+	@Override
 	public List<Cart> findCartsByMemberId(Long memberId) {
 		return mapper.selectCartByMemberId(memberId);
 	}
