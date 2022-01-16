@@ -32,7 +32,7 @@ public class CartService {
 
 	@Transactional
 	public Integer deleteCarts(Long memberId, List<Long> cartIds) {
-		List<Cart> carts = cartRepository.findCartInIds(cartIds);
+		List<Cart> carts = cartRepository.findCartInIds(cartIds, memberId);
 		if (cartIds.size() != carts.size()) {
 			// 파라미터로 전달 받은 id들 중에서 검색이 안된 장바구니가 있다면, 예외를 던진다.
 			findInvalidIdsAndThrowException(carts, cartIds);
