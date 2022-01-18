@@ -54,7 +54,7 @@ class CartServiceTest {
 	void deleteCarts() {
 		List<Long> cardIds = List.of(ID);
 		given(cartRepository.deleteCarts(anyLong(), anyList())).willReturn(cardIds.size());
-		given(cartRepository.findCartInIds(cardIds, MockMember.Member1.ID)).willReturn(List.of(new Cart(1L, 1L, 1L)));
+		given(cartRepository.findCartInIds(cardIds, MockMember.Member1.ID)).willReturn(List.of(new Cart(1L, 1L, 1L, 1)));
 
 		Integer resultSize = cartService.deleteCarts(1L, cardIds);
 
