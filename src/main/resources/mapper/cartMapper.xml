@@ -27,4 +27,8 @@
         </foreach>
         AND member_id = #{memberId}
     </delete>
+    <update id="updateQuantity">
+        UPDATE CART SET quantity = #{quantity} WHERE
+        id = #{id} AND member_id = #{memberId}
+    </update>
 </mapper>

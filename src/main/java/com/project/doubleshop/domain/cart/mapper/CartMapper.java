@@ -13,4 +13,5 @@ public interface CartMapper {
 	List<Cart> selectCartByMemberId(Long memberId);
 	int insertCart(Cart cart);
 	int deleteCart(Long memberId, List<Long> cartIds);
+	int updateQuantity(Integer quantity, Long id, Long memberId);
 }
