@@ -11,10 +11,12 @@ public class CartDto {
 	private final Long id;
 	private final Long memberId;
 	private final Long itemId;
+	private final int quantity;
 
 	public CartDto(Cart source) {
 		this.id = source.getId();
 		this.memberId = source.getMemberId();
 		this.itemId = source.getItemId();
+		this.quantity = source.getQuantity();
 	}
 }

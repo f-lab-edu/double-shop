@@ -17,9 +17,12 @@ public class Cart {
 
 	private Long itemId;
 
-	public Cart(Long memberId, Long itemId) {
+	private Integer quantity;
+
+	public Cart(Long memberId, Long itemId, Integer quantity) {
 		this.memberId = memberId;
 		this.itemId = itemId;
+		this.quantity = quantity;
 	}
 
 	@Override
@@ -28,6 +31,7 @@ public class Cart {
 			"id=" + id +
 			", memberId=" + memberId +
 			", itemId=" + itemId +
+			", quantity=" + quantity +
 			'}';
 	}
 }

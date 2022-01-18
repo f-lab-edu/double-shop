@@ -6,7 +6,7 @@
         SELECT id, member_id, item_id FROM CART WHERE id = #{cartId} AND member_id = #{memberId}
     </select>
     <select id="selectCartInIds" resultType="Cart">
-        SELECT id, member_id, item_id FROM CART WHERE
+        SELECT id, member_id, item_id, quantity FROM CART WHERE
         <foreach item="id" index="index" collection="cartIds"
                  open="id IN (" separator="," close=")">
             #{id}
@@ -14,10 +14,10 @@
         AND member_id = #{memberId}
     </select>
     <select id="selectCartByMemberId" resultType="Cart" parameterType="long">
-        SELECT id, member_id, item_id FROM CART WHERE member_id = #{memberId}
+        SELECT id, member_id, item_id, quantity FROM CART WHERE member_id = #{memberId}
     </select>
     <insert id="insertCart" parameterType="Cart" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO CART (member_id, item_id) VALUES (#{memberId}, #{itemId})
+        INSERT INTO CART (member_id, item_id, quantity) VALUES (#{memberId}, #{itemId}, #{quantity})
     </insert>
     <delete id="deleteCart" parameterType="long">
         DELETE FROM CART WHERE
