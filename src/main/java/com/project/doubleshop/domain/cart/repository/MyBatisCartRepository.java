@@ -39,4 +39,9 @@ public class MyBatisCartRepository implements CartRepository {
 	public int deleteCarts(Long memberId, List<Long> itemIds) {
 		return mapper.deleteCart(memberId, itemIds);
 	}
+
+	@Override
+	public int updateCarts(Integer quantity, Long id, Long memberId) {
+		return mapper.updateQuantity(quantity, id, memberId);
+	}
 }

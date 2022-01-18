@@ -1,6 +1,7 @@
 package com.project.doubleshop.domain.cart.service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -9,6 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.project.doubleshop.domain.cart.entity.Cart;
 import com.project.doubleshop.domain.cart.repository.CartRepository;
+import com.project.doubleshop.domain.item.entity.Item;
+import com.project.doubleshop.domain.item.service.ItemService;
 import com.project.doubleshop.web.item.exception.InvalidArgumentException;
 
 import lombok.RequiredArgsConstructor;
@@ -18,6 +21,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class CartService {
 
+	private final ItemService itemService;
 	private final CartRepository cartRepository;
 
 	public List<Cart> findCartsByMemberId(Long memberId) {
@@ -63,6 +67,28 @@ public class CartService {
 			}
 		}
 
-		throw new InvalidArgumentException(sb.toString());
+		throw new IllegalArgumentException(sb.toString());
+	}
+
+	@Transactional
+	public Integer updateCartQuantity(Integer quantity, Long cartId, Long memberId) {
+
+		Cart cart = findByCartIdAndMemberId(cartId, memberId)
+			.orElseThrow(() -> new NullPointerException(String.format("Cart id [%d] not found.", cartId)));
+
+		Long itemId = cart.getItemId();
+		Item item = itemService.findItemById(itemId)
+			.orElseThrow(() -> new NullPointerException(String.format("Item id [%d] not found.", itemId)));
+
+		Integer stock = item.getStock();
+		if (stock < quantity) {
+			throw new IllegalArgumentException(String.format("Cart quantity [%d] must not exceed the item stock [%d]", quantity, stock));
+		}
+
+		return cartRepository.updateCarts(quantity, cartId, memberId);
+	}
+
+	public Optional<Cart> findByCartIdAndMemberId(Long cartId, Long memberId) {
+		return Optional.of(cartRepository.findCartById(cartId, memberId));
 	}
 }
