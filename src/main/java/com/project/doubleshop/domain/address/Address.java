@@ -1,4 +1,4 @@
-package com.project.doubleshop.domain.order.entity;
+package com.project.doubleshop.domain.address;
 
 import java.time.LocalDateTime;
 
@@ -14,19 +14,18 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor
-public class Order {
-
+public class Address {
 	private Long id;
 
-	private LocalDateTime orderedTime;
+	private String city;
 
-	private Integer orderStatus;
+	private String zipcode;
 
-	private Integer orderType;
-
-	private Integer totalPrice;
+	private String detail;
 
 	private Status status;
 
 	private LocalDateTime statusUpdateTime;
+
+	private Long memberId;
 }
