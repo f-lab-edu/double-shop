@@ -97,6 +97,5 @@ ALTER TABLE DELIVERY ADD CONSTRAINT FK_DELIVERY_DRIVER FOREIGN KEY (delivery_dri
 CREATE TABLE IF NOT EXISTS CART (
     id                         BIGSERIAL      NOT NULL,
     member_id                  BIGINT         DEFAULT NULL,
-    item_id                    BIGINT         DEFAULT NULL,
-    quantity                   INTEGER        NOT NULL
+    item_id                    BIGINT         DEFAULT NULL
 );

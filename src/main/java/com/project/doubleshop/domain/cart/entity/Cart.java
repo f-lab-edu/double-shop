@@ -7,7 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
-@Builder
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor
 public class Cart {
@@ -17,15 +16,10 @@ public class Cart {
 
 	private Long itemId;
 
-	private Integer quantity;
-
-	public Cart(Long memberId, Long itemId, Integer quantity) {
+	public Cart(Long memberId, Long itemId) {
 		this.memberId = memberId;
 		this.itemId = itemId;
-		this.quantity = quantity;
 	}
-
-
 
 	@Override
 	public String toString() {
@@ -33,7 +27,6 @@ public class Cart {
 			"id=" + id +
 			", memberId=" + memberId +
 			", itemId=" + itemId +
-			", quantity=" + quantity +
 			'}';
 	}
 }
