@@ -1,0 +1,42 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.doubleshop.domain.order.mapper.OrderMapper">
+    <insert id="insertOrder" parameterType="Order" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO `ORDER` (ordered_time, order_status, order_type, total_price,
+                             status, status_update_time, address_id, member_id)
+        VALUES (#{orderedTime}, #{orderStatus}, #{orderType}, #{totalPrice},
+                #{status}, #{statusUpdateTime}, #{addressId}, #{memberId});
+    </insert>
+    <select id="selectByOrderId" parameterType="long" resultType="Order">
+        SELECT id, ordered_time, order_status, order_type, total_price,
+                status, status_update_time, address_id, member_id
+        FROM `ORDER` WHERE id = #{id}
+    </select>
+    <select id="selectByMemberId" resultType="Order">
+        SELECT id, ordered_time, order_status, order_type, total_price,
+                status, status_update_time, address_id, member_id
+        FROM `ORDER` WHERE member_id = #{memberId}
+        ORDER BY id DESC LIMIT #{size} OFFSET #{page}
+    </select>
+    <update id="updateOrderStatus" parameterType="OrderStatusRequest">
+        UPDATE `ORDER` SET
+            order_status = #{orderStatus}
+            status = #{status},
+            status_updata_time = #{statusUpdataTime}
+        WHERE id = #{id} AND member_id = #{memberId}
+    </update>
+    <update id="updateStatus">
+        UPDATE `ORDER` SET
+            status = #{statusCode},
+            status_update_time = #{statusUpdateTime}
+        WHERE
+        <foreach item="id" index="index" collection="orderIds"
+                 open="id IN (" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+    <delete id="deleteOrders" parameterType="int">
+        DELETE FROM `ORDER` WHERE status = #{statusCode}
+    </delete>
+</mapper>
