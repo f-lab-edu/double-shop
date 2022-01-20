@@ -29,4 +29,8 @@ public class Order {
 	private Status status;
 
 	private LocalDateTime statusUpdateTime;
+
+	private Long addressId;
+
+	private Long memberId;
 }

@@ -1,4 +1,4 @@
-package com.project.doubleshop.domain.address;
+package com.project.doubleshop.domain.address.entity;
 
 import java.time.LocalDateTime;
 

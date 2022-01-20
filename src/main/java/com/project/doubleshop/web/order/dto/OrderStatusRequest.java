@@ -1,4 +1,4 @@
-package com.project.doubleshop.domain.order.entity;
+package com.project.doubleshop.web.order.dto;
 
 import java.time.LocalDateTime;
 
@@ -6,24 +6,20 @@ import com.project.doubleshop.domain.common.Status;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
-@Builder
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor
-public class OrderDetail {
-	private Long orderId;
+public class OrderStatusRequest {
+	private Long id;
 
-	private Long itemId;
-
-	private Integer quantity;
-
-	private Integer price;
+	private Integer orderStatus;
 
 	private Status status;
 
 	private LocalDateTime statusUpdateTime;
+
+	private Long memberId;
 }
