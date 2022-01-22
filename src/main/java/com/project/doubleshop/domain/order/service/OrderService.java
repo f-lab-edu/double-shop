@@ -115,15 +115,15 @@ public class OrderService {
 		return orderRepository.save(order);
 	}
 
-	public boolean insertBatch(List<OrderDetail> orderDetails) {
+	@Transactional
+	public void insertBatch(List<OrderDetail> orderDetails) {
 		Integer resultCnt = orderDetailRepository.batchInsert(orderDetails);
 		if (resultCnt == null || resultCnt != orderDetails.size()) {
 			if (resultCnt == null) {
 				throw new NullPointerException("'NullPointerException' occurred while batch insert orderDetails");
 			} else {
-				return false;
+				throw new IllegalArgumentException("Batch insert OrderDetail fail due to invalid orderDetails.");
 			}
 		}
-		return true;
 	}
 }
