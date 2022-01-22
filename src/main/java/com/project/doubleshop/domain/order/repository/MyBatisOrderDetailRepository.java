@@ -41,4 +41,9 @@ public class MyBatisOrderDetailRepository implements OrderDetailRepository {
 	public Integer deleteOrderDetails(Status status) {
 		return mapper.deleteOrderDetails(status.getValue());
 	}
+
+	@Override
+	public Integer batchInsert(List<OrderDetail> orderDetails) {
+		return mapper.batchInsertOrderDetails(orderDetails);
+	}
 }

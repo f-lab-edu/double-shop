@@ -12,6 +12,7 @@ import com.project.doubleshop.domain.cart.entity.Cart;
 import com.project.doubleshop.domain.cart.repository.CartRepository;
 import com.project.doubleshop.domain.item.entity.Item;
 import com.project.doubleshop.domain.item.service.ItemService;
+import com.project.doubleshop.domain.utils.ExceptionUtils;
 import com.project.doubleshop.web.item.exception.InvalidArgumentException;
 
 import lombok.RequiredArgsConstructor;
@@ -36,38 +37,28 @@ public class CartService {
 
 	@Transactional
 	public Integer deleteCarts(Long memberId, List<Long> cartIds) {
-		List<Cart> carts = cartRepository.findCartInIds(cartIds, memberId);
-		if (cartIds.size() != carts.size()) {
-			// 파라미터로 전달 받은 id들 중에서 검색이 안된 장바구니가 있다면, 예외를 던진다.
-			findInvalidIdsAndThrowException(carts, cartIds);
-		}
+		findCartsInCartIds(cartIds, memberId);
 		return cartRepository.deleteCarts(memberId, cartIds);
 	}
 
-	private void findInvalidIdsAndThrowException(List<Cart> carts, List<Long> cartIds) {
-		StringBuilder sb = new StringBuilder();
+	public List<Cart> findCartsInCartIds(List<Long> cartIds, Long memberId) {
+		List<Cart> carts = cartRepository.findCartInIds(cartIds, memberId);
+		if (cartIds.size() != carts.size()) {
+			// 파라미터로 전달 받은 id들 중에서 검색이 안된 장바구니가 있다면, 예외를 던진다.
+			// 검색결과로 받은 장바구니 id 들을 수집하여, 파라미터로 전달된 장바구니 id 중에서 검색이 안된 장바구니 id를 예외로 전달한다.
+			Set<Long> validIds = carts
+				.stream()
+				.map(Cart::getId)
+				.collect(Collectors.toSet());
 
-		// 검색결과로 받은 장바구니 id 들을 수집하여, 파라미터로 전달된 장바구니 id 중에서 검색이 안된 장바구니 id를 예외로 전달한다.
-		Set<Long> validIds = carts
-			.stream()
-			.map(Cart::getId)
-			.collect(Collectors.toSet());
-		List<Long> invalidIds = cartIds
-			.stream()
-			.filter(id -> !validIds.contains(id))
-			.collect(Collectors.toList());
+			List<Long> invalidIds = cartIds
+				.stream()
+				.filter(id -> !validIds.contains(id))
+				.collect(Collectors.toList());
 
-		sb.append("Invalid cart id [");
-		for (int i = 0; i < invalidIds.size(); i++) {
-			sb.append(invalidIds.get(i));
-			if (i < invalidIds.size() - 1) {
-				sb.append(", ");
-			} else {
-				sb.append("]");
-			}
+			ExceptionUtils.findInvalidIdsAndThrowException(invalidIds, "Invalid cart id");
 		}
-
-		throw new IllegalArgumentException(sb.toString());
+		return carts;
 	}
 
 	@Transactional

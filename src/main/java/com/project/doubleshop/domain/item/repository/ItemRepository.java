@@ -7,6 +7,7 @@ import com.project.doubleshop.domain.common.mapper.param.RequestItemsWithCategor
 import com.project.doubleshop.domain.item.entity.Item;
 import com.project.doubleshop.web.config.support.Pageable;
 import com.project.doubleshop.web.common.StatusRequest;
+import com.project.doubleshop.web.item.dto.ItemStockQuery;
 
 public interface ItemRepository extends Manageable<StatusRequest> {
 	/**
@@ -36,4 +37,8 @@ public interface ItemRepository extends Manageable<StatusRequest> {
 	 * @return 특정 카테고리로 정리된 상품 Collection
 	 */
 	List<Item> findAllWithCategory(RequestItemsWithCategory request);
+
+	List<Item> findItemsInIds(List<Long> itemIds);
+
+	int updateItems(List<ItemStockQuery> queryList);
 }

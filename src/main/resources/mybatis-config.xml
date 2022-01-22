@@ -25,6 +25,7 @@
         <typeAlias type="com.project.doubleshop.domain.order.entity.OrderDetail" alias="OrderDetail"/>
         <typeAlias type="com.project.doubleshop.web.order.dto.OrderDetailResult" alias="OrderDetailResult"/>
         <typeAlias type="com.project.doubleshop.domain.address.entity.Address" alias="Address"/>
+        <typeAlias type="com.project.doubleshop.web.item.dto.ItemStockQuery" alias="ItemStockQuery"/>
     </typeAliases>
     <typeHandlers>
         <typeHandler handler="com.project.doubleshop.domain.common.StatusTypeHandler" />
