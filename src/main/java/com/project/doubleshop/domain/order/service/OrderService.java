@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,7 +34,8 @@ public class OrderService {
 	private final OrderDetailRepository orderDetailRepository;
 	private final AddressRepository addressRepository;
 
-	public void createOrder(Long memberId, Order order) {
+	@Transactional
+	public Order createOrder(Long memberId, Order order) {
 
 		List<Cart> carts = cartService.findCartsByMemberId(memberId);
 
@@ -44,15 +43,32 @@ public class OrderService {
 		Map<Long, Integer> quantityPerItem = new HashMap<>();
 		Map<Long, Integer> pricePerItem = new HashMap<>();
 
+		// 장바구니 조회 후, 장바구니에 담긴 상품 id와 상품 별 구매희망 갯수(quantity)를 수집한다.
 		for (Cart cart : carts) {
 			Long itemId = cart.getItemId();
 			itemIds.add(itemId);
 			quantityPerItem.put(itemId, cart.getQuantity());
 		}
 
-		List<Item> items = itemService.findItemsInItemIds(itemIds);
+		updateItemStockBeforeOrder(quantityPerItem, pricePerItem, itemIds);
+
+		Order newOrder = saveAndGetOrder(order);
+
+		List<OrderDetail> orderDetails = collectOrderDetails(itemIds, quantityPerItem, pricePerItem, newOrder);
+
+		insertBatch(orderDetails);
+
+		return newOrder;
+	}
+
+	@Transactional
+	public void updateItemStockBeforeOrder(Map<Long, Integer> quantityPerItem, Map<Long, Integer> pricePerItem,
+		List<Long> itemIds) {
+
 		List<Long> invalidItemIds = new ArrayList<>();
 		List<ItemStockQuery> queryList = new ArrayList<>();
+		List<Item> items = itemService.findItemsInItemIds(itemIds);
+
 		for (Item item : items) {
 			Long itemId = item.getId();
 			Integer itemStock = item.getStock();
@@ -70,9 +86,10 @@ public class OrderService {
 			ExceptionUtils.findInvalidIdsAndThrowException(invalidItemIds, "Out of stock item id");
 		}
 		itemService.updateItems(queryList);
+	}
 
-		Order newOrder = saveAndGetOrder(order);
-
+	private List<OrderDetail> collectOrderDetails(List<Long> itemIds, Map<Long, Integer> quantityPerItem, Map<Long, Integer> pricePerItem,
+		Order newOrder) {
 		List<OrderDetail> orderDetails = new ArrayList<>();
 		Long orderId = newOrder.getId();
 		LocalDateTime now = LocalDateTime.now();
@@ -81,8 +98,7 @@ public class OrderService {
 			Integer price = pricePerItem.get(itemId);
 			orderDetails.add(new OrderDetail(orderId, itemId, quantity, price, Status.ACTIVATED, now));
 		}
-
-		insertBatch(orderDetails);
+		return orderDetails;
 	}
 
 	@Transactional
