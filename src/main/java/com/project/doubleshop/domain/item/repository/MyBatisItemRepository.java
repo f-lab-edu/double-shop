@@ -10,6 +10,7 @@ import com.project.doubleshop.domain.item.entity.Item;
 import com.project.doubleshop.domain.item.mapper.ItemMapper;
 import com.project.doubleshop.web.config.support.Pageable;
 import com.project.doubleshop.web.common.StatusRequest;
+import com.project.doubleshop.web.item.dto.ItemStockQuery;
 
 import lombok.RequiredArgsConstructor;
 
@@ -43,6 +44,16 @@ public class MyBatisItemRepository implements ItemRepository {
 	@Override
 	public List<Item> findAllWithCategory(RequestItemsWithCategory request) {
 		return mapper.selectItemsWithCategory(request);
+	}
+
+	@Override
+	public List<Item> findItemsInIds(List<Long> itemIds) {
+		return mapper.selectItemsInIds(itemIds);
+	}
+
+	@Override
+	public int updateItems(List<ItemStockQuery> queryList) {
+		return mapper.batchUpdateItems(queryList);
 	}
 
 	@Override

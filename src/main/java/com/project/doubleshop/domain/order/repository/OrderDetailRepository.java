@@ -17,4 +17,6 @@ public interface OrderDetailRepository {
 	Integer updateStatus(Integer statusCode, LocalDateTime statusUpdateTime, List<Long> orderIds);
 
 	Integer deleteOrderDetails(Status status);
+
+	Integer batchInsert(List<OrderDetail> orderDetails);
 }

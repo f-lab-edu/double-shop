@@ -15,4 +15,5 @@ public interface OrderDetailMapper {
 	List<OrderDetailResult> selectWithItemByOrderId(Long orderId);
 	int updateStatus(int statusCode, LocalDateTime statusUpdateTime, List<Long> orderIds);
 	int deleteOrderDetails(Integer statusCode);
+	int batchInsertOrderDetails(List<OrderDetail> orderDetails);
 }

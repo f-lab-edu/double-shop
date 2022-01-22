@@ -28,4 +28,11 @@
     <delete id="deleteOrderDetails" parameterType="int">
         DELETE FROM ORDER_DETAIL WHERE status = #{statusCode}
     </delete>
+    <insert id="batchInsertOrderDetails" parameterType="OrderDetail">
+        INSERT INTO ORDER_DETAIL (order_id, item_id, quantity, price)
+        VALUES
+        <foreach collection="orderDetails" item="orderDetail" separator=",">
+            (#{orderId}, #{itemId}, #{quantity}, #{price})
+        </foreach>
+    </insert>
 </mapper>
