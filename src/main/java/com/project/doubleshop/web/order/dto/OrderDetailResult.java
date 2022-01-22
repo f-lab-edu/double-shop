@@ -18,4 +18,6 @@ public class OrderDetailResult {
 	Integer price;
 
 	Integer stock;
+
+	Integer quantity;
 }

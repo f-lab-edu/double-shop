@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.doubleshop.domain.cart.entity.Cart;
@@ -35,10 +36,11 @@ public class CartRestController {
 	}
 
 	@PostMapping("member/{memberId}/cart/{itemId}")
-	public ResponseEntity<CartDto> saveNewCart(@PathVariable Long memberId, @PathVariable Long itemId) {
+	public ResponseEntity<CartDto> saveNewCart(@PathVariable Long memberId, @PathVariable Long itemId, @RequestParam Integer quantity) {
 		Cart cart = Cart.builder()
 			.memberId(memberId)
 			.itemId(itemId)
+			.quantity(quantity)
 			.build();
 		return ResponseEntity.ok(new CartDto(cartService.saveNewCart(cart)));
 	}

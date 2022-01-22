@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,10 +18,13 @@ import com.project.doubleshop.domain.item.entity.Item;
 import com.project.doubleshop.domain.item.service.ItemService;
 import com.project.doubleshop.domain.order.entity.Order;
 import com.project.doubleshop.domain.order.entity.OrderDetail;
+import com.project.doubleshop.domain.order.entity.constant.OrderConstant;
 import com.project.doubleshop.domain.order.repository.OrderDetailRepository;
 import com.project.doubleshop.domain.order.repository.OrderRepository;
 import com.project.doubleshop.domain.utils.ExceptionUtils;
 import com.project.doubleshop.web.item.dto.ItemStockQuery;
+import com.project.doubleshop.web.order.dto.OrderDetailResult;
+import com.project.doubleshop.web.order.dto.OrderStatusRequest;
 
 import lombok.RequiredArgsConstructor;
 
@@ -50,7 +54,9 @@ public class OrderService {
 			quantityPerItem.put(itemId, cart.getQuantity());
 		}
 
-		updateItemStockBeforeOrder(quantityPerItem, pricePerItem, itemIds);
+		List<Item> items = itemService.findItemsInItemIds(itemIds);
+
+		updateItemStockBeforeOrder(quantityPerItem, pricePerItem, items);
 
 		Order newOrder = saveAndGetOrder(order);
 
@@ -62,12 +68,41 @@ public class OrderService {
 	}
 
 	@Transactional
+	public void cancelOrder(Long memberId, Long orderId) {
+		Order order = findByOrderIdAndMemberId(orderId, memberId);
+
+		List<OrderDetailResult> orderDetailWithItems = orderDetailRepository.findWithItemByOrderId(orderId);
+
+		Map<Long, Integer> quantityPerItem = new HashMap<>();
+		Map<Long, Integer> pricePerItem = new HashMap<>();
+		List<Long> itemIds = new ArrayList<>();
+
+		for (OrderDetailResult orderDetailResult : orderDetailWithItems) {
+			Long itemId = orderDetailResult.getItemId();
+			quantityPerItem.put(itemId, -orderDetailResult.getQuantity());
+			pricePerItem.put(itemId, -orderDetailResult.getPrice());
+			itemIds.add(itemId);
+		}
+
+		List<Item> items = itemService.findItemsInItemIds(itemIds);
+
+		updateOrderStatus(memberId, orderId, OrderConstant.CANCELED);
+
+		updateItemStockBeforeOrder(quantityPerItem, pricePerItem, items);
+	}
+
+	@Transactional
+	public void updateOrderStatus(Long memberId, Long orderId, int canceled) {
+		LocalDateTime now = LocalDateTime.now();
+		orderRepository.updateOrderStatus(new OrderStatusRequest(orderId, canceled, now, memberId));
+	}
+
+	@Transactional
 	public void updateItemStockBeforeOrder(Map<Long, Integer> quantityPerItem, Map<Long, Integer> pricePerItem,
-		List<Long> itemIds) {
+		List<Item> items) {
 
 		List<Long> invalidItemIds = new ArrayList<>();
 		List<ItemStockQuery> queryList = new ArrayList<>();
-		List<Item> items = itemService.findItemsInItemIds(itemIds);
 
 		for (Item item : items) {
 			Long itemId = item.getId();
@@ -86,6 +121,12 @@ public class OrderService {
 			ExceptionUtils.findInvalidIdsAndThrowException(invalidItemIds, "Out of stock item id");
 		}
 		itemService.updateItems(queryList);
+	}
+
+	public Order findByOrderIdAndMemberId(Long orderId, Long memberId) {
+		return Optional.of(
+			orderRepository.findByIdAndMemberId(orderId, memberId))
+			.orElseThrow(() -> new NullPointerException(String.format("Cannot find order id %d", orderId)));
 	}
 
 	private List<OrderDetail> collectOrderDetails(List<Long> itemIds, Map<Long, Integer> quantityPerItem, Map<Long, Integer> pricePerItem,
