@@ -12,7 +12,7 @@
         WHERE order_id = #{orderId}
     </select>
     <select id="selectWithItemByOrderId" parameterType="long" resultType="OrderDetailResult">
-        SELECT order_id, i.id AS item_id, i.name, i.price, i.stock FROM ORDER_DETAIL
+        SELECT order_id, i.id AS item_id, i.name, i.price, i.stock, quantity FROM ORDER_DETAIL
         JOIN ITEM i on item_id = i.id where order_id = #{orderId};
     </select>
     <update id="updateStatus">

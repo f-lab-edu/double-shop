@@ -17,8 +17,6 @@ public class OrderStatusRequest {
 
 	private Integer orderStatus;
 
-	private Status status;
-
 	private LocalDateTime statusUpdateTime;
 
 	private Long memberId;

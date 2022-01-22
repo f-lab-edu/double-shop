@@ -13,6 +13,8 @@ public interface OrderRepository {
 
     Order findById(Long id);
 
+    Order findByIdAndMemberId(Long id, Long memberId);
+
     List<Order> findByMemberId(Long memberId, Pageable pageable);
 
     Integer updateOrderStatus(OrderStatusRequest orderStatusRequest);

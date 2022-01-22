@@ -17,35 +17,40 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class MyBatisOrderRepository implements OrderRepository {
 
-	private final OrderMapper orderMapper;
+	private final OrderMapper mapper;
 
 	@Override
 	public boolean save(Order order) {
-		return orderMapper.insertOrder(order) != 0;
+		return mapper.insertOrder(order) != 0;
 	}
 
 	@Override
 	public Order findById(Long id) {
-		return orderMapper.selectByOrderId(id);
+		return mapper.selectByOrderId(id);
+	}
+
+	@Override
+	public Order findByIdAndMemberId(Long id, Long memberId) {
+		return mapper.selectByIdAndMemberId(id, memberId);
 	}
 
 	@Override
 	public List<Order> findByMemberId(Long memberId, Pageable pageable) {
-		return orderMapper.selectByMemberId(memberId, pageable.size(), pageable.page());
+		return mapper.selectByMemberId(memberId, pageable.size(), pageable.page());
 	}
 
 	@Override
 	public Integer updateOrderStatus(OrderStatusRequest orderStatusRequest) {
-		return orderMapper.updateOrderStatus(orderStatusRequest);
+		return mapper.updateOrderStatus(orderStatusRequest);
 	}
 
 	@Override
 	public Integer updateStatus(Integer statusCode, LocalDateTime statusUpdateTime, List<Long> orderIds) {
-		return orderMapper.updateStatus(statusCode, statusUpdateTime, orderIds);
+		return mapper.updateStatus(statusCode, statusUpdateTime, orderIds);
 	}
 
 	@Override
 	public Integer deleteOrders(Status status) {
-		return orderMapper.deleteOrders(status.getValue());
+		return mapper.deleteOrders(status.getValue());
 	}
 }
