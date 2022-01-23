@@ -16,7 +16,7 @@
     <select id="selectOrderByIdAndMemberId" parameterType="long" resultType="Order">
         SELECT id, ordered_time, order_status, order_type, total_price,
                status, status_update_time, address_id, member_id
-        FROM `ORDER` WHERE id = #{id} AND member_id = #{member_id}
+        FROM `ORDER` WHERE id = #{id} AND member_id = #{memberId}
     </select>
     <select id="selectByMemberId" resultType="Order">
         SELECT id, ordered_time, order_status, order_type, total_price,
@@ -27,7 +27,7 @@
     <update id="updateOrderStatus" parameterType="OrderStatusRequest">
         UPDATE `ORDER` SET
             order_status = #{orderStatus},
-            status_updata_time = #{statusUpdataTime}
+            status_update_time = #{statusUpdateTime}
         WHERE id = #{id} AND member_id = #{memberId}
     </update>
     <update id="updateStatus">
