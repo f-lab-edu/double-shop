@@ -11,9 +11,9 @@ import com.project.doubleshop.web.order.dto.OrderDetailResult;
 @Mapper
 public interface OrderDetailMapper {
 	int insertOrderDetail(OrderDetail orderDetail);
-	List<OrderDetail> selectByOrderId(Long orderId);
-	List<OrderDetailResult> selectWithItemByOrderId(Long orderId);
-	int updateStatus(int statusCode, LocalDateTime statusUpdateTime, List<Long> orderIds);
+	List<OrderDetail> selectOrderDetailByOrderId(Long orderId);
+	List<OrderDetailResult> selectOrderDetailWithItemByOrderId(Long orderId);
+	int updateOrderDetailStatus(int statusCode, LocalDateTime statusUpdateTime, List<Long> orderIds);
 	int deleteOrderDetails(Integer statusCode);
 	int batchInsertOrderDetails(List<OrderDetail> orderDetails);
 }

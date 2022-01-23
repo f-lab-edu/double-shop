@@ -1,12 +1,12 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.project.doubleshop.domain.address.entity.Address">
+<mapper namespace="com.project.doubleshop.domain.address.mapper.AddressMapper">
     <insert id="insertAddress" parameterType="Address" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO ADDRESS (city, zipcode, detail, member_id)
         VALUES (#{city}, #{zipcode}, #{detail}, #{memberId})
     </insert>
-    <select id="selectByMemberId" resultType="Address" parameterType="long">
+    <select id="selectAddressByMemberId" resultType="Address" parameterType="long">
         SELECT id, city, zipcode, detail, member_id
         FROM ADDRESS WHERE member_id = #{memberId}
     </select>
@@ -14,7 +14,7 @@
         SELECT id, city, zipcode, detail, member_id
         FROM ADDRESS WHERE id = #{id}
     </select>
-    <update id="updateStatus">
+    <update id="updateAddressStatus">
         UPDATE ADDRESS SET
         status = #{statusCode},
         status_update_time = #{statusUpdateTime}
