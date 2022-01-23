@@ -26,12 +26,12 @@ public class MyBatisOrderRepository implements OrderRepository {
 
 	@Override
 	public Order findById(Long id) {
-		return mapper.selectByOrderId(id);
+		return mapper.selectOrderByOrderId(id);
 	}
 
 	@Override
 	public Order findByIdAndMemberId(Long id, Long memberId) {
-		return mapper.selectByIdAndMemberId(id, memberId);
+		return mapper.selectOrderByIdAndMemberId(id, memberId);
 	}
 
 	@Override

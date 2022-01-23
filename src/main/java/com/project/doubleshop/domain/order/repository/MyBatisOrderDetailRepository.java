@@ -24,17 +24,17 @@ public class MyBatisOrderDetailRepository implements OrderDetailRepository {
 
 	@Override
 	public List<OrderDetail> findById(Long orderId) {
-		return mapper.selectByOrderId(orderId);
+		return mapper.selectOrderDetailByOrderId(orderId);
 	}
 
 	@Override
 	public List<OrderDetailResult> findWithItemByOrderId(Long orderId) {
-		return mapper.selectWithItemByOrderId(orderId);
+		return mapper.selectOrderDetailWithItemByOrderId(orderId);
 	}
 
 	@Override
 	public Integer updateStatus(Integer statusCode, LocalDateTime statusUpdateTime, List<Long> orderIds) {
-		return mapper.updateStatus(statusCode, statusUpdateTime, orderIds);
+		return mapper.updateOrderDetailStatus(statusCode, statusUpdateTime, orderIds);
 	}
 
 	@Override

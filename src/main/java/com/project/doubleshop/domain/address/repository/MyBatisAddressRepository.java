@@ -30,7 +30,7 @@ public class MyBatisAddressRepository implements AddressRepository {
 
 	@Override
 	public List<Address> findByMemberId(Long memberId) {
-		return mapper.selectByMemberId(memberId);
+		return mapper.selectAddressByMemberId(memberId);
 	}
 
 	@Override
@@ -40,7 +40,7 @@ public class MyBatisAddressRepository implements AddressRepository {
 
 	@Override
 	public Integer updateStatus(Integer statusCode, LocalDateTime statusUpdateTime, List<Long> addressIds) {
-		return mapper.updateStatus(statusCode, statusUpdateTime, addressIds);
+		return mapper.updateAddressStatus(statusCode, statusUpdateTime, addressIds);
 	}
 
 	@Override

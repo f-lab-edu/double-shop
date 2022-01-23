@@ -6,16 +6,16 @@
         INSERT INTO ORDER_DETAIL (order_id, item_id, quantity, price)
         VALUES (#{orderId}, #{itemId}, #{quantity}, #{price})
     </insert>
-    <select id="selectByOrderId" parameterType="long" resultType="OrderDetail">
+    <select id="selectOrderDetailByOrderId" parameterType="long" resultType="OrderDetail">
         SELECT order_id, item_id, quantity, price
         FROM ORDER_DETAIL
         WHERE order_id = #{orderId}
     </select>
-    <select id="selectWithItemByOrderId" parameterType="long" resultType="OrderDetailResult">
+    <select id="selectOrderDetailWithItemByOrderId" parameterType="long" resultType="OrderDetailResult">
         SELECT order_id, i.id AS item_id, i.name, i.price, i.stock, quantity FROM ORDER_DETAIL
         JOIN ITEM i on item_id = i.id where order_id = #{orderId};
     </select>
-    <update id="updateStatus">
+    <update id="updateOrderDetailStatus">
         UPDATE ORDER_DETAIL SET
         status = #{statusCode},
         status_update_time = #{statusUpdateTime}
