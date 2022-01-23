@@ -21,7 +21,7 @@
         status_update_time = #{statusUpdateTime}
         WHERE
         <foreach item="id" index="index" collection="orderIds"
-                 open="id IN (" separator="," close=")">
+                 open="order_id IN (" separator="," close=")">
             #{id}
         </foreach>
     </update>
@@ -32,7 +32,7 @@
         INSERT INTO ORDER_DETAIL (order_id, item_id, quantity, price)
         VALUES
         <foreach collection="orderDetails" item="orderDetail" separator=",">
-            (#{orderId}, #{itemId}, #{quantity}, #{price})
+            (#{orderDetail.orderId}, #{orderDetail.itemId}, #{orderDetail.quantity}, #{orderDetail.price})
         </foreach>
     </insert>
 </mapper>
