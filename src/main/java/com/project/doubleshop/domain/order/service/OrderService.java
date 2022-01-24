@@ -86,23 +86,28 @@ public class OrderService {
 
 		List<Item> items = itemService.findItemsInItemIds(itemIds);
 
-		updateOrderStatus(memberId, orderId, OrderConstant.CANCELED);
-
-		updateItemStockBeforeOrder(quantityPerItem, pricePerItem, items);
+		if (updateOrderStatus(memberId, orderId, OrderConstant.CANCELED)) {
+			updateItemStockBeforeOrder(quantityPerItem, pricePerItem, items);
+		}
 
 		return order;
 	}
 
 	@Transactional
 	public List<OrderDetailResult> searchMyOrders(Long memberId, Long orderId) {
-		return orderDetailRepository.findWithItemByOrderId(orderId);;
+		return orderDetailRepository.findWithItemByOrderId(orderId);
 	}
 
 	/* 비 핵심 */
 	@Transactional
-	public void updateOrderStatus(Long memberId, Long orderId, int canceled) {
+	public Boolean updateOrderStatus(Long memberId, Long orderId, int canceled) {
 		LocalDateTime now = LocalDateTime.now();
-		orderRepository.updateOrderStatus(new OrderStatusRequest(orderId, canceled, now, memberId));
+		Integer resultCnt = orderRepository.updateOrderStatus(new OrderStatusRequest(orderId, canceled, now, memberId));
+		if (resultCnt == 1) {
+			return true;
+		} else {
+			throw new IllegalArgumentException("Request update order cancel fail.");
+		}
 	}
 
 	@Transactional
