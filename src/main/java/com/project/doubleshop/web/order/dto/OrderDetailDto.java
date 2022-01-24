@@ -1,5 +1,7 @@
 package com.project.doubleshop.web.order.dto;
 
+import java.util.List;
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -8,16 +10,8 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor
-public class OrderDetailResult {
+public class OrderDetailDto {
 	private Long orderId;
 
-	private Long itemId;
-
-	private String name;
-
-	private Integer price;
-
-	private Integer stock;
-
-	private Integer quantity;
+	private List<OrderItemDto> orderItems;
 }

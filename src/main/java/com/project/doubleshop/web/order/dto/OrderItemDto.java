@@ -8,9 +8,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor
-public class OrderDetailResult {
-	private Long orderId;
-
+public class OrderItemDto {
 	private Long itemId;
 
 	private String name;
@@ -20,4 +18,12 @@ public class OrderDetailResult {
 	private Integer stock;
 
 	private Integer quantity;
+
+	public OrderItemDto(OrderDetailResult source) {
+		this.itemId = source.getItemId();
+		this.name = source.getName();
+		this.price = source.getPrice();
+		this.stock = source.getStock();
+		this.quantity = source.getQuantity();
+	}
 }
