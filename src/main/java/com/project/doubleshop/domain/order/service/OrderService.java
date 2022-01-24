@@ -1,14 +1,18 @@
 package com.project.doubleshop.domain.order.service;
 
+import static java.util.stream.Collectors.*;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.project.doubleshop.domain.address.repository.AddressRepository;
 import com.project.doubleshop.domain.cart.entity.Cart;
@@ -22,8 +26,11 @@ import com.project.doubleshop.domain.order.entity.constant.OrderConstant;
 import com.project.doubleshop.domain.order.repository.OrderDetailRepository;
 import com.project.doubleshop.domain.order.repository.OrderRepository;
 import com.project.doubleshop.domain.utils.ExceptionUtils;
+import com.project.doubleshop.web.config.support.Pageable;
 import com.project.doubleshop.web.item.dto.ItemStockQuery;
+import com.project.doubleshop.web.order.dto.OrderDetailDto;
 import com.project.doubleshop.web.order.dto.OrderDetailResult;
+import com.project.doubleshop.web.order.dto.OrderItemDto;
 import com.project.doubleshop.web.order.dto.OrderStatusRequest;
 
 import lombok.RequiredArgsConstructor;
@@ -37,6 +44,7 @@ public class OrderService {
 	private final OrderRepository orderRepository;
 	private final OrderDetailRepository orderDetailRepository;
 	private final AddressRepository addressRepository;
+
 	/*핵심 로직 */
 	@Transactional
 	public Order createOrder(Long memberId, Order order) {
@@ -93,8 +101,7 @@ public class OrderService {
 		return order;
 	}
 
-	@Transactional
-	public List<OrderDetailResult> searchMyOrders(Long memberId, Long orderId) {
+	public List<OrderDetailResult> searchMyOrder(Long memberId, Long orderId) {
 		return orderDetailRepository.findWithItemByOrderId(orderId);
 	}
 
@@ -142,17 +149,8 @@ public class OrderService {
 			.orElseThrow(() -> new NullPointerException(String.format("Cannot find order id %d", orderId)));
 	}
 
-	private List<OrderDetail> collectOrderDetails(List<Long> itemIds, Map<Long, Integer> quantityPerItem, Map<Long, Integer> pricePerItem,
-		Order newOrder) {
-		List<OrderDetail> orderDetails = new ArrayList<>();
-		Long orderId = newOrder.getId();
-		LocalDateTime now = LocalDateTime.now();
-		for (Long itemId : itemIds) {
-			Integer quantity = quantityPerItem.get(itemId);
-			Integer price = pricePerItem.get(itemId);
-			orderDetails.add(new OrderDetail(orderId, itemId, quantity, price, Status.ACTIVATED, now));
-		}
-		return orderDetails;
+	public List<Order> findOrderByMemberId(Long memberId, Pageable pageable) {
+		return orderRepository.findByMemberId(memberId, pageable);
 	}
 
 	@Transactional
@@ -179,5 +177,41 @@ public class OrderService {
 				throw new IllegalArgumentException("Batch insert OrderDetail fail due to invalid orderDetails.");
 			}
 		}
+	}
+
+	public OrderDetailDto findOrderDetail(Long memberId, Long orderId) {
+		List<OrderDetailResult> orderDetailResults = searchMyOrder(memberId, orderId);
+		Map<Long, List<OrderItemDto>> itemFromOrder = collectItemFromOrderDetailResult(orderDetailResults);
+		return new OrderDetailDto(orderId, itemFromOrder.get(orderId));
+	}
+
+	private List<OrderDetail> collectOrderDetails(List<Long> itemIds, Map<Long, Integer> quantityPerItem, Map<Long, Integer> pricePerItem,
+		Order newOrder) {
+		List<OrderDetail> orderDetails = new ArrayList<>();
+		Long orderId = newOrder.getId();
+		LocalDateTime now = LocalDateTime.now();
+		for (Long itemId : itemIds) {
+			Integer quantity = quantityPerItem.get(itemId);
+			Integer price = pricePerItem.get(itemId);
+			orderDetails.add(new OrderDetail(orderId, itemId, quantity, price, Status.ACTIVATED, now));
+		}
+		return orderDetails;
+	}
+
+	private Map<Long, List<OrderItemDto>> collectItemFromOrderDetailResult(List<OrderDetailResult> results) {
+		Map<Long, List<OrderItemDto>> itemsPerOrderId = results.stream()
+			.collect(
+				groupingBy(
+					OrderDetailResult::getOrderId,
+					mapping(OrderItemDto::new, toList())
+				));
+
+		int orderIdCnt = itemsPerOrderId.keySet().size();
+
+		if (orderIdCnt > 1) {
+			throw new IllegalArgumentException("Received two or more order ids.");
+		}
+
+		return itemsPerOrderId;
 	}
 }
