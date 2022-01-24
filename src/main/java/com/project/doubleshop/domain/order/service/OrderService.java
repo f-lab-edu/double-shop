@@ -37,7 +37,7 @@ public class OrderService {
 	private final OrderRepository orderRepository;
 	private final OrderDetailRepository orderDetailRepository;
 	private final AddressRepository addressRepository;
-
+	/*핵심 로직 */
 	@Transactional
 	public Order createOrder(Long memberId, Order order) {
 
@@ -68,7 +68,7 @@ public class OrderService {
 	}
 
 	@Transactional
-	public void cancelOrder(Long memberId, Long orderId) {
+	public Order cancelOrder(Long memberId, Long orderId) {
 		Order order = findByOrderIdAndMemberId(orderId, memberId);
 
 		List<OrderDetailResult> orderDetailWithItems = orderDetailRepository.findWithItemByOrderId(orderId);
@@ -89,8 +89,16 @@ public class OrderService {
 		updateOrderStatus(memberId, orderId, OrderConstant.CANCELED);
 
 		updateItemStockBeforeOrder(quantityPerItem, pricePerItem, items);
+
+		return order;
 	}
 
+	@Transactional
+	public List<OrderDetailResult> searchMyOrders(Long memberId, Long orderId) {
+		return orderDetailRepository.findWithItemByOrderId(orderId);;
+	}
+
+	/* 비 핵심 */
 	@Transactional
 	public void updateOrderStatus(Long memberId, Long orderId, int canceled) {
 		LocalDateTime now = LocalDateTime.now();
