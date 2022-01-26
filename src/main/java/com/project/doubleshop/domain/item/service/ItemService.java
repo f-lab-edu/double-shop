@@ -3,6 +3,7 @@ package com.project.doubleshop.domain.item.service;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
@@ -15,9 +16,11 @@ import com.project.doubleshop.domain.common.Status;
 import com.project.doubleshop.domain.common.mapper.param.RequestItemsWithCategory;
 import com.project.doubleshop.domain.item.entity.Item;
 import com.project.doubleshop.domain.item.repository.ItemRepository;
+import com.project.doubleshop.domain.utils.ExceptionUtils;
 import com.project.doubleshop.web.config.support.Pageable;
 import com.project.doubleshop.web.common.StatusRequest;
 import com.project.doubleshop.web.item.dto.ItemApiResult;
+import com.project.doubleshop.web.item.dto.ItemStockQuery;
 import com.project.doubleshop.web.item.exception.InvalidArgumentException;
 import com.project.doubleshop.web.item.exception.DataNotFoundException;
 
@@ -86,6 +89,25 @@ public class ItemService {
 		return itemRepository.findAllWithCategory(request);
 	}
 
+	public List<Item> findItemsInItemIds(List<Long> itemIds) {
+		List<Item> items = itemRepository.findItemsInIds(itemIds);
+
+		if (itemIds.size() != items.size()) {
+			Set<Long> validIds = items
+				.stream()
+				.map(Item::getId)
+				.collect(Collectors.toSet());
+
+			List<Long> invalidIds = itemIds
+				.stream()
+				.filter(id -> !validIds.contains(id))
+				.collect(Collectors.toList());
+
+			ExceptionUtils.findInvalidIdsAndThrowException(invalidIds, "Invalid item id");
+		}
+		return items;
+	}
+
 	@Transactional
 	public void updateItemStatus(StatusRequest requestDTO) {
 		Item item = itemRepository.findById(requestDTO.getId());
@@ -107,5 +129,9 @@ public class ItemService {
 	@Transactional
 	public Integer deleteItems(Status status) {
 		return itemRepository.deleteData(status);
+	}
+
+	public void updateItems(List<ItemStockQuery> queryList) {
+		itemRepository.updateItems(queryList);
 	}
 }

@@ -1,0 +1,38 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.doubleshop.domain.order.mapper.OrderDetailMapper">
+    <insert id="insertOrderDetail" parameterType="OrderDetail">
+        INSERT INTO ORDER_DETAIL (order_id, item_id, quantity, price)
+        VALUES (#{orderId}, #{itemId}, #{quantity}, #{price})
+    </insert>
+    <select id="selectOrderDetailByOrderId" parameterType="long" resultType="OrderDetail">
+        SELECT order_id, item_id, quantity, price
+        FROM ORDER_DETAIL
+        WHERE order_id = #{orderId}
+    </select>
+    <select id="selectOrderDetailWithItemByOrderId" parameterType="long" resultType="OrderDetailResult">
+        SELECT order_id, i.id AS item_id, i.name, i.price, i.stock, quantity FROM ORDER_DETAIL
+        JOIN ITEM i on item_id = i.id where order_id = #{orderId};
+    </select>
+    <update id="updateOrderDetailStatus">
+        UPDATE ORDER_DETAIL SET
+        status = #{statusCode},
+        status_update_time = #{statusUpdateTime}
+        WHERE
+        <foreach item="id" index="index" collection="orderIds"
+                 open="order_id IN (" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+    <delete id="deleteOrderDetails" parameterType="int">
+        DELETE FROM ORDER_DETAIL WHERE status = #{statusCode}
+    </delete>
+    <insert id="batchInsertOrderDetails" parameterType="OrderDetail">
+        INSERT INTO ORDER_DETAIL (order_id, item_id, quantity, price)
+        VALUES
+        <foreach collection="orderDetails" item="orderDetail" separator=",">
+            (#{orderDetail.orderId}, #{orderDetail.itemId}, #{orderDetail.quantity}, #{orderDetail.price})
+        </foreach>
+    </insert>
+</mapper>

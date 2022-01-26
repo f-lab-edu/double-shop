@@ -68,4 +68,21 @@
     <delete id="deleteItem" parameterType="Status">
         DELETE FROM ITEM WHERE status = #{DELETED}
     </delete>
+    <select id="selectItemsInIds" resultType="Item">
+        SELECT id, name, description, brand_name, price, volume, dimension, package_type, origin, expiration, price_per_100g,
+        allergic_info, model_serial_no, rating, search_keyword, stock, discount_price, author, publisher, isbn, published_time,
+        is_oneday_eligible, is_fresh_eligible, status, status_update_time, category_id
+        FROM Item WHERE
+        <foreach item="id" index="index" collection="itemIds"
+                 open="id IN (" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
+    <update id="batchUpdateItems" parameterType="ItemStockQuery">
+        <foreach collection="queryList" item="item" index="index" open="" close="" separator=";">
+            UPDATE ITEM SET
+            stock = #{item.stock}
+            WHERE id = #{item.itemId}
+        </foreach>
+    </update>
 </mapper>
