@@ -15,7 +15,5 @@ jobs:
         with:
           java-version: '11'
           distribution: 'temurin'
-      - name: Clean with Maven
-        run: mvn --batch-mode --update-snapshots clean
-      - name: Verify with Maven
-        run: mvn --batch-mode --update-snapshots verify
+      - name: build with maven
+        run: mvn --batch-mode --update-snapshots clean package
