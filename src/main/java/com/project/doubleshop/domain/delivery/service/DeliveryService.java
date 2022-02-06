@@ -8,9 +8,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.project.doubleshop.domain.common.Status;
 import com.project.doubleshop.domain.delivery.entity.Delivery;
+import com.project.doubleshop.domain.delivery.entity.DeliveryDriver;
+import com.project.doubleshop.domain.delivery.entity.DeliveryPolicy;
 import com.project.doubleshop.domain.delivery.repository.DeliveryRepository;
 import com.project.doubleshop.web.common.StatusRequest;
 import com.project.doubleshop.web.config.support.Pageable;
+import com.project.doubleshop.web.delivery.dto.DeliveryApiResult;
 import com.project.doubleshop.web.item.exception.DataNotFoundException;
 
 import lombok.RequiredArgsConstructor;
@@ -21,6 +24,10 @@ import lombok.RequiredArgsConstructor;
 public class DeliveryService {
 
 	private final DeliveryRepository deliveryRepository;
+
+	private final DeliveryPolicyService deliveryPolicyService;
+
+	private final DeliveryDriverService deliveryDriverService;
 
 	@Transactional
 	public boolean saveDelivery(Delivery delivery) {
@@ -33,6 +40,18 @@ public class DeliveryService {
 			new DataNotFoundException(String.format("Delivery ID '%s' not found.", deliveryId)));
 		deliveryRepository.save(delivery);
 		return deliveryRepository.findById(deliveryId);
+	}
+
+	public DeliveryApiResult findDeliveryApiResultByDeliveryId(Long deliveryId) {
+		Delivery delivery = findById(deliveryId);
+
+		Long deliveryDriverId = delivery.getDeliveryDriverId();
+		Long deliveryPolicyId = delivery.getDeliveryPolicyId();
+
+		DeliveryPolicy deliveryPolicy = deliveryPolicyService.findById(deliveryPolicyId);
+		DeliveryDriver deliveryDriver = deliveryDriverService.findById(deliveryDriverId);
+
+		 return new DeliveryApiResult(delivery, deliveryPolicy, deliveryDriver);
 	}
 
 	public Optional<Delivery> findByDeliveryId(Long deliveryId) {
