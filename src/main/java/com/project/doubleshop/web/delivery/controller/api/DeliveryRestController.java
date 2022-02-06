@@ -32,15 +32,11 @@ import com.project.doubleshop.web.delivery.dto.DeliveryForm;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("api/delivery")
+@RequestMapping("api")
 @RequiredArgsConstructor
 public class DeliveryRestController {
 
 	private final DeliveryService deliveryService;
-
-	private final DeliveryDriverService deliveryDriverService;
-
-	private final DeliveryPolicyService deliveryPolicyService;
 
 	@PostMapping
 	public ResponseEntity<DeliveryDTO> newDelivery(@RequestBody DeliveryForm deliveryForm) {
@@ -54,38 +50,30 @@ public class DeliveryRestController {
 		return ResponseEntity.created(location).body(new DeliveryDTO(delivery));
 	}
 
-	@GetMapping("{id}")
-	public ResponseEntity<DeliveryApiResult> findDeliveryById(@PathVariable Long id) {
-		Delivery delivery = deliveryService.findById(id);
-
-		Long deliveryDriverId = delivery.getDeliveryDriverId();
-		Long deliveryPolicyId = delivery.getDeliveryPolicyId();
-
-		DeliveryPolicy deliveryPolicy = deliveryPolicyService.findById(deliveryPolicyId);
-		DeliveryDriver deliveryDriver = deliveryDriverService.findById(deliveryDriverId);
-
-		return ResponseEntity.ok(new DeliveryApiResult(delivery, deliveryPolicy, deliveryDriver));
+	@GetMapping("member/{memberId}/delivery/{deliveryId}")
+	public ResponseEntity<DeliveryApiResult> findDeliveryById(@PathVariable Long memberId, @PathVariable Long deliveryId) {
+		return ResponseEntity.ok(deliveryService.findDeliveryApiResultByDeliveryId(deliveryId));
 	}
 
-	@GetMapping
+	@GetMapping("member/{memberId}/delivery")
 	public ResponseEntity<List<DeliveryDTO>> findDeliveries(Pageable pageable) {
 		List<Delivery> deliveries = deliveryService.findDeliveries(pageable);
 		return ResponseEntity.ok(deliveries.stream()
 			.map(DeliveryDTO::new).collect(Collectors.toList()));
 	}
 
-	@PutMapping("{id}")
+	@PutMapping("member/{memberId}/delivery")
 	public ResponseEntity<DeliveryDTO> editDelivery(@RequestBody DeliveryForm deliveryForm, @PathVariable Long id) {
 		Delivery delivery = deliveryService.saveDelivery(Delivery.convertToDelivery(deliveryForm), id);
 		return ResponseEntity.ok(new DeliveryDTO(delivery));
 	}
 
-	@PatchMapping("{id}/status")
-	public ResponseEntity<DeliveryDTO>  requestUpdateDeliveryStatus(@RequestBody Status status, @PathVariable Long id) {
-		return ResponseEntity.ok(new DeliveryDTO(deliveryService.updateDeliveryStatus(status, id)));
+	@PatchMapping("member/{memberId}/delivery/{deliveryId}/status")
+	public ResponseEntity<DeliveryDTO>  requestUpdateDeliveryStatus(@RequestBody Status status, @PathVariable Long deliveryId) {
+		return ResponseEntity.ok(new DeliveryDTO(deliveryService.updateDeliveryStatus(status, deliveryId)));
 	}
 
-	@DeleteMapping
+	@DeleteMapping("member/{memberId}/delivery")
 	public ResponseEntity<Integer> deleteAssignedDeliveries(@RequestParam Status status) {
 		return ResponseEntity.ok(deliveryService.deleteDeliveries(status));
 	}
