@@ -15,7 +15,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import com.project.doubleshop.domain.exception.MemberNotFoundException;
+import com.project.doubleshop.domain.exception.NotFoundException;
 import com.project.doubleshop.domain.member.entity.Member;
 import com.project.doubleshop.domain.member.service.AuthMemberService;
 import com.project.doubleshop.domain.member.service.TokenService;
@@ -71,7 +71,7 @@ public class SimpleAuthenticationProvider implements AuthenticationProvider {
 			tokenService.saveSession(tokenKey, tokenValue);
 			authenticated.setDetails(new AuthenticationResult(tokenKey, tokenValue));
 			return authenticated;
-		} catch (MemberNotFoundException e) {
+		} catch (NotFoundException e) {
 			throw new UsernameNotFoundException(e.getMessage());
 		} catch (IllegalArgumentException e) {
 			throw new BadCredentialsException(e.getMessage());

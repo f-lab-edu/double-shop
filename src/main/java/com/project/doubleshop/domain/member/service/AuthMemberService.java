@@ -8,7 +8,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.project.doubleshop.domain.exception.MemberNotFoundException;
+import com.project.doubleshop.domain.exception.NotFoundException;
+import com.project.doubleshop.domain.exception.ServiceException;
 import com.project.doubleshop.domain.member.entity.Member;
 import com.project.doubleshop.domain.member.repository.AuthMemberRepository;
 
@@ -26,7 +27,7 @@ public class AuthMemberService {
 	@Transactional
 	public Member login(String userId, String password) {
 		Member member = findByUserId(userId).orElseThrow(
-			() -> new MemberNotFoundException(String.format("UserId [%s] NotFound", userId)));
+			() -> new NotFoundException(String.format("UserId [%s] NotFound", userId)));
 		member.login(passwordEncoder, password);
 		member.afterSuccessLogin();
 		update(member);
@@ -35,7 +36,7 @@ public class AuthMemberService {
 
 	public Member findById(Long id) {
 		return Optional.of(authMemberRepository.findById(id)).orElseThrow(
-			() -> new MemberNotFoundException(String.format("Id [%s] NotFound", id)));
+			() -> new NotFoundException(String.format("Id [%s] NotFound", id)));
 	}
 
 	private void update(Member member) {
@@ -64,7 +65,7 @@ public class AuthMemberService {
 		if (requestMap.containsKey(requestUserId)) {
 			String userId = requestMap.get(requestUserId);
 			if (userId == null) {
-				throw new IllegalArgumentException("Must use 'userId'.");
+				throw new ServiceException("Must use 'userId'.");
 			}
 			return findByUserId(userId).isPresent();
 		} else {
@@ -77,7 +78,7 @@ public class AuthMemberService {
 			}
 		}
 
-		throw new IllegalArgumentException("Must use 'userId' or 'email'. Otherwise, check your parameter");
+		throw new ServiceException("Must use 'userId' or 'email'. Otherwise, check your parameter");
 	}
 
 	@Transactional
@@ -99,7 +100,7 @@ public class AuthMemberService {
 		String reqPassword = "password";
 
 		if (!requestMap.containsKey(reqPassword)) {
-			throw new IllegalArgumentException("Must use parameter 'password'");
+			throw new ServiceException("Must use parameter 'password'");
 		}
 
 		return authMemberRepository.savePassword(

@@ -5,21 +5,16 @@ import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.*;
 
-import java.util.Optional;
-
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import com.project.doubleshop.domain.exception.MemberNotFoundException;
+import com.project.doubleshop.domain.exception.NotFoundException;
 import com.project.doubleshop.domain.member.repository.AuthMemberRepository;
-import com.project.doubleshop.web.member.dto.JoinRequest;
 
 @ExtendWith(MockitoExtension.class)
 class AuthMemberServiceTest {
@@ -49,7 +44,7 @@ class AuthMemberServiceTest {
 	void loginFailTest() {
 		given(authMemberRepository.findByUserId(any())).willReturn(null);
 
-		assertThrows(MemberNotFoundException.class, () -> authMemberService.login(USER_ID, PASSWORD));
+		assertThrows(NotFoundException.class, () -> authMemberService.login(USER_ID, PASSWORD));
 	}
 
 	@Test

@@ -1,5 +1,6 @@
 package com.project.doubleshop.web.member.controller;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
@@ -35,7 +36,7 @@ public class AuthRestController {
 			SecurityContextHolder.getContext().setAuthentication(authentication);
 			return ResponseEntity.ok(new AuthenticationResultDto((AuthenticationResult) authentication.getDetails()));
 		} catch (AuthenticationException e) {
-			throw new UnauthenticatedMemberException(e.getMessage());
+			throw new UnauthenticatedMemberException(e.getMessage(), HttpStatus.UNAUTHORIZED.value());
 		}
 	}
 }
