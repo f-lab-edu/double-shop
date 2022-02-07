@@ -13,7 +13,8 @@ import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.project.doubleshop.web.item.exhandler.HttpErrorResult;
+import com.project.doubleshop.domain.exception.NotAuthorizedException;
+import com.project.doubleshop.web.common.exhandler.dto.ErrorResponse;
 
 import lombok.RequiredArgsConstructor;
 
@@ -28,9 +29,11 @@ public class SimpleAccessDeniedHandler implements AccessDeniedHandler {
 		AccessDeniedException e) throws IOException, ServletException {
 		response.setStatus(HttpServletResponse.SC_FORBIDDEN);
 		response.setHeader("content-type", MediaType.APPLICATION_JSON_VALUE);
-		response.getWriter().write(objectMapper.writeValueAsString(
-			new HttpErrorResult("Authentication error (cause: forbidden)",
-				HttpStatus.FORBIDDEN.getReasonPhrase())));
+		response.getWriter().write(objectMapper.writeValueAsString(objectMapper.writeValueAsString(
+			ErrorResponse.configure(
+				new NotAuthorizedException("Authentication error (cause: forbidden)", HttpStatus.FORBIDDEN.value())
+			)
+		)));
 		response.getWriter().flush();
 		response.getWriter().close();
 	}

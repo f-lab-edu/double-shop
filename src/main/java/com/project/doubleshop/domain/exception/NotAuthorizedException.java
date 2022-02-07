@@ -1,12 +1,7 @@
 package com.project.doubleshop.domain.exception;
 
-public class NotAuthorizedException extends RuntimeException {
-
-    public NotAuthorizedException() {
+public class NotAuthorizedException extends ServiceException {
+    public NotAuthorizedException(String message, Integer statusCode) {
+        super(message, statusCode);
     }
-
-    public NotAuthorizedException(String message) {
-        super(message);
-    }
-
 }
