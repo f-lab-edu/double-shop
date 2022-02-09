@@ -2,11 +2,21 @@ package com.project.doubleshop.domain.utils;
 
 import java.util.List;
 
+import com.project.doubleshop.domain.exception.BadRequestException;
 import com.project.doubleshop.domain.exception.NotFoundException;
 import com.project.doubleshop.domain.exception.ServiceException;
 
 public class ExceptionUtils {
-	public static void findInvalidIdsAndThrowException(List<Long> invalidIds, String message) {
+
+	public static void findInvalidIdsAndThrow400Error(List<Long> invalidIds, String message) {
+		throw new BadRequestException(generateExceptionMessage(invalidIds, message));
+	}
+
+	public static void findInvalidIdsAndThrow404Error(List<Long> invalidIds, String message) {
+		throw new NotFoundException(generateExceptionMessage(invalidIds, message));
+	}
+
+	private static String generateExceptionMessage(List<Long> invalidIds, String message) {
 		StringBuilder sb = new StringBuilder();
 
 		sb.append(message);
@@ -19,7 +29,6 @@ public class ExceptionUtils {
 				sb.append("]");
 			}
 		}
-
-		throw new NotFoundException(sb.toString());
+		return sb.toString();
 	}
 }

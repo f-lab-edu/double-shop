@@ -8,16 +8,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import com.project.doubleshop.domain.address.repository.AddressRepository;
 import com.project.doubleshop.domain.cart.entity.Cart;
 import com.project.doubleshop.domain.cart.service.CartService;
 import com.project.doubleshop.domain.common.Status;
+import com.project.doubleshop.domain.exception.BadRequestException;
+import com.project.doubleshop.domain.exception.NotFoundException;
 import com.project.doubleshop.domain.item.entity.Item;
 import com.project.doubleshop.domain.item.service.ItemService;
 import com.project.doubleshop.domain.order.entity.Order;
@@ -113,7 +113,7 @@ public class OrderService {
 		if (resultCnt == 1) {
 			return true;
 		} else {
-			throw new IllegalArgumentException("Request update order cancel fail.");
+			throw new BadRequestException("Request update order cancel fail.");
 		}
 	}
 
@@ -138,7 +138,7 @@ public class OrderService {
 
 		if (invalidItemIds.size() != 0) {
 			// 재고가 없는 상품이 발생하여 예외처리
-			ExceptionUtils.findInvalidIdsAndThrowException(invalidItemIds, "Out of stock item id");
+			ExceptionUtils.findInvalidIdsAndThrow400Error(invalidItemIds, "Out of stock item id");
 		}
 		itemService.updateItems(queryList);
 	}
@@ -146,7 +146,7 @@ public class OrderService {
 	public Order findByOrderIdAndMemberId(Long orderId, Long memberId) {
 		return Optional.of(
 			orderRepository.findByIdAndMemberId(orderId, memberId))
-			.orElseThrow(() -> new NullPointerException(String.format("Cannot find order id %d", orderId)));
+			.orElseThrow(() -> new NotFoundException(String.format("Cannot find order id %d", orderId)));
 	}
 
 	public List<Order> findOrderByMemberId(Long memberId, Pageable pageable) {
@@ -158,7 +158,7 @@ public class OrderService {
 		if (saveOrder(order)) {
 			return order;
 		} else {
-			throw new NullPointerException("Insert and get order fail");
+			throw new BadRequestException("Insert and get order fail");
 		}
 	}
 
@@ -172,9 +172,9 @@ public class OrderService {
 		Integer resultCnt = orderDetailRepository.batchInsert(orderDetails);
 		if (resultCnt == null || resultCnt != orderDetails.size()) {
 			if (resultCnt == null) {
-				throw new NullPointerException("'NullPointerException' occurred while batch insert orderDetails");
+				throw new NotFoundException("'NullPointerException' occurred while batch insert orderDetails");
 			} else {
-				throw new IllegalArgumentException("Batch insert OrderDetail fail due to invalid orderDetails.");
+				throw new BadRequestException("Batch insert OrderDetail fail due to invalid orderDetails.");
 			}
 		}
 	}
@@ -209,7 +209,7 @@ public class OrderService {
 		int orderIdCnt = itemsPerOrderId.keySet().size();
 
 		if (orderIdCnt > 1) {
-			throw new IllegalArgumentException("Received two or more order ids.");
+			throw new BadRequestException("Received two or more order ids.");
 		}
 
 		return itemsPerOrderId;

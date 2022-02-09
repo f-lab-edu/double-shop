@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.project.doubleshop.domain.common.Status;
 import com.project.doubleshop.domain.delivery.entity.DeliveryPolicy;
 import com.project.doubleshop.domain.delivery.repository.DeliveryPolicyRepository;
+import com.project.doubleshop.domain.exception.NotFoundException;
 import com.project.doubleshop.web.common.StatusRequest;
 import com.project.doubleshop.web.config.support.Pageable;
 import com.project.doubleshop.web.item.exception.DataNotFoundException;
@@ -30,7 +31,7 @@ public class DeliveryPolicyService {
 	@Transactional
 	public DeliveryPolicy saveDeliveryPolicy(DeliveryPolicy deliveryPolicy, Long deliveryPolicyId) {
 		findByDeliveryPolicyId(deliveryPolicyId).orElseThrow(() ->
-			new DataNotFoundException(String.format("DeliveryPolicy ID '%s' not found.", deliveryPolicyId)));
+			new NotFoundException(String.format("DeliveryPolicy ID '%s' not found.", deliveryPolicyId)));
 		deliveryPolicyRepository.save(deliveryPolicy);
 		return deliveryPolicyRepository.findById(deliveryPolicyId);
 	}
@@ -45,7 +46,7 @@ public class DeliveryPolicyService {
 
 	public DeliveryPolicy findById(Long deliveryPolicyId) {
 		return findByDeliveryPolicyId(deliveryPolicyId).orElseThrow(() ->
-			new DataNotFoundException(String.format("Delivery ID '%s' not found.", deliveryPolicyId)));
+			new NotFoundException(String.format("Delivery ID '%s' not found.", deliveryPolicyId)));
 	}
 
 	@Transactional
@@ -53,7 +54,7 @@ public class DeliveryPolicyService {
 		if (saveDeliveryPolicy(deliveryPolicy)) {
 			return deliveryPolicy;
 		} else {
-			throw new DataNotFoundException(String.format("Inserted deliveryPolicy id %d not found", deliveryPolicy.getId()));
+			throw new NotFoundException(String.format("Inserted deliveryPolicy id %d not found", deliveryPolicy.getId()));
 		}
 	}
 
@@ -61,10 +62,10 @@ public class DeliveryPolicyService {
 	public void updateDeliveryPolicyStatus(StatusRequest requestDTO) {
 		DeliveryPolicy deliveryPolicy = deliveryPolicyRepository.findById(requestDTO.getId());
 		if (deliveryPolicy == null) {
-			throw new DataNotFoundException(String.format("DeliveryPolicy Id '%s' not found.", requestDTO.getId()));
+			throw new NotFoundException(String.format("DeliveryPolicy Id '%s' not found.", requestDTO.getId()));
 		}
 		if (Status.of(requestDTO.getStatus().name()) == null) {
-			throw new IllegalArgumentException(String.format("Request status value '%s' not found", requestDTO.getStatus().name()));
+			throw new NotFoundException(String.format("Request status value '%s' not found", requestDTO.getStatus().name()));
 		}
 		deliveryPolicyRepository.updateStatus(requestDTO);
 	}

@@ -5,9 +5,6 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import javax.validation.ConstraintViolation;
-import javax.validation.Validator;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,10 +17,7 @@ import com.project.doubleshop.domain.item.repository.ItemRepository;
 import com.project.doubleshop.domain.utils.ExceptionUtils;
 import com.project.doubleshop.web.config.support.Pageable;
 import com.project.doubleshop.web.common.StatusRequest;
-import com.project.doubleshop.web.item.dto.ItemApiResult;
 import com.project.doubleshop.web.item.dto.ItemStockQuery;
-import com.project.doubleshop.web.item.exception.InvalidArgumentException;
-import com.project.doubleshop.web.item.exception.DataNotFoundException;
 
 import lombok.RequiredArgsConstructor;
 
@@ -93,7 +87,7 @@ public class ItemService {
 				.filter(id -> !validIds.contains(id))
 				.collect(Collectors.toList());
 
-			ExceptionUtils.findInvalidIdsAndThrowException(invalidIds, "Invalid item id");
+			ExceptionUtils.findInvalidIdsAndThrow404Error(invalidIds, "Invalid item id");
 		}
 		return items;
 	}

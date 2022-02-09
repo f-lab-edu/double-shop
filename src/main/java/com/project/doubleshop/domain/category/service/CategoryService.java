@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.project.doubleshop.domain.category.entity.Category;
 import com.project.doubleshop.domain.category.repository.CategoryRepository;
 import com.project.doubleshop.domain.common.Status;
+import com.project.doubleshop.domain.exception.NotFoundException;
 import com.project.doubleshop.web.common.StatusRequest;
 import com.project.doubleshop.web.item.exception.DataNotFoundException;
 
@@ -31,7 +32,7 @@ public class CategoryService {
 		if (saveCategory(category)) {
 			return category;
 		} else {
-			throw new DataNotFoundException(String.format("Inserted category id %d not found", category.getId()));
+			throw new NotFoundException(String.format("Inserted category id %d not found", category.getId()));
 		}
 	}
 
@@ -43,7 +44,7 @@ public class CategoryService {
 	}
 
 	public Category findCategoryById(Long categoryId) {
-		return Optional.ofNullable(categoryRepository.findById(categoryId)).orElseThrow(() -> new DataNotFoundException(String.format("category ID '%s' not found", categoryId)));
+		return Optional.ofNullable(categoryRepository.findById(categoryId)).orElseThrow(() -> new NotFoundException(String.format("category ID '%s' not found", categoryId)));
 	}
 
 	public List<Category> findCategories() {
@@ -54,10 +55,10 @@ public class CategoryService {
 	public void updateCategoryStatus(StatusRequest requestDTO) {
 		Category category = categoryRepository.findById(requestDTO.getId());
 		if (category == null) {
-			throw new DataNotFoundException(String.format("category ID '%s' not found", requestDTO.getId()));
+			throw new NotFoundException(String.format("category ID '%s' not found", requestDTO.getId()));
 		}
 		if (Status.of(requestDTO.getStatus().name()) == null) {
-			throw new IllegalArgumentException(String.format("request status value '%s' not found", requestDTO.getStatus().name()));
+			throw new NotFoundException(String.format("request status value '%s' not found", requestDTO.getStatus().name()));
 		}
 		categoryRepository.updateStatus(requestDTO);
 	}
