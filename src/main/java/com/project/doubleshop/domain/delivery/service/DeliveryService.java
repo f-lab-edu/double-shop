@@ -11,6 +11,7 @@ import com.project.doubleshop.domain.delivery.entity.Delivery;
 import com.project.doubleshop.domain.delivery.entity.DeliveryDriver;
 import com.project.doubleshop.domain.delivery.entity.DeliveryPolicy;
 import com.project.doubleshop.domain.delivery.repository.DeliveryRepository;
+import com.project.doubleshop.domain.exception.NotFoundException;
 import com.project.doubleshop.web.common.StatusRequest;
 import com.project.doubleshop.web.config.support.Pageable;
 import com.project.doubleshop.web.delivery.dto.DeliveryApiResult;
@@ -37,7 +38,7 @@ public class DeliveryService {
 	@Transactional
 	public Delivery saveDelivery(Delivery delivery, Long deliveryId) {
 		findByDeliveryId(deliveryId).orElseThrow(() ->
-			new DataNotFoundException(String.format("Delivery ID '%s' not found.", deliveryId)));
+			new NotFoundException(String.format("Delivery ID '%s' not found.", deliveryId)));
 		deliveryRepository.save(delivery);
 		return deliveryRepository.findById(deliveryId);
 	}
@@ -59,7 +60,7 @@ public class DeliveryService {
 	}
 
 	public Delivery findById(Long deliveryId) {
-		return findByDeliveryId(deliveryId).orElseThrow(() -> new DataNotFoundException(String.format("Delivery ID '%s' not found.", deliveryId)));
+		return findByDeliveryId(deliveryId).orElseThrow(() -> new NotFoundException(String.format("Delivery ID '%s' not found.", deliveryId)));
 	}
 
 	public List<Delivery> findDeliveries(Pageable pageable) {
@@ -71,7 +72,7 @@ public class DeliveryService {
 		if (saveDelivery(delivery)) {
 			return delivery;
 		} else {
-			throw new DataNotFoundException(String.format("Inserted delivery id %d not found", delivery.getId()));
+			throw new NotFoundException(String.format("Inserted delivery id %d not found", delivery.getId()));
 		}
 	}
 
@@ -79,10 +80,10 @@ public class DeliveryService {
 	public void updateDeliveryStatus(StatusRequest requestDTO) {
 		Delivery delivery = deliveryRepository.findById(requestDTO.getId());
 		if (delivery == null) {
-			throw new DataNotFoundException(String.format("Delivery Id '%s' not found.", requestDTO.getId()));
+			throw new NotFoundException(String.format("Delivery Id '%s' not found.", requestDTO.getId()));
 		}
 		if (Status.of(requestDTO.getStatus().name()) == null) {
-			throw new IllegalArgumentException(String.format("Request status value '%s' not found", requestDTO.getStatus().name()));
+			throw new NotFoundException(String.format("Request status value '%s' not found", requestDTO.getStatus().name()));
 		}
 		deliveryRepository.updateStatus(requestDTO);
 	}
