@@ -26,6 +26,6 @@ public class ServiceExceptionHandlerControllerAdvice<T extends ServiceException>
 			throw exception;
 		}
 		
-		return new ResponseEntity<>(errorResponse, HttpStatus.valueOf(errorResponse.getStatus()));
+		return new ResponseEntity<>(errorResponse, HttpStatus.valueOf(errorResponse.getStatusCode()));
 	}
 }

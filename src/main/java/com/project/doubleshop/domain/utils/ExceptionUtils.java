@@ -2,6 +2,9 @@ package com.project.doubleshop.domain.utils;
 
 import java.util.List;
 
+import com.project.doubleshop.domain.exception.NotFoundException;
+import com.project.doubleshop.domain.exception.ServiceException;
+
 public class ExceptionUtils {
 	public static void findInvalidIdsAndThrowException(List<Long> invalidIds, String message) {
 		StringBuilder sb = new StringBuilder();
@@ -17,6 +20,6 @@ public class ExceptionUtils {
 			}
 		}
 
-		throw new IllegalArgumentException(sb.toString());
+		throw new NotFoundException(sb.toString());
 	}
 }

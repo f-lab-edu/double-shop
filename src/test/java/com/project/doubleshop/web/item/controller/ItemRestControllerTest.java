@@ -1,6 +1,7 @@
 package com.project.doubleshop.web.item.controller;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import java.time.LocalDateTime;
@@ -55,7 +56,6 @@ class ItemRestControllerTest {
 			get("/api/item/{id}", 1)
 				.accept(MediaType.APPLICATION_JSON)
 		)
-			// .andDo(print())
 			.andExpect(status().is2xxSuccessful())
 			.andExpect(jsonPath("$.id").value(1))
 			.andExpect(jsonPath("$.name").exists());
@@ -69,11 +69,7 @@ class ItemRestControllerTest {
 			get("/api/item/{id}", 99)
 				.accept(MediaType.APPLICATION_JSON)
 		)
-			// .andDo(print())
-			.andExpect(status().is4xxClientError())
-			.andExpect(jsonPath("$.id").doesNotExist())
-			.andExpect(jsonPath("$.statusCode").value(HttpStatus.NOT_FOUND.getReasonPhrase()))
-			.andExpect(jsonPath("$.message").exists());
+			.andExpect(status().is4xxClientError());
 	}
 
 	@Test
@@ -84,7 +80,6 @@ class ItemRestControllerTest {
 			get("/api/item")
 				.accept(MediaType.APPLICATION_JSON)
 		)
-			// .andDo(print())
 			.andExpect(status().is2xxSuccessful())
 			.andExpect(jsonPath("$[0].id").exists());
 	}
@@ -99,7 +94,6 @@ class ItemRestControllerTest {
 				.param("size", "9")
 				.accept(MediaType.APPLICATION_JSON)
 		)
-			// .andDo(print())
 			.andExpect(status().is2xxSuccessful())
 			.andExpect(jsonPath("$[0].id").exists());
 	}
@@ -126,7 +120,6 @@ class ItemRestControllerTest {
 				.content(itemForm)
 				.accept(MediaType.APPLICATION_JSON)
 		)
-			// .andDo(print())
 			.andExpect(status().isCreated())
 			.andExpect(jsonPath("$.name").exists());
 	}
@@ -142,7 +135,6 @@ class ItemRestControllerTest {
 				.param("status", Status.TO_BE_DELETED.name())
 				.accept(MediaType.APPLICATION_JSON)
 		)
-			// .andDo(print())
 			.andExpect(status().is2xxSuccessful());
 	}
 
@@ -166,7 +158,6 @@ class ItemRestControllerTest {
 					.content(itemForm)
 					.accept(MediaType.APPLICATION_JSON)
 		)
-			// .andDo(print())
 			.andExpect(status().is2xxSuccessful())
 			.andExpect(jsonPath("$.name").value(changedName));
 	}
@@ -183,7 +174,6 @@ class ItemRestControllerTest {
 				.param("status", Status.TO_BE_DELETED.name())
 				.accept(MediaType.APPLICATION_JSON)
 		)
-			// .andDo(print())
 			.andExpect(status().is2xxSuccessful());
 	}
 
@@ -207,7 +197,6 @@ class ItemRestControllerTest {
 				.content(categoryForm)
 				.accept(MediaType.APPLICATION_JSON)
 		)
-			// .andDo(print())
 			.andExpect(status().isCreated())
 			.andExpect(jsonPath("$.name").exists())
 			.andExpect(jsonPath("$.categoryType").exists())
@@ -226,7 +215,6 @@ class ItemRestControllerTest {
 				.param("page", "1")
 				.param("size", "9")
 		)
-			// .andDo(print())
 			.andExpect(status().is2xxSuccessful())
 		;
 	}

@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ErrorResponse {
 	private LocalDateTime timeStamp;
-	private Integer status;
+	private Integer statusCode;
 	private String message;
 	private String path;
 
@@ -31,13 +31,13 @@ public class ErrorResponse {
 
 		return ErrorResponse.builder()
 			.timeStamp(LocalDateTime.now())
-			.status(exception.getStatusCode())
+			.statusCode(exception.getStatusCode())
 			.message(exception.getMessage())
 			.path(location.getPath())
 			.build();
 	}
 
 	public boolean inComplete() {
-		return timeStamp == null || status == null || message == null || path == null;
+		return timeStamp == null || statusCode == null || message == null || path == null;
 	}
 }

@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.project.doubleshop.domain.category.service.CategoryService;
 import com.project.doubleshop.domain.common.Status;
 import com.project.doubleshop.domain.common.mapper.param.RequestItemsWithCategory;
+import com.project.doubleshop.domain.exception.NotFoundException;
 import com.project.doubleshop.domain.item.entity.Item;
 import com.project.doubleshop.domain.item.repository.ItemRepository;
 import com.project.doubleshop.domain.utils.ExceptionUtils;
@@ -34,25 +35,14 @@ public class ItemService {
 
 	private final CategoryService categoryService;
 
-	private final Validator validator;
-
 	@Transactional
 	public boolean saveItem(Item item) {
-		// Set<ConstraintViolation<Item>> violations = validator.validate(item);
-		// // 테스트용 service layered validation - 실질적으로 사용하지는 않는 validation 추후 개선할 예정.
-		// if (!violations.isEmpty()) {
-		// 	StringBuilder sb = new StringBuilder();
-		// 	for (ConstraintViolation<Item> violation : violations) {
-		// 		sb.append(violation.getMessage()).append(" ");
-		// 	}
-		// 	throw new InvalidArgumentException(sb.toString());
-		// }
 		return itemRepository.save(item);
 	}
 
 	@Transactional
 	public Item saveItem(Item item, Long itemId) {
-		findItemById(itemId).orElseThrow(() -> new DataNotFoundException(String.format("Item ID '%s' not found.", itemId)));
+		findItemById(itemId).orElseThrow(() -> new NotFoundException(String.format("Item ID '%s' not found.", itemId)));
 		itemRepository.save(item);
 		return itemRepository.findById(itemId);
 	}
@@ -72,11 +62,11 @@ public class ItemService {
 	public Item findItemByIdWithCategory(Long itemId) {
 		Item item = itemRepository.findById(itemId);
 		if (item == null) {
-			throw new DataNotFoundException(String.format("Item ID '%s' not found.", itemId));
+			throw new NotFoundException(String.format("Item ID '%s' not found.", itemId));
 		}
 		Long categoryId = item.getCategoryId();
 		if (categoryId == null) {
-			throw new DataNotFoundException(String.format("Category ID '%s' not found.", categoryId));
+			throw new NotFoundException(String.format("Category ID '%s' not found.", categoryId));
 		}
 		return item;
 	}
@@ -112,10 +102,10 @@ public class ItemService {
 	public void updateItemStatus(StatusRequest requestDTO) {
 		Item item = itemRepository.findById(requestDTO.getId());
 		if (item == null) {
-			throw new DataNotFoundException(String.format("Item ID '%s' not found", requestDTO.getId()));
+			throw new NotFoundException(String.format("Item ID '%s' not found", requestDTO.getId()));
 		}
 		if (Status.of(requestDTO.getStatus().name()) == null) {
-			throw new IllegalArgumentException(String.format("Request status value '%s' not found", requestDTO.getStatus().name()));
+			throw new NotFoundException(String.format("Request status value '%s' not found", requestDTO.getStatus().name()));
 		}
 		itemRepository.updateStatus(requestDTO);
 	}
@@ -123,7 +113,7 @@ public class ItemService {
 	@Transactional
 	public Item updateItemStatus(Status status, Long itemId) {
 		updateItemStatus(new StatusRequest(itemId, status));
-		return findItemById(itemId).orElseThrow(() -> new DataNotFoundException(String.format("Item ID '%s' not found", itemId)));
+		return findItemById(itemId).orElseThrow(() -> new NotFoundException(String.format("Item ID '%s' not found", itemId)));
 	}
 
 	@Transactional
