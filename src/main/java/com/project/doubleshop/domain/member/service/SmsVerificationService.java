@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
 
+// TODO 해당 서비스 검토 후 수정 혹은 삭제
 /**
  * Twilio API를 활용한 SMS
  * 회원가입 시 사용자가 입력한 휴대폰 번호로 인증 번호 전송

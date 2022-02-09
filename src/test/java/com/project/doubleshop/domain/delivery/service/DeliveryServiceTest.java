@@ -14,6 +14,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.project.doubleshop.domain.delivery.entity.Delivery;
 import com.project.doubleshop.domain.delivery.repository.DeliveryRepository;
+import com.project.doubleshop.domain.exception.NotFoundException;
 import com.project.doubleshop.web.config.support.Pageable;
 import com.project.doubleshop.web.item.exception.DataNotFoundException;
 
@@ -54,7 +55,7 @@ class DeliveryServiceTest {
 	void findOneDeliveryFail() {
 		given(deliveryRepository.findById(ID)).willReturn(null);
 
-		assertThrows(DataNotFoundException.class, () -> deliveryService.findById(ID));
+		assertThrows(NotFoundException.class, () -> deliveryService.findById(ID));
 	}
 
 	@Test
