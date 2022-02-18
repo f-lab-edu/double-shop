@@ -16,7 +16,7 @@ import javax.servlet.http.HttpSession;
  * Twilio API를 활용한 SMS
  * 회원가입 시 사용자가 입력한 휴대폰 번호로 인증 번호 전송
  */
-@Service
+// @Service
 public class SmsVerificationService {
 
     @Value("${account-sid}")
