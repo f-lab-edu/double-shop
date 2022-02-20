@@ -8,6 +8,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Configuration
 @Profile("prod")
 public class AppConfig {
@@ -22,6 +25,7 @@ public class AppConfig {
 
 	@Bean
 	public DataSource dataSource() {
+		log.info("Get dataSource from vm");
 		return DataSourceBuilder.create()
 			.url(dataSourceUrl)
 			.username(dataSourceUsername)
