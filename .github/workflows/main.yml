@@ -5,6 +5,8 @@ on:
     branches: [ develop ]
   pull_request:
     branches: [ develop ]
+env:
+  KEYVAULT_CLIENT_KEY: ${{ secrets.KEYVAULT_CLIENT_KEY }}
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -16,4 +18,4 @@ jobs:
           java-version: '11'
           distribution: 'temurin'
       - name: build with maven
-        run: mvn --batch-mode --update-snapshots clean package
+        run: mvn --batch-mode --update-snapshots clean package -Dazure.keyvault.client-key=$KEYVAULT_CLIENT_KEY
