@@ -25,7 +25,6 @@ public class AppConfig {
 
 	@Bean
 	public DataSource dataSource() {
-		log.info("Get dataSource from vm");
 		return DataSourceBuilder.create()
 			.url(dataSourceUrl)
 			.username(dataSourceUsername)
