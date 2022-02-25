@@ -1,16 +1,13 @@
 name: deploy to test server
 
 on:
-  push:
-    branches:
-      - develop
   pull_request:
     branches:
       - develop
     types: [closed]
 jobs:
   deploy:
-#     if: github.event.pull_request.merged == true
+    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
       - 
