@@ -6,12 +6,18 @@
 - TDD를 기반으로 점진적으로 확장시키며, 학습과 테스트를 통해 개선 시키는 것을 우선으로 진행.
 
 ### 사용한 기술 & 개발 환경
-
+- JAVA 11
+- SpringBoot
+- SpringSecurity
+- Maven
+- MySQL
+- MyBatis
+- Redis
 ### 프로토타입
-
+- https://ovenapp.io/view/VxVBrbaPUJKAq6tVHHL0eaaD4sflzJAC/
 ### 구조
-
+![snapshot_v0 01](https://user-images.githubusercontent.com/81374655/155947142-4529aab5-237f-402b-9654-d261740c9a61.png)
 ### ERD
-
-### 기술적 이슈 및 가이드
-
+![erd](https://user-images.githubusercontent.com/81374655/155947276-7236cb95-9cc8-4d5f-88b1-3f0d2c7a10b1.png)
+### Project Wiki
+- https://github.com/f-lab-edu/double-shop/wiki
