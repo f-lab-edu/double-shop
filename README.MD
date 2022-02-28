@@ -16,7 +16,7 @@
 ### 프로토타입
 - https://ovenapp.io/view/VxVBrbaPUJKAq6tVHHL0eaaD4sflzJAC/
 ### 구조
-![snapshot_v0 01](https://user-images.githubusercontent.com/81374655/155947142-4529aab5-237f-402b-9654-d261740c9a61.png)
+
 ### ERD
 ![erd](https://user-images.githubusercontent.com/81374655/155947276-7236cb95-9cc8-4d5f-88b1-3f0d2c7a10b1.png)
 ### Project Wiki
