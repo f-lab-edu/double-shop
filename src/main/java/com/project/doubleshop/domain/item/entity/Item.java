@@ -3,6 +3,13 @@ package com.project.doubleshop.domain.item.entity;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import javax.persistence.Convert;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.PastOrPresent;
@@ -10,7 +17,9 @@ import javax.validation.constraints.PastOrPresent;
 import org.hibernate.validator.constraints.Range;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.project.doubleshop.domain.category.entity.Category;
 import com.project.doubleshop.domain.common.Status;
+import com.project.doubleshop.domain.common.StatusConverter;
 import com.project.doubleshop.web.item.dto.ItemForm;
 import com.project.doubleshop.web.item.exception.InvalidItemStockQuantityException;
 
@@ -20,14 +29,19 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+@Entity
 @Builder
 @Getter
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class Item {
 
     // 상품 pk
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @ManyToOne
+    private Category category;
 
     // 상품 이름
     @NotBlank(message = "field 'name' must be provided.")
@@ -104,6 +118,7 @@ public class Item {
     private Boolean isFreshEligible;
 
     // 상태
+    @Convert(converter = StatusConverter.class)
     private Status status;
 
     // 상태 업데이트 시간
@@ -113,9 +128,6 @@ public class Item {
     // 등록된 시간
     @PastOrPresent(message = "field 'createTime' must be present or past")
     private LocalDateTime createTime;
-
-    // 카테고리 외래키
-    private Long categoryId;
 
     // 상품 인스턴스 생성 로직
     public static Item convertToItem(ItemForm form) {
@@ -143,7 +155,7 @@ public class Item {
             .publishedTime(form.getPublishedTime())
             .isOnedayEligible(form.getIsOnedayEligible())
             .isFreshEligible(form.getIsFreshEligible())
-            .categoryId(form.getCategoryId())
+            .category(form.getCategory())
             .status(form.getStatus())
             .build();
     }
