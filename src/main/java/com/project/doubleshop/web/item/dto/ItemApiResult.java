@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 
 import com.project.doubleshop.domain.category.entity.Category;
 import com.project.doubleshop.domain.item.entity.Item;
-import com.project.doubleshop.web.category.controller.dto.CategoryDTO;
+import com.project.doubleshop.web.category.controller.dto.CategoryApiResult;
 
 import lombok.Getter;
 
@@ -84,9 +84,9 @@ public class ItemApiResult {
 	private final LocalDateTime createTime;
 
 	// 카테고리
-	private final CategoryDTO category;
+	private final Category category;
 
-	public ItemApiResult(Item item, Category category) {
+	public ItemApiResult(Item item) {
 		this.id = item.getId();
 		this.name = item.getName();
 		this.description = item.getDescription();
@@ -111,6 +111,6 @@ public class ItemApiResult {
 		this.isOnedayEligible = item.getIsOnedayEligible();
 		this.isFreshEligible = item.getIsFreshEligible();
 		this.createTime = item.getCreateTime();
-		this.category = new CategoryDTO(category);
+		this.category = item.getCategory();
 	}
 }

@@ -7,12 +7,15 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
+import org.springframework.data.web.config.PageableHandlerMethodArgumentResolverCustomizer;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
@@ -25,13 +28,18 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 
 @Configuration
 @Profile("local")
-public class RedisConfig {
+public class AppLocalConfig {
 
 	@Value("${spring.redis.host}")
 	private String redisHost;
 
 	@Value("${spring.redis.token.port}")
 	private int redisTokenPort;
+	
+	@Bean
+	public PageableHandlerMethodArgumentResolverCustomizer customizer() {
+		return p -> p.setFallbackPageable(PageRequest.of(0, 9, Sort.Direction.DESC, "id"));
+	}
 
 	@Bean
 	public RedisConnectionFactory redisTokenConnectionFactory() {
