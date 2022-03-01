@@ -2,6 +2,8 @@ package com.project.doubleshop.domain.category.entity;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -10,6 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import com.project.doubleshop.domain.common.Status;
+import com.project.doubleshop.domain.common.StatusConverter;
+import com.project.doubleshop.domain.common.StatusManager;
 import com.project.doubleshop.web.category.controller.dto.CategoryForm;
 
 import lombok.AccessLevel;
@@ -23,7 +27,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class Category {
+public class Category implements StatusManager {
 	// 카테고리 pk
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -43,9 +47,12 @@ public class Category {
 	private Boolean isRefundable;
 
 	// 카테고리 상태
+	@Convert(converter = StatusConverter.class)
 	private Status status;
 
 	// 카테고리 상태 업데이트 시간
+	@Column(insertable = false, updatable = false,
+		columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
 	private LocalDateTime statusUpdateTime;
 
 	// 카테고리 인스턴스 생성 로직
@@ -72,5 +79,10 @@ public class Category {
 			", status=" + status +
 			", statusUpdateTime=" + statusUpdateTime +
 			'}';
+	}
+
+	@Override
+	public void saveStatus(Status status) {
+		this.status = status;
 	}
 }

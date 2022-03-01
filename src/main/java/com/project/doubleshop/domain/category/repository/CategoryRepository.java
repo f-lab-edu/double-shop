@@ -2,16 +2,13 @@ package com.project.doubleshop.domain.category.repository;
 
 import java.util.List;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
 import com.project.doubleshop.domain.category.entity.Category;
-import com.project.doubleshop.domain.common.Manageable;
-import com.project.doubleshop.domain.item.entity.Item;
-import com.project.doubleshop.web.common.StatusRequest;
+import com.project.doubleshop.domain.common.Status;
 
-public interface CategoryRepository extends Manageable<StatusRequest> {
-
-	boolean save(Category entity);
-
-	Category findById(Long id);
-
-	List<Category> findAll();
+public interface CategoryRepository extends JpaRepository<Category, Long> {
+	@Query(value = "select c.id from category c where c.status = ?", nativeQuery = true)
+	List<Long> findIdsByStatus(Status status);
 }
