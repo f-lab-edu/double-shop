@@ -1,4 +1,4 @@
-package com.project.doubleshop.domain.category.repository;
+package com.project.doubleshop.domain.category.repository.legacy;
 
 import java.util.List;
 
@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository;
 
 import com.project.doubleshop.domain.category.entity.Category;
 import com.project.doubleshop.domain.category.mapper.CategoryMapper;
-import com.project.doubleshop.domain.common.Manageable;
 import com.project.doubleshop.domain.common.Status;
 import com.project.doubleshop.web.common.StatusRequest;
 

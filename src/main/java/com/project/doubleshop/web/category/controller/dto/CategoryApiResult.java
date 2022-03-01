@@ -12,7 +12,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
-public class CategoryDTO {
+public class CategoryApiResult {
 
 	// 카테고리 pk
 	private final Long id;
@@ -29,7 +29,7 @@ public class CategoryDTO {
 	// 환불가능 여부
 	private final Boolean isRefundable;
 
-	public CategoryDTO(Category source) {
+	public CategoryApiResult(Category source) {
 		this.id = source.getId();
 		this.name = source.getName();
 		this.categoryType = source.getCategoryType();

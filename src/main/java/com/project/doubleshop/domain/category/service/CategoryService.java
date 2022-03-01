@@ -1,7 +1,8 @@
 package com.project.doubleshop.domain.category.service;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,8 +11,7 @@ import com.project.doubleshop.domain.category.entity.Category;
 import com.project.doubleshop.domain.category.repository.CategoryRepository;
 import com.project.doubleshop.domain.common.Status;
 import com.project.doubleshop.domain.exception.NotFoundException;
-import com.project.doubleshop.web.common.StatusRequest;
-import com.project.doubleshop.web.item.exception.DataNotFoundException;
+import com.project.doubleshop.domain.utils.ExceptionUtils;
 
 import lombok.RequiredArgsConstructor;
 
@@ -19,58 +19,53 @@ import lombok.RequiredArgsConstructor;
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class CategoryService {
-
 	private final CategoryRepository categoryRepository;
 
 	@Transactional
-	public boolean saveCategory(Category category) {
+	public Category save(Category category) {
 		return categoryRepository.save(category);
 	}
 
-	@Transactional
-	public Category getInsertedCategory(Category category) {
-		if (saveCategory(category)) {
-			return category;
-		} else {
-			throw new NotFoundException(String.format("Inserted category id %d not found", category.getId()));
-		}
+	public Category findById(Long categoryId) {
+		return categoryRepository.findById(categoryId)
+			.orElseThrow(() -> new NotFoundException(String.format("Category ID '%s' not found.", categoryId)));
 	}
 
-	@Transactional
-	public Category saveCategory(Category category, Long categoryId) {
-		findCategoryById(categoryId);
-		categoryRepository.save(category);
-		return categoryRepository.findById(categoryId);
-	}
-
-	public Category findCategoryById(Long categoryId) {
-		return Optional.ofNullable(categoryRepository.findById(categoryId)).orElseThrow(() -> new NotFoundException(String.format("category ID '%s' not found", categoryId)));
-	}
-
-	public List<Category> findCategories() {
+	public List<Category> findAll() {
 		return categoryRepository.findAll();
 	}
 
-	@Transactional
-	public void updateCategoryStatus(StatusRequest requestDTO) {
-		Category category = categoryRepository.findById(requestDTO.getId());
-		if (category == null) {
-			throw new NotFoundException(String.format("category ID '%s' not found", requestDTO.getId()));
+	public List<Category> findAllByIds(List<Long> categoryIds) {
+		List<Category> categories = categoryRepository.findAllById(categoryIds);
+
+		if (categoryIds.size() != categories.size()) {
+			Set<Long> validIds = categories
+				.stream()
+				.map(Category::getId)
+				.collect(Collectors.toSet());
+
+			List<Long> invalidIds = categoryIds
+				.stream()
+				.filter(id -> !validIds.contains(id))
+				.collect(Collectors.toList());
+
+			ExceptionUtils.findInvalidIdsAndThrow404Error(invalidIds, "Invalid category id");
 		}
-		if (Status.of(requestDTO.getStatus().name()) == null) {
-			throw new NotFoundException(String.format("request status value '%s' not found", requestDTO.getStatus().name()));
-		}
-		categoryRepository.updateStatus(requestDTO);
+		return categories;
 	}
 
 	@Transactional
-	public Category updateCategoryStatus(Status status, Long categoryId) {
-		updateCategoryStatus(new StatusRequest(categoryId, status));
-		return findCategoryById(categoryId);
+	public Boolean updateStatus(Long categoryId, Status status) {
+		Category category = findById(categoryId);
+		Status previous = category.getStatus();
+		category.saveStatus(status);
+		return !previous.equals(category.getStatus());
 	}
 
 	@Transactional
-	public Integer deleteCategories(Status status) {
-		return categoryRepository.deleteData(status);
+	public Integer removeStatusDel(Status status) {
+		List<Long> ids = categoryRepository.findIdsByStatus(status);
+		categoryRepository.deleteAllById(ids);
+		return ids.size();
 	}
 }
