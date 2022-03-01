@@ -1,5 +1,6 @@
 package com.project.doubleshop.domain.item;
 
+import com.project.doubleshop.domain.category.entity.Category;
 import com.project.doubleshop.domain.item.entity.Item;
 import com.project.doubleshop.web.item.dto.ItemForm;
 
@@ -16,7 +17,7 @@ public class MockItem {
 		public static final String SEARCH_KEYWORD = "가성비 검색어";
 		public static final Integer STOCK = 365;
 		public static final Boolean IS_ONEDAY_ELIGIBLE = true;
-		public static final Long CATEGORY_ID = 1L;
+		public static final Category CATEGORY = Category.builder().id(1L).build();
 
 		public static final Item ITEM = Item.builder()
 			.id(ID)
@@ -30,7 +31,7 @@ public class MockItem {
 			.searchKeyword(SEARCH_KEYWORD)
 			.stock(STOCK)
 			.isOnedayEligible(IS_ONEDAY_ELIGIBLE)
-			.categoryId(CATEGORY_ID)
+			.category(CATEGORY)
 			.build();
 
 		public static final Item NEW_ITEM = Item.builder()
@@ -44,7 +45,7 @@ public class MockItem {
 			.searchKeyword(SEARCH_KEYWORD)
 			.stock(STOCK)
 			.isOnedayEligible(IS_ONEDAY_ELIGIBLE)
-			.categoryId(CATEGORY_ID)
+			.category(CATEGORY)
 			.build();
 
 		public static final ItemForm ITEM_FORM_NEW = new ItemForm(NEW_ITEM);

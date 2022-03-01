@@ -1,18 +1,28 @@
 package com.project.doubleshop.domain.item.service;
 
-import static com.project.doubleshop.domain.item.MockItem.Item1.*;
+import static com.project.doubleshop.domain.item.MockItem.*;
+import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.*;
 
-import org.junit.jupiter.api.DisplayName;
+import java.util.List;
+import java.util.Optional;
+
+import org.aspectj.lang.annotation.Before;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import com.project.doubleshop.domain.category.repository.CategoryRepository;
+import com.project.doubleshop.domain.category.service.CategoryService;
+import com.project.doubleshop.domain.item.MockItem;
+import com.project.doubleshop.domain.item.entity.Item;
 import com.project.doubleshop.domain.item.repository.ItemRepository;
-import com.project.doubleshop.web.config.support.SimplePageRequest;
 
 @ExtendWith(MockitoExtension.class)
 class ItemServiceTest {
@@ -24,44 +34,21 @@ class ItemServiceTest {
 	ItemService itemService;
 
 	@Test
-	@DisplayName("상품 생성")
-	void createItem() {
-		given(itemRepository.save(NEW_ITEM)).willReturn(true);
+	void findById() {
+		given(itemRepository.findById(Item1.ID)).willReturn(Optional.of(Item1.ITEM));
 
-		itemService.saveItem(NEW_ITEM);
+		Item item = itemService.findById(Item1.ID);
 
-		then(itemRepository).should(times(1)).save(NEW_ITEM);
+		assertThat(item).isNotNull();
+		assertThat(item.getId()).isEqualTo(Item1.ITEM.getId());
 	}
 
 	@Test
-	@DisplayName("단건 상품 조회")
-	void findItem() {
-		given(itemRepository.findById(anyLong())).willReturn(ITEM);
+	void remove() {
+		given(itemRepository.findById(Item1.ID)).willReturn(Optional.empty());
 
-		itemService.findItemById(ID).get();
+		itemService.remove(List.of(Item1.ITEM.getId()));
 
-		then(itemRepository).should(times(1)).findById(ID);
-	}
-
-	@Test
-	@DisplayName("상품 수정")
-	void updateItem() {
-		given(itemRepository.save(ITEM)).willReturn(true);
-
-		itemService.saveItem(ITEM);
-
-		then(itemRepository).should(times(1)).save(ITEM);
-	}
-
-	@Test
-	@DisplayName("상품 목록 조회")
-	void findItems() {
-
-		SimplePageRequest simplePageRequest = new SimplePageRequest();
-		given(itemRepository.findAll(simplePageRequest)).willReturn(anyList());
-
-		itemService.findItems(simplePageRequest);
-
-		then(itemRepository).should(times(1)).findAll(simplePageRequest);
+		assertThat(itemRepository.findById(Item1.ID).isEmpty()).isTrue();
 	}
 }
