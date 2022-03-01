@@ -2,6 +2,7 @@ package com.project.doubleshop.web.item.dto;
 
 import java.time.LocalDate;
 
+import com.project.doubleshop.domain.category.entity.Category;
 import com.project.doubleshop.domain.common.Status;
 import com.project.doubleshop.domain.item.entity.Item;
 
@@ -14,6 +15,9 @@ import lombok.NoArgsConstructor;
 public class ItemForm {
 	// 상품 id
 	private Long id;
+
+	// 카테고리
+	private Long categoryId;
 
 	// 상품 이름
 	private String name;
@@ -81,12 +85,6 @@ public class ItemForm {
 	// 당일배송가능여부
 	private Boolean isFreshEligible;
 
-	// 카테고리
-	private Long categoryId;
-
-	// 상태
-	private Status status;
-
 	public ItemForm(Item source) {
 		this.id = source.getId();
 		this.name = source.getName();
@@ -111,6 +109,6 @@ public class ItemForm {
 		this.publishedTime = source.getPublishedTime();
 		this.isOnedayEligible = source.getIsOnedayEligible();
 		this.isFreshEligible = source.getIsFreshEligible();
-		this.categoryId = source.getCategoryId();
+		this.categoryId = source.getCategory().getId();
 	}
 }

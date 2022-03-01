@@ -3,6 +3,8 @@ package com.project.doubleshop.domain.item.entity;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,6 +20,7 @@ import org.hibernate.validator.constraints.Range;
 import com.project.doubleshop.domain.category.entity.Category;
 import com.project.doubleshop.domain.common.Status;
 import com.project.doubleshop.domain.common.StatusConverter;
+import com.project.doubleshop.domain.common.StatusManager;
 import com.project.doubleshop.web.item.dto.ItemForm;
 
 import lombok.AccessLevel;
@@ -31,7 +34,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class Item {
+public class Item implements StatusManager {
 
     // 상품 pk
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -124,6 +127,8 @@ public class Item {
 
     // 등록된 시간
     @PastOrPresent(message = "field 'createTime' must be present or past")
+    @Column(insertable = false, updatable = false,
+        columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     private LocalDateTime createTime;
 
     // 상품 인스턴스 생성 로직
@@ -152,8 +157,15 @@ public class Item {
             .publishedTime(form.getPublishedTime())
             .isOnedayEligible(form.getIsOnedayEligible())
             .isFreshEligible(form.getIsFreshEligible())
-            .category(form.getCategory())
-            .status(form.getStatus())
             .build();
+    }
+
+    @Override
+    public void saveStatus(Status status) {
+        this.status = status;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 }
