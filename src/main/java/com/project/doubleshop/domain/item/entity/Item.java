@@ -9,19 +9,16 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.PastOrPresent;
 
 import org.hibernate.validator.constraints.Range;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.project.doubleshop.domain.category.entity.Category;
 import com.project.doubleshop.domain.common.Status;
 import com.project.doubleshop.domain.common.StatusConverter;
 import com.project.doubleshop.web.item.dto.ItemForm;
-import com.project.doubleshop.web.item.exception.InvalidItemStockQuantityException;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
