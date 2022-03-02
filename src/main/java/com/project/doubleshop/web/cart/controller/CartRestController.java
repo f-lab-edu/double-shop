@@ -13,16 +13,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.project.doubleshop.domain.cart.entity.Cart;
-import com.project.doubleshop.domain.cart.service.CartService;
+import com.project.doubleshop.domain.cart.service.legacy.CartService;
 import com.project.doubleshop.web.cart.dto.CartForm;
 import com.project.doubleshop.web.cart.dto.CartDto;
 
 import lombok.RequiredArgsConstructor;
 
-@RestController
 @RequestMapping("api")
 @RequiredArgsConstructor
 public class CartRestController {

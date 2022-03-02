@@ -5,7 +5,6 @@ import static com.project.doubleshop.domain.member.service.MockMember.*;
 import static com.project.doubleshop.domain.order.MockOrder.*;
 import static com.project.doubleshop.domain.order.MockOrderDetail.*;
 import static org.assertj.core.api.AssertionsForClassTypes.*;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.*;
 
 import java.util.List;
@@ -17,16 +16,11 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.project.doubleshop.domain.cart.entity.Cart;
-import com.project.doubleshop.domain.cart.service.CartService;
+import com.project.doubleshop.domain.cart.service.legacy.CartService;
 import com.project.doubleshop.domain.cart.service.MockCart;
-import com.project.doubleshop.domain.item.MockItem;
 import com.project.doubleshop.domain.item.entity.Item;
-import com.project.doubleshop.domain.item.service.ItemService;
-import com.project.doubleshop.domain.member.service.MockMember;
-import com.project.doubleshop.domain.order.MockOrder;
-import com.project.doubleshop.domain.order.MockOrderDetail;
+import com.project.doubleshop.domain.item.service.legacy.ItemService;
 import com.project.doubleshop.domain.order.entity.Order;
-import com.project.doubleshop.domain.order.entity.OrderDetail;
 import com.project.doubleshop.domain.order.repository.OrderDetailRepository;
 import com.project.doubleshop.domain.order.repository.OrderRepository;
 import com.project.doubleshop.web.config.support.Pageable;

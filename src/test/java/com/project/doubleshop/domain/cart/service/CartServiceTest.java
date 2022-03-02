@@ -2,22 +2,20 @@ package com.project.doubleshop.domain.cart.service;
 
 import static com.project.doubleshop.domain.cart.service.MockCart.Cart1.*;
 import static org.assertj.core.api.AssertionsForClassTypes.*;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.*;
 
 import java.util.List;
 
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.project.doubleshop.domain.cart.entity.Cart;
-import com.project.doubleshop.domain.cart.repository.CartRepository;
+import com.project.doubleshop.domain.cart.repository.legacy.CartRepository;
+import com.project.doubleshop.domain.cart.service.legacy.CartService;
 import com.project.doubleshop.domain.member.service.MockMember;
 
 @ExtendWith(MockitoExtension.class)
