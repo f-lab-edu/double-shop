@@ -2,14 +2,13 @@ name: double-shop CI
 
 on:
   push:
-    branches: [ develop, 'release/**' ]
+    branches: [ 'feature/**', 'release/**' ]
   pull_request:
-    branches: [ develop, 'release/**' ]
+    branches: [ develop, main ]
 env:
   KEYVAULT_CLIENT_KEY: ${{ secrets.KEYVAULT_CLIENT_KEY }}
 jobs:
   build:
-    if: github.event.pull_request.merged == false
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
