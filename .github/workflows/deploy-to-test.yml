@@ -1,7 +1,7 @@
 name: deploy to test server
 
 on:
-  push:
+  pull_request:
     branches:
       - develop
     types: [closed]
