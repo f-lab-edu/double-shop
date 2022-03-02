@@ -35,7 +35,7 @@ public class AppLocalConfig {
 
 	@Value("${spring.redis.token.port}")
 	private int redisTokenPort;
-	
+
 	@Bean
 	public PageableHandlerMethodArgumentResolverCustomizer customizer() {
 		return p -> p.setFallbackPageable(PageRequest.of(0, 9, Sort.Direction.DESC, "id"));

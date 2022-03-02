@@ -41,26 +41,7 @@ public class ItemService {
 	}
 
 	public List<Item> findItems(Pageable pageable) {
-		return itemRepository.findAll(pageable).getContent();
-	}
-
-	public List<Item> findAllByIds(List<Long> itemIds) {
-		List<Item> items = itemRepository.findAllById(itemIds);
-
-		if (itemIds.size() != items.size()) {
-			Set<Long> validIds = items
-				.stream()
-				.map(Item::getId)
-				.collect(Collectors.toSet());
-
-			List<Long> invalidIds = itemIds
-				.stream()
-				.filter(id -> !validIds.contains(id))
-				.collect(Collectors.toList());
-
-			ExceptionUtils.findInvalidIdsAndThrow404Error(invalidIds, "Invalid item id");
-		}
-		return items;
+		return itemRepository.findAllByStatus(Status.ACTIVATED, pageable).getContent();
 	}
 
 	@Transactional
@@ -78,7 +59,7 @@ public class ItemService {
 
 	@Transactional
 	public Integer removeStatusDel(Status status) {
-		List<Long> ids = itemRepository.findIdsByStatus(status);
+		List<Long> ids = itemRepository.findIdsByStatus(status.getValue());
 		itemRepository.deleteAllById(ids);
 		return ids.size();
 	}

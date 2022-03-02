@@ -32,7 +32,7 @@ public class CategoryService {
 	}
 
 	public List<Category> findAll() {
-		return categoryRepository.findAll();
+		return categoryRepository.findAllByStatus(Status.ACTIVATED);
 	}
 
 	public List<Category> findAllByIds(List<Long> categoryIds) {
@@ -64,7 +64,7 @@ public class CategoryService {
 
 	@Transactional
 	public Integer removeStatusDel(Status status) {
-		List<Long> ids = categoryRepository.findIdsByStatus(status);
+		List<Long> ids = categoryRepository.findIdsByStatus(status.getValue());
 		categoryRepository.deleteAllById(ids);
 		return ids.size();
 	}
