@@ -18,12 +18,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.project.doubleshop.domain.category.entity.Category;
 import com.project.doubleshop.domain.common.Status;
 import com.project.doubleshop.domain.item.entity.Item;
 import com.project.doubleshop.domain.item.service.ItemService;
 import com.project.doubleshop.web.item.dto.ItemApiResult;
-import com.project.doubleshop.web.item.dto.ItemDTO;
 import com.project.doubleshop.web.item.dto.ItemForm;
 
 import lombok.RequiredArgsConstructor;
@@ -48,7 +46,6 @@ public class ItemRestController {
 	@GetMapping("item/{id}")
 	public ResponseEntity<ItemApiResult> findItem(@PathVariable Long id) {
 		Item item = itemService.findById(id);
-		Category category = item.getCategory();
 		return ResponseEntity.ok(new ItemApiResult(item));
 	}
 
@@ -57,12 +54,9 @@ public class ItemRestController {
 		return ResponseEntity.ok(itemService.findItems(pageable).stream().map(ItemApiResult::new).collect(Collectors.toList()));
 	}
 
-
-
 	@PutMapping("item")
 	public ResponseEntity<ItemApiResult> editItem(@RequestBody ItemForm itemForm) {
 		Item item = itemService.save(itemForm);
-		Category category = item.getCategory();
 		return ResponseEntity.ok(new ItemApiResult(item));
 	}
 

@@ -27,7 +27,7 @@ import com.project.doubleshop.web.order.dto.OrderItemDto;
 
 import lombok.RequiredArgsConstructor;
 
-@RestController
+
 @RequestMapping("api")
 @RequiredArgsConstructor
 public class OrderRestController {

@@ -14,12 +14,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.project.doubleshop.domain.address.repository.AddressRepository;
 import com.project.doubleshop.domain.cart.entity.Cart;
-import com.project.doubleshop.domain.cart.service.CartService;
+import com.project.doubleshop.domain.cart.service.legacy.CartService;
 import com.project.doubleshop.domain.common.Status;
 import com.project.doubleshop.domain.exception.BadRequestException;
 import com.project.doubleshop.domain.exception.NotFoundException;
 import com.project.doubleshop.domain.item.entity.Item;
-import com.project.doubleshop.domain.item.service.ItemService;
+import com.project.doubleshop.domain.item.service.legacy.ItemService;
 import com.project.doubleshop.domain.order.entity.Order;
 import com.project.doubleshop.domain.order.entity.OrderDetail;
 import com.project.doubleshop.domain.order.entity.constant.OrderConstant;
@@ -35,7 +35,7 @@ import com.project.doubleshop.web.order.dto.OrderStatusRequest;
 
 import lombok.RequiredArgsConstructor;
 
-@Service
+
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class OrderService {
