@@ -84,7 +84,7 @@ public class ItemApiResult {
 	private final LocalDateTime createTime;
 
 	// 카테고리
-	private final Category category;
+	private final CategoryApiResult category;
 
 	public ItemApiResult(Item item) {
 		this.id = item.getId();
@@ -111,6 +111,6 @@ public class ItemApiResult {
 		this.isOnedayEligible = item.getIsOnedayEligible();
 		this.isFreshEligible = item.getIsFreshEligible();
 		this.createTime = item.getCreateTime();
-		this.category = item.getCategory();
+		this.category = new CategoryApiResult(item.getCategory());
 	}
 }

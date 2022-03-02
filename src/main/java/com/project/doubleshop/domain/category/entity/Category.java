@@ -69,6 +69,11 @@ public class Category implements StatusManager {
 	}
 
 	@Override
+	public void saveStatus(Status status) {
+		this.status = status;
+	}
+
+	@Override
 	public String toString() {
 		return "Category{" +
 			"id=" + id +
@@ -79,10 +84,5 @@ public class Category implements StatusManager {
 			", status=" + status +
 			", statusUpdateTime=" + statusUpdateTime +
 			'}';
-	}
-
-	@Override
-	public void saveStatus(Status status) {
-		this.status = status;
 	}
 }
