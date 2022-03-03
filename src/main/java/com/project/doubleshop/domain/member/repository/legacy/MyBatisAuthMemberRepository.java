@@ -1,4 +1,4 @@
-package com.project.doubleshop.domain.member.repository;
+package com.project.doubleshop.domain.member.repository.legacy;
 
 import org.springframework.stereotype.Repository;
 
