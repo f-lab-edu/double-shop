@@ -20,7 +20,7 @@ public class TokenService {
 		return tokenRepository.findBySessionId(tokenKey);
 	}
 
-	public void resetExpiry(String tokenKey, SimpleToken simpleToken) {
+	public void updateSession(String tokenKey, SimpleToken simpleToken) {
 		tokenRepository.updateSession(tokenKey, simpleToken);
 	}
 

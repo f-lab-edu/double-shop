@@ -65,7 +65,7 @@ public class SimpleAuthenticationTokenFilter extends GenericFilterBean {
 						// refresh expired(if remain 10 min below)
 						if (canRefresh(currentToken, resetSeconds)) {
 							currentToken.resetExpiry(expirySeconds);
-							tokenService.resetExpiry(tokenKey, currentToken);
+							tokenService.updateSession(tokenKey, currentToken);
 						}
 
 						Long id = currentToken.getId();

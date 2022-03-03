@@ -2,7 +2,9 @@ package com.project.doubleshop.web.config.security;
 
 public enum Role {
 
-	USER("ROLE_USER");
+	USER("ROLE_USER"),
+	USER_VENDOR("ROLE_VENDOR"),
+	ADMIN("ROLE_ADMIN");
 
 	private final String value;
 
