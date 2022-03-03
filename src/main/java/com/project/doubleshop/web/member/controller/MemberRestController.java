@@ -16,11 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.doubleshop.domain.member.entity.Member;
-import com.project.doubleshop.domain.member.service.AuthMemberService;
+import com.project.doubleshop.domain.member.service.MemberService;
 import com.project.doubleshop.domain.member.service.TokenService;
 import com.project.doubleshop.web.member.dto.JoinRequest;
 import com.project.doubleshop.web.member.dto.JoinResult;
-import com.project.doubleshop.web.member.dto.MemberDto;
+import com.project.doubleshop.web.member.dto.MemberResult;
 import com.project.doubleshop.web.config.security.SimpleAuthentication;
 import com.project.doubleshop.web.member.dto.UpdateMemberRequest;
 
@@ -31,19 +31,18 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class MemberRestController {
 
-	private final AuthMemberService authMemberService;
+	private final MemberService authMemberService;
 
 	private final TokenService tokenService;
 
 	@GetMapping("member/me")
-	public ResponseEntity<MemberDto> me(@AuthenticationPrincipal SimpleAuthentication authentication) {
-		return ResponseEntity.ok(new MemberDto(authMemberService.findById(authentication.getId())));
+	public ResponseEntity<MemberResult> me(@AuthenticationPrincipal SimpleAuthentication authentication) {
+		return ResponseEntity.ok(new MemberResult(authMemberService.findById(authentication.getId())));
 	}
 
 	@PostMapping("member/join")
 	public ResponseEntity<JoinResult> join(@RequestBody JoinRequest requestBody) {
-		Member member = authMemberService.join(requestBody.getUserId(), requestBody.getCredential(), requestBody.getName(),
-			requestBody.getEmail(), requestBody.getPhone());
+		Member member = authMemberService.join(requestBody);
 		return ResponseEntity.ok(new JoinResult(member));
 	}
 
@@ -54,10 +53,10 @@ public class MemberRestController {
 	}
 
 	@PatchMapping("member/{id}/profile")
-	public ResponseEntity<Boolean> updateMyProfile(@PathVariable Long id, @RequestBody UpdateMemberRequest requestBody) {
+	public ResponseEntity<MemberResult> updateMyProfile(@PathVariable Long id, @RequestBody UpdateMemberRequest requestBody) {
 		return ResponseEntity.ok(
-			authMemberService.updateProfile(id, requestBody.getUserId(), requestBody.getName(),
-			requestBody.getEmail(), requestBody.getPhone())
+			new MemberResult(authMemberService.updateProfile(id, requestBody.getUserId(), requestBody.getName(),
+				requestBody.getEmail(), requestBody.getPhone()))
 		);
 	}
 

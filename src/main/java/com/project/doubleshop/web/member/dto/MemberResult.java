@@ -4,12 +4,14 @@ import java.time.LocalDateTime;
 
 import com.project.doubleshop.domain.member.entity.Member;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
 @AllArgsConstructor
-public class MemberDto {
+public class MemberResult {
 
 	private final Long id;
 
@@ -25,7 +27,7 @@ public class MemberDto {
 
 	private final LocalDateTime lastLoginTime;
 
-	public MemberDto(Member member) {
+	public MemberResult(Member member) {
 		this.id = member.getId();
 		this.userId = member.getUserId();
 		this.name = member.getName();

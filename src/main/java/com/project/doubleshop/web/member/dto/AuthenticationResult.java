@@ -2,14 +2,17 @@ package com.project.doubleshop.web.member.dto;
 
 import com.project.doubleshop.web.config.security.SimpleToken;
 
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class AuthenticationResult {
 
-	private final String sessionToken;
+	private String sessionToken;
 
-	private final SimpleToken simpleToken;
+	private SimpleToken simpleToken;
 
 	public AuthenticationResult(String sessionToken, SimpleToken simpleToken) {
 		this.sessionToken = sessionToken;

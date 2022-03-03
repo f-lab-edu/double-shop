@@ -1,4 +1,4 @@
-package com.project.doubleshop.domain.member.service;
+package com.project.doubleshop.domain.member.service.legacy;
 
 import static com.project.doubleshop.domain.utils.EmailUtils.*;
 import java.util.Map;
