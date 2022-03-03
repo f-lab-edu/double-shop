@@ -11,11 +11,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.project.doubleshop.domain.exception.NotFoundException;
 import com.project.doubleshop.domain.exception.ServiceException;
 import com.project.doubleshop.domain.member.entity.Member;
-import com.project.doubleshop.domain.member.repository.AuthMemberRepository;
+import com.project.doubleshop.domain.member.repository.legacy.AuthMemberRepository;
 
 import lombok.RequiredArgsConstructor;
 
-@Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class AuthMemberService {
