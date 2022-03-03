@@ -1,7 +1,9 @@
 package com.project.doubleshop.web.config.security;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -29,6 +31,17 @@ public class SimpleToken {
 	public void resetExpiry(int expirySeconds) {
 		Date now = new Date();
 		this.expiredAt = new Date(now.getTime() + expirySeconds * 1000L);
+	}
+
+	public void addRole(Role role) {
+		List<String> roles = new ArrayList<>(Arrays.asList(this.roles));
+		if (!roles.contains(role.value())) {
+			roles.add(role.value());
+			this.roles = roles.toArray(new String[roles.size()]);
+		} else {
+			throw new IllegalArgumentException("Invalid role requested.");
+		}
+		this.roles = new String[] {Role.USER.value(), Role.ADMIN.value()};
 	}
 
 	@Override
