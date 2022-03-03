@@ -123,6 +123,8 @@ public class Item implements StatusManager {
 
     // 상태 업데이트 시간
     @PastOrPresent(message = "field 'statusUpdateTime' must be present or past")
+    @Column(insertable = false, updatable = false,
+        columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     private LocalDateTime statusUpdateTime;
 
     // 등록된 시간

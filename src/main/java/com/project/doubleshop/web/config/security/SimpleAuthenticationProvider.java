@@ -17,7 +17,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import com.project.doubleshop.domain.exception.NotFoundException;
 import com.project.doubleshop.domain.member.entity.Member;
-import com.project.doubleshop.domain.member.service.AuthMemberService;
+import com.project.doubleshop.domain.member.service.MemberService;
+import com.project.doubleshop.domain.member.service.legacy.AuthMemberService;
 import com.project.doubleshop.domain.member.service.TokenService;
 import com.project.doubleshop.web.member.dto.AuthenticationRequest;
 import com.project.doubleshop.web.member.dto.AuthenticationResult;
@@ -27,14 +28,14 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class SimpleAuthenticationProvider implements AuthenticationProvider {
 
-	private AuthMemberService authMemberService;
+	private MemberService authMemberService;
 
 	private SimpleTokenConfigurer simpleTokenConfigurer;
 
 	private TokenService tokenService;
 
 	@Autowired
-	public void setAuthMemberService(AuthMemberService authMemberService) {
+	public void setAuthMemberService(MemberService authMemberService) {
 		this.authMemberService = authMemberService;
 	}
 

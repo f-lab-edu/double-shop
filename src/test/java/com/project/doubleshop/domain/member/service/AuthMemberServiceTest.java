@@ -14,7 +14,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.project.doubleshop.domain.exception.NotFoundException;
-import com.project.doubleshop.domain.member.repository.AuthMemberRepository;
+import com.project.doubleshop.domain.member.repository.legacy.AuthMemberRepository;
+import com.project.doubleshop.domain.member.service.legacy.AuthMemberService;
 
 @ExtendWith(MockitoExtension.class)
 class AuthMemberServiceTest {

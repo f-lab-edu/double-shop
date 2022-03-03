@@ -1,9 +1,15 @@
 package com.project.doubleshop.domain.member.entity;
 
 import static java.time.LocalDateTime.*;
+import static java.util.Objects.*;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.Convert;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.PastOrPresent;
@@ -13,6 +19,7 @@ import javax.validation.constraints.Size;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.project.doubleshop.domain.common.Status;
+import com.project.doubleshop.domain.common.StatusConverter;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -20,38 +27,39 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+@Entity
 @Builder
 @Getter
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class Member {
 
 	// 회원 pk
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	// 회원 아이디
-	@NotBlank(message = "아이디를 입력해주세요")
-	@Pattern(regexp = "^(?=.*[a-zA-Z0-9]).{6,12}$", message = "아이디는 영문/숫자 조합 6~12자리")
+	@NotBlank(message = "UserId must be provided.")
+	@Pattern(regexp = "^(?=.*[a-zA-Z0-9]).{6,12}$", message = "Must have 6 to 12 alphanumeric characters.")
 	private String userId;
 
 	// 회원 비밀번호
-	@NotBlank(message = "비밀번호를 입력해주세요")
-	@Pattern(regexp = "^(?=.*[a-zA-Z0-9`~!@#$%^&*()\\-_+=\\\\]).{10,15}$", message = "비밀번호는 영문/숫자/특수문자 조합 10~15자리")
+	@NotBlank(message = "Password must be provided.")
 	private String password;
 
 	// 회원 이름
-	@NotBlank(message = "이름을 작성해주세요")
-	@Size(max = 10, message = "이름은 10자 내외로 작성해주세요")
+	@NotBlank(message = "Name must be provided.")
+	@Size(max = 10, message = "Must write your name in less than 10 characters.")
 	private String name;
 
 	// 회원 이메일
-	@NotBlank(message = "이메일을 입력해주세요")
+	@NotBlank(message = "Email must be provided.")
 	@Email(message = "잘못된 이메일 형식입니다")
 	private String email;
 
 	// 회원 연락처
-	@NotBlank(message = "휴대폰 번호를 입력해주세요(숫자만 입력)")
-	@Pattern(regexp = "(01[016789])(\\d{3,4})(\\d{4})", message = "올바른 휴대폰 번호를 입력해주세요")
+	@NotBlank(message = "Phone number must be provided.")
+	@Pattern(regexp = "(01[016789])(\\d{3,4})(\\d{4})", message = "Enter a valid mobile phone number(without hyphen sign).")
 	private String phone;
 
 	// 로그인 횟수
@@ -61,6 +69,7 @@ public class Member {
 	private LocalDateTime lastLoginTime;
 
 	// 상태
+	@Convert(converter = StatusConverter.class)
 	private Status status;
 
 	// 상태 업데이트 시간
@@ -83,6 +92,42 @@ public class Member {
 	public void afterSuccessLogin() {
 		count++;
 		lastLoginTime = now();
+	}
+
+	public void changePassword(PasswordEncoder passwordEncoder, String newPassword) {
+		if (!this.password.equals(newPassword)) {
+			encodePassword(passwordEncoder, newPassword);
+		} else {
+			throw new IllegalArgumentException("New Password Must be different with previous one");
+		}
+	}
+
+	public void encodePassword(PasswordEncoder passwordEncoder, String password) {
+		if (isValidPassword(password)) {
+			this.password = passwordEncoder.encode(password);
+		}
+	}
+
+	public void updateProfile(String userId, String name, String email, String phone) {
+		if (nonNull(userId)) {
+			this.userId = userId;
+		}
+		if (nonNull(name)) {
+			this.name = name;
+		}
+		if (nonNull(email)) {
+			this.email = email;
+		}
+		if (nonNull(phone)) {
+			this.phone = phone;
+		}
+	}
+
+	private boolean isValidPassword(String password) {
+		if (!password.matches("^(?=.*[a-zA-Z0-9`~!@#$%^&*()\\-_+=\\\\]).{10,15}$")) {
+			throw new IllegalArgumentException("You must enter 10 to 15 alphanumeric characters/special numbers.");
+		}
+		return true;
 	}
 
 	@Override
