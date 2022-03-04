@@ -24,6 +24,7 @@ import com.project.doubleshop.web.member.dto.AuthenticationRequest;
 import com.project.doubleshop.web.member.dto.AuthenticationResult;
 import com.project.doubleshop.web.config.security.SimpleAuthenticationToken;
 import com.project.doubleshop.web.member.dto.RequestRole;
+import com.project.doubleshop.web.member.dto.ResultRole;
 
 import lombok.RequiredArgsConstructor;
 
@@ -51,13 +52,8 @@ public class AuthRestController {
 	}
 
 	@PatchMapping("auth/admin")
-	public ResponseEntity<Long> addAdmin(@AuthenticationPrincipal SimpleAuthentication authentication, HttpServletRequest request, @RequestBody RequestRole requestRole) {
-		tokenRoleManager.manage(request, authentication.getId(), requestRole);
-		return ResponseEntity.ok(authentication.getId());
-	}
-
-	@GetMapping("auth/admintest")
-	public ResponseEntity<Long> test() {
-		return ResponseEntity.ok(System.currentTimeMillis());
+	public ResponseEntity<ResultRole> addAdmin(@AuthenticationPrincipal SimpleAuthentication authentication,
+		HttpServletRequest request, @RequestBody RequestRole requestRole) {
+		return ResponseEntity.ok(tokenRoleManager.manage(request, authentication.getId(), requestRole));
 	}
 }
