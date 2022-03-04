@@ -47,9 +47,9 @@ public class MemberRestController {
 	}
 
 	@DeleteMapping("member/{id}/log-out")
-	public ResponseEntity<Boolean> logOut(@PathVariable Long id, HttpServletRequest request) {
-		String tokenHeader = request.getHeader("x-auth-token");
-		return ResponseEntity.ok(tokenService.invalidSession(tokenHeader));
+	public ResponseEntity<Boolean> logOut(HttpServletRequest request) {
+		String tokenKey = request.getHeader("x-auth-token");
+		return ResponseEntity.ok(tokenService.invalidSession(tokenKey));
 	}
 
 	@PatchMapping("member/{id}/profile")
