@@ -12,7 +12,6 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Configuration
-@Profile("prod")
 public class AppConfig {
 	@Value("${mysql-datasource}")
 	private String dataSourceUrl;
