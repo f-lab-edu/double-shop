@@ -68,7 +68,7 @@ public class CartService {
 		Cart cart = findByCartIdAndMemberId(cartId, memberId)
 			.orElseThrow(() -> new NotFoundException(String.format("Cart id [%d] not found.", cartId)));
 
-		Long itemId = cart.getItemId();
+		Long itemId = 1L;
 		Item item = itemService.findItemById(itemId)
 			.orElseThrow(() -> new NotFoundException(String.format("Item id [%d] not found.", itemId)));
 
