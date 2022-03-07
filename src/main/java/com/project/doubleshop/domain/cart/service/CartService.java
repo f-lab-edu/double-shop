@@ -39,18 +39,21 @@ public class CartService {
 	}
 
 	public void findAllByIds(List<Long> cartIds, Long memberId) {
-		List<Cart> carts = cartRepository.findAllById(cartIds);
-		Map<Long, Cart> cartMap = carts
-			.stream()
-			.collect(Collectors.toMap(Cart::getId, Function.identity()));
+		List<Cart> carts = cartRepository.findCartsByIdsAndMemberId(cartIds, memberId);
+		if (cartIds.size() != carts.size()) {
+			Map<Long, Cart> cartMap = carts
+				.stream()
+				.collect(Collectors.toMap(Cart::getId, Function.identity()));
 
-		List<Long> invalidIds = cartIds
-			.stream()
-			.filter(id -> !cartMap.containsKey(id))
-			.filter(id -> !cartMap.get(id).getMemberId().equals(memberId))
-			.collect(Collectors.toList());
 
-		ExceptionUtils.findInvalidIdsAndThrow400Error(invalidIds, "Invalid cart id");
+			List<Long> invalidIds = cartIds
+				.stream()
+				.filter(id -> !cartMap.containsKey(id))
+				.filter(id -> !cartMap.get(id).getMember().getId().equals(memberId))
+				.collect(Collectors.toList());
+
+			ExceptionUtils.findInvalidIdsAndThrow400Error(invalidIds, "Invalid cart id");
+		}
 	}
 
 	@Transactional
