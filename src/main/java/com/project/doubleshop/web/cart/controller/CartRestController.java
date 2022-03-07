@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.project.doubleshop.domain.cart.entity.Cart;
-import com.project.doubleshop.domain.cart.service.legacy.CartService;
+import com.project.doubleshop.domain.cart.service.CartService;
 import com.project.doubleshop.web.cart.dto.CartForm;
 import com.project.doubleshop.web.cart.dto.CartDto;
 
@@ -35,12 +35,7 @@ public class CartRestController {
 
 	@PostMapping("member/{memberId}/cart/{itemId}")
 	public ResponseEntity<CartDto> saveNewCart(@PathVariable Long memberId, @PathVariable Long itemId, @RequestParam Integer quantity) {
-		Cart cart = Cart.builder()
-			.memberId(memberId)
-			.itemId(itemId)
-			.quantity(quantity)
-			.build();
-		return ResponseEntity.ok(new CartDto(cartService.saveNewCart(cart)));
+		return ResponseEntity.ok(new CartDto(cartService.newCart(memberId, itemId, quantity)));
 	}
 
 	@PatchMapping("member/{id}/cart")
@@ -52,6 +47,6 @@ public class CartRestController {
 	@DeleteMapping("member/{id}/cart")
 	public ResponseEntity<Integer> deleteCart(@PathVariable Long id,
 		@RequestBody Map<String, List<Long>> requestMap) {
-		return ResponseEntity.ok(cartService.deleteCarts(id, requestMap.get("itemIds")));
+		return ResponseEntity.ok(cartService.deleteCarts(requestMap.get("cartIds"), id));
 	}
 }
