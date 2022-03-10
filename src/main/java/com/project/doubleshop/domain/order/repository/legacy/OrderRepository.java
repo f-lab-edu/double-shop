@@ -1,4 +1,4 @@
-package com.project.doubleshop.domain.order.repository;
+package com.project.doubleshop.domain.order.repository.legacy;
 
 import com.project.doubleshop.domain.common.Status;
 import com.project.doubleshop.domain.order.entity.Order;

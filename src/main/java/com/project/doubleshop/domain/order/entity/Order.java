@@ -1,6 +1,7 @@
 package com.project.doubleshop.domain.order.entity;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Convert;
@@ -12,8 +13,10 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 import com.project.doubleshop.domain.address.entity.Address;
+import com.project.doubleshop.domain.cart.entity.Cart;
 import com.project.doubleshop.domain.common.Status;
 import com.project.doubleshop.domain.common.StatusConverter;
+import com.project.doubleshop.domain.item.entity.Item;
 import com.project.doubleshop.domain.member.entity.Member;
 import com.project.doubleshop.web.order.dto.OrderForm;
 
@@ -53,6 +56,10 @@ public class Order {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Member member;
+
+	public void setOrderStatus(Integer orderStatus) {
+		this.orderStatus = orderStatus;
+	}
 
 	public static Order convertToOrder(OrderForm orderForm) {
 		return Order.builder()

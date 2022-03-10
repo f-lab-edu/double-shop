@@ -2,28 +2,33 @@ package com.project.doubleshop.web.order.dto;
 
 import java.time.LocalDateTime;
 
+import com.project.doubleshop.domain.address.entity.Address;
 import com.project.doubleshop.domain.common.Status;
+import com.project.doubleshop.domain.member.entity.Member;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor
 public class OrderForm {
 
-	private final LocalDateTime orderedTime;
+	private LocalDateTime orderedTime;
 
-	private final Integer orderStatus;
+	private Integer orderStatus;
 
-	private final Integer orderType;
+	private Integer orderType;
 
-	private final Integer totalPrice;
+	private Integer totalPrice;
 
-	private final Status status;
+	private Status status;
 
-	private final LocalDateTime statusUpdateTime;
+	private LocalDateTime statusUpdateTime;
 
-	private final Long addressId;
+	private Address address;
 
-	private final Long memberId;
+	private Member member;
 }
