@@ -2,6 +2,7 @@ package com.project.doubleshop.domain.item.entity;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -134,6 +135,43 @@ public class Item implements StatusManager {
         columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     private LocalDateTime createTime;
 
+    @Override
+    public void saveStatus(Status status) {
+        this.status = status;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public void decreaseStock(int stock) {
+        validateStockParameter(stock);
+        this.stock -= stock;
+    }
+
+    public void decreaseStock() {
+        decreaseStock(1);
+    }
+
+    public void increaseStock(int stock) {
+        validateStockParameter(stock);
+        this.stock += stock;
+    }
+
+    public void increaseStock() {
+        increaseStock(1);
+    }
+
+    private void validateStockParameter(int stock) {
+        if (stock < 0) {
+            throw new IllegalArgumentException(
+                String.format(
+                    "com.project.doubleshop.domain.item.entity.decreaseStock(%d), parameter 'stock' must have positive integer value.",
+                    stock)
+            );
+        }
+    }
+
     // 상품 인스턴스 생성 로직
     public static Item convertToItem(ItemForm form) {
         return Item.builder()
@@ -161,14 +199,5 @@ public class Item implements StatusManager {
             .isOnedayEligible(form.getIsOnedayEligible())
             .isFreshEligible(form.getIsFreshEligible())
             .build();
-    }
-
-    @Override
-    public void saveStatus(Status status) {
-        this.status = status;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
     }
 }

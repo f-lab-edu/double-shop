@@ -1,5 +1,7 @@
 package com.project.doubleshop.domain.cart.entity;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
