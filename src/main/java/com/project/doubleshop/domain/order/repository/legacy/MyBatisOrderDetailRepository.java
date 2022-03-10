@@ -1,4 +1,4 @@
-package com.project.doubleshop.domain.order.repository;
+package com.project.doubleshop.domain.order.repository.legacy;
 
 import java.time.LocalDateTime;
 import java.util.List;
