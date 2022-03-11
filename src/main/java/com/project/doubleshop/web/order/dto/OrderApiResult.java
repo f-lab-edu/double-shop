@@ -2,6 +2,7 @@ package com.project.doubleshop.web.order.dto;
 
 import java.time.LocalDateTime;
 
+import com.project.doubleshop.domain.address.entity.Address;
 import com.project.doubleshop.domain.common.Status;
 import com.project.doubleshop.domain.order.entity.Order;
 
@@ -10,7 +11,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class OrderDto {
+public class OrderApiResult {
 
 	private final Long id;
 
@@ -22,17 +23,14 @@ public class OrderDto {
 
 	private final Integer totalPrice;
 
-	private final Long addressId;
+	private final Address address;
 
-	private final Long memberId;
-
-	public OrderDto(Order order) {
+	public OrderApiResult(Order order) {
 		this.id = order.getId();
 		this.orderedTime = order.getOrderedTime();
 		this.orderStatus = order.getOrderStatus();
 		this.orderType = order.getOrderType();
 		this.totalPrice = order.getTotalPrice();
-		this.addressId = order.getAddressId();
-		this.memberId = order.getMemberId();
+		this.address = order.getAddress();
 	}
 }
