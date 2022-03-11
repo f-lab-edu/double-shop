@@ -14,8 +14,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.project.doubleshop.domain.cart.entity.Cart;
-import com.project.doubleshop.domain.cart.repository.legacy.CartRepository;
-import com.project.doubleshop.domain.cart.service.legacy.CartService;
+import com.project.doubleshop.domain.cart.repository.CartRepository;
+import com.project.doubleshop.domain.cart.service.CartService;
 import com.project.doubleshop.domain.member.service.MockMember;
 
 @ExtendWith(MockitoExtension.class)
@@ -40,22 +40,22 @@ class CartServiceTest {
 	@Test
 	@DisplayName("장바구니 추가 테스트")
 	void saveNewCart() {
-		given(cartRepository.saveCart(CART)).willReturn(true);
+		given(cartRepository.save(NEW_CART)).willReturn(CART);
 
-		cartService.saveNewCart(CART);
+		cartService.save(NEW_CART);
 
-		then(cartRepository).should(times(1)).saveCart(CART);
+		then(cartRepository).should(times(1)).save(NEW_CART);
 	}
 
 	@Test
 	@DisplayName("장바구니 삭제 테스트")
 	void deleteCarts() {
-		List<Long> cardIds = List.of(ID);
-		given(cartRepository.deleteCarts(anyLong(), anyList())).willReturn(cardIds.size());
-		given(cartRepository.findCartInIds(cardIds, MockMember.Member1.ID)).willReturn(List.of(new Cart(1L, 1L, 1L, 1)));
+		List<Long> cartIds = List.of(CART.getId());
+		Long memberId = CART.getMember().getId();
+		given(cartRepository.findCartsByIdsAndMemberId(cartIds, memberId)).willReturn(List.of(CART));
 
-		Integer resultSize = cartService.deleteCarts(1L, cardIds);
+		cartService.deleteCarts(cartIds, memberId);
 
-		assertThat(resultSize).isEqualTo(cardIds.size());
+		then(cartRepository).should(times(1)).deleteAllById(cartIds);
 	}
 }
