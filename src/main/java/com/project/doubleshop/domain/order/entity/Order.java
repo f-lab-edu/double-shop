@@ -16,6 +16,7 @@ import com.project.doubleshop.domain.address.entity.Address;
 import com.project.doubleshop.domain.cart.entity.Cart;
 import com.project.doubleshop.domain.common.Status;
 import com.project.doubleshop.domain.common.StatusConverter;
+import com.project.doubleshop.domain.common.StatusManager;
 import com.project.doubleshop.domain.item.entity.Item;
 import com.project.doubleshop.domain.member.entity.Member;
 import com.project.doubleshop.web.order.dto.OrderForm;
@@ -31,7 +32,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class Order {
+public class Order implements StatusManager {
 
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -59,6 +60,11 @@ public class Order {
 
 	public void setOrderStatus(Integer orderStatus) {
 		this.orderStatus = orderStatus;
+	}
+
+	@Override
+	public void saveStatus(Status status) {
+		this.status = status;
 	}
 
 	public static Order convertToOrder(OrderForm orderForm) {
