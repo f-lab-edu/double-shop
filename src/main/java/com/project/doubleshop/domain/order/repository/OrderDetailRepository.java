@@ -22,5 +22,5 @@ public interface OrderDetailRepository extends JpaRepository<OrderDetail, Long> 
 		+ " and i.status = :status"
 		)
 	List<OrderDetail> findOrderDetailByMemberIdAndStatus(Long orderId, Long memberId, Status status);
-	void deleteAllByOrderId(List<Long> orderIds);
+	void deleteAllByOrderIn(List<Long> orderIds);
 }
