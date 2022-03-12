@@ -2,6 +2,8 @@ package com.project.doubleshop.domain.address.entity;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -10,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 import com.project.doubleshop.domain.common.Status;
+import com.project.doubleshop.domain.common.StatusConverter;
 import com.project.doubleshop.domain.member.entity.Member;
 
 import lombok.AccessLevel;
@@ -34,8 +37,11 @@ public class Address {
 
 	private String detail;
 
+	@Convert(converter = StatusConverter.class)
 	private Status status;
 
+	@Column(insertable = false, updatable = false,
+		columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
 	private LocalDateTime statusUpdateTime;
 
 	@ManyToOne(fetch = FetchType.LAZY)
