@@ -3,6 +3,7 @@ package com.project.doubleshop.domain.order;
 import java.time.LocalDateTime;
 
 import com.project.doubleshop.domain.common.Status;
+import com.project.doubleshop.domain.member.entity.Member;
 import com.project.doubleshop.domain.member.service.MockMember;
 import com.project.doubleshop.domain.order.entity.Order;
 
@@ -10,7 +11,7 @@ public class MockOrder {
 	public static class Order1 {
 		public static final Long ID = 1L;
 
-		public static final Long MEMBER_ID = MockMember.Member1.ID;
+		public static final Member MEMBER = MockMember.Member1.MEMBER;
 
 		public static final LocalDateTime ORDERED_TIME = LocalDateTime.of(2022, 1, 6, 12, 32, 10);
 
@@ -22,7 +23,7 @@ public class MockOrder {
 
 		public static final Order ORDER = Order.builder()
 			.id(ID)
-			.memberId(MEMBER_ID)
+			.member(MEMBER)
 			.orderedTime(ORDERED_TIME)
 			.status(STATUS)
 			.statusUpdateTime(STATUS_UPDATE_TIME)
@@ -32,7 +33,7 @@ public class MockOrder {
 	public static class Order2 {
 		public static final Long ID = 2L;
 
-		public static final Long MEMBER_ID = MockMember.Member2.ID;
+		public static final Member MEMBER = MockMember.Member2.MEMBER;
 
 		public static final LocalDateTime ORDERED_TIME = LocalDateTime.of(2022, 1, 6, 12, 32, 10);
 
@@ -44,7 +45,7 @@ public class MockOrder {
 
 		public static final Order ORDER = Order.builder()
 			.id(ID)
-			.memberId(MEMBER_ID)
+			.member(MEMBER)
 			.orderedTime(ORDERED_TIME)
 			.status(STATUS)
 			.statusUpdateTime(STATUS_UPDATE_TIME)
@@ -54,7 +55,7 @@ public class MockOrder {
 	public static class Order3 {
 		public static final Long ID = 3L;
 
-		public static final Long MEMBER_ID = MockMember.Member3.ID;
+		public static final Member MEMBER = MockMember.Member3.MEMBER;
 
 		public static final LocalDateTime ORDERED_TIME = LocalDateTime.of(2022, 1, 6, 12, 32, 10);
 
@@ -66,7 +67,7 @@ public class MockOrder {
 
 		public static final Order ORDER = Order.builder()
 			.id(ID)
-			.memberId(MEMBER_ID)
+			.member(MEMBER)
 			.orderedTime(ORDERED_TIME)
 			.status(STATUS)
 			.statusUpdateTime(STATUS_UPDATE_TIME)
@@ -76,7 +77,7 @@ public class MockOrder {
 	public static class Order4 {
 		public static final Long ID = 4L;
 
-		public static final Long MEMBER_ID = MockMember.Member4.ID;
+		public static final Member MEMBER = MockMember.Member4.MEMBER;
 
 		public static final LocalDateTime ORDERED_TIME = LocalDateTime.of(2022, 1, 6, 12, 32, 10);
 
@@ -88,7 +89,7 @@ public class MockOrder {
 
 		public static final Order ORDER = Order.builder()
 			.id(ID)
-			.memberId(MEMBER_ID)
+			.member(MEMBER)
 			.orderedTime(ORDERED_TIME)
 			.status(STATUS)
 			.statusUpdateTime(STATUS_UPDATE_TIME)

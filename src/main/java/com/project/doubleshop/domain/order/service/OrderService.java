@@ -2,7 +2,6 @@ package com.project.doubleshop.domain.order.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -19,7 +18,6 @@ import com.project.doubleshop.domain.order.entity.OrderDetail;
 import com.project.doubleshop.domain.order.entity.constant.OrderConstant;
 import com.project.doubleshop.domain.order.repository.OrderDetailRepository;
 import com.project.doubleshop.domain.order.repository.OrderRepository;
-import com.project.doubleshop.web.order.dto.OrderDetailResult;
 
 import lombok.RequiredArgsConstructor;
 
@@ -94,7 +92,7 @@ public class OrderService {
 	public Integer removeStatusDel(Status status) {
 		List<Long> orderIds = orderRepository.findIdsByStatus(status);
 		orderRepository.deleteAllById(orderIds);
-		orderDetailRepository.deleteAllByOrderId(orderIds);
+		orderDetailRepository.deleteAllByOrderIn(orderIds);
 		return orderIds.size();
 	}
 

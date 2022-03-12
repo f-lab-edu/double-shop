@@ -29,7 +29,7 @@ public class MockAddress {
 			.detail(DETAIL)
 			.status(STATUS)
 			.statusUpdateTime(STATUS_UPDATE_TIME)
-			.memberId(MEMBER_ID)
+			.member(MockMember.Member1.MEMBER)
 			.build();
 
 		public static final Address ADDRESS_1_FORM = Address.builder()
@@ -38,7 +38,7 @@ public class MockAddress {
 			.detail(DETAIL)
 			.status(STATUS)
 			.statusUpdateTime(STATUS_UPDATE_TIME)
-			.memberId(MEMBER_ID)
+			.member(MockMember.Member1.MEMBER)
 			.build();
 	}
 }

@@ -1,4 +1,4 @@
-package com.project.doubleshop.domain.address.repository;
+package com.project.doubleshop.domain.address.repository.legacy;
 
 import java.time.LocalDateTime;
 import java.util.List;

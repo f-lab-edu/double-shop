@@ -1,7 +1,6 @@
 package com.project.doubleshop.domain.cart.service;
 
 import static com.project.doubleshop.domain.cart.service.MockCart.Cart1.*;
-import static org.assertj.core.api.AssertionsForClassTypes.*;
 import static org.mockito.BDDMockito.*;
 
 import java.util.List;
@@ -13,9 +12,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.project.doubleshop.domain.cart.entity.Cart;
 import com.project.doubleshop.domain.cart.repository.CartRepository;
-import com.project.doubleshop.domain.cart.service.CartService;
 import com.project.doubleshop.domain.member.service.MockMember;
 
 @ExtendWith(MockitoExtension.class)
