@@ -1,4 +1,4 @@
-package com.project.doubleshop.domain.delivery.service;
+package com.project.doubleshop.domain.delivery.service.legacy;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,7 +15,7 @@ import com.project.doubleshop.web.config.support.Pageable;
 
 import lombok.RequiredArgsConstructor;
 
-@Service
+
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class DeliveryDriverService {

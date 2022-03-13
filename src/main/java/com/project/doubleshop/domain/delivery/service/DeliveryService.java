@@ -1,19 +1,17 @@
 package com.project.doubleshop.domain.delivery.service;
 
 import java.util.List;
-import java.util.Optional;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.project.doubleshop.domain.common.Status;
 import com.project.doubleshop.domain.delivery.entity.Delivery;
-import com.project.doubleshop.domain.delivery.entity.legacy.DeliveryDriver;
-import com.project.doubleshop.domain.delivery.entity.DeliveryPolicy;
-import com.project.doubleshop.domain.delivery.repository.legacy.DeliveryRepository;
+import com.project.doubleshop.domain.delivery.repository.DeliveryPolicyRepository;
+import com.project.doubleshop.domain.delivery.repository.DeliveryRepository;
 import com.project.doubleshop.domain.exception.NotFoundException;
-import com.project.doubleshop.web.common.StatusRequest;
-import com.project.doubleshop.web.config.support.Pageable;
+import com.project.doubleshop.domain.item.entity.Item;
 import com.project.doubleshop.web.delivery.dto.DeliveryApiResult;
 
 import lombok.RequiredArgsConstructor;
@@ -25,76 +23,50 @@ public class DeliveryService {
 
 	private final DeliveryRepository deliveryRepository;
 
-	private final DeliveryPolicyService deliveryPolicyService;
-
-	private final DeliveryDriverService deliveryDriverService;
+	private final DeliveryPolicyRepository deliveryPolicyRepository;
 
 	@Transactional
-	public boolean saveDelivery(Delivery delivery) {
+	public Delivery save(Delivery delivery) {
 		return deliveryRepository.save(delivery);
 	}
 
-	@Transactional
-	public Delivery saveDelivery(Delivery delivery, Long deliveryId) {
-		findByDeliveryId(deliveryId).orElseThrow(() ->
-			new NotFoundException(String.format("Delivery ID '%s' not found.", deliveryId)));
-		deliveryRepository.save(delivery);
-		return deliveryRepository.findById(deliveryId);
-	}
-
-	public DeliveryApiResult findDeliveryApiResultByDeliveryId(Long deliveryId) {
-		Delivery delivery = findById(deliveryId);
-
-		Long deliveryDriverId = 1L;
-		Long deliveryPolicyId = 1L;
-
-		DeliveryPolicy deliveryPolicy = deliveryPolicyService.findById(deliveryPolicyId);
-		DeliveryDriver deliveryDriver = deliveryDriverService.findById(deliveryDriverId);
-
-		 return new DeliveryApiResult(delivery, deliveryPolicy, deliveryDriver);
-	}
-
-	public Optional<Delivery> findByDeliveryId(Long deliveryId) {
-		return Optional.ofNullable(deliveryRepository.findById(deliveryId));
+	public Delivery updateDelivery(Delivery submit, Long deliveryId) {
+		Delivery previous = findById(deliveryId);
+		if (previous != null && previous.getId().equals(submit.getId())) {
+			return save(submit);
+		}
+		if (previous == null) {
+			throw new NotFoundException(String.format("Delivery ID '%s' not found.", deliveryId));
+		} else {
+			throw new IllegalArgumentException(String.format("Something wrong with delivery ID %d.", deliveryId));
+		}
 	}
 
 	public Delivery findById(Long deliveryId) {
-		return findByDeliveryId(deliveryId).orElseThrow(() -> new NotFoundException(String.format("Delivery ID '%s' not found.", deliveryId)));
+		return deliveryRepository.findById(deliveryId)
+			.orElseThrow(() -> new NotFoundException(String.format("Delivery ID '%s' not found.", deliveryId)));
+	}
+
+	public DeliveryApiResult findDeliveryApiResultByDeliveryId(Long deliveryId) {
+		return deliveryRepository.findDeliveryAndPolicyByDeliveryId(deliveryId);
 	}
 
 	public List<Delivery> findDeliveries(Pageable pageable) {
-		return deliveryRepository.findAll(pageable);
+		return deliveryRepository.findAll(pageable).getContent();
 	}
 
 	@Transactional
-	public Delivery getInsertedDelivery(Delivery delivery) {
-		if (saveDelivery(delivery)) {
-			return delivery;
-		} else {
-			throw new NotFoundException(String.format("Inserted delivery id %d not found", delivery.getId()));
-		}
+	public Boolean updateStatus(Long deliveryId, Status status) {
+		Delivery delivery = findById(deliveryId);
+		Status previous = delivery.getStatus();
+		delivery.saveStatus(status);
+		return !previous.equals(delivery.getStatus());
 	}
 
 	@Transactional
-	public void updateDeliveryStatus(StatusRequest requestDTO) {
-		Delivery delivery = deliveryRepository.findById(requestDTO.getId());
-		if (delivery == null) {
-			throw new NotFoundException(String.format("Delivery Id '%s' not found.", requestDTO.getId()));
-		}
-		if (Status.of(requestDTO.getStatus().name()) == null) {
-			throw new NotFoundException(String.format("Request status value '%s' not found", requestDTO.getStatus().name()));
-		}
-		deliveryRepository.updateStatus(requestDTO);
-	}
-
-	@Transactional
-	public Delivery updateDeliveryStatus(Status status, Long deliveryId) {
-		updateDeliveryStatus(new StatusRequest(deliveryId, status));
-		return findById(deliveryId);
-	}
-
-	@Transactional
-	public Integer deleteDeliveries(Status status) {
-		return deliveryRepository.deleteData(status);
+	public Integer removeStatusDel(Status status) {
+		List<Long> ids = deliveryRepository.findIdsByStatus(status.getValue());
+		deliveryRepository.deleteAllById(ids);
+		return ids.size();
 	}
 }
