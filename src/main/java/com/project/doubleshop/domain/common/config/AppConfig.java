@@ -10,6 +10,9 @@ import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.config.PageableHandlerMethodArgumentResolverCustomizer;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
@@ -61,5 +64,13 @@ public class AppConfig {
 		builder.featuresToDisable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
 		builder.modulesToInstall(jtm);
 		return builder;
+	}
+
+	@Bean
+	public PageableHandlerMethodArgumentResolverCustomizer customize() {
+		return resolver -> {
+			resolver.setOneIndexedParameters(true);
+			resolver.setFallbackPageable(PageRequest.of(0, 9, Sort.Direction.DESC, "id"));
+		};
 	}
 }
