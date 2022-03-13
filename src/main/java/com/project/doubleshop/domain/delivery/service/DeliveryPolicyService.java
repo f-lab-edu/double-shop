@@ -8,11 +8,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.project.doubleshop.domain.common.Status;
 import com.project.doubleshop.domain.delivery.entity.DeliveryPolicy;
-import com.project.doubleshop.domain.delivery.repository.DeliveryPolicyRepository;
+import com.project.doubleshop.domain.delivery.repository.legacy.DeliveryPolicyRepository;
 import com.project.doubleshop.domain.exception.NotFoundException;
 import com.project.doubleshop.web.common.StatusRequest;
 import com.project.doubleshop.web.config.support.Pageable;
-import com.project.doubleshop.web.item.exception.DataNotFoundException;
 
 import lombok.RequiredArgsConstructor;
 
