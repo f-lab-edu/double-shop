@@ -10,7 +10,7 @@ import com.project.doubleshop.domain.common.Status;
 import com.project.doubleshop.domain.delivery.entity.Delivery;
 import com.project.doubleshop.domain.delivery.entity.legacy.DeliveryDriver;
 import com.project.doubleshop.domain.delivery.entity.DeliveryPolicy;
-import com.project.doubleshop.domain.delivery.repository.DeliveryRepository;
+import com.project.doubleshop.domain.delivery.repository.legacy.DeliveryRepository;
 import com.project.doubleshop.domain.exception.NotFoundException;
 import com.project.doubleshop.web.common.StatusRequest;
 import com.project.doubleshop.web.config.support.Pageable;
