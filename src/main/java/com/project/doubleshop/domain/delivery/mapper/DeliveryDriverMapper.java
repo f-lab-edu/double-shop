@@ -5,7 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.project.doubleshop.domain.common.Status;
-import com.project.doubleshop.domain.delivery.entity.DeliveryDriver;
+import com.project.doubleshop.domain.delivery.entity.legacy.DeliveryDriver;
 import com.project.doubleshop.web.common.StatusRequest;
 import com.project.doubleshop.web.config.support.Pageable;
 

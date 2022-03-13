@@ -1,4 +1,4 @@
-package com.project.doubleshop.domain.delivery.entity;
+package com.project.doubleshop.domain.delivery.entity.enumuration;
 
 public class FeePolicyConstant {
 	public static final int FREE_CODE = 1000;
