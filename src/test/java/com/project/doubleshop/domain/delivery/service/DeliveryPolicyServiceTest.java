@@ -14,6 +14,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.project.doubleshop.domain.delivery.entity.DeliveryPolicy;
 import com.project.doubleshop.domain.delivery.repository.legacy.DeliveryPolicyRepository;
+import com.project.doubleshop.domain.delivery.service.legacy.DeliveryPolicyService;
 import com.project.doubleshop.domain.exception.NotFoundException;
 import com.project.doubleshop.web.config.support.Pageable;
 

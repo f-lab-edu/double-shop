@@ -4,6 +4,7 @@ import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +21,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.project.doubleshop.domain.common.Status;
 import com.project.doubleshop.domain.delivery.entity.Delivery;
 import com.project.doubleshop.domain.delivery.service.DeliveryService;
-import com.project.doubleshop.web.config.support.Pageable;
+
 import com.project.doubleshop.web.delivery.dto.DeliveryApiResult;
 import com.project.doubleshop.web.delivery.dto.DeliveryDTO;
 import com.project.doubleshop.web.delivery.dto.DeliveryForm;
@@ -36,7 +37,7 @@ public class DeliveryRestController {
 
 	@PostMapping
 	public ResponseEntity<DeliveryDTO> newDelivery(@RequestBody DeliveryForm deliveryForm) {
-		Delivery delivery = deliveryService.getInsertedDelivery(Delivery.convertToDelivery(deliveryForm));
+		Delivery delivery = deliveryService.save(Delivery.convertToDelivery(deliveryForm));
 
 		URI location = ServletUriComponentsBuilder
 			.fromCurrentRequest()
@@ -60,17 +61,17 @@ public class DeliveryRestController {
 
 	@PutMapping("member/{memberId}/delivery")
 	public ResponseEntity<DeliveryDTO> editDelivery(@RequestBody DeliveryForm deliveryForm, @PathVariable Long id) {
-		Delivery delivery = deliveryService.saveDelivery(Delivery.convertToDelivery(deliveryForm), id);
+		Delivery delivery = deliveryService.updateDelivery(Delivery.convertToDelivery(deliveryForm), id);
 		return ResponseEntity.ok(new DeliveryDTO(delivery));
 	}
 
 	@PatchMapping("member/{memberId}/delivery/{deliveryId}/status")
-	public ResponseEntity<DeliveryDTO>  requestUpdateDeliveryStatus(@RequestBody Status status, @PathVariable Long deliveryId) {
-		return ResponseEntity.ok(new DeliveryDTO(deliveryService.updateDeliveryStatus(status, deliveryId)));
+	public ResponseEntity<Boolean>  requestUpdateDeliveryStatus(@RequestBody Status status, @PathVariable Long deliveryId) {
+		return ResponseEntity.ok(deliveryService.updateStatus(deliveryId, status));
 	}
 
 	@DeleteMapping("member/{memberId}/delivery")
 	public ResponseEntity<Integer> deleteAssignedDeliveries(@RequestParam Status status) {
-		return ResponseEntity.ok(deliveryService.deleteDeliveries(status));
+		return ResponseEntity.ok(deliveryService.removeStatusDel(status));
 	}
 }

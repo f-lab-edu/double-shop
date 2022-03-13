@@ -18,9 +18,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.project.doubleshop.domain.common.Status;
 import com.project.doubleshop.domain.delivery.entity.DeliveryPolicy;
-import com.project.doubleshop.domain.delivery.service.DeliveryPolicyService;
+import com.project.doubleshop.domain.delivery.service.legacy.DeliveryPolicyService;
 import com.project.doubleshop.web.config.support.Pageable;
-import com.project.doubleshop.web.delivery.dto.DeliveryDTO;
 import com.project.doubleshop.web.delivery.dto.DeliveryPolicyDTO;
 import com.project.doubleshop.web.delivery.dto.DeliveryPolicyForm;
 
