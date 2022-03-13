@@ -1,4 +1,4 @@
-package com.project.doubleshop.domain.delivery.entity;
+package com.project.doubleshop.domain.delivery.entity.enumuration;
 
 public class DeliveryStatusConstant {
 	public static final int PRODUCT_PREPARATION_CODE = 4001;

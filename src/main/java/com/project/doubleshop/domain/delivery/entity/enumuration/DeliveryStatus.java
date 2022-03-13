@@ -1,6 +1,6 @@
-package com.project.doubleshop.domain.delivery.entity;
+package com.project.doubleshop.domain.delivery.entity.enumuration;
 
-import static com.project.doubleshop.domain.delivery.entity.DeliveryStatusConstant.*;
+import static com.project.doubleshop.domain.delivery.entity.enumuration.DeliveryStatusConstant.*;
 
 public enum DeliveryStatus {
 	PRODUCT_PREPARATION(PRODUCT_PREPARATION_CODE),

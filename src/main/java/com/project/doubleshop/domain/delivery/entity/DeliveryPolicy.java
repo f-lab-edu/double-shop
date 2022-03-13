@@ -2,7 +2,19 @@ package com.project.doubleshop.domain.delivery.entity;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.Column;
+import javax.persistence.Convert;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 import com.project.doubleshop.domain.common.Status;
+import com.project.doubleshop.domain.common.StatusConverter;
+import com.project.doubleshop.domain.delivery.entity.enumuration.FeeMethod;
+import com.project.doubleshop.domain.delivery.entity.enumuration.FeePolicy;
+import com.project.doubleshop.domain.delivery.entity.enumuration.converter.FeeMethodConverter;
+import com.project.doubleshop.domain.delivery.entity.enumuration.converter.FeePolicyConverter;
 import com.project.doubleshop.web.delivery.dto.DeliveryPolicyForm;
 
 import lombok.AccessLevel;
@@ -11,12 +23,14 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+@Entity
 @Builder
 @Getter
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class DeliveryPolicy {
 	// 배송 정책 pk
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	// 배송 정책 이름
@@ -26,9 +40,11 @@ public class DeliveryPolicy {
 	private String company;
 
 	// 배송비 적용 정책
+	@Convert(converter = FeePolicyConverter.class)
 	private FeePolicy feePolicy;
 
 	// 배송비 지불방식
+	@Convert(converter = FeeMethodConverter.class)
 	private FeeMethod feeMethod;
 
 	// 배송비
@@ -38,9 +54,12 @@ public class DeliveryPolicy {
 	private int islandMountainousFee;
 
 	// 상태
+	@Convert(converter = StatusConverter.class)
 	private Status status;
 
 	// 상태 업데이트 시간
+	@Column(insertable = false, updatable = false,
+		columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
 	private LocalDateTime statusUpdateTime;
 
 	public static DeliveryPolicy convertToDeliveryPolicy(DeliveryPolicyForm form) {

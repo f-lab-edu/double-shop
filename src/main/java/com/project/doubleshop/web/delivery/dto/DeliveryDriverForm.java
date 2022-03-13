@@ -1,8 +1,6 @@
 package com.project.doubleshop.web.delivery.dto;
 
-import java.time.LocalDateTime;
-
-import com.project.doubleshop.domain.delivery.entity.DeliveryDriver;
+import com.project.doubleshop.domain.delivery.entity.legacy.DeliveryDriver;
 
 import lombok.AccessLevel;
 import lombok.Getter;
