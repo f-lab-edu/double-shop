@@ -1,4 +1,4 @@
-package com.project.doubleshop.domain.delivery.entity;
+package com.project.doubleshop.domain.delivery.entity.enumuration;
 
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
@@ -7,6 +7,8 @@ import java.sql.SQLException;
 
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
+
+import com.project.doubleshop.domain.delivery.entity.enumuration.DeliveryStatus;
 
 public class DeliveryStatusTypeHandler extends BaseTypeHandler<DeliveryStatus> {
 	@Override

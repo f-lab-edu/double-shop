@@ -1,6 +1,6 @@
-package com.project.doubleshop.domain.delivery.entity;
+package com.project.doubleshop.domain.delivery.entity.enumuration;
 
-import static com.project.doubleshop.domain.delivery.entity.FeePolicyConstant.*;
+import static com.project.doubleshop.domain.delivery.entity.enumuration.FeePolicyConstant.*;
 
 public enum FeePolicy {
 	FREE(FREE_CODE),

@@ -1,10 +1,8 @@
 package com.project.doubleshop.web.delivery.dto;
 
-import java.time.LocalDateTime;
-
-import com.project.doubleshop.domain.common.Status;
 import com.project.doubleshop.domain.delivery.entity.Delivery;
-import com.project.doubleshop.domain.delivery.entity.DeliveryStatus;
+import com.project.doubleshop.domain.delivery.entity.DeliveryPolicy;
+import com.project.doubleshop.domain.delivery.entity.enumuration.DeliveryStatus;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -26,7 +24,7 @@ public class DeliveryForm {
 	private DeliveryStatus deliveryStatus;
 
 	// 배송정책 fk
-	private Long deliveryPolicyId;
+	private DeliveryPolicy deliveryPolicy;
 
 	// 배송기사 fk
 	private Long deliveryDriverId;
@@ -36,7 +34,6 @@ public class DeliveryForm {
 		this.waybillNumber = source.getWaybillNumber();
 		this.memo = source.getMemo();
 		this.deliveryStatus = source.getDeliveryStatus();
-		this.deliveryPolicyId = source.getDeliveryPolicyId();
-		this.deliveryDriverId = source.getDeliveryDriverId();
+		this.deliveryPolicy = source.getDeliveryPolicy();
 	}
 }

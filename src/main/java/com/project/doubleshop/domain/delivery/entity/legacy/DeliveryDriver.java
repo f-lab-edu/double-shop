@@ -1,4 +1,4 @@
-package com.project.doubleshop.domain.delivery.entity;
+package com.project.doubleshop.domain.delivery.entity.legacy;
 
 import java.time.LocalDateTime;
 

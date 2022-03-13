@@ -4,11 +4,11 @@ import java.time.LocalDateTime;
 
 import com.project.doubleshop.domain.common.Status;
 import com.project.doubleshop.domain.delivery.entity.Delivery;
-import com.project.doubleshop.domain.delivery.entity.DeliveryDriver;
+import com.project.doubleshop.domain.delivery.entity.legacy.DeliveryDriver;
 import com.project.doubleshop.domain.delivery.entity.DeliveryPolicy;
-import com.project.doubleshop.domain.delivery.entity.DeliveryStatus;
-import com.project.doubleshop.domain.delivery.entity.FeeMethod;
-import com.project.doubleshop.domain.delivery.entity.FeePolicy;
+import com.project.doubleshop.domain.delivery.entity.enumuration.DeliveryStatus;
+import com.project.doubleshop.domain.delivery.entity.enumuration.FeeMethod;
+import com.project.doubleshop.domain.delivery.entity.enumuration.FeePolicy;
 
 public class MockDelivery {
 	public static class Delivery1 {
@@ -32,8 +32,7 @@ public class MockDelivery {
 			.deliveryStatus(DELIVERY_STATUS)
 			.status(STATUS)
 			.statusUpdateTime(STATUS_UPDATE_TIME)
-			.deliveryPolicyId(DELIVERY_POLICY_ID)
-			.deliveryDriverId(DELIVERY_DRIVER_ID)
+			.deliveryPolicy(DeliveryPolicy1.DELIVERY_POLICY_1)
 			.build();
 
 		public static final Delivery DELIVERY_FORM = Delivery.builder()

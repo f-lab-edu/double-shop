@@ -1,11 +1,10 @@
 package com.project.doubleshop.web.delivery.dto;
 
 import com.project.doubleshop.domain.delivery.entity.Delivery;
-import com.project.doubleshop.domain.delivery.entity.DeliveryDriver;
+import com.project.doubleshop.domain.delivery.entity.legacy.DeliveryDriver;
 import com.project.doubleshop.domain.delivery.entity.DeliveryPolicy;
-import com.project.doubleshop.domain.delivery.entity.DeliveryStatus;
-import com.project.doubleshop.web.delivery.dto.DeliveryDriverDTO;
-import com.project.doubleshop.web.delivery.dto.DeliveryPolicyDTO;
+
+import com.project.doubleshop.domain.delivery.entity.enumuration.DeliveryStatus;
 
 import lombok.Getter;
 

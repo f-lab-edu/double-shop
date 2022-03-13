@@ -1,4 +1,4 @@
-package com.project.doubleshop.domain.delivery.entity;
+package com.project.doubleshop.domain.delivery.entity.enumuration;
 
 public class FeeMethodConstant {
 	public static final int PREPAID_CODE = 7270;

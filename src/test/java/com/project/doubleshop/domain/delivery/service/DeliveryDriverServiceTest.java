@@ -12,11 +12,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.project.doubleshop.domain.delivery.entity.DeliveryDriver;
+import com.project.doubleshop.domain.delivery.entity.legacy.DeliveryDriver;
 import com.project.doubleshop.domain.delivery.repository.DeliveryDriverRepository;
 import com.project.doubleshop.domain.exception.NotFoundException;
 import com.project.doubleshop.web.config.support.Pageable;
-import com.project.doubleshop.web.item.exception.DataNotFoundException;
 
 @ExtendWith(MockitoExtension.class)
 class DeliveryDriverServiceTest {
