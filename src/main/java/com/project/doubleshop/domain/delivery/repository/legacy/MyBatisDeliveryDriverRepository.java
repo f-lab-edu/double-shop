@@ -1,4 +1,4 @@
-package com.project.doubleshop.domain.delivery.repository;
+package com.project.doubleshop.domain.delivery.repository.legacy;
 
 import java.util.List;
 
