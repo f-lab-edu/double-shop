@@ -11,7 +11,6 @@ import com.project.doubleshop.domain.delivery.entity.Delivery;
 import com.project.doubleshop.domain.delivery.repository.DeliveryPolicyRepository;
 import com.project.doubleshop.domain.delivery.repository.DeliveryRepository;
 import com.project.doubleshop.domain.exception.NotFoundException;
-import com.project.doubleshop.domain.item.entity.Item;
 import com.project.doubleshop.web.delivery.dto.DeliveryApiResult;
 
 import lombok.RequiredArgsConstructor;
