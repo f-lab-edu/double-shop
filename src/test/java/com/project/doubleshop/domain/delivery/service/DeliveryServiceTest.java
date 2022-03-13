@@ -55,7 +55,7 @@ class DeliveryServiceTest {
 	@Test
 	@DisplayName("배송 조회 실패")
 	void findOneDeliveryFail() {
-		given(deliveryRepository.findById(ID)).willReturn(null);
+		given(deliveryRepository.findById(ID)).willReturn(Optional.ofNullable(null));
 
 		assertThrows(NotFoundException.class, () -> deliveryService.findById(ID));
 	}
@@ -63,21 +63,11 @@ class DeliveryServiceTest {
 	@Test
 	@DisplayName("배송 수정 성공")
 	void updateDelivery() {
-		// given(deliveryRepository.findById(ID)).willReturn(DELIVERY_1);
-		// given(deliveryRepository.save(DELIVERY_1)).willReturn(true);
+		given(deliveryRepository.findById(ID)).willReturn(Optional.of(DELIVERY_1));
+		given(deliveryRepository.save(DELIVERY_1)).willReturn(DELIVERY_1);
 		//
-		// deliveryService.saveDelivery(DELIVERY_1, ID);
+		deliveryService.updateDelivery(DELIVERY_1, ID);
 		//
-		// then(deliveryRepository).should(times(1)).save(DELIVERY_1);
-	}
-
-	@Test
-	@DisplayName("배송 목록 조회 성공")
-	void findAllDeliveries() {
-		// given(deliveryRepository.findAll(pageable)).willReturn(anyList());
-		//
-		// deliveryService.findDeliveries(pageable);
-		//
-		// then(deliveryRepository).should(times(1)).findAll(pageable);
+		then(deliveryRepository).should(times(1)).save(DELIVERY_1);
 	}
 }
