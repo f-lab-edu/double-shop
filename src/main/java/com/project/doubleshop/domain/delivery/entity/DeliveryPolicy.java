@@ -1,6 +1,7 @@
 package com.project.doubleshop.domain.delivery.entity;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Convert;
@@ -9,8 +10,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import com.project.doubleshop.domain.common.Status;
 import com.project.doubleshop.domain.common.StatusConverter;
+import com.project.doubleshop.domain.common.StatusManager;
 import com.project.doubleshop.domain.delivery.entity.enumuration.FeeMethod;
 import com.project.doubleshop.domain.delivery.entity.enumuration.FeePolicy;
 import com.project.doubleshop.domain.delivery.entity.enumuration.converter.FeeMethodConverter;
@@ -28,7 +32,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class DeliveryPolicy {
+public class DeliveryPolicy implements StatusManager {
 	// 배송 정책 pk
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -62,6 +66,10 @@ public class DeliveryPolicy {
 		columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
 	private LocalDateTime statusUpdateTime;
 
+	@Override
+	public void saveStatus(Status status) {
+		this.status = status;
+	}
 	public static DeliveryPolicy convertToDeliveryPolicy(DeliveryPolicyForm form) {
 		return DeliveryPolicy.builder()
 			.id(form.getId())

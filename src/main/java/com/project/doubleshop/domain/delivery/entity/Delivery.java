@@ -72,6 +72,7 @@ public class Delivery implements StatusManager {
 	public void saveStatus(Status status) {
 		this.status = status;
 	}
+
 	public static Delivery convertToDelivery(DeliveryForm form) {
 		return Delivery.builder()
 			.id(form.getId())
