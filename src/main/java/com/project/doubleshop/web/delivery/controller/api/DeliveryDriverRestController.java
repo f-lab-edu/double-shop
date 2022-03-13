@@ -18,7 +18,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.project.doubleshop.domain.common.Status;
 import com.project.doubleshop.domain.delivery.entity.legacy.DeliveryDriver;
-import com.project.doubleshop.domain.delivery.service.DeliveryDriverService;
+import com.project.doubleshop.domain.delivery.service.legacy.DeliveryDriverService;
 import com.project.doubleshop.web.config.support.Pageable;
 import com.project.doubleshop.web.delivery.dto.DeliveryDriverDTO;
 import com.project.doubleshop.web.delivery.dto.DeliveryDriverForm;

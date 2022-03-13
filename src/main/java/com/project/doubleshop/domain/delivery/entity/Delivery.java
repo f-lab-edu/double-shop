@@ -13,6 +13,7 @@ import javax.persistence.OneToOne;
 
 import com.project.doubleshop.domain.common.Status;
 import com.project.doubleshop.domain.common.StatusConverter;
+import com.project.doubleshop.domain.common.StatusManager;
 import com.project.doubleshop.domain.delivery.entity.enumuration.DeliveryStatus;
 import com.project.doubleshop.domain.delivery.entity.enumuration.converter.DeliveryStatusConverter;
 import com.project.doubleshop.domain.delivery.entity.legacy.DeliveryDriver;
@@ -29,7 +30,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class Delivery {
+public class Delivery implements StatusManager {
 	// 배송 pk
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -67,6 +68,10 @@ public class Delivery {
 	@OneToOne(fetch = FetchType.LAZY)
 	private DeliveryPolicy deliveryPolicy;
 
+	@Override
+	public void saveStatus(Status status) {
+		this.status = status;
+	}
 	public static Delivery convertToDelivery(DeliveryForm form) {
 		return Delivery.builder()
 			.id(form.getId())

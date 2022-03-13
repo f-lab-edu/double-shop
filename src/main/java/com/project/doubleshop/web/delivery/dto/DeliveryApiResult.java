@@ -25,15 +25,11 @@ public class DeliveryApiResult {
 	// 배송정책 fk
 	private final DeliveryPolicyDTO deliveryPolicy;
 
-	// 배송기사 fk
-	private final DeliveryDriverDTO deliveryDriver;
-
-	public DeliveryApiResult(Delivery delivery, DeliveryPolicy deliveryPolicy, DeliveryDriver deliveryDriver) {
+	public DeliveryApiResult(Delivery delivery, DeliveryPolicy deliveryPolicy) {
 		this.id = delivery.getId();
 		this.waybillNumber = delivery.getWaybillNumber();
 		this.memo = delivery.getMemo();
 		this.deliveryStatus = delivery.getDeliveryStatus();
 		this.deliveryPolicy = new DeliveryPolicyDTO(deliveryPolicy);
-		this.deliveryDriver = new DeliveryDriverDTO(deliveryDriver);
 	}
 }
