@@ -11,7 +11,7 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("api")
 @RequiredArgsConstructor
 public class HealthCheckController {
-	@GetMapping(value = "hcheck", consumes = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = "hcheck", produces = MediaType.APPLICATION_JSON_VALUE)
 	public Long healthCheck() {
 		return System.currentTimeMillis();
 	}
