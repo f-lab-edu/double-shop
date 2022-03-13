@@ -16,7 +16,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.project.doubleshop.domain.delivery.entity.Delivery;
 import com.project.doubleshop.domain.delivery.repository.DeliveryRepository;
-import com.project.doubleshop.domain.delivery.service.DeliveryService;
 import com.project.doubleshop.domain.exception.NotFoundException;
 import com.project.doubleshop.web.config.support.Pageable;
 
@@ -26,20 +25,17 @@ class DeliveryServiceTest {
 	@Mock
 	DeliveryRepository deliveryRepository;
 
-	@Mock
-	Pageable pageable;
-
 	@InjectMocks
 	DeliveryService deliveryService;
 
 	@Test
 	@DisplayName("배송등록 성공")
 	void saveDelivery() {
-		// given(deliveryRepository.save(DELIVERY_FORM)).willReturn(true);
-		//
-		// boolean result = deliveryService.saveDelivery(DELIVERY_FORM);
-		//
-		// assertThat(result).isTrue();
+		given(deliveryRepository.save(DELIVERY_FORM)).willReturn(DELIVERY_1);
+
+		Delivery result = deliveryService.save(DELIVERY_FORM);
+
+		assertThat(result).isNotNull();
 	}
 
 	@Test
