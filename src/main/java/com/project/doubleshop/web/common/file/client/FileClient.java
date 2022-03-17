@@ -10,7 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 public interface FileClient {
 	String getUrlPath(String key) throws IOException;
 	String upload(MultipartFile file);
-	String delete(String url) throws IOException;
+	String delete(String url);
 
 	String upload(InputStream inputStream, String key);
 
