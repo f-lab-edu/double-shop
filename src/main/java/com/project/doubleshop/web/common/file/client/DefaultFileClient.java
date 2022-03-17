@@ -15,7 +15,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class DefaultFileClient implements FileClient {
 
-	private final Path root;
+	private final Path root = Path.of("C:\\Users\\choi\\Desktop\\test");
 
 	@Override
 	public String getUrlPath(String path) {
