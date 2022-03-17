@@ -51,7 +51,7 @@ public class AppConfig {
 
 	@Bean
 	public FileClient configFileClient() {
-		return new DefaultFileClient(Path.of("C:\\Users\\choi\\Desktop\\test"));
+		return new DefaultFileClient();
 	}
 
 	@Bean
