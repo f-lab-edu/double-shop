@@ -2,6 +2,7 @@ package com.project.doubleshop.web;
 
 import java.io.IOException;
 import java.net.URI;
+import java.util.Arrays;
 import java.util.Map;
 import java.util.Optional;
 
@@ -39,8 +40,10 @@ public class FileTestController {
 	}
 
 	@PostMapping(value = "file", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-	public String result(@ModelAttribute FileRequest fileRequest, @RequestPart(required = false) MultipartFile file) {
-		return uploadImageFile(ImageFile.of(file), fileRequest.getName()).orElseThrow();
+	public String result(@ModelAttribute FileRequest fileRequest, @RequestPart(required = false) MultipartFile[] files) {
+		Arrays.asList(files).forEach(
+			file -> uploadImageFile(ImageFile.of(file), fileRequest.getName()).orElseThrow());
+		return "hi";
 	}
 
 	private Optional<String> uploadImageFile(ImageFile file, String name) {
@@ -57,7 +60,7 @@ public class FileTestController {
 	}
 
 	@DeleteMapping("file")
-	public ResponseEntity<String> deleteFile(@RequestBody Map<String, String> map) throws IOException {
+	public ResponseEntity<String> deleteFile(@RequestBody Map<String, String> map) {
 		return ResponseEntity.ok(fileClient.delete(map.get("name")));
 	}
 }

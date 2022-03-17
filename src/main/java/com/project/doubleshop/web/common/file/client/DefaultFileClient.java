@@ -34,9 +34,17 @@ public class DefaultFileClient implements FileClient {
 	}
 
 	@Override
-	public String delete(String url) throws IOException {
-		FileSystemUtils.deleteRecursively(Path.of(this.root + url));
-		return null;
+	public String delete(String url){
+		try {
+			Path path = Path.of(this.root + File.separator + url);
+			if (Files.exists(path)) {
+				FileSystemUtils.deleteRecursively(path);
+				return "success";
+			}
+			return "fail";
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	@Override
