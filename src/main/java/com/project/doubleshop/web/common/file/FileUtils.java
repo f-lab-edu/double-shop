@@ -24,8 +24,8 @@ public class FileUtils {
 		if (fileName == null) {
 			return -1;
 		} else {
-			int unixSeparatorPosition = fileName.lastIndexOf(46); // ascii code for \
-			int windowSeparatorPosition = fileName.lastIndexOf(92); // ascii code for /
+			int unixSeparatorPosition = fileName.lastIndexOf(47); // ascii code for /
+			int windowSeparatorPosition = fileName.lastIndexOf(92); // ascii code for \
 			return Math.max(unixSeparatorPosition, windowSeparatorPosition);
 		}
 	}

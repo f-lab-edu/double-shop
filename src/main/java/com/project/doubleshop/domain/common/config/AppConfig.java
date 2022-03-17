@@ -1,5 +1,6 @@
 package com.project.doubleshop.domain.common.config;
 
+import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -9,7 +10,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.config.PageableHandlerMethodArgumentResolverCustomizer;
@@ -22,6 +22,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.project.doubleshop.web.common.file.ImageFile;
+import com.project.doubleshop.web.common.file.client.DefaultFileClient;
+import com.project.doubleshop.web.common.file.client.FileClient;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -44,6 +47,11 @@ public class AppConfig {
 			.username(dataSourceUsername)
 			.password(dataSourcePassword)
 			.build();
+	}
+
+	@Bean
+	public FileClient configFileClient() {
+		return new DefaultFileClient(Path.of("C:\\Users\\choi\\Desktop\\test"));
 	}
 
 	@Bean
