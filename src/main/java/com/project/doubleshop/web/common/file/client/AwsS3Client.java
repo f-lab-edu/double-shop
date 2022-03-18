@@ -3,6 +3,8 @@ package com.project.doubleshop.web.common.file.client;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -15,9 +17,12 @@ import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.DeleteObjectRequest;
 import com.amazonaws.services.s3.model.GetObjectAclRequest;
 import com.amazonaws.services.s3.model.GetObjectRequest;
+import com.amazonaws.services.s3.model.ListObjectsRequest;
+import com.amazonaws.services.s3.model.ObjectListing;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.S3Object;
+import com.amazonaws.services.s3.model.S3ObjectSummary;
 
 import lombok.RequiredArgsConstructor;
 
@@ -41,6 +46,25 @@ public class AwsS3Client implements FileClient {
 	}
 
 	@Override
+	public List<String> getList(String path) {
+		ListObjectsRequest request = new ListObjectsRequest()
+			.withBucketName(bucketName)
+			.withPrefix(path);
+
+		List<String> keys = new ArrayList<>();
+
+		ObjectListing objects;
+		do {
+			objects = amazonS3.listObjects(request);
+			for (S3ObjectSummary objectSummary : objects.getObjectSummaries()) {
+				String summaryKey = objectSummary.getKey();
+				keys.add(summaryKey);
+			}
+		} while (objects.isTruncated());
+		return keys;
+	}
+
+	@Override
 	public String upload(InputStream inputStream, String key) {
 		return null;
 	}
@@ -59,8 +83,7 @@ public class AwsS3Client implements FileClient {
 	}
 
 	@Override
-	public String delete(String url) {
-		String key = "getName(url)";
+	public String delete(String key) {
 		DeleteObjectRequest request = new DeleteObjectRequest(bucketName, key);
 		executeDelete(request);
 		return null;

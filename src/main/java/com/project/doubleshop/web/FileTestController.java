@@ -4,6 +4,7 @@ import static com.project.doubleshop.web.common.file.ImageFile.*;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.http.MediaType;
@@ -33,8 +34,8 @@ public class FileTestController {
 	private final FileClient fileClient;
 
 	@GetMapping(value = "file", produces = MediaType.APPLICATION_JSON_VALUE)
-	public String checkFile() throws IOException {
-		return (String) fileClient.get("classpath:test/hello.jpeg");
+	public ResponseEntity<List<String>> checkFile(@ModelAttribute FileRequest fileRequest) {
+		return ResponseEntity.ok(fileClient.getList(fileRequest.getPath()));
 	}
 
 	@PostMapping(value = "file", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
@@ -45,6 +46,6 @@ public class FileTestController {
 
 	@DeleteMapping("file")
 	public ResponseEntity<String> deleteFile(@RequestBody Map<String, String> map) {
-		return ResponseEntity.ok(fileClient.delete(map.get("name")));
+		return ResponseEntity.ok(fileClient.delete(map.get("path")));
 	}
 }
