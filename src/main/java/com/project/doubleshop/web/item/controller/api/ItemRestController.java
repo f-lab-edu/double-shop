@@ -42,7 +42,7 @@ public class ItemRestController {
 
 	private final FileClient fileClient;
 
-	@PostMapping(value = "item", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+	@PostMapping(value = "member/{memberId}/item", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
 	public ResponseEntity<ItemApiResult> newItem(@RequestPart ItemForm itemForm, @RequestPart(required = false)
 		MultipartFile[] imageFiles) {
 		Item item = itemService.save(itemForm);
@@ -71,18 +71,18 @@ public class ItemRestController {
 		return ResponseEntity.ok(itemService.findItems(pageable).stream().map(ItemApiResult::new).collect(Collectors.toList()));
 	}
 
-	@PutMapping("item")
+	@PutMapping("member/{memberId}/item")
 	public ResponseEntity<ItemApiResult> editItem(@RequestBody ItemForm itemForm) {
 		Item item = itemService.save(itemForm);
 		return ResponseEntity.ok(new ItemApiResult(item));
 	}
 
-	@PatchMapping("item/{id}/status")
+	@PatchMapping("member/{memberId}/item/{id}/status")
 	public ResponseEntity<Boolean> requestUpdateItemStatus(@RequestParam Status status, @PathVariable Long id) {
 		return ResponseEntity.ok(itemService.updateStatus(id, status));
 	}
 
-	@DeleteMapping("item")
+	@DeleteMapping("member/{memberId}/item")
 	public ResponseEntity<Integer> deleteAssignedItems(@RequestParam Status status) {
 		return ResponseEntity.ok(itemService.removeStatusDel(status));
 	}
