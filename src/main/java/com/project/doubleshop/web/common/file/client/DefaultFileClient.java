@@ -5,32 +5,27 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Map;
 import java.util.Objects;
 
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Component;
 import org.springframework.util.FileSystemUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import lombok.RequiredArgsConstructor;
 
+@Profile("back")
+@Component
 @RequiredArgsConstructor
 public class DefaultFileClient implements FileClient {
 
 	private final Path root = Path.of("C:\\Users\\choi\\Desktop\\test");
 
 	@Override
-	public String getUrlPath(String path) {
+	public String get(String path) {
 		File file = new File(path);
 		return file.getAbsolutePath();
-	}
-
-	@Override
-	public String upload(MultipartFile file) {
-		try {
-			Files.copy(file.getInputStream(), this.root.resolve(Objects.requireNonNull(file.getOriginalFilename())));
-			return file.getResource().getURL().toString();
-		} catch (IOException e) {
-			throw new RuntimeException("Could not store the file. Error: " + e.getMessage());
-		}
 	}
 
 	@Override
@@ -58,14 +53,10 @@ public class DefaultFileClient implements FileClient {
 	}
 
 	@Override
-	public String upload(InputStream inputStream, String key, String base) {
+	public String upload(InputStream inputStream, long length, String key, String contentType, Map<String, String> metadata) {
 		try {
-			Path path = Path.of(this.root + File.separator + base);
-			if (!Files.exists(path)) {
-				Files.createDirectory(Path.of(String.valueOf(path)));
-			}
-			Files.copy(inputStream, Path.of(String.valueOf(path)).resolve(Objects.requireNonNull(key)));
-			return this.root + File.separator + base + File.separator + key;
+			Files.copy(inputStream, this.root.resolve(Objects.requireNonNull(key)));
+			return this.root + File.separator + key;
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}

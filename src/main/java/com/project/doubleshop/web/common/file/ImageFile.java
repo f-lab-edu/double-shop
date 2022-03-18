@@ -8,13 +8,19 @@ import static org.springframework.util.StringUtils.*;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.amazonaws.services.s3.model.AmazonS3Exception;
+import com.project.doubleshop.web.common.file.client.FileClient;
+
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Getter
 @RequiredArgsConstructor
 public class ImageFile {
@@ -51,8 +57,21 @@ public class ImageFile {
 	}
 
 	public String randomName(String basePath, String defaultExtension) {
-		String name = hasLength(basePath) ? UUID.randomUUID().toString() : basePath + "/" + UUID.randomUUID();
+		String name = hasLength(basePath) ?  basePath + "/" + UUID.randomUUID() : UUID.randomUUID().toString();
 		return name + "." + extension(defaultExtension);
+	}
+
+	public static void uploadImageFile(FileClient fileClient, ImageFile file, String path) {
+		log.info("upload image file");
+
+		if (file != null) {
+			String key = file.randomName(path, "jpeg");
+			try {
+				fileClient.upload(file.inputStream(), file.length(), key, file.getContentType(), null);
+			} catch (AmazonS3Exception e) {
+				log.warn("Amazon S3 error (key: {}): {}", key, e.getMessage(), e);
+			}
+		}
 	}
 
 	public InputStream inputStream() {
