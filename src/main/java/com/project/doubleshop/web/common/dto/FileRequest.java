@@ -9,5 +9,5 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class FileRequest {
-	private String name;
+	private String path;
 }

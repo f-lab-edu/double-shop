@@ -1,6 +1,5 @@
 package com.project.doubleshop.domain.common.config;
 
-import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -15,6 +14,11 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.config.PageableHandlerMethodArgumentResolverCustomizer;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 
+import com.amazonaws.auth.AWSStaticCredentialsProvider;
+import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.regions.Regions;
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
@@ -22,9 +26,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
-import com.project.doubleshop.web.common.file.ImageFile;
-import com.project.doubleshop.web.common.file.client.DefaultFileClient;
 import com.project.doubleshop.web.common.file.client.FileClient;
+import com.project.doubleshop.web.common.file.client.AwsS3Client;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -40,6 +43,15 @@ public class AppConfig {
 	@Value("${mysql-password}")
 	private String dataSourcePassword;
 
+	@Value("${s3-region}")
+	private String region;
+
+	@Value("${s3-access-key}")
+	private String accessKey;
+
+	@Value("${s3-secrete-key}")
+	private String secreteKey;
+
 	@Bean
 	public DataSource dataSource() {
 		return DataSourceBuilder.create()
@@ -47,11 +59,6 @@ public class AppConfig {
 			.username(dataSourceUsername)
 			.password(dataSourcePassword)
 			.build();
-	}
-
-	@Bean
-	public FileClient configFileClient() {
-		return new DefaultFileClient();
 	}
 
 	@Bean
@@ -80,5 +87,19 @@ public class AppConfig {
 			resolver.setOneIndexedParameters(true);
 			resolver.setFallbackPageable(PageRequest.of(0, 9, Sort.Direction.DESC, "id"));
 		};
+	}
+
+	@Bean
+	public AmazonS3 amazonS3Client() {
+		return AmazonS3ClientBuilder.standard()
+			.withRegion(Regions.fromName(region))
+			.withCredentials(
+				new AWSStaticCredentialsProvider(
+					new BasicAWSCredentials(
+						accessKey,
+						secreteKey
+					)
+				)
+			).build();
 	}
 }
