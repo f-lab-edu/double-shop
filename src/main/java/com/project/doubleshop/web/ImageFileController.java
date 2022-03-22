@@ -2,10 +2,10 @@ package com.project.doubleshop.web;
 
 import static com.project.doubleshop.web.common.file.ImageFile.*;
 
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +29,7 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 @RequestMapping("api")
 @RequiredArgsConstructor
-public class FileTestController {
+public class ImageFileController {
 
 	private final FileClient fileClient;
 
@@ -39,9 +39,13 @@ public class FileTestController {
 	}
 
 	@PostMapping(value = "file", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-	public String result(@ModelAttribute FileRequest fileRequest, @RequestPart(required = false) MultipartFile[] files) {
-		Arrays.asList(files).forEach(file -> uploadImageFile(fileClient, of(file), fileRequest.getPath()));
-		return "success";
+	public ResponseEntity<Boolean> result(@ModelAttribute FileRequest fileRequest, @RequestPart(required = false) MultipartFile[] files) {
+		AtomicInteger resultCnt = new AtomicInteger();
+		Arrays.asList(files).forEach(file -> {
+			uploadImageFile(fileClient, of(file), fileRequest.getPath());
+			resultCnt.getAndIncrement();
+		});
+		return ResponseEntity.ok(resultCnt.get() == files.length);
 	}
 
 	@DeleteMapping("file")
