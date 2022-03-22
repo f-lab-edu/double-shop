@@ -16,7 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import lombok.RequiredArgsConstructor;
 
-@Profile("back")
+@Profile("local")
 @Component
 @RequiredArgsConstructor
 public class DefaultFileClient implements FileClient {
