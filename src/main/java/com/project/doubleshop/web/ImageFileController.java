@@ -34,7 +34,7 @@ public class ImageFileController {
 	private final FileClient fileClient;
 
 	@GetMapping(value = "file", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<String>> checkFile(@ModelAttribute FileRequest fileRequest) {
+	public ResponseEntity<List<String>> getImageUrls(@ModelAttribute FileRequest fileRequest) {
 		return ResponseEntity.ok(fileClient.getList(fileRequest.getPath()));
 	}
 
