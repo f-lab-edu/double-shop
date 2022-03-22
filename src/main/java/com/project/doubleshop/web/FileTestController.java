@@ -45,7 +45,7 @@ public class FileTestController {
 	}
 
 	@DeleteMapping("file")
-	public ResponseEntity<String> deleteFile(@RequestBody Map<String, String> map) {
+	public ResponseEntity<Boolean> deleteFile(@RequestBody Map<String, String> map) {
 		return ResponseEntity.ok(fileClient.delete(map.get("path")));
 	}
 }

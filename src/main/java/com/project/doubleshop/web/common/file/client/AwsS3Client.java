@@ -29,7 +29,7 @@ import lombok.RequiredArgsConstructor;
 @Profile("prod")
 @Component
 @RequiredArgsConstructor
-public class AwsS3Client implements FileClient {
+public class AwsS3Client extends DefaultFileClient {
 
 	@Value("${s3-url}")
 	private String url;
@@ -65,11 +65,6 @@ public class AwsS3Client implements FileClient {
 	}
 
 	@Override
-	public String upload(InputStream inputStream, String key) {
-		return null;
-	}
-
-	@Override
 	public String upload(InputStream inputStream, long length, String key, String contentType,
 		Map<String, String> metadata) {
 		ObjectMetadata objectMetadata = new ObjectMetadata();
@@ -83,10 +78,10 @@ public class AwsS3Client implements FileClient {
 	}
 
 	@Override
-	public String delete(String key) {
+	public Boolean delete(String key) {
 		DeleteObjectRequest request = new DeleteObjectRequest(bucketName, key);
 		executeDelete(request);
-		return null;
+		return true;
 	}
 
 
