@@ -26,7 +26,7 @@ import com.amazonaws.services.s3.model.S3ObjectSummary;
 
 import lombok.RequiredArgsConstructor;
 
-@Profile("local")
+@Profile("prod")
 @Component
 @RequiredArgsConstructor
 public class AwsS3Client implements FileClient {
