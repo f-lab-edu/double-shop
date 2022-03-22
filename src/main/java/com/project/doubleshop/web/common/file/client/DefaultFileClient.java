@@ -24,20 +24,20 @@ public class DefaultFileClient implements FileClient {
 	private final Path root = Path.of("C:\\Users\\choi\\Desktop\\test");
 
 	@Override
-	public String get(String path) {
+	public Object get(String path) {
 		File file = new File(path);
 		return file.getAbsolutePath();
 	}
 
 	@Override
-	public String delete(String url){
+	public Boolean delete(String url){
 		try {
 			Path path = Path.of(this.root + File.separator + url);
 			if (Files.exists(path)) {
 				FileSystemUtils.deleteRecursively(path);
-				return "success";
+				return true;
 			}
-			return "fail";
+			return false;
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}

@@ -1,16 +1,12 @@
 package com.project.doubleshop.web.common.file.client;
 
-import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.web.multipart.MultipartFile;
-
 public interface FileClient {
 	Object get(String key);
-	String delete(String url);
+	Boolean delete(String url);
 
 	String upload(InputStream inputStream, String key);
 
