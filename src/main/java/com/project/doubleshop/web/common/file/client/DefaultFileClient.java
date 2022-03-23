@@ -16,7 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import lombok.RequiredArgsConstructor;
 
-@Profile("back")
+@Profile("local")
 @Component
 @RequiredArgsConstructor
 public class DefaultFileClient implements FileClient {
@@ -57,8 +57,9 @@ public class DefaultFileClient implements FileClient {
 	public String upload(InputStream inputStream, long length, String key, String contentType, Map<String, String> metadata) {
 		try {
 			Files.copy(inputStream, this.root.resolve(Objects.requireNonNull(key)));
+			Thread.sleep(500L);
 			return this.root + File.separator + key;
-		} catch (IOException e) {
+		} catch (IOException | InterruptedException e) {
 			throw new RuntimeException(e);
 		}
 	}
