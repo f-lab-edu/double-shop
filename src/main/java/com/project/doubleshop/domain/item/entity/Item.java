@@ -109,6 +109,9 @@ public class Item implements StatusManager {
     // ISBN
     private String isbn;
 
+    // 이미지 url
+    private String imageUrl;
+
     // 발행일
     @PastOrPresent(message = "field 'publishedTime' must be present or past")
     private LocalDate publishedTime;
@@ -142,6 +145,10 @@ public class Item implements StatusManager {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public void decreaseStock(int stock) {

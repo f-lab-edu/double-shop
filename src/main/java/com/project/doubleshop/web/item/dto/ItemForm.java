@@ -76,6 +76,8 @@ public class ItemForm {
 	// ISBN
 	private String isbn;
 
+	private String imageUrl;
+
 	// 발행일
 	private LocalDate publishedTime;
 
@@ -106,6 +108,7 @@ public class ItemForm {
 		this.author = source.getAuthor();
 		this.publisher = source.getPublisher();
 		this.isbn = source.getIsbn();
+		this.imageUrl = source.getImageUrl();
 		this.publishedTime = source.getPublishedTime();
 		this.isOnedayEligible = source.getIsOnedayEligible();
 		this.isFreshEligible = source.getIsFreshEligible();

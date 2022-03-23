@@ -44,17 +44,17 @@ public class ItemRestController {
 
 	@PostMapping(value = "member/{memberId}/item", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
 	public ResponseEntity<ItemApiResult> newItem(@RequestPart ItemForm itemForm, @RequestPart(required = false)
-		MultipartFile[] imageFiles) {
+		MultipartFile imageFile) {
 		Item item = itemService.save(itemForm);
 		URI location = ServletUriComponentsBuilder
 			.fromCurrentRequest()
 			.build()
 			.toUri();
 
-		String path = location.getPath() + "/" + item.getId();
-
-		if (imageFiles != null) {
-			Arrays.asList(imageFiles).forEach(file -> uploadImageFile(fileClient, of(file), path));
+		String imageUrl = uploadImageFile(fileClient, of(imageFile), null);
+		
+		if (imageUrl != null) {
+			item.setImageUrl(imageUrl);
 		}
 
 		return ResponseEntity.created(location).body(new ItemApiResult(item));
