@@ -27,7 +27,7 @@ import com.amazonaws.services.s3.model.S3ObjectSummary;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-@Profile("local")
+@Profile("prod")
 @Slf4j
 @Component
 @RequiredArgsConstructor
