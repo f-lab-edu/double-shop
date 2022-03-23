@@ -29,9 +29,19 @@ public class ItemService {
 
 	@Transactional
 	public Item save(ItemForm itemForm) {
+		return save(itemForm, null);
+	}
+
+	@Transactional
+	public Item save(ItemForm itemForm, String imageUrl) {
 		Category category = categoryService.findById(itemForm.getCategoryId());
 		Item item = Item.convertToItem(itemForm);
 		item.setCategory(category);
+
+		if (imageUrl != null) {
+			item.setImageUrl(imageUrl);
+		}
+
 		return itemRepository.save(item);
 	}
 

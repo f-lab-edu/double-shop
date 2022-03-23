@@ -25,8 +25,10 @@ import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
-@Profile("prod")
+@Profile("local")
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class AwsS3Client extends DefaultFileClient {
@@ -88,10 +90,9 @@ public class AwsS3Client extends DefaultFileClient {
 
 	private String executePut(PutObjectRequest request) {
 		amazonS3.putObject(request.withCannedAcl(CannedAccessControlList.PublicRead));
-		if (!url.endsWith("/")) {
-			url = "/" + url + "/" + request.getKey();
-		}
-		return url;
+		String result = url + request.getKey();
+		log.info("utl {} created.", result);
+		return result;
 	}
 
 	private void executeDelete(DeleteObjectRequest request) {
