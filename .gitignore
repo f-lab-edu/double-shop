@@ -32,8 +32,8 @@ build/
 .vscode/
 
 ### application profile ###
-src/main/resources/application-dev.yml
-src/main/resources/application-local.yml
-src/main/resources/application-prod.yml
-src/main/resources/application-test.yml
+src/main/resources/application-dev.properties
+src/main/resources/application-local.properties
+src/main/resources/application-prod.properties
+src/main/resources/application-test.properties
 bin/
