@@ -45,17 +45,14 @@ public class ItemRestController {
 	@PostMapping(value = "member/{memberId}/item", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
 	public ResponseEntity<ItemApiResult> newItem(@RequestPart ItemForm itemForm, @RequestPart(required = false)
 		MultipartFile imageFile) {
-		Item item = itemService.save(itemForm);
 		URI location = ServletUriComponentsBuilder
 			.fromCurrentRequest()
 			.build()
 			.toUri();
 
 		String imageUrl = uploadImageFile(fileClient, of(imageFile), null);
-		
-		if (imageUrl != null) {
-			item.setImageUrl(imageUrl);
-		}
+
+		Item item = itemService.save(itemForm, imageUrl);
 
 		return ResponseEntity.created(location).body(new ItemApiResult(item));
 	}
