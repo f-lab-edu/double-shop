@@ -49,7 +49,8 @@ public class ImageFile {
 	}
 
 	public String extension(String defaultExtension) {
-		return hasLength(defaultExtension) ? getExtension(originalFileName) : defaultExtension;
+		String extension = getExtension(originalFileName);
+		return hasLength(extension) ? extension : defaultExtension;
 	}
 
 	public String randomName(String defaultExtension) {
