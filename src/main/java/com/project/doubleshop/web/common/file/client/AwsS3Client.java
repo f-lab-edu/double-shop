@@ -90,8 +90,8 @@ public class AwsS3Client extends DefaultFileClient {
 
 	private String executePut(PutObjectRequest request) {
 		amazonS3.putObject(request.withCannedAcl(CannedAccessControlList.PublicRead));
-		String result = url + request.getKey();
-		log.info("utl {} created.", result);
+		String result = request.getKey();
+		log.debug("s3 object key {} created.", result);
 		return result;
 	}
 
