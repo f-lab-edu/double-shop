@@ -61,17 +61,18 @@ public class ImageFile {
 		return name + "." + extension(defaultExtension);
 	}
 
-	public static void uploadImageFile(FileClient fileClient, ImageFile file, String path) {
+	public static String uploadImageFile(FileClient fileClient, ImageFile file, String path) {
 		log.info("upload image file");
 
 		if (file != null) {
 			String key = file.randomName(path, "jpeg");
 			try {
-				fileClient.upload(file.inputStream(), file.length(), key, file.getContentType(), null);
+				return fileClient.upload(file.inputStream(), file.length(), key, file.getContentType(), null);
 			} catch (AmazonS3Exception e) {
 				log.warn("Amazon S3 error (key: {}): {}", key, e.getMessage(), e);
 			}
 		}
+		return null;
 	}
 
 	public InputStream inputStream() {
