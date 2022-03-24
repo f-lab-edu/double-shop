@@ -50,7 +50,7 @@ public class ItemRestController {
 			.build()
 			.toUri();
 
-		String imageUrl = uploadImageFile(fileClient, of(imageFile), null);
+		String imageUrl = uploadAsyncImageFile(fileClient, of(imageFile), null);
 
 		Item item = itemService.save(itemForm, imageUrl);
 

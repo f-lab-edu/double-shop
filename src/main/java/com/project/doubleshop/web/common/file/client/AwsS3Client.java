@@ -1,21 +1,20 @@
 package com.project.doubleshop.web.common.file.client;
 
-import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Future;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Component;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.DeleteObjectRequest;
-import com.amazonaws.services.s3.model.GetObjectAclRequest;
 import com.amazonaws.services.s3.model.GetObjectRequest;
 import com.amazonaws.services.s3.model.ListObjectsRequest;
 import com.amazonaws.services.s3.model.ObjectListing;
@@ -77,6 +76,13 @@ public class AwsS3Client extends DefaultFileClient {
 		}
 		PutObjectRequest request = new PutObjectRequest(bucketName, key, inputStream, objectMetadata);
 		return executePut(request);
+	}
+
+	@Async
+	@Override
+	public Future<String> uploadAsync(InputStream inputStream, long length, String key, String contentType,
+		Map<String, String> metadata) {
+		return new AsyncResult<>(upload(inputStream, length, key, contentType, metadata));
 	}
 
 	@Override

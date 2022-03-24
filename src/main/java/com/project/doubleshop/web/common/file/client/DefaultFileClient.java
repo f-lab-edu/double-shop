@@ -69,18 +69,11 @@ public class DefaultFileClient implements FileClient {
 		}
 	}
 
-	@Override
 	@Async
+	@Override
 	public Future<String> uploadAsync(InputStream inputStream, long length, String key, String contentType,
 		Map<String, String> metadata) {
-		try {
-			log.info(Thread.currentThread().getName());
-			Files.copy(inputStream, this.root.resolve(Objects.requireNonNull(key)));
-			Thread.sleep(500);
-			return new AsyncResult<>(this.root + File.separator + key);
-		} catch (IOException | InterruptedException e) {
-			throw new RuntimeException(e);
-		}
+			return new AsyncResult<>(upload(inputStream, length, key, contentType, metadata));
 	}
 
 	@Override
