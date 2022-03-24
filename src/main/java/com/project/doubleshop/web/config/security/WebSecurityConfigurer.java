@@ -107,6 +107,7 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
 				.antMatchers("/api/member/join").permitAll()
 				.antMatchers("/api/member/exists/**").permitAll()
 				.antMatchers("/api/member/*/item").hasRole(Role.ADMIN.name())
+				.antMatchers("/api/member/*/category").hasRole(Role.ADMIN.name())
 				.antMatchers("/api/member/**").hasRole(Role.USER.name())
 				.accessDecisionManager(accessDecisionManager())
 				.anyRequest().permitAll()
