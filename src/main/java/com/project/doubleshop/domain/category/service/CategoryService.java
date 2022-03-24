@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,6 +27,7 @@ public class CategoryService {
 		return categoryRepository.save(category);
 	}
 
+	@Cacheable(value = "category", key = "{#categoryId}")
 	public Category findById(Long categoryId) {
 		return categoryRepository.findById(categoryId)
 			.orElseThrow(() -> new NotFoundException(String.format("Category ID '%s' not found.", categoryId)));
