@@ -39,15 +39,13 @@ public class ImageFileController {
 	}
 
 	@PostMapping(value = "file/sync", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-	public ResponseEntity<Boolean> resultSync(@ModelAttribute FileRequest fileRequest, @RequestPart(required = false) MultipartFile file) {
-		uploadImageFile(fileClient, of(file), fileRequest.getPath());
-		return ResponseEntity.ok(true);
+	public ResponseEntity<String> resultSync(@ModelAttribute FileRequest fileRequest, @RequestPart(required = false) MultipartFile file) {
+		return ResponseEntity.ok(uploadImageFile(fileClient, of(file), fileRequest.getPath()));
 	}
 
 	@PostMapping(value = "file/async", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-	public ResponseEntity<Boolean> resultAsync(@ModelAttribute FileRequest fileRequest, @RequestPart(required = false) MultipartFile file) {
-		uploadAsyncImageFile(fileClient, of(file), fileRequest.getPath());
-		return ResponseEntity.ok(true);
+	public ResponseEntity<String> resultAsync(@ModelAttribute FileRequest fileRequest, @RequestPart(required = false) MultipartFile file) {
+		return ResponseEntity.ok(uploadAsyncImageFile(fileClient, of(file), fileRequest.getPath()));
 	}
 
 	@DeleteMapping("file")

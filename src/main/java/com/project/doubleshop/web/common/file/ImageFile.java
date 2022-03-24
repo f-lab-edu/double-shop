@@ -69,7 +69,8 @@ public class ImageFile {
 		if (file != null) {
 			String key = file.randomName(path, "jpeg");
 			try {
-				return fileClient.upload(file.inputStream(), file.length(), key, file.getContentType(), null);
+				fileClient.upload(file.inputStream(), file.length(), key, file.getContentType(), null);
+				return key;
 			} catch (AmazonS3Exception e) {
 				log.warn("Amazon S3 error (key: {}): {}", key, e.getMessage(), e);
 			}
@@ -77,12 +78,13 @@ public class ImageFile {
 		return null;
 	}
 
-	public static Future<String> uploadAsyncImageFile(FileClient fileClient, ImageFile file, String path) {
+	public static String uploadAsyncImageFile(FileClient fileClient, ImageFile file, String path) {
 
 		if (file != null) {
 			String key = file.randomName(path, "jpeg");
 			try {
-				return fileClient.uploadAsync(file.inputStream(), file.length(), key, file.getContentType(), null);
+				fileClient.uploadAsync(file.inputStream(), file.length(), key, file.getContentType(), null);
+				return key;
 			} catch (AmazonS3Exception e) {
 				log.warn("Amazon S3 error (key: {}): {}", key, e.getMessage(), e);
 			}
