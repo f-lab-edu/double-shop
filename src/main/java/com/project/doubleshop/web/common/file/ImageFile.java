@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.concurrent.Future;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -69,6 +70,19 @@ public class ImageFile {
 			String key = file.randomName(path, "jpeg");
 			try {
 				return fileClient.upload(file.inputStream(), file.length(), key, file.getContentType(), null);
+			} catch (AmazonS3Exception e) {
+				log.warn("Amazon S3 error (key: {}): {}", key, e.getMessage(), e);
+			}
+		}
+		return null;
+	}
+
+	public static Future<String> uploadAsyncImageFile(FileClient fileClient, ImageFile file, String path) {
+
+		if (file != null) {
+			String key = file.randomName(path, "jpeg");
+			try {
+				return fileClient.uploadAsync(file.inputStream(), file.length(), key, file.getContentType(), null);
 			} catch (AmazonS3Exception e) {
 				log.warn("Amazon S3 error (key: {}): {}", key, e.getMessage(), e);
 			}

@@ -38,14 +38,16 @@ public class ImageFileController {
 		return ResponseEntity.ok(fileClient.getList(fileRequest.getPath()));
 	}
 
-	@PostMapping(value = "file", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-	public ResponseEntity<Boolean> result(@ModelAttribute FileRequest fileRequest, @RequestPart(required = false) MultipartFile[] files) {
-		AtomicInteger resultCnt = new AtomicInteger();
-		Arrays.asList(files).forEach(file -> {
-			uploadImageFile(fileClient, of(file), fileRequest.getPath());
-			resultCnt.getAndIncrement();
-		});
-		return ResponseEntity.ok(resultCnt.get() == files.length);
+	@PostMapping(value = "file/sync", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+	public ResponseEntity<Boolean> resultSync(@ModelAttribute FileRequest fileRequest, @RequestPart(required = false) MultipartFile file) {
+		uploadImageFile(fileClient, of(file), fileRequest.getPath());
+		return ResponseEntity.ok(true);
+	}
+
+	@PostMapping(value = "file/async", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+	public ResponseEntity<Boolean> resultAsync(@ModelAttribute FileRequest fileRequest, @RequestPart(required = false) MultipartFile file) {
+		uploadAsyncImageFile(fileClient, of(file), fileRequest.getPath());
+		return ResponseEntity.ok(true);
 	}
 
 	@DeleteMapping("file")
