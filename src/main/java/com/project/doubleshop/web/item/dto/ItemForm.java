@@ -2,8 +2,6 @@ package com.project.doubleshop.web.item.dto;
 
 import java.time.LocalDate;
 
-import com.project.doubleshop.domain.category.entity.Category;
-import com.project.doubleshop.domain.common.Status;
 import com.project.doubleshop.domain.item.entity.Item;
 
 import lombok.AccessLevel;
@@ -108,7 +106,7 @@ public class ItemForm {
 		this.author = source.getAuthor();
 		this.publisher = source.getPublisher();
 		this.isbn = source.getIsbn();
-		this.imageUrl = source.getImageUrl();
+		this.imageUrl = source.getImageUri();
 		this.publishedTime = source.getPublishedTime();
 		this.isOnedayEligible = source.getIsOnedayEligible();
 		this.isFreshEligible = source.getIsFreshEligible();

@@ -1,8 +1,6 @@
 package com.project.doubleshop.domain.item.service;
 
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -14,7 +12,6 @@ import com.project.doubleshop.domain.common.Status;
 import com.project.doubleshop.domain.exception.NotFoundException;
 import com.project.doubleshop.domain.item.entity.Item;
 import com.project.doubleshop.domain.item.repository.ItemRepository;
-import com.project.doubleshop.domain.utils.ExceptionUtils;
 import com.project.doubleshop.web.item.dto.ItemForm;
 
 import lombok.RequiredArgsConstructor;
@@ -39,7 +36,7 @@ public class ItemService {
 		item.setCategory(category);
 
 		if (imageUrl != null) {
-			item.setImageUrl(imageUrl);
+			item.setImageUri(imageUrl);
 		}
 
 		return itemRepository.save(item);

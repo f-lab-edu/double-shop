@@ -2,9 +2,7 @@ package com.project.doubleshop.domain.item.entity;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
@@ -110,7 +108,7 @@ public class Item implements StatusManager {
     private String isbn;
 
     // 이미지 url
-    private String imageUrl;
+    private String imageUri;
 
     // 발행일
     @PastOrPresent(message = "field 'publishedTime' must be present or past")
@@ -147,8 +145,8 @@ public class Item implements StatusManager {
         this.category = category;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setImageUri(String imageUrl) {
+        this.imageUri = imageUrl;
     }
 
     public void decreaseStock(int stock) {
