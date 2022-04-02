@@ -37,7 +37,7 @@ pipeline {
                 sh "pwd"
                 sh "mvn --batch-mode --update-snapshots clean package -DskipTests"
                 sh "ls -al"
-                sh "sudo sh build.sh"
+                sh "sudo sh /root/build.sh"
             }
         }
         stage('deploy') {
@@ -53,7 +53,7 @@ pipeline {
                     }
                     stage("load_balancer") {
                         sh "pwd"
-                        sh "sudo sh deploy.sh"
+                        sh "sudo sh /root/deploy.sh"
                     }
                 }
             }
