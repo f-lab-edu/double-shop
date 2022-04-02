@@ -44,11 +44,15 @@ pipeline {
             sh "pwd"
             sh "ls -al"
             script {
-                def server_list = ["was1", "was2", "load_balancer"]
+                def server_list = ["was1", "was2"]
                 for (server in server_list) {
                     stage(server) {
                         ssh_publisher(server)
                     }
+                }
+                stage("load_balancer") {
+                    sh "pwd"
+                    sh "sudo sh deploy.sh"
                 }
             }
         }
