@@ -32,5 +32,4 @@ build/
 .vscode/
 
 ### application profile ###
-**/application-local.properties
-bin/
+**/resources/application-local.properties
