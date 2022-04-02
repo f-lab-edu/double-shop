@@ -22,7 +22,7 @@ pipeline {
         maven "Maven 3.8.4"
     }
     parameters {
-        gitParameter branchFilter: 'origin/(.*)', defaultValue: 'main', name: 'CURRENT', type: 'PT_BRANCH'
+        gitParameter branchFilter: 'origin/(.*)', defaultValue: 'main', name: 'BRANCH', type: 'PT_BRANCH'
     }
     stages {
         stage('clone') {
