@@ -41,18 +41,20 @@ pipeline {
             }
         }
         stage('deploy') {
-            sh "pwd"
-            sh "ls -al"
-            script {
-                def server_list = ["was1", "was2"]
-                for (server in server_list) {
-                    stage(server) {
-                        ssh_publisher(server)
+            steps {
+                sh "pwd"
+                sh "ls -al"
+                script {
+                    def server_list = ["was1", "was2"]
+                    for (server in server_list) {
+                        stage(server) {
+                            ssh_publisher(server)
+                        }
                     }
-                }
-                stage("load_balancer") {
-                    sh "pwd"
-                    sh "sudo sh deploy.sh"
+                    stage("load_balancer") {
+                        sh "pwd"
+                        sh "sudo sh deploy.sh"
+                    }
                 }
             }
         }
