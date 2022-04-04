@@ -2,6 +2,7 @@ package com.project.doubleshop.domain.common.config;
 
 import java.util.Objects;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.ehcache.EhCacheCacheManager;
@@ -11,7 +12,6 @@ import org.springframework.context.annotation.Configuration;
 
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.config.CacheConfiguration;
-import net.sf.ehcache.config.MemoryUnit;
 
 @Configuration
 @EnableCaching
@@ -22,7 +22,7 @@ public class CacheConfig {
 	}
 
 	@Bean
-	public CacheManager ehCacheCacheManager() {
+	public CacheManager ehCacheCacheCategoryManager() {
 		CacheConfiguration oEmbedCacheConfig = new CacheConfiguration()
 			.eternal(true)
 			.maxEntriesLocalHeap(100)
@@ -35,5 +35,11 @@ public class CacheConfig {
 
 		cacheManager.addCache(categoryCache);
 		return new EhCacheCacheManager(cacheManager);
+	}
+
+	@Bean
+	@Qualifier("categoryCache")
+	public org.springframework.cache.Cache categoryCache() {
+		return ehCacheCacheCategoryManager().getCache("category");
 	}
 }

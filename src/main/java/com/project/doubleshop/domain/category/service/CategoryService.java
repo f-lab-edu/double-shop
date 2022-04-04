@@ -20,21 +20,31 @@ import lombok.RequiredArgsConstructor;
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class CategoryService {
+
 	private final CategoryRepository categoryRepository;
+
+	private final CategoryVaultManager cachedVaultManager;
 
 	@Transactional
 	public Category save(Category category) {
 		return categoryRepository.save(category);
 	}
 
-	@Cacheable(value = "category", key = "{#categoryId}")
 	public Category findById(Long categoryId) {
-		return categoryRepository.findById(categoryId)
-			.orElseThrow(() -> new NotFoundException(String.format("Category ID '%s' not found.", categoryId)));
+		Category cachedCategory = cachedVaultManager.findCachedCategory(categoryId);
+		if (cachedCategory == null) {
+			return categoryRepository.findById(categoryId)
+				.orElseThrow(() -> new NotFoundException((String.format("Category ID '%s' not found.", categoryId))));
+		}
+		return cachedCategory;
 	}
 
 	public List<Category> findAll() {
-		return categoryRepository.findAllByStatus(Status.ACTIVATED);
+		List<Category> cachedCategories = cachedVaultManager.findCachedCategories()
+			.stream()
+			.filter(category -> category.getStatus().equals(Status.ACTIVATED))
+			.collect(Collectors.toList());
+		return cachedCategories.size() == 0 ? categoryRepository.findAllByStatus(Status.ACTIVATED) : cachedCategories;
 	}
 
 	public List<Category> findAllByIds(List<Long> categoryIds) {
