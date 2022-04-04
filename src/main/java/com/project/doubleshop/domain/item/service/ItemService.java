@@ -1,6 +1,7 @@
 package com.project.doubleshop.domain.item.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -43,12 +44,21 @@ public class ItemService {
 	}
 
 	public Item findById(Long itemId) {
-		return itemRepository.findById(itemId)
+		Item item = itemRepository.findById(itemId)
 			.orElseThrow(() -> new NotFoundException(String.format("Item ID '%s' not found.", itemId)));
+		Long categoryId = item.getCategory().getId();
+		Category category = categoryService.findById(categoryId);
+		item.setCategory(category);
+		return item;
 	}
 
 	public List<Item> findItems(Pageable pageable) {
-		return itemRepository.findAllByStatus(Status.ACTIVATED, pageable).getContent();
+		List<Item> items = itemRepository.findAllByStatus(Status.ACTIVATED, pageable).getContent();
+		for (Item item : items) {
+			Long categoryId = item.getCategory().getId();
+			item.setCategory(categoryService.findById(categoryId));
+		}
+		return items;
 	}
 
 	@Transactional

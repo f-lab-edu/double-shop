@@ -38,10 +38,14 @@ public class CategoryVaultManager {
 	private void warmUp() {
 		List<Category> categories = categoryService.findAll();
 		categories.forEach(c -> {
-			cache.put(c.getId(), c);
+			addCategoryCache(c);
 			cachedCategories.add(c);
 		});
 		log.info("All Categories cached successful");
+	}
+
+	public void addCategoryCache(Category category) {
+		cache.putIfAbsent(category.getId(), category);
 	}
 
 	public Category findCachedCategory(Long categoryId) {
