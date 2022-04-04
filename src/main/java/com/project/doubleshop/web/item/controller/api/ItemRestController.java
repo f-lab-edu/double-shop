@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.project.doubleshop.domain.category.service.CategoryService;
 import com.project.doubleshop.domain.common.Status;
 import com.project.doubleshop.domain.item.entity.Item;
 import com.project.doubleshop.domain.item.service.ItemService;
@@ -39,6 +40,8 @@ import lombok.RequiredArgsConstructor;
 public class ItemRestController {
 
 	private final ItemService itemService;
+
+	private final CategoryService categoryService;
 
 	private final FileClient fileClient;
 

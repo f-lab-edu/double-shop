@@ -27,6 +27,7 @@ public class CategoryService {
 
 	@Transactional
 	public Category save(Category category) {
+		cachedVaultManager.addCategoryCache(category);
 		return categoryRepository.save(category);
 	}
 
