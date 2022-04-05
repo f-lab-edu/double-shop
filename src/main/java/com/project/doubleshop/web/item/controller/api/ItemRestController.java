@@ -3,7 +3,6 @@ package com.project.doubleshop.web.item.controller.api;
 import static com.project.doubleshop.web.common.file.ImageFile.*;
 
 import java.net.URI;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,10 +26,12 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.project.doubleshop.domain.category.service.CategoryService;
 import com.project.doubleshop.domain.common.Status;
 import com.project.doubleshop.domain.item.entity.Item;
+import com.project.doubleshop.domain.item.repository.querydsl.ItemQueryApiResult;
 import com.project.doubleshop.domain.item.service.ItemService;
 import com.project.doubleshop.web.common.file.client.FileClient;
 import com.project.doubleshop.web.item.dto.ItemApiResult;
 import com.project.doubleshop.web.item.dto.ItemForm;
+import com.querydsl.core.Tuple;
 
 import lombok.RequiredArgsConstructor;
 
@@ -40,8 +41,6 @@ import lombok.RequiredArgsConstructor;
 public class ItemRestController {
 
 	private final ItemService itemService;
-
-	private final CategoryService categoryService;
 
 	private final FileClient fileClient;
 
@@ -64,6 +63,12 @@ public class ItemRestController {
 	public ResponseEntity<ItemApiResult> findItem(@PathVariable Long id) {
 		Item item = itemService.findById(id);
 		return ResponseEntity.ok(new ItemApiResult(item));
+	}
+
+	@GetMapping
+	public ResponseEntity<List<ItemQueryApiResult>> findItem(@RequestParam(value = "offset", defaultValue = "1") int offset,
+		@RequestParam(value = "limit", defaultValue = "4") int limit) {
+		return ResponseEntity.ok(itemService.findItemsPerCategory(offset, limit));
 	}
 
 	@GetMapping("item")

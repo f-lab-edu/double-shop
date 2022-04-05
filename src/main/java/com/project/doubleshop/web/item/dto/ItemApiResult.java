@@ -71,6 +71,9 @@ public class ItemApiResult {
 	// ISBN
 	private final String isbn;
 
+	// image uri
+	private final String imageUri;
+
 	// 발행일
 	private final LocalDate publishedTime;
 
@@ -85,6 +88,13 @@ public class ItemApiResult {
 
 	// 카테고리
 	private final CategoryApiResult category;
+
+	// rs
+	private Long rowNumber;
+
+	public Long getRowNumber() {
+		return rowNumber;
+	}
 
 	public ItemApiResult(Item item) {
 		this.id = item.getId();
@@ -107,6 +117,7 @@ public class ItemApiResult {
 		this.author = item.getAuthor();
 		this.publisher = item.getPublisher();
 		this.isbn = item.getIsbn();
+		this.imageUri = item.getImageUri();
 		this.publishedTime = item.getPublishedTime();
 		this.isOnedayEligible = item.getIsOnedayEligible();
 		this.isFreshEligible = item.getIsFreshEligible();
