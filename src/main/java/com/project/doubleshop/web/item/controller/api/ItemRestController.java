@@ -23,15 +23,12 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.project.doubleshop.domain.category.service.CategoryService;
 import com.project.doubleshop.domain.common.Status;
 import com.project.doubleshop.domain.item.entity.Item;
-import com.project.doubleshop.domain.item.repository.querydsl.ItemQueryApiResult;
 import com.project.doubleshop.domain.item.service.ItemService;
 import com.project.doubleshop.web.common.file.client.FileClient;
 import com.project.doubleshop.web.item.dto.ItemApiResult;
 import com.project.doubleshop.web.item.dto.ItemForm;
-import com.querydsl.core.Tuple;
 
 import lombok.RequiredArgsConstructor;
 
@@ -65,15 +62,19 @@ public class ItemRestController {
 		return ResponseEntity.ok(new ItemApiResult(item));
 	}
 
-	@GetMapping(value = "recent", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<ItemQueryApiResult>> findItem(@RequestParam(value = "offset", defaultValue = "1") int offset,
-		@RequestParam(value = "limit", defaultValue = "4") int limit) {
-		return ResponseEntity.ok(itemService.findItemsPerCategory(offset, limit));
-	}
-
 	@GetMapping(value = "item", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<ItemApiResult>> findAllItem(Pageable pageable) {
 		return ResponseEntity.ok(itemService.findItems(pageable).stream().map(ItemApiResult::new).collect(Collectors.toList()));
+	}
+
+	@GetMapping(value = "item/recent", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<ItemApiResult>> findItem(@RequestParam(value = "offset", defaultValue = "1") int offset,
+		@RequestParam(value = "limit", defaultValue = "4") int limit) {
+		List<ItemApiResult> apiResults = itemService.findItemsPerCategory(offset, limit)
+			.stream()
+			.map(ItemApiResult::new)
+			.collect(Collectors.toList());
+		return ResponseEntity.ok(apiResults);
 	}
 
 	@PutMapping("member/{memberId}/item")
