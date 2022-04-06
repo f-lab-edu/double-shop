@@ -59,19 +59,19 @@ public class ItemRestController {
 		return ResponseEntity.created(location).body(new ItemApiResult(item));
 	}
 
-	@GetMapping("item/{id}")
+	@GetMapping(value = "item/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ItemApiResult> findItem(@PathVariable Long id) {
 		Item item = itemService.findById(id);
 		return ResponseEntity.ok(new ItemApiResult(item));
 	}
 
-	@GetMapping
+	@GetMapping(value = "recent", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<ItemQueryApiResult>> findItem(@RequestParam(value = "offset", defaultValue = "1") int offset,
 		@RequestParam(value = "limit", defaultValue = "4") int limit) {
 		return ResponseEntity.ok(itemService.findItemsPerCategory(offset, limit));
 	}
 
-	@GetMapping("item")
+	@GetMapping(value = "item", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<ItemApiResult>> findAllItem(Pageable pageable) {
 		return ResponseEntity.ok(itemService.findItems(pageable).stream().map(ItemApiResult::new).collect(Collectors.toList()));
 	}
