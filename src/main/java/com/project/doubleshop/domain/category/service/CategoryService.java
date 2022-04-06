@@ -33,10 +33,6 @@ public class CategoryService {
 	}
 
 	public List<Category> findAll() {
-		// List<Category> cachedCategories = cachedVaultManager.findCachedCategories()
-		// 	.stream()
-		// 	.filter(category -> category.getStatus().equals(Status.ACTIVATED))
-		// 	.collect(Collectors.toList());
 		return categoryRepository.findAllByStatus(Status.ACTIVATED);
 	}
 
