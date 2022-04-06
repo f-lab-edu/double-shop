@@ -19,40 +19,15 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
+@RequiredArgsConstructor
 @Component
 public class CategoryVaultManager {
 
 	private final CategoryRepository categoryService;
 
-	private final Cache cache;
-
-	private final List<Category> cachedCategories;
-
-	public CategoryVaultManager(CategoryRepository categoryService, @Qualifier("categoryCache") Cache cache) {
-		this.categoryService = categoryService;
-		this.cache = cache;
-		this.cachedCategories = new ArrayList<>();
-	}
-
 	@PostConstruct
 	private void warmUp() {
 		List<Category> categories = categoryService.findAll();
-		categories.forEach(c -> {
-			addCategoryCache(c);
-			cachedCategories.add(c);
-		});
 		log.info("All Categories cached successful");
-	}
-
-	public void addCategoryCache(Category category) {
-		cache.putIfAbsent(category.getId(), category);
-	}
-
-	public Category findCachedCategory(Long categoryId) {
-		return cache.get(categoryId, Category.class);
-	}
-
-	public List<Category> findCachedCategories() {
-		return this.cachedCategories;
 	}
 }
