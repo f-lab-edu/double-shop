@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import javax.persistence.EntityManager;
-import javax.persistence.criteria.CriteriaBuilder;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Value;
