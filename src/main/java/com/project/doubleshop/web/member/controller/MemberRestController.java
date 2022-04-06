@@ -4,6 +4,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -35,7 +36,7 @@ public class MemberRestController {
 
 	private final TokenService tokenService;
 
-	@GetMapping("member/me")
+	@GetMapping(value = "member/me", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<MemberResult> me(@AuthenticationPrincipal SimpleAuthentication authentication) {
 		return ResponseEntity.ok(new MemberResult(authMemberService.findById(authentication.getId())));
 	}
