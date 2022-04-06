@@ -15,9 +15,7 @@ import com.project.doubleshop.domain.exception.NotFoundException;
 import com.project.doubleshop.domain.item.entity.Item;
 import com.project.doubleshop.domain.item.repository.ItemRepository;
 import com.project.doubleshop.domain.item.repository.querydsl.ItemQueryApiResult;
-import com.project.doubleshop.web.item.dto.ItemApiResult;
 import com.project.doubleshop.web.item.dto.ItemForm;
-import com.querydsl.core.Tuple;
 
 import lombok.RequiredArgsConstructor;
 
@@ -47,8 +45,18 @@ public class ItemService {
 		return itemRepository.save(item);
 	}
 
-	public List<ItemQueryApiResult> findItemsPerCategory(int offset, int limit) {
-		return itemRepository.findItemsPerCategory(PageRequest.of(offset, limit));
+	public List<Item> findItemsPerCategory(int offset, int limit) {
+		List<ItemQueryApiResult> itemsPerCategory = itemRepository.findItemsPerCategory(PageRequest.of(offset, limit));
+		return itemsPerCategory.stream().map(queryApiResult -> Item.builder()
+			.id(queryApiResult.getId())
+			.name(queryApiResult.getName())
+			.description(queryApiResult.getDescription())
+			.brandName(queryApiResult.getBrandName())
+			.price(queryApiResult.getPrice())
+			.rating(queryApiResult.getRating())
+			.searchKeyword(queryApiResult.getSearchKeyword())
+			.category(categoryService.findById(queryApiResult.getCategoryId()))
+			.build()).collect(Collectors.toList());
 	}
 
 	public Item findById(Long itemId) {
