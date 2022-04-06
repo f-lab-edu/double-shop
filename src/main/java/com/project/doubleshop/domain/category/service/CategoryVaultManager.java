@@ -27,7 +27,7 @@ public class CategoryVaultManager {
 
 	@PostConstruct
 	private void warmUp() {
-		List<Category> categories = categoryService.findAll();
+		categoryService.findAll();
 		log.info("All Categories cached successful");
 	}
 }
