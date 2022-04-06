@@ -3,7 +3,6 @@ package com.project.doubleshop.web.item.controller.api;
 import static com.project.doubleshop.web.common.file.ImageFile.*;
 
 import java.net.URI;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -57,15 +56,25 @@ public class ItemRestController {
 		return ResponseEntity.created(location).body(new ItemApiResult(item));
 	}
 
-	@GetMapping("item/{id}")
+	@GetMapping(value = "item/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ItemApiResult> findItem(@PathVariable Long id) {
 		Item item = itemService.findById(id);
 		return ResponseEntity.ok(new ItemApiResult(item));
 	}
 
-	@GetMapping("item")
+	@GetMapping(value = "item", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<ItemApiResult>> findAllItem(Pageable pageable) {
 		return ResponseEntity.ok(itemService.findItems(pageable).stream().map(ItemApiResult::new).collect(Collectors.toList()));
+	}
+
+	@GetMapping(value = "item/recent", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<ItemApiResult>> findItem(@RequestParam(value = "offset", defaultValue = "1") int offset,
+		@RequestParam(value = "limit", defaultValue = "4") int limit) {
+		List<ItemApiResult> apiResults = itemService.findItemsPerCategory(offset, limit)
+			.stream()
+			.map(ItemApiResult::new)
+			.collect(Collectors.toList());
+		return ResponseEntity.ok(apiResults);
 	}
 
 	@PutMapping("member/{memberId}/item")

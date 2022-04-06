@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,6 +19,7 @@ import lombok.RequiredArgsConstructor;
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class CategoryService {
+
 	private final CategoryRepository categoryRepository;
 
 	@Transactional
@@ -27,10 +27,9 @@ public class CategoryService {
 		return categoryRepository.save(category);
 	}
 
-	@Cacheable(value = "category", key = "{#categoryId}")
 	public Category findById(Long categoryId) {
 		return categoryRepository.findById(categoryId)
-			.orElseThrow(() -> new NotFoundException(String.format("Category ID '%s' not found.", categoryId)));
+			.orElseThrow(() -> new NotFoundException((String.format("Category ID '%s' not found.", categoryId))));
 	}
 
 	public List<Category> findAll() {

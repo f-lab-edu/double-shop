@@ -1,7 +1,5 @@
 package com.project.doubleshop.domain.common;
 
-import com.project.doubleshop.domain.common.Status;
-
 public interface Manageable<T> {
 	/**
 	 * 데이터의 관리상태를 지정하는 메소드, 크게 '활성화', '중지', '삭제'로 분류

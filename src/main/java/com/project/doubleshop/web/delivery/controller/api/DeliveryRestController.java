@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -47,12 +48,12 @@ public class DeliveryRestController {
 		return ResponseEntity.created(location).body(new DeliveryDTO(delivery));
 	}
 
-	@GetMapping("member/{memberId}/delivery/{deliveryId}")
+	@GetMapping(value = "member/{memberId}/delivery/{deliveryId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<DeliveryApiResult> findDeliveryById(@PathVariable Long memberId, @PathVariable Long deliveryId) {
 		return ResponseEntity.ok(deliveryService.findDeliveryApiResultByDeliveryId(deliveryId));
 	}
 
-	@GetMapping("member/{memberId}/delivery")
+	@GetMapping(value = "member/{memberId}/delivery", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<DeliveryDTO>> findDeliveries(Pageable pageable) {
 		List<Delivery> deliveries = deliveryService.findDeliveries(pageable);
 		return ResponseEntity.ok(deliveries.stream()

@@ -2,6 +2,7 @@ package com.project.doubleshop.domain.category.entity;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
@@ -10,6 +11,9 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import com.project.doubleshop.domain.common.Status;
 import com.project.doubleshop.domain.common.StatusConverter;
@@ -23,6 +27,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
+@Cacheable
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "l2Cache")
 @Builder
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

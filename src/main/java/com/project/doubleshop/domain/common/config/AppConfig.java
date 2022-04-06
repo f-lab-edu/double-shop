@@ -3,6 +3,7 @@ package com.project.doubleshop.domain.common.config;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import javax.persistence.EntityManager;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -26,8 +27,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
-import com.project.doubleshop.web.common.file.client.FileClient;
-import com.project.doubleshop.web.common.file.client.AwsS3Client;
+import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.querydsl.sql.MySQLTemplates;
+import com.querydsl.sql.SQLQueryFactory;
+import com.querydsl.sql.SQLTemplates;
+import com.querydsl.sql.spring.SpringConnectionProvider;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -101,5 +105,22 @@ public class AppConfig {
 					)
 				)
 			).build();
+	}
+
+	@Bean
+	public com.querydsl.sql.Configuration configuration() {
+		SQLTemplates build = MySQLTemplates.builder().build();
+		return new com.querydsl.sql.Configuration(build);
+	}
+
+	@Bean
+	SQLQueryFactory sqlQueryFactory() {
+		SpringConnectionProvider provider = new SpringConnectionProvider(dataSource());
+		return new SQLQueryFactory(configuration(), provider);
+	}
+
+	@Bean
+	public JPAQueryFactory queryFactory(EntityManager em) {
+		return new JPAQueryFactory(em);
 	}
 }

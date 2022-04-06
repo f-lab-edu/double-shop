@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,7 +28,7 @@ public class CartRestController {
 
 	private final CartService cartService;
 
-	@GetMapping("member/{id}/cart")
+	@GetMapping(value = "member/{id}/cart", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<CartDto>> findCarts(@PathVariable Long id) {
 		List<Cart> carts = cartService.findCartsByMemberId(id);
 		return ResponseEntity.ok(carts.stream().map(CartDto::new).collect(Collectors.toList()));
