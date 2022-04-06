@@ -22,29 +22,22 @@ public class CategoryService {
 
 	private final CategoryRepository categoryRepository;
 
-	private final CategoryVaultManager cachedVaultManager;
-
 	@Transactional
 	public Category save(Category category) {
-		cachedVaultManager.addCategoryCache(category);
 		return categoryRepository.save(category);
 	}
 
 	public Category findById(Long categoryId) {
-		Category cachedCategory = cachedVaultManager.findCachedCategory(categoryId);
-		if (cachedCategory == null) {
-			return categoryRepository.findById(categoryId)
-				.orElseThrow(() -> new NotFoundException((String.format("Category ID '%s' not found.", categoryId))));
-		}
-		return cachedCategory;
+		return categoryRepository.findById(categoryId)
+			.orElseThrow(() -> new NotFoundException((String.format("Category ID '%s' not found.", categoryId))));
 	}
 
 	public List<Category> findAll() {
-		List<Category> cachedCategories = cachedVaultManager.findCachedCategories()
-			.stream()
-			.filter(category -> category.getStatus().equals(Status.ACTIVATED))
-			.collect(Collectors.toList());
-		return cachedCategories.size() == 0 ? categoryRepository.findAllByStatus(Status.ACTIVATED) : cachedCategories;
+		// List<Category> cachedCategories = cachedVaultManager.findCachedCategories()
+		// 	.stream()
+		// 	.filter(category -> category.getStatus().equals(Status.ACTIVATED))
+		// 	.collect(Collectors.toList());
+		return categoryRepository.findAllByStatus(Status.ACTIVATED);
 	}
 
 	public List<Category> findAllByIds(List<Long> categoryIds) {
