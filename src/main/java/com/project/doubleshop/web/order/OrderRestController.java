@@ -5,6 +5,7 @@ import static java.util.stream.Collectors.*;
 import java.util.List;
 
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,7 +40,7 @@ public class OrderRestController {
 		return ResponseEntity.ok(new OrderApiResult(order));
 	}
 
-	@GetMapping("member/{memberId}/order")
+	@GetMapping(value = "member/{memberId}/order", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<OrderApiResult>> findMyOrders(@PathVariable Long memberId, Pageable pageable) {
 		List<Order> orders = orderService.findOrderByMemberId(memberId, pageable);
 		return ResponseEntity.ok(
@@ -48,7 +49,7 @@ public class OrderRestController {
 				.collect(toList()));
 	}
 
-	@GetMapping("member/{memberId}/order/{orderId}")
+	@GetMapping(value = "member/{memberId}/order/{orderId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<OrderDetailDto> findMyOrderDetail(@PathVariable Long memberId, @PathVariable Long orderId) {
 		List<OrderDetail> orderDetails = orderService.searchMyOrder(memberId, orderId);
 

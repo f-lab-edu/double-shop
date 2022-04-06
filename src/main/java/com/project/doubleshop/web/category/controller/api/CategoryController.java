@@ -4,6 +4,7 @@ import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -47,12 +48,12 @@ public class CategoryController {
 		return ResponseEntity.created(location).body(new CategoryApiResult(category));
 	}
 
-	@GetMapping("category/{id}")
+	@GetMapping(value = "category/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<CategoryApiResult> findCategory(@PathVariable Long id) {
 		return ResponseEntity.ok(new CategoryApiResult(categoryService.findById(id)));
 	}
 
-	@GetMapping("category")
+	@GetMapping(value = "category", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<CategoryApiResult>> findAllCategories() {
 		return ResponseEntity.ok(categoryService.findAll().stream().map(CategoryApiResult::new).collect(Collectors.toList()));
 	}
