@@ -1,6 +1,6 @@
 # Double-Shop
 
-![architecture](https://user-images.githubusercontent.com/81374655/162377047-f309c300-2101-4ee3-91b8-75ba619500a9.jpg)
+![architecture](https://user-images.githubusercontent.com/81374655/162396305-405ff725-1ab5-4386-8435-83e548b27e44.jpg)
 
 ## 프로젝트 목표
 
