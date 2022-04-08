@@ -1,7 +1,5 @@
 # Double-Shop
 
-## 서버 구조
-
 ![architecture](https://user-images.githubusercontent.com/81374655/162377047-f309c300-2101-4ee3-91b8-75ba619500a9.jpg)
 
 ## 프로젝트 목표
