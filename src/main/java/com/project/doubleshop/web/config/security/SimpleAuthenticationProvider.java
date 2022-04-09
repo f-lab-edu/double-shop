@@ -6,6 +6,8 @@ import static org.springframework.util.ClassUtils.*;
 import java.util.Date;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -20,6 +22,7 @@ import com.project.doubleshop.domain.member.entity.Member;
 import com.project.doubleshop.domain.member.service.MemberService;
 import com.project.doubleshop.domain.member.service.legacy.AuthMemberService;
 import com.project.doubleshop.domain.member.service.TokenService;
+import com.project.doubleshop.domain.utils.IPUtils;
 import com.project.doubleshop.web.member.dto.AuthenticationRequest;
 import com.project.doubleshop.web.member.dto.AuthenticationResult;
 
@@ -34,6 +37,8 @@ public class SimpleAuthenticationProvider implements AuthenticationProvider {
 
 	private TokenService tokenService;
 
+	private HttpServletRequest httpServletRequest;
+
 	@Autowired
 	public void setAuthMemberService(MemberService authMemberService) {
 		this.authMemberService = authMemberService;
@@ -42,6 +47,11 @@ public class SimpleAuthenticationProvider implements AuthenticationProvider {
 	@Autowired
 	public void setSimpleTokenConfigurer(SimpleTokenConfigurer simpleTokenConfigurer) {
 		this.simpleTokenConfigurer = simpleTokenConfigurer;
+	}
+
+	@Autowired
+	public void setHttpServletRequest(HttpServletRequest httpServletRequest) {
+		this.httpServletRequest = httpServletRequest;
 	}
 
 	@Autowired
@@ -66,8 +76,9 @@ public class SimpleAuthenticationProvider implements AuthenticationProvider {
 
 			// 세션 서버 선택이 확정되면, 코드 변경.
 			String tokenKey = UUID.randomUUID().toString();
+			String authClientAddress = IPUtils.getClientIpAddress(httpServletRequest);
 			SimpleToken tokenValue = new SimpleToken(member.getId(), member.getUserId(), member.getName(),
-				member.getEmail(), now, new Date(now.getTime() + expirySeconds * 1000L), new String[] {Role.USER.value()});
+				member.getEmail(), now, new Date(now.getTime() + expirySeconds * 1000L), authClientAddress, new String[] {Role.USER.value()});
 
 			tokenService.saveSession(tokenKey, tokenValue);
 			authenticated.setDetails(new AuthenticationResult(tokenKey, tokenValue));

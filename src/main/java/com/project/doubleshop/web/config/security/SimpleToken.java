@@ -26,6 +26,8 @@ public class SimpleToken {
 
 	private Date expiredAt;
 
+	private String clientIp;
+
 	private String[] roles;
 
 	public void resetExpiry(int expirySeconds) {
