@@ -78,11 +78,14 @@ public class SimpleAuthenticationTokenFilter extends GenericFilterBean {
 
 						List<GrantedAuthority> authorities = obtainAuthorities(currentToken);
 
-						if (nonNull(id) && nonNull(userId) && nonNull(name) && nonNull(email) && authorities.size() > 0 && tokenIp.equals(clientIp)) {
+						if (nonNull(id) && nonNull(userId) && nonNull(name) && nonNull(email) && authorities.size() > 0) {
 							SimpleAuthenticationToken authentication =
 								new SimpleAuthenticationToken(new SimpleAuthentication(id, userId, name, email), null, authorities);
 							authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 							SecurityContextHolder.getContext().setAuthentication(authentication);
+							if (!tokenIp.equals(clientIp)) {
+								tokenService.invalidSession(tokenKey);
+							}
 						}
 					}
 				} catch (Exception e) {
