@@ -24,6 +24,7 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.web.filter.GenericFilterBean;
 
 import com.project.doubleshop.domain.member.service.TokenService;
+import com.project.doubleshop.domain.utils.IPUtils;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -72,6 +73,8 @@ public class SimpleAuthenticationTokenFilter extends GenericFilterBean {
 						String userId = currentToken.getUserId();
 						String name = currentToken.getName();
 						String email = currentToken.getEmail();
+						String tokenIp = currentToken.getClientIp();
+						String clientIp = IPUtils.getClientIpAddress(request);
 
 						List<GrantedAuthority> authorities = obtainAuthorities(currentToken);
 
@@ -80,6 +83,9 @@ public class SimpleAuthenticationTokenFilter extends GenericFilterBean {
 								new SimpleAuthenticationToken(new SimpleAuthentication(id, userId, name, email), null, authorities);
 							authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 							SecurityContextHolder.getContext().setAuthentication(authentication);
+							if (!tokenIp.equals(clientIp)) {
+								tokenService.invalidSession(tokenKey);
+							}
 						}
 					}
 				} catch (Exception e) {
