@@ -34,11 +34,22 @@ public class SimpleToken {
 		this.expiredAt = System.currentTimeMillis() + expirySeconds * 1_000_000_000L;
 	}
 
+	public SimpleToken(Long id, String userId, String name, String email, Long issuedAt, Long expiredAt,
+		String[] roles) {
+		this.id = id;
+		this.userId = userId;
+		this.name = name;
+		this.email = email;
+		this.issuedAt = issuedAt;
+		this.expiredAt = expiredAt;
+		this.roles = roles;
+	}
+
 	public void addRole(Role role) {
 		List<String> roles = new ArrayList<>(Arrays.asList(this.roles));
 		if (!roles.contains(role.value())) {
 			roles.add(role.value());
-			this.roles = roles.toArray(new String[roles.size()]);
+			this.roles = roles.toArray(new String[0]);
 		} else {
 			throw new IllegalArgumentException("Invalid role requested.");
 		}
@@ -54,6 +65,7 @@ public class SimpleToken {
 			", email='" + email + '\'' +
 			", issuedAt=" + issuedAt +
 			", expiredAt=" + expiredAt +
+			", clientIp='" + clientIp + '\'' +
 			", roles=" + Arrays.toString(roles) +
 			'}';
 	}

@@ -56,11 +56,12 @@ public class SimpleAuthenticationTokenFilter extends GenericFilterBean {
 
 		if (SecurityContextHolder.getContext().getAuthentication() == null) {
 			String tokenKey = request.getHeader(headerKey);
+			System.out.println(tokenKey);
 			if (tokenKey != null) {
 				try {
 					// verify token
 					SimpleToken currentToken = tokenService.findBySessionId(tokenKey);
-					log.debug("Authentication parse from: {}", currentToken);
+					log.info("Authentication parse from: {}", currentToken);
 					// if not expired
 					if (!isExpired(currentToken)) {
 						// refresh expired(if remain 10 min below)
@@ -75,8 +76,7 @@ public class SimpleAuthenticationTokenFilter extends GenericFilterBean {
 						String email = currentToken.getEmail();
 						String tokenIp = currentToken.getClientIp();
 						String clientIp = IPUtils.getClientIpAddress(request);
-						log.debug("Current client ip address : {}", clientIp);
-
+						log.info("Current client ip address : {}", clientIp);
 						List<GrantedAuthority> authorities = obtainAuthorities(currentToken);
 
 						if (nonNull(id) && nonNull(userId) && nonNull(name) && nonNull(email) && authorities.size() > 0) {
