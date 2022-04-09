@@ -6,7 +6,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 public class IPUtils {
 	public static String getClientIpAddress(HttpServletRequest request) {
 		String xForwardedForHeader = request.getHeader("X-Forwarded-For");
