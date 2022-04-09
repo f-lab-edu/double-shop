@@ -77,6 +77,7 @@ public class SimpleAuthenticationTokenFilter extends GenericFilterBean {
 						String tokenIp = currentToken.getClientIp();
 						String clientIp = IPUtils.getClientIpAddress(request);
 						log.info("Current client ip address : {}", clientIp);
+
 						List<GrantedAuthority> authorities = obtainAuthorities(currentToken);
 
 						if (nonNull(id) && nonNull(userId) && nonNull(name) && nonNull(email) && authorities.size() > 0) {
