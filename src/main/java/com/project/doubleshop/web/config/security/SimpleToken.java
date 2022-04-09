@@ -31,7 +31,7 @@ public class SimpleToken {
 	private String[] roles;
 
 	public void resetExpiry(int expirySeconds) {
-		this.expiredAt = System.currentTimeMillis() + expirySeconds * 1000L;
+		this.expiredAt = System.currentTimeMillis() + expirySeconds * 1_000_000_000L;
 	}
 
 	public void addRole(Role role) {
