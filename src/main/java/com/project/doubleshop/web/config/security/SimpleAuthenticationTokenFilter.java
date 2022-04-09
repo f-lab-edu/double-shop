@@ -75,6 +75,7 @@ public class SimpleAuthenticationTokenFilter extends GenericFilterBean {
 						String email = currentToken.getEmail();
 						String tokenIp = currentToken.getClientIp();
 						String clientIp = IPUtils.getClientIpAddress(request);
+						log.debug("Current client ip address : {}", clientIp);
 
 						List<GrantedAuthority> authorities = obtainAuthorities(currentToken);
 
@@ -107,12 +108,12 @@ public class SimpleAuthenticationTokenFilter extends GenericFilterBean {
 	}
 
 	private boolean isExpired(SimpleToken token) {
-		long remain  = token.getExpiredAt().getTime() - System.currentTimeMillis();
+		long remain  = token.getExpiredAt() - System.nanoTime();
 		return remain < 0;
 	}
 
 	private boolean canRefresh(SimpleToken token, int seconds) {
-		long remain = token.getExpiredAt().getTime() - System.currentTimeMillis();
-		return remain < seconds * 1000L;
+		long remain = token.getExpiredAt() - System.nanoTime();
+		return remain < seconds * 1_000_000_000L;
 	}
 }
