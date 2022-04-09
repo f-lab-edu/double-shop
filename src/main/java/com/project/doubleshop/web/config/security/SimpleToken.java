@@ -22,17 +22,16 @@ public class SimpleToken {
 
 	private String email;
 
-	private Date issuedAt;
+	private Long issuedAt;
 
-	private Date expiredAt;
+	private Long expiredAt;
 
 	private String clientIp;
 
 	private String[] roles;
 
 	public void resetExpiry(int expirySeconds) {
-		Date now = new Date();
-		this.expiredAt = new Date(now.getTime() + expirySeconds * 1000L);
+		this.expiredAt = System.currentTimeMillis() + expirySeconds * 1000L;
 	}
 
 	public void addRole(Role role) {

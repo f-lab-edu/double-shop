@@ -71,14 +71,13 @@ public class SimpleAuthenticationProvider implements AuthenticationProvider {
 			SimpleAuthenticationToken authenticated =
 				new SimpleAuthenticationToken(member.getId(), null, createAuthorityList(Role.USER.value()));
 
-			Date now = new Date();
+			long now = System.currentTimeMillis();
 			int expirySeconds = simpleTokenConfigurer.getExpirySeconds();
-
-			// 세션 서버 선택이 확정되면, 코드 변경.
+			
 			String tokenKey = UUID.randomUUID().toString();
 			String authClientAddress = IPUtils.getClientIpAddress(httpServletRequest);
 			SimpleToken tokenValue = new SimpleToken(member.getId(), member.getUserId(), member.getName(),
-				member.getEmail(), now, new Date(now.getTime() + expirySeconds * 1000L), authClientAddress, new String[] {Role.USER.value()});
+				member.getEmail(), now, now + expirySeconds * 1000L, authClientAddress, new String[] {Role.USER.value()});
 
 			tokenService.saveSession(tokenKey, tokenValue);
 			authenticated.setDetails(new AuthenticationResult(tokenKey, tokenValue));
