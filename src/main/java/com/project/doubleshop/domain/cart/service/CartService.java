@@ -83,6 +83,8 @@ public class CartService {
 	public Cart newCart(Long memberId, Long itemId, Integer quantity) {
 		Member member = memberService.findById(memberId);
 		Item item = itemService.findById(itemId);
-		return cartRepository.save(new Cart(member, item, quantity));
+		Cart cart = cartRepository.save(new Cart(member, item, quantity));
+		cart.setItem(item);
+		return cart;
 	}
 }
