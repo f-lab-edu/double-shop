@@ -64,7 +64,8 @@ public class ItemRestController {
 
 	@GetMapping(value = "item", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<ItemApiResult>> findAllItem(Pageable pageable) {
-		return ResponseEntity.ok(itemService.findItems(pageable).stream().map(ItemApiResult::new).collect(Collectors.toList()));
+		List<Item> items = itemService.findItems(pageable);
+		return ResponseEntity.ok(items.stream().map(ItemApiResult::new).collect(Collectors.toList()));
 	}
 
 	@GetMapping(value = "item/recent", produces = MediaType.APPLICATION_JSON_VALUE)

@@ -5,6 +5,7 @@ import static com.querydsl.sql.SQLExpressions.*;
 
 import java.util.List;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Pageable;
 
 import com.project.doubleshop.domain.common.Status;
@@ -23,6 +24,7 @@ public class ItemQueryRepositoryImpl implements ItemQueryRepository {
 	private final SQLQueryFactory sqlQueryFactory;
 
 	@Override
+	@Cacheable(value = "todayItems", key = "#pageable.getPageNumber()")
 	public List<ItemQueryApiResult> findItemsPerCategory(Pageable pageable) {
 		if (pageable.getOffset() == 0) {
 			throw new IllegalArgumentException("Parameter 'offset' must be at least 1.");
