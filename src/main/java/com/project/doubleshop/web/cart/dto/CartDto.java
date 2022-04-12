@@ -1,9 +1,6 @@
 package com.project.doubleshop.web.cart.dto;
 
 import com.project.doubleshop.domain.cart.entity.Cart;
-import com.project.doubleshop.domain.item.entity.Item;
-import com.project.doubleshop.domain.member.entity.Member;
-import com.project.doubleshop.web.item.dto.ItemApiResult;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

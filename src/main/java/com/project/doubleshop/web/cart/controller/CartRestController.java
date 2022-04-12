@@ -2,7 +2,6 @@ package com.project.doubleshop.web.cart.controller;
 
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.project.doubleshop.domain.cart.entity.Cart;
 import com.project.doubleshop.domain.cart.service.CartService;
 import com.project.doubleshop.web.cart.dto.CartForm;
 import com.project.doubleshop.web.cart.dto.CartDto;
@@ -32,8 +30,7 @@ public class CartRestController {
 
 	@GetMapping(value = "member/{id}/cart", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<CartDto>> findCarts(@PathVariable Long id) {
-		List<Cart> carts = cartService.findCartsByMemberId(id);
-		return ResponseEntity.ok(carts.stream().map(CartDto::new).collect(Collectors.toList()));
+		return ResponseEntity.ok(cartService.findCartsWithItemsByMemberId(id));
 	}
 
 	@PostMapping("member/{memberId}/cart/{itemId}")

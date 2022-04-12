@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.project.doubleshop.domain.cart.entity.Cart;
 import com.project.doubleshop.domain.cart.repository.CartRepository;
+import com.project.doubleshop.domain.cart.repository.querydsl.CartQueryResult;
 import com.project.doubleshop.domain.exception.BadRequestException;
 import com.project.doubleshop.domain.exception.NotFoundException;
 import com.project.doubleshop.domain.item.entity.Item;
@@ -17,6 +18,8 @@ import com.project.doubleshop.domain.item.service.ItemService;
 import com.project.doubleshop.domain.member.entity.Member;
 import com.project.doubleshop.domain.member.service.MemberService;
 import com.project.doubleshop.domain.utils.ExceptionUtils;
+import com.project.doubleshop.web.cart.dto.CartDto;
+import com.project.doubleshop.web.cart.dto.CartItem;
 
 import lombok.RequiredArgsConstructor;
 
@@ -36,9 +39,19 @@ public class CartService {
 	public Cart findByIdAndMemberId(Long cartId, Long memberId) {
 		return cartRepository.findCartByIdAndMemberId(cartId, memberId).orElseThrow(() -> new NotFoundException(String.format("Cart id '%d' not found.", cartId)));
 	}
-
+	
 	public List<Cart> findCartsByMemberId(Long memberId) {
 		return cartRepository.findCartsByMemberId(memberId);
+	}
+
+	public List<CartDto> findCartsWithItemsByMemberId(Long memberId) {
+		List<CartQueryResult> cartsJoinWithItem = cartRepository.findCartsJoinWithItem(memberId);
+		return cartsJoinWithItem.stream().map(c -> new CartDto(
+			c.getId(),
+			c.getMemberId(),
+			new CartItem(c),
+			c.getQuantity()
+		)).collect(Collectors.toList());
 	}
 
 	public void findAllByIds(List<Long> cartIds, Long memberId) {
@@ -47,7 +60,6 @@ public class CartService {
 			Map<Long, Cart> cartMap = carts
 				.stream()
 				.collect(Collectors.toMap(Cart::getId, Function.identity()));
-
 
 			List<Long> invalidIds = cartIds
 				.stream()
@@ -87,4 +99,4 @@ public class CartService {
 		cart.setItem(item);
 		return cart;
 	}
-}
+} 
