@@ -2,6 +2,7 @@ package com.project.doubleshop.domain.member.repository;
 
 import java.time.Duration;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
@@ -12,10 +13,14 @@ import com.project.doubleshop.web.config.security.SimpleToken;
 import lombok.RequiredArgsConstructor;
 
 @Repository
-@RequiredArgsConstructor
 public class RedisTokenRepository implements TokenRepository {
 
 	private final RedisTemplate<String, Object> redisTemplate;
+
+	public RedisTokenRepository(
+		@Qualifier("tokenRedisTemplate") RedisTemplate<String, Object> redisTemplate) {
+		this.redisTemplate = redisTemplate;
+	}
 
 	@Value("${token.expirySeconds}")
 	private int expirySeconds;

@@ -30,6 +30,9 @@ public class ItemQueryApiResult {
 	// 카테고리
 	private Long categoryId;
 
+	public ItemQueryApiResult() {
+	}
+
 	public ItemQueryApiResult(Long id, String name, String description, String brandName, Integer price, Integer rating, String searchKeyword, Long categoryId) {
 		this.id = id;
 		this.name = name;

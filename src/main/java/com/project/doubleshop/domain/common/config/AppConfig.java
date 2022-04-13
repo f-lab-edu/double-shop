@@ -25,6 +25,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.jsontype.PolymorphicTypeValidator;
+import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -66,10 +68,16 @@ public class AppConfig {
 	}
 
 	@Bean
-	public Jackson2ObjectMapperBuilder configureObjectMapper() {
-		// Java time module
+	public JavaTimeModule jtm() {
 		JavaTimeModule jtm = new JavaTimeModule();
 		jtm.addDeserializer(LocalDateTime.class, new LocalDateTimeDeserializer(DateTimeFormatter.ISO_DATE_TIME));
+		return jtm;
+	}
+
+	@Bean
+	public Jackson2ObjectMapperBuilder configureObjectMapper() {
+		// Java time module
+
 		Jackson2ObjectMapperBuilder builder = new Jackson2ObjectMapperBuilder() {
 			@Override
 			public void configure(ObjectMapper objectMapper) {
@@ -77,11 +85,13 @@ public class AppConfig {
 				objectMapper.setVisibility(PropertyAccessor.GETTER, JsonAutoDetect.Visibility.NONE);
 				objectMapper.setVisibility(PropertyAccessor.IS_GETTER, JsonAutoDetect.Visibility.NONE);
 				objectMapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
+				objectMapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
+				objectMapper.registerModule(jtm());
 			}
 		};
 		builder.serializationInclusion(JsonInclude.Include.NON_NULL);
 		builder.featuresToDisable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
-		builder.modulesToInstall(jtm);
+		builder.modulesToInstall(jtm());
 		return builder;
 	}
 

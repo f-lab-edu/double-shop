@@ -43,6 +43,19 @@ public class Cart {
 	}
 
 	public void setQuantity(Integer quantity) {
-		this.quantity = quantity;
+		this.quantity += quantity;
+	}
+
+	public void setItem(Item item) {
+		this.item = item;
+	}
+
+	public void setMember(Member member) {
+		this.member = member;
+	}
+
+	public Item getItemWithCategory() {
+		this.item.getCategory();
+		return item;
 	}
 }
