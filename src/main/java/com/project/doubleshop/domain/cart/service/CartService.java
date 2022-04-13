@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -92,6 +93,7 @@ public class CartService {
 	}
 
 	@Transactional
+	@CacheEvict(value = "cartsForMember", key = "#memberId")
 	public Cart newCart(Long memberId, Long itemId, Integer quantity) {
 		Member member = memberService.findById(memberId);
 		Item item = itemService.findById(itemId);
