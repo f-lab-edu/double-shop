@@ -3,6 +3,7 @@ package com.project.doubleshop.domain.item.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,7 @@ import com.project.doubleshop.domain.exception.NotFoundException;
 import com.project.doubleshop.domain.item.entity.Item;
 import com.project.doubleshop.domain.item.repository.ItemRepository;
 import com.project.doubleshop.domain.item.repository.querydsl.ItemQueryApiResult;
+import com.project.doubleshop.web.item.dto.ItemApiResult;
 import com.project.doubleshop.web.item.dto.ItemForm;
 
 import lombok.RequiredArgsConstructor;
