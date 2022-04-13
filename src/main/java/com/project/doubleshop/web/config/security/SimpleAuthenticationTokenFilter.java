@@ -56,7 +56,6 @@ public class SimpleAuthenticationTokenFilter extends GenericFilterBean {
 
 		if (SecurityContextHolder.getContext().getAuthentication() == null) {
 			String tokenKey = request.getHeader(headerKey);
-			System.out.println(tokenKey);
 			if (tokenKey != null) {
 				try {
 					// verify token
