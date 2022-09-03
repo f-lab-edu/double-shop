@@ -4,9 +4,12 @@ import static com.project.doubleshop.domain.utils.EmailUtils.*;
 
 import java.util.Map;
 
+import javax.validation.Valid;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 
 import com.project.doubleshop.domain.exception.NotFoundException;
 import com.project.doubleshop.domain.exception.ServiceException;
@@ -19,6 +22,7 @@ import lombok.RequiredArgsConstructor;
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
+@Validated
 public class MemberService {
 
 	private final MemberRepository memberRepository;
@@ -44,7 +48,7 @@ public class MemberService {
 	}
 
 	@Transactional
-	public Member join(JoinRequest requestBody) {
+	public Member join(@Valid JoinRequest requestBody) {
 		Member member = new Member(requestBody.getUserId(), requestBody.getCredential(),
 			requestBody.getName(),
 			requestBody.getEmail(), requestBody.getPhone());

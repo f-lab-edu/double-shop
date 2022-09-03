@@ -49,15 +49,6 @@ public class AppConfig {
 	@Value("${mysql-password}")
 	private String dataSourcePassword;
 
-	@Value("${s3-region}")
-	private String region;
-
-	@Value("${s3-access-key}")
-	private String accessKey;
-
-	@Value("${s3-secrete-key}")
-	private String secreteKey;
-
 	@Bean
 	public DataSource dataSource() {
 		return DataSourceBuilder.create()
@@ -101,20 +92,6 @@ public class AppConfig {
 			resolver.setOneIndexedParameters(true);
 			resolver.setFallbackPageable(PageRequest.of(0, 9, Sort.Direction.DESC, "id"));
 		};
-	}
-
-	@Bean
-	public AmazonS3 amazonS3Client() {
-		return AmazonS3ClientBuilder.standard()
-			.withRegion(Regions.fromName(region))
-			.withCredentials(
-				new AWSStaticCredentialsProvider(
-					new BasicAWSCredentials(
-						accessKey,
-						secreteKey
-					)
-				)
-			).build();
 	}
 
 	@Bean

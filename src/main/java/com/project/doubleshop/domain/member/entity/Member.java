@@ -10,11 +10,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.PastOrPresent;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -34,46 +29,26 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Member {
 
-	// 회원 pk
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	// 회원 아이디
-	@NotBlank(message = "UserId must be provided.")
-	@Pattern(regexp = "^(?=.*[a-zA-Z0-9]).{6,12}$", message = "Must have 6 to 12 alphanumeric characters.")
 	private String userId;
 
-	// 회원 비밀번호
-	@NotBlank(message = "Password must be provided.")
 	private String password;
 
-	// 회원 이름
-	@NotBlank(message = "Name must be provided.")
-	@Size(max = 10, message = "Must write your name in less than 10 characters.")
 	private String name;
 
-	// 회원 이메일
-	@NotBlank(message = "Email must be provided.")
-	@Email(message = "잘못된 이메일 형식입니다")
 	private String email;
 
-	// 회원 연락처
-	@NotBlank(message = "Phone number must be provided.")
-	@Pattern(regexp = "(01[016789])(\\d{3,4})(\\d{4})", message = "Enter a valid mobile phone number(without hyphen sign).")
 	private String phone;
 
-	// 로그인 횟수
 	private Integer count;
 
-	// 마지막 로그인 시간
 	private LocalDateTime lastLoginTime;
 
-	// 상태
 	@Convert(converter = StatusConverter.class)
 	private Status status;
 
-	// 상태 업데이트 시간
-	@PastOrPresent(message = "field 'statusUpdateTime' must be present or past")
 	private LocalDateTime statusUpdateTime;
 
 	private LocalDateTime createTime;
@@ -103,9 +78,7 @@ public class Member {
 	}
 
 	public void encodePassword(PasswordEncoder passwordEncoder, String password) {
-		if (isValidPassword(password)) {
-			this.password = passwordEncoder.encode(password);
-		}
+		this.password = passwordEncoder.encode(password);
 	}
 
 	public void updateProfile(String userId, String name, String email, String phone) {
@@ -123,9 +96,9 @@ public class Member {
 		}
 	}
 
-	private boolean isValidPassword(String password) {
-		if (!password.matches("^(?=.*[a-zA-Z0-9`~!@#$%^&*()\\-_+=\\\\]).{10,15}$")) {
-			throw new IllegalArgumentException("You must enter 10 to 15 alphanumeric characters/special numbers.");
+	public static boolean isValidPassword(String password) {
+		if (!password.matches("^(?=.*[a-zA-Z0-9`~!@#$%^&*()\\-_+=\\\\])$")) {
+			throw new IllegalArgumentException("You must enter characters/special numbers.");
 		}
 		return true;
 	}

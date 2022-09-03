@@ -1,5 +1,7 @@
 package com.project.doubleshop.web.member.dto;
 
+import com.project.doubleshop.domain.utils.annotation.Password;
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,6 +14,7 @@ public class JoinRequest {
 
 	private String userId;
 
+	@Password
 	private String credential;
 
 	private String name;
