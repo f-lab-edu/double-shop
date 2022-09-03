@@ -31,15 +31,10 @@ public class JoinMemberTest {
 	@Test
 	@DisplayName("회원가입에 필요한 입력 방식을 올바르게 입력했다면, 회원가입은 제대로 동작한다.")
 	void validMemberJoinTest() {
-		authMemberService.join(new JoinRequest(USER_ID, PASSWORD, NAME, EMAIL, PHONE));
+		JoinRequest joinRequest = new JoinRequest(USER_ID, PASSWORD, NAME, EMAIL, PHONE);
+		
+		authMemberService.join(joinRequest);
 
 		then(authMemberRepository).should(times(1)).save(any());
-	}
-
-	@Test
-	@DisplayName("만약 회원가입에 필요한 파라미터들을 올바르게 입력하지 않으면, validation의 제약에 따라 IllegalArgumentException 이 발생한다 .")
-	void invalidPasswordJoinTest() {
-		assertThrows(IllegalArgumentException.class,
-			() -> authMemberService.join(new JoinRequest(USER_ID, "only_plain_password", NAME, EMAIL, PHONE)));
 	}
 }
