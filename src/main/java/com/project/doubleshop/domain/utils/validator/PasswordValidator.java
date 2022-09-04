@@ -22,11 +22,10 @@ public class PasswordValidator implements ConstraintValidator<Password, String> 
 	public boolean isValid(String password, ConstraintValidatorContext context) {
 		if (!StringUtils.hasText(password))
 			return sendViolationMsgAndReturnFalse(context, "Password must be filled.");
-		if (!isValidLength(password))
+		if (isValidLength(password))
 			return sendViolationMsgAndReturnFalse(context, String.format("\n"
 				+ "Password must be between %d and %d characters.", min, max));
-		return password.matches("^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&])[A-Za-z[0-9]$@$!%*#?&]{" + min
-			+ "," + max + "}$");
+		return password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*()])[A-Za-z\\d!@#$%^&*()]{10,50}$");
 	}
 
 	private boolean isValidLength(String password) {
