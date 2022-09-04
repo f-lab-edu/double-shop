@@ -6,9 +6,12 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -30,6 +33,13 @@ import com.project.doubleshop.web.member.dto.JoinRequest;
 
 @ExtendWith(MockitoExtension.class)
 public class JoinMemberTest {
+
+	private final static int MIN = 10;
+	private final static int MAX = 50;
+
+	private String passwordViolationMessage = String.format("\n"
+		+ "Password must be between %d and %d characters.", MIN, MAX);
+
 	@Mock
 	MemberRepository memberRepository;
 
@@ -73,8 +83,9 @@ public class JoinMemberTest {
 
 		JoinRequest joinRequest = new JoinRequest(USER_ID, "qwe", NAME, EMAIL, PHONE);
 
-		Set<ConstraintViolation<JoinRequest>> violations = validator.validate(joinRequest);
+		List<ConstraintViolation<JoinRequest>> violations = new ArrayList<>(validator.validate(joinRequest));
 
 		assertThat(violations).isNotEmpty();
+		assertThat(violations.get(0).getMessage()).isEqualTo(passwordViolationMessage);
 	}
 }
