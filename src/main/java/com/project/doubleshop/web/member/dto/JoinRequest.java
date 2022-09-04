@@ -14,7 +14,8 @@ public class JoinRequest {
 
 	private String userId;
 
-	@Password
+	@Password(message = "Password must contains at least one uppercase letter, "
+		+ "one lowercase letter, one number and one special character between 10 ~ 50 characters...")
 	private String credential;
 
 	private String name;

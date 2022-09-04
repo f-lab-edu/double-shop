@@ -68,11 +68,11 @@ public class MemberRestController {
 
 	@PostMapping("member/exists/user-id")
 	public ResponseEntity<Boolean> checkDuplicateUserId(@RequestBody Map<String, String> requestMap) {
-		return ResponseEntity.ok(authMemberService.checkDuplicate(requestMap));
+		return ResponseEntity.ok(authMemberService.isExists(requestMap));
 	}
 
 	@PostMapping("member/exists/email")
 	public ResponseEntity<Boolean> checkDuplicateEmail(@RequestBody Map<String, String> requestMap) {
-		return ResponseEntity.ok(authMemberService.checkDuplicate(requestMap));
+		return ResponseEntity.ok(authMemberService.isExists(requestMap));
 	}
 }

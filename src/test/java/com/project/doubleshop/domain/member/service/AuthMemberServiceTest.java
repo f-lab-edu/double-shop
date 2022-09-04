@@ -19,9 +19,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import com.project.doubleshop.domain.exception.NotFoundException;
 import com.project.doubleshop.domain.member.entity.Member;
 import com.project.doubleshop.domain.member.repository.MemberRepository;
-import com.project.doubleshop.domain.member.repository.legacy.AuthMemberRepository;
-import com.project.doubleshop.domain.member.service.legacy.AuthMemberService;
-import com.project.doubleshop.web.member.dto.JoinRequest;
 
 @ExtendWith(MockitoExtension.class)
 class AuthMemberServiceTest {
@@ -69,15 +66,7 @@ class AuthMemberServiceTest {
 		given(authMemberRepository.findByEmail(any())).willReturn(Optional.empty());
 		HashMap<String, String> map = new HashMap<>();
 		map.put("email", EMAIL);
-		assertThat(authMemberService.checkDuplicate(map)).isFalse();
-	}
-
-	@Test
-	@DisplayName("회원가입 로직 동작 테스트")
-	void joinTest() {
-		authMemberService.join(new JoinRequest(USER_ID, PASSWORD, NAME, EMAIL, PHONE));
-
-		then(authMemberRepository).should(times(1)).save(any());
+		assertThat(authMemberService.isExists(map)).isFalse();
 	}
 
 	@Test
@@ -85,7 +74,7 @@ class AuthMemberServiceTest {
 	void emailTest() {
 		HashMap<String, String> map = new HashMap<>();
 		map.put("email", EMAIL);
-		authMemberService.checkDuplicate(map);
+		authMemberService.isExists(map);
 
 		then(authMemberRepository).should(times(1)).findByEmail(EMAIL);
 	}
