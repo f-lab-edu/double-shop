@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
+import com.project.doubleshop.domain.exception.DuplicateMemberException;
 import com.project.doubleshop.domain.exception.NotFoundException;
 import com.project.doubleshop.domain.exception.ServiceException;
 import com.project.doubleshop.domain.member.entity.Member;
@@ -49,6 +50,9 @@ public class MemberService {
 
 	@Transactional
 	public Member join(@Valid JoinRequest requestBody) {
+		String userId = requestBody.getUserId();
+		if (isExists(Map.of("userId", userId)))
+			throw new DuplicateMemberException(String.format("UserId [%s] already exisits..", userId));
 		Member member = new Member(requestBody.getUserId(), requestBody.getCredential(),
 			requestBody.getName(),
 			requestBody.getEmail(), requestBody.getPhone());
@@ -56,7 +60,7 @@ public class MemberService {
 		return memberRepository.save(member);
 	}
 
-	public Boolean checkDuplicate(Map<String, String> requestMap) {
+	public Boolean isExists(Map<String, String> requestMap) {
 		String requestUserId = "userId";
 		String requestEmail = "email";
 
