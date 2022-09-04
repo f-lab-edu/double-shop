@@ -45,12 +45,13 @@ public class JoinMemberTest {
 		JoinRequest joinRequest = new JoinRequest(USER_ID, PASSWORD, NAME, EMAIL, PHONE);
 
 		when(memberRepository.findByUserId(USER_ID)).thenReturn(Optional.empty());
+		when(memberRepository.findByEmail(EMAIL)).thenReturn(Optional.empty());
 		when(memberRepository.save(any(Member.class))).thenReturn(MEMBER);
 
 		Member member = authMemberService.join(joinRequest);
-		Boolean isExists = authMemberService.isExists(Map.of("userId", USER_ID));
+		boolean isDuplicated = authMemberService.checkDuplicated(USER_ID, EMAIL);
 
-		assertThat(isExists).isFalse();
+		assertThat(isDuplicated).isFalse();
 		assertThat(MEMBER.getId()).isEqualTo(member.getId());
 	}
 

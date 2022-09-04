@@ -51,13 +51,26 @@ public class MemberService {
 	@Transactional
 	public Member join(@Valid JoinRequest requestBody) {
 		String userId = requestBody.getUserId();
-		if (isExists(Map.of("userId", userId)))
-			throw new DuplicateMemberException(String.format("UserId [%s] already exisits..", userId));
+		String email = requestBody.getEmail();
+		if (checkDuplicated(userId, email))
+			throw new DuplicateMemberException(String.format("UserId [%s], email [%s] already exisits..", userId, email));
 		Member member = new Member(requestBody.getUserId(), requestBody.getCredential(),
 			requestBody.getName(),
 			requestBody.getEmail(), requestBody.getPhone());
 		member.encodePassword(passwordEncoder, member.getPassword());
 		return memberRepository.save(member);
+	}
+
+	public boolean checkDuplicated(String userId, String email) {
+		return checkDuplicatedUserId(userId) || checkDuplicatedEmail(email);
+	}
+
+	public boolean checkDuplicatedUserId(String userId) {
+		return isExists(Map.of("userId", userId));
+	}
+
+	public boolean checkDuplicatedEmail(String email) {
+		return isExists(Map.of("email", email));
 	}
 
 	public Boolean isExists(Map<String, String> requestMap) {
