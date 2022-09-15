@@ -62,6 +62,7 @@ public class Member {
 		if (!passwordEncoder.matches(credential, password)) {
 			throw new IllegalArgumentException("Bad credential");
 		}
+		afterSuccessLogin();
 	}
 
 	public void afterSuccessLogin() {
