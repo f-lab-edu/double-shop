@@ -1,5 +1,5 @@
 package com.project.doubleshop.domain.member;
 
-public interface MemberAuthProcessor {
-	void login(String userId, String password);
+public interface MemberAuthProcessor<T> {
+	T login(String userId, String password);
 }
