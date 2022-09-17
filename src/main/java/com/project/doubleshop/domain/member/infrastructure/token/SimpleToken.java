@@ -1,8 +1,7 @@
-package com.project.doubleshop.web.config.security;
+package com.project.doubleshop.domain.member.infrastructure.token;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 import lombok.AllArgsConstructor;

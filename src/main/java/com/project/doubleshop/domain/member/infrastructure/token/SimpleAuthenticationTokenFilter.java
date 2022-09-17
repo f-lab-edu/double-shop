@@ -1,4 +1,4 @@
-package com.project.doubleshop.web.config.security;
+package com.project.doubleshop.domain.member.infrastructure.token;
 
 import static java.util.Objects.*;
 import static java.util.stream.Collectors.*;
@@ -23,7 +23,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.web.filter.GenericFilterBean;
 
-import com.project.doubleshop.domain.member.service.TokenService;
 import com.project.doubleshop.domain.utils.IPUtils;
 
 import lombok.extern.slf4j.Slf4j;

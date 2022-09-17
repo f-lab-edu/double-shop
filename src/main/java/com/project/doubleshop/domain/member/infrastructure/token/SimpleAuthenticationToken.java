@@ -1,4 +1,4 @@
-package com.project.doubleshop.web.config.security;
+package com.project.doubleshop.domain.member.infrastructure.token;
 
 import java.util.Collection;
 

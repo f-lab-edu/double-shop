@@ -1,4 +1,4 @@
-package com.project.doubleshop.domain.member.repository;
+package com.project.doubleshop.domain.member.infrastructure.redis;
 
 import java.time.Duration;
 
@@ -8,9 +8,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Repository;
 
-import com.project.doubleshop.web.config.security.SimpleToken;
-
-import lombok.RequiredArgsConstructor;
+import com.project.doubleshop.domain.member.infrastructure.token.SimpleToken;
 
 @Repository
 public class RedisTokenRepository implements TokenRepository {

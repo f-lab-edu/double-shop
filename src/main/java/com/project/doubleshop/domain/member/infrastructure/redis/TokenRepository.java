@@ -1,6 +1,6 @@
-package com.project.doubleshop.domain.member.repository;
+package com.project.doubleshop.domain.member.infrastructure.redis;
 
-import com.project.doubleshop.web.config.security.SimpleToken;
+import com.project.doubleshop.domain.member.infrastructure.token.SimpleToken;
 
 public interface TokenRepository {
 
