@@ -24,13 +24,13 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("api")
-public class AuthRestController {
+public class MemberAuthApi {
 
 	private final MemberFacade memberFacade;
 
 	private final TokenRoleManager tokenRoleManager;
 
-	@PostMapping("auth")
+	@PostMapping("v2/auth")
 	public ResponseEntity<AuthenticationResult> authentication(@RequestBody AuthenticationRequest authRequest) throws
 		UnauthenticatedMemberException {
 		return ResponseEntity.ok(memberFacade.login(authRequest.getPrincipal(), authRequest.getCredential()));
