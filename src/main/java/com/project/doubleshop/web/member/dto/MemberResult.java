@@ -2,12 +2,10 @@ package com.project.doubleshop.web.member.dto;
 
 import java.time.LocalDateTime;
 
-import com.project.doubleshop.domain.member.entity.Member;
+import com.project.doubleshop.domain.member.domain.Member;
 
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 @Getter
 @AllArgsConstructor

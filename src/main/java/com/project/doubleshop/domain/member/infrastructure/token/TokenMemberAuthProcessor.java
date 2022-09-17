@@ -14,7 +14,7 @@ import com.project.doubleshop.domain.member.domain.Member;
 import com.project.doubleshop.domain.member.domain.MemberRepository;
 import com.project.doubleshop.domain.member.infrastructure.redis.TokenRepository;
 import com.project.doubleshop.domain.utils.IPUtils;
-import com.project.doubleshop.web.member.dto.AuthenticationResult;
+import com.project.doubleshop.domain.member.infrastructure.AuthenticationResult;
 
 import lombok.RequiredArgsConstructor;
 

@@ -3,7 +3,7 @@ package com.project.doubleshop.domain.member.service;
 import java.time.LocalDateTime;
 
 import com.project.doubleshop.domain.common.Status;
-import com.project.doubleshop.domain.member.entity.Member;
+import com.project.doubleshop.domain.member.domain.Member;
 
 public class MockMember {
 	public static class Member1 {

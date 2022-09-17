@@ -15,7 +15,7 @@
         <typeAlias type="com.project.doubleshop.domain.category.entity.CategoryType" alias="CategoryType"/>
         <typeAlias type="com.project.doubleshop.domain.category.entity.DepthLevel" alias="DepthLevel"/>
         <typeAlias type="com.project.doubleshop.domain.common.mapper.param.RequestItemsWithCategory" alias="RequestItemsWithCategory"/>
-        <typeAlias type="com.project.doubleshop.domain.member.entity.Member" alias="Member"/>
+        <typeAlias type="com.project.doubleshop.domain.member.domain.Member" alias="Member"/>
         <typeAlias type="com.project.doubleshop.domain.delivery.entity.Delivery" alias="Delivery"/>
         <typeAlias type="com.project.doubleshop.domain.delivery.entity.legacy.DeliveryDriver" alias="DeliveryDriver"/>
         <typeAlias type="com.project.doubleshop.domain.delivery.entity.DeliveryPolicy" alias="DeliveryPolicy"/>

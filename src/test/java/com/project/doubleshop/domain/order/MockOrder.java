@@ -3,7 +3,7 @@ package com.project.doubleshop.domain.order;
 import java.time.LocalDateTime;
 
 import com.project.doubleshop.domain.common.Status;
-import com.project.doubleshop.domain.member.entity.Member;
+import com.project.doubleshop.domain.member.domain.Member;
 import com.project.doubleshop.domain.member.service.MockMember;
 import com.project.doubleshop.domain.order.entity.Order;
 

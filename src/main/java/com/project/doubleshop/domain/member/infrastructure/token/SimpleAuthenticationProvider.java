@@ -12,7 +12,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 import com.project.doubleshop.domain.exception.NotFoundException;
-import com.project.doubleshop.web.member.dto.AuthenticationRequest;
+import com.project.doubleshop.domain.member.presentation.request.AuthenticationRequest;
 
 import lombok.RequiredArgsConstructor;
 

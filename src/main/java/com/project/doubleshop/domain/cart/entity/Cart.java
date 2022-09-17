@@ -1,7 +1,5 @@
 package com.project.doubleshop.domain.cart.entity;
 
-import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -11,7 +9,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 import com.project.doubleshop.domain.item.entity.Item;
-import com.project.doubleshop.domain.member.entity.Member;
+import com.project.doubleshop.domain.member.domain.Member;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
