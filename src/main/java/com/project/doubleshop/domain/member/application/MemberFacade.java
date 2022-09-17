@@ -1,4 +1,4 @@
-package com.project.doubleshop.domain.member;
+package com.project.doubleshop.domain.member.application;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -9,8 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.project.doubleshop.domain.exception.UnauthenticatedMemberException;
 import com.project.doubleshop.domain.member.infrastructure.token.SimpleAuthenticationToken;
-import com.project.doubleshop.web.member.dto.AuthenticationResult;
-import com.project.doubleshop.web.member.dto.AuthenticationResultDto;
+import com.project.doubleshop.domain.member.infrastructure.AuthenticationResult;
 
 import lombok.RequiredArgsConstructor;
 
@@ -19,13 +18,13 @@ import lombok.RequiredArgsConstructor;
 public class MemberFacade {
 	private final AuthenticationManager authenticationManager;
 
-	public AuthenticationResultDto login(String userId, String password) {
+	public AuthenticationResult login(String userId, String password) {
 		try {
 			SimpleAuthenticationToken authToken = new SimpleAuthenticationToken(
 				userId, password);
 			Authentication authentication = authenticationManager.authenticate(authToken);
 			SecurityContextHolder.getContext().setAuthentication(authentication);
-			return new AuthenticationResultDto((AuthenticationResult) authentication.getDetails());
+			return (AuthenticationResult) authentication.getDetails();
 		} catch (AuthenticationException e) {
 			throw new UnauthenticatedMemberException(e.getMessage(), HttpStatus.UNAUTHORIZED.value());
 		}

@@ -1,7 +1,6 @@
 package com.project.doubleshop.domain.order.entity;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -15,12 +14,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.project.doubleshop.domain.address.entity.Address;
-import com.project.doubleshop.domain.cart.entity.Cart;
 import com.project.doubleshop.domain.common.Status;
 import com.project.doubleshop.domain.common.StatusConverter;
 import com.project.doubleshop.domain.common.StatusManager;
-import com.project.doubleshop.domain.item.entity.Item;
-import com.project.doubleshop.domain.member.entity.Member;
+import com.project.doubleshop.domain.member.domain.Member;
 import com.project.doubleshop.web.order.dto.OrderForm;
 
 import lombok.AccessLevel;

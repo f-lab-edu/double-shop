@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 import com.project.doubleshop.domain.common.Status;
 import com.project.doubleshop.domain.member.domain.Member;
-import com.project.doubleshop.domain.member.service.MemberService;
+import com.project.doubleshop.domain.member.application.MemberService;
 import com.project.doubleshop.web.member.dto.RequestRole;
 import com.project.doubleshop.web.member.dto.ResultRole;
 

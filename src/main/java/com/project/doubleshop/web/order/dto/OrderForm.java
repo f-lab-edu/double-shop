@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 import com.project.doubleshop.domain.address.entity.Address;
 import com.project.doubleshop.domain.common.Status;
-import com.project.doubleshop.domain.member.entity.Member;
+import com.project.doubleshop.domain.member.domain.Member;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

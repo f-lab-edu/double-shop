@@ -8,10 +8,7 @@ import static org.mockito.BDDMockito.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -27,8 +24,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.project.doubleshop.domain.exception.DuplicateMemberException;
-import com.project.doubleshop.domain.member.entity.Member;
-import com.project.doubleshop.domain.member.repository.MemberRepository;
+import com.project.doubleshop.domain.member.application.MemberService;
+import com.project.doubleshop.domain.member.domain.Member;
+import com.project.doubleshop.domain.member.infrastructure.jpa.JpaMemberRepository;
 import com.project.doubleshop.web.member.dto.JoinRequest;
 
 @ExtendWith(MockitoExtension.class)
@@ -41,7 +39,7 @@ public class JoinMemberTest {
 		+ "Password must be between %d and %d characters.", MIN, MAX);
 
 	@Mock
-	MemberRepository memberRepository;
+	JpaMemberRepository memberRepository;
 
 	@Mock
 	PasswordEncoder passwordEncoder;

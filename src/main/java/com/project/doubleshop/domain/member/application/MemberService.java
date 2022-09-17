@@ -1,4 +1,4 @@
-package com.project.doubleshop.domain.member.service;
+package com.project.doubleshop.domain.member.application;
 
 import static com.project.doubleshop.domain.utils.EmailUtils.*;
 
@@ -14,19 +14,21 @@ import org.springframework.validation.annotation.Validated;
 import com.project.doubleshop.domain.exception.DuplicateMemberException;
 import com.project.doubleshop.domain.exception.NotFoundException;
 import com.project.doubleshop.domain.exception.ServiceException;
-import com.project.doubleshop.domain.member.entity.Member;
-import com.project.doubleshop.domain.member.repository.MemberRepository;
+import com.project.doubleshop.domain.member.domain.Member;
+import com.project.doubleshop.domain.member.domain.MemberRepository;
+import com.project.doubleshop.domain.member.infrastructure.jpa.JpaMemberRepository;
 import com.project.doubleshop.web.member.dto.JoinRequest;
 
 import lombok.RequiredArgsConstructor;
 
+//TODO Member 로그인, 회원가입 리팩토링 후 해당 클래스 삭제
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 @Validated
 public class MemberService {
 
-	private final MemberRepository memberRepository;
+	private final JpaMemberRepository memberRepository;
 
 	private final PasswordEncoder passwordEncoder;
 
