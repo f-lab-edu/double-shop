@@ -1,42 +1,30 @@
-package com.project.doubleshop.web.config.security;
+package com.project.doubleshop.domain.member.infrastructure.token;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import com.project.doubleshop.domain.common.Status;
-import com.project.doubleshop.domain.member.entity.Member;
+import com.project.doubleshop.domain.member.domain.Member;
 import com.project.doubleshop.domain.member.service.MemberService;
-import com.project.doubleshop.domain.member.service.TokenService;
 import com.project.doubleshop.web.member.dto.RequestRole;
 import com.project.doubleshop.web.member.dto.ResultRole;
 
+import lombok.RequiredArgsConstructor;
+
+@Component
+@RequiredArgsConstructor
 public class TokenRoleManager {
 
-	private MemberService authMemberService;
+	private final MemberService authMemberService;
 
-	private SimpleTokenConfigurer simpleTokenConfigurer;
+	private final SimpleTokenConfigurer simpleTokenConfigurer;
 
-	private TokenService tokenService;
+	private final TokenService tokenService;
 
 	@Value("${admin-key}")
 	private String adminKey;
-
-	@Autowired
-	public void setAuthMemberService(MemberService authMemberService) {
-		this.authMemberService = authMemberService;
-	}
-
-	@Autowired
-	public void setSimpleTokenConfigurer(SimpleTokenConfigurer simpleTokenConfigurer) {
-		this.simpleTokenConfigurer = simpleTokenConfigurer;
-	}
-
-	@Autowired
-	public void setTokenService(TokenService tokenService) {
-		this.tokenService = tokenService;
-	}
 
 	public ResultRole manage(HttpServletRequest request, Long memberId, RequestRole requestRole) {
 		Member member = authMemberService.findById(memberId);

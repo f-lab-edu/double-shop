@@ -1,11 +1,10 @@
-package com.project.doubleshop.web.config.security;
+package com.project.doubleshop.domain.member;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.AccessDecisionManager;
@@ -24,6 +23,14 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.security.web.util.matcher.RegexRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 
+import com.project.doubleshop.domain.member.infrastructure.token.EntryPointUnauthorizedHandler;
+import com.project.doubleshop.domain.member.infrastructure.token.Role;
+import com.project.doubleshop.domain.member.infrastructure.token.SimpleAccessDeniedHandler;
+import com.project.doubleshop.domain.member.infrastructure.token.SimpleAuthenticationProvider;
+import com.project.doubleshop.domain.member.infrastructure.token.SimpleAuthenticationTokenFilter;
+import com.project.doubleshop.domain.member.infrastructure.token.SimpleTokenConfigurer;
+import com.project.doubleshop.domain.member.infrastructure.token.UriBasedVoter;
+
 import lombok.RequiredArgsConstructor;
 
 @Configuration
@@ -31,10 +38,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
 
-	private final SimpleTokenConfigurer simpleTokenConfigurer;
-
+	private final SimpleAuthenticationProvider simpleAuthenticationProvider;
 	private final SimpleAccessDeniedHandler accessDeniedHandler;
-
 	private final EntryPointUnauthorizedHandler unauthorizedHandler;
 
 	@Bean
@@ -44,17 +49,7 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.authenticationProvider(simpleAuthenticationProvider());
-	}
-
-	@Bean
-	public TokenRoleManager tokenRoleManager() {
-		return new TokenRoleManager();
-	}
-
-	@Bean
-	public SimpleAuthenticationProvider simpleAuthenticationProvider() {
-		return new SimpleAuthenticationProvider();
+		auth.authenticationProvider(simpleAuthenticationProvider);
 	}
 
 	@Bean

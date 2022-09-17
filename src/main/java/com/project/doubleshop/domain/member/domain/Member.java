@@ -1,4 +1,4 @@
-package com.project.doubleshop.domain.member.entity;
+package com.project.doubleshop.domain.member.domain;
 
 import static java.time.LocalDateTime.*;
 import static java.util.Objects.*;

@@ -1,9 +1,8 @@
-package com.project.doubleshop.domain.member.service;
+package com.project.doubleshop.domain.member.infrastructure.token;
 
 import org.springframework.stereotype.Service;
 
-import com.project.doubleshop.web.config.security.SimpleToken;
-import com.project.doubleshop.domain.member.repository.TokenRepository;
+import com.project.doubleshop.domain.member.infrastructure.redis.TokenRepository;
 
 import lombok.RequiredArgsConstructor;
 
