@@ -2,6 +2,7 @@ package com.project.doubleshop.member.infrastructure.token;
 
 import static org.springframework.util.ClassUtils.*;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.AuthenticationServiceException;
@@ -21,7 +22,13 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class SimpleAuthenticationProvider implements AuthenticationProvider {
 
-	private final MemberAuthProcessor<SimpleAuthenticationToken> memberAuthProcessor;
+	private MemberAuthProcessor<SimpleAuthenticationToken> memberAuthProcessor;
+
+	@Autowired
+	public void setMemberAuthProcessor(
+		MemberAuthProcessor<SimpleAuthenticationToken> memberAuthProcessor) {
+		this.memberAuthProcessor = memberAuthProcessor;
+	}
 
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
