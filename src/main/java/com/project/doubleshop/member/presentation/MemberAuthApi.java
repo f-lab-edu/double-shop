@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.project.doubleshop.common.ApiResult;
 import com.project.doubleshop.exception.UnauthenticatedMemberException;
 import com.project.doubleshop.member.application.MemberFacade;
 import com.project.doubleshop.member.infrastructure.AuthenticationResult;
@@ -31,15 +32,17 @@ public class MemberAuthApi {
 	private final TokenRoleManager tokenRoleManager;
 
 	@PostMapping("v2/auth")
-	public ResponseEntity<AuthenticationResult> authentication(@RequestBody AuthenticationRequest authRequest) throws
+	public ResponseEntity<ApiResult<AuthenticationResult>> authentication(@RequestBody AuthenticationRequest authRequest) throws
 		UnauthenticatedMemberException {
-		return ResponseEntity.ok(memberFacade.login(authRequest.getPrincipal(), authRequest.getCredential()));
+		AuthenticationResult result = memberFacade.login(authRequest.getPrincipal(), authRequest.getCredential());
+		return ResponseEntity.ok(ApiResult.OK(result));
 
 	}
 
 	@PatchMapping("auth/admin")
-	public ResponseEntity<ResultRole> addAdmin(@AuthenticationPrincipal SimpleAuthentication authentication,
+	public ResponseEntity<ApiResult<ResultRole>> addAdmin(@AuthenticationPrincipal SimpleAuthentication authentication,
 		HttpServletRequest request, @RequestBody RequestRole requestRole) {
-		return ResponseEntity.ok(tokenRoleManager.manage(request, authentication.getId(), requestRole));
+		ResultRole result = tokenRoleManager.manage(request, authentication.getId(), requestRole);
+		return ResponseEntity.ok(ApiResult.OK(result));
 	}
 }
