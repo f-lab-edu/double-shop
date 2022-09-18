@@ -2,7 +2,7 @@ package com.project.doubleshop.web.item.dto;
 
 import java.time.LocalDate;
 
-import com.project.doubleshop.domain.item.entity.Item;
+import com.project.doubleshop.item.entity.Item;
 
 import lombok.AccessLevel;
 import lombok.Getter;

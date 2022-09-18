@@ -1,6 +1,6 @@
 package com.project.doubleshop.web.delivery.dto;
 
-import com.project.doubleshop.domain.delivery.entity.legacy.DeliveryDriver;
+import com.project.doubleshop.delivery.entity.legacy.DeliveryDriver;
 
 import lombok.AccessLevel;
 import lombok.Getter;

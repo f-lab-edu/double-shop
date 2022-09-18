@@ -1,7 +1,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.project.doubleshop.domain.order.mapper.OrderDetailMapper">
+<mapper namespace="com.project.doubleshop.order.mapper.OrderDetailMapper">
     <insert id="insertOrderDetail" parameterType="OrderDetail">
         INSERT INTO ORDER_DETAIL (order_id, item_id, quantity, price)
         VALUES (#{orderId}, #{itemId}, #{quantity}, #{price})

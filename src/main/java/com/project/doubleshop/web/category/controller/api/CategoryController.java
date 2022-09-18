@@ -18,10 +18,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.project.doubleshop.domain.category.entity.Category;
-import com.project.doubleshop.domain.category.service.CategoryService;
-import com.project.doubleshop.domain.common.Status;
-import com.project.doubleshop.domain.item.service.ItemService;
+import com.project.doubleshop.category.entity.Category;
+import com.project.doubleshop.category.service.CategoryService;
+import com.project.doubleshop.common.Status;
+import com.project.doubleshop.item.service.ItemService;
 import com.project.doubleshop.web.category.controller.dto.CategoryApiResult;
 import com.project.doubleshop.web.category.controller.dto.CategoryForm;
 

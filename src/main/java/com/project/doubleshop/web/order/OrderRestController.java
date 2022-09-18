@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.project.doubleshop.domain.common.Status;
-import com.project.doubleshop.domain.order.entity.Order;
-import com.project.doubleshop.domain.order.entity.OrderDetail;
-import com.project.doubleshop.domain.order.service.OrderService;
+import com.project.doubleshop.common.Status;
+import com.project.doubleshop.order.entity.Order;
+import com.project.doubleshop.order.entity.OrderDetail;
+import com.project.doubleshop.order.service.OrderService;
 import com.project.doubleshop.web.item.dto.ItemApiResult;
 import com.project.doubleshop.web.order.dto.OrderDetailDto;
 import com.project.doubleshop.web.order.dto.OrderApiResult;

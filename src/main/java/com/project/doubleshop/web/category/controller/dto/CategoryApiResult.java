@@ -1,15 +1,10 @@
 package com.project.doubleshop.web.category.controller.dto;
 
-import java.time.LocalDateTime;
+import com.project.doubleshop.category.entity.Category;
+import com.project.doubleshop.category.entity.CategoryType;
+import com.project.doubleshop.category.entity.DepthLevel;
 
-import com.project.doubleshop.domain.category.entity.Category;
-import com.project.doubleshop.domain.category.entity.CategoryType;
-import com.project.doubleshop.domain.category.entity.DepthLevel;
-import com.project.doubleshop.domain.common.Status;
-
-import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 @Getter
 public class CategoryApiResult {

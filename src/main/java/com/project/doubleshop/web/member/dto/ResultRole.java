@@ -1,6 +1,6 @@
 package com.project.doubleshop.web.member.dto;
 
-import com.project.doubleshop.domain.member.infrastructure.token.Role;
+import com.project.doubleshop.member.infrastructure.token.Role;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

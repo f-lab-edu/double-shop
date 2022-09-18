@@ -1,6 +1,6 @@
 package com.project.doubleshop.web.common;
 
-import com.project.doubleshop.domain.common.Status;
+import com.project.doubleshop.common.Status;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

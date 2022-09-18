@@ -2,9 +2,8 @@ package com.project.doubleshop.web.order.dto;
 
 import java.time.LocalDateTime;
 
-import com.project.doubleshop.domain.address.entity.Address;
-import com.project.doubleshop.domain.common.Status;
-import com.project.doubleshop.domain.order.entity.Order;
+import com.project.doubleshop.address.entity.Address;
+import com.project.doubleshop.order.entity.Order;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

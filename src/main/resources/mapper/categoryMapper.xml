@@ -1,7 +1,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.project.doubleshop.domain.category.mapper.CategoryMapper">
+<mapper namespace="com.project.doubleshop.category.mapper.CategoryMapper">
     <insert id="insertCategory" parameterType="Category" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO CATEGORY (name, category_type, depth_level, is_refundable, status, status_update_time)
         VALUES (#{name}, #{categoryType}, #{depthLevel}, #{isRefundable}, #{status}, #{statusUpdateTime})

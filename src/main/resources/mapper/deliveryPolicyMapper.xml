@@ -1,7 +1,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.project.doubleshop.domain.delivery.mapper.DeliveryPolicyMapper">
+<mapper namespace="com.project.doubleshop.delivery.mapper.DeliveryPolicyMapper">
     <insert id="insertDeliveryPolicy" parameterType="DeliveryPolicy" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO DELIVERY_POLICY (name, company, fee_policy, fee_method,
                                      fee_price, island_mountainous_fee, status, status_update_time)

@@ -3,8 +3,7 @@ package com.project.doubleshop.web.item.dto;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-import com.project.doubleshop.domain.category.entity.Category;
-import com.project.doubleshop.domain.item.entity.Item;
+import com.project.doubleshop.item.entity.Item;
 import com.project.doubleshop.web.category.controller.dto.CategoryApiResult;
 
 import lombok.Getter;

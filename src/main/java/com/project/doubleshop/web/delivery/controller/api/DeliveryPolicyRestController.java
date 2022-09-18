@@ -18,9 +18,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.project.doubleshop.domain.common.Status;
-import com.project.doubleshop.domain.delivery.entity.DeliveryPolicy;
-import com.project.doubleshop.domain.delivery.service.DeliveryPolicyService;
+import com.project.doubleshop.common.Status;
+import com.project.doubleshop.delivery.entity.DeliveryPolicy;
+import com.project.doubleshop.delivery.service.DeliveryPolicyService;
 import com.project.doubleshop.web.delivery.dto.DeliveryPolicyDTO;
 import com.project.doubleshop.web.delivery.dto.DeliveryPolicyForm;
 

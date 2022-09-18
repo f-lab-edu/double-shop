@@ -1,6 +1,6 @@
 package com.project.doubleshop.web.member.dto;
 
-import com.project.doubleshop.domain.utils.annotation.Password;
+import com.project.doubleshop.utils.annotation.Password;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

@@ -1,8 +1,8 @@
 package com.project.doubleshop.web.delivery.dto;
 
-import com.project.doubleshop.domain.delivery.entity.DeliveryPolicy;
-import com.project.doubleshop.domain.delivery.entity.enumuration.FeeMethod;
-import com.project.doubleshop.domain.delivery.entity.enumuration.FeePolicy;
+import com.project.doubleshop.delivery.entity.DeliveryPolicy;
+import com.project.doubleshop.delivery.entity.enumuration.FeeMethod;
+import com.project.doubleshop.delivery.entity.enumuration.FeePolicy;
 
 import lombok.Getter;
 
