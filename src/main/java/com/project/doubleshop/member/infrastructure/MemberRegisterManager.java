@@ -11,7 +11,6 @@ public class MemberRegisterManager {
 
 	private final MemberRegisterProcessor memberRegisterProcessor;
 
-
 	public Member join(JoinRequest requestBody) {
 		memberRegisterVerifier.verify(requestBody);
 		memberRegisterProcessor.registerWith(requestBody);

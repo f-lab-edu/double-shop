@@ -11,6 +11,7 @@ import org.springframework.security.access.AccessDecisionManager;
 import org.springframework.security.access.AccessDecisionVoter;
 import org.springframework.security.access.vote.UnanimousBased;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -27,7 +28,9 @@ import com.project.doubleshop.member.infrastructure.token.EntryPointUnauthorized
 import com.project.doubleshop.member.infrastructure.token.Role;
 import com.project.doubleshop.member.infrastructure.token.SimpleAccessDeniedHandler;
 import com.project.doubleshop.member.infrastructure.token.SimpleAuthenticationProvider;
+import com.project.doubleshop.member.infrastructure.token.SimpleAuthenticationToken;
 import com.project.doubleshop.member.infrastructure.token.SimpleAuthenticationTokenFilter;
+import com.project.doubleshop.member.infrastructure.token.TokenMemberAuthProcessor;
 import com.project.doubleshop.member.infrastructure.token.UriBasedVoter;
 
 import lombok.RequiredArgsConstructor;
@@ -37,7 +40,6 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
 
-	private final SimpleAuthenticationProvider simpleAuthenticationProvider;
 	private final SimpleAccessDeniedHandler accessDeniedHandler;
 	private final EntryPointUnauthorizedHandler unauthorizedHandler;
 
@@ -48,7 +50,11 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.authenticationProvider(simpleAuthenticationProvider);
+		auth.authenticationProvider(simpleAuthenticationProvider());
+	}
+
+	private SimpleAuthenticationProvider simpleAuthenticationProvider() {
+		return new SimpleAuthenticationProvider();
 	}
 
 	@Bean
