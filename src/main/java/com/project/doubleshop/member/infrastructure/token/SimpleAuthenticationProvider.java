@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 import com.project.doubleshop.exception.NotFoundException;
+import com.project.doubleshop.member.MemberAuthProcessor;
 import com.project.doubleshop.member.presentation.request.AuthenticationRequest;
 
 import lombok.RequiredArgsConstructor;
@@ -20,7 +21,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class SimpleAuthenticationProvider implements AuthenticationProvider {
 
-	private final TokenMemberAuthProcessor tokenMemberAuthProcessor;
+	private final MemberAuthProcessor<SimpleAuthenticationToken> memberAuthProcessor;
 
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
@@ -30,7 +31,7 @@ public class SimpleAuthenticationProvider implements AuthenticationProvider {
 
 	private Authentication processMemberAuthentication(AuthenticationRequest request) {
 		try {
-			return tokenMemberAuthProcessor.login(request.getPrincipal(), request.getCredential());
+			return memberAuthProcessor.login(request.getPrincipal(), request.getCredential());
 		} catch (NotFoundException e) {
 			throw new UsernameNotFoundException(e.getMessage());
 		} catch (IllegalArgumentException e) {

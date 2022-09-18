@@ -27,7 +27,7 @@ import com.project.doubleshop.exception.DuplicateMemberException;
 import com.project.doubleshop.member.application.MemberService;
 import com.project.doubleshop.member.domain.Member;
 import com.project.doubleshop.member.infrastructure.jpa.JpaMemberRepository;
-import com.project.doubleshop.web.member.dto.JoinRequest;
+import com.project.doubleshop.member.application.JoinRequest;
 
 @ExtendWith(MockitoExtension.class)
 public class JoinMemberTest {

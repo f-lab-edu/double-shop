@@ -16,7 +16,6 @@ import com.project.doubleshop.exception.NotFoundException;
 import com.project.doubleshop.exception.ServiceException;
 import com.project.doubleshop.member.domain.Member;
 import com.project.doubleshop.member.infrastructure.jpa.JpaMemberRepository;
-import com.project.doubleshop.web.member.dto.JoinRequest;
 
 import lombok.RequiredArgsConstructor;
 

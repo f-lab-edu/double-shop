@@ -8,6 +8,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.project.doubleshop.exception.UnauthenticatedMemberException;
+import com.project.doubleshop.member.domain.Member;
+import com.project.doubleshop.member.infrastructure.MemberRegisterManager;
 import com.project.doubleshop.member.infrastructure.token.SimpleAuthenticationToken;
 import com.project.doubleshop.member.infrastructure.AuthenticationResult;
 
@@ -17,6 +19,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class MemberFacade {
 	private final AuthenticationManager authenticationManager;
+	private final MemberRegisterManager memberRegister;
 
 	public AuthenticationResult login(String userId, String password) {
 		try {
@@ -28,5 +31,9 @@ public class MemberFacade {
 		} catch (AuthenticationException e) {
 			throw new UnauthenticatedMemberException(e.getMessage(), HttpStatus.UNAUTHORIZED.value());
 		}
+	}
+
+	public Member join(JoinRequest joinRequest) {
+		return memberRegister.join(joinRequest);
 	}
 }

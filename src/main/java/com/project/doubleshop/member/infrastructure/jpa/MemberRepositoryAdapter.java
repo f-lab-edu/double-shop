@@ -13,6 +13,11 @@ public class MemberRepositoryAdapter implements MemberRepository {
 	private final JpaMemberRepository jpaMemberRepository;
 
 	@Override
+	public Member save(Member member) {
+		return jpaMemberRepository.save(member);
+	}
+
+	@Override
 	public Optional<Member> findByUserId(String userId) {
 		return jpaMemberRepository.findByUserId(userId);
 	}
