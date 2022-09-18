@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.project.doubleshop.domain.exception.ServiceException;
+import com.project.doubleshop.exception.ServiceException;
 import com.project.doubleshop.web.common.exhandler.dto.ErrorResponse;
 
 import lombok.extern.slf4j.Slf4j;

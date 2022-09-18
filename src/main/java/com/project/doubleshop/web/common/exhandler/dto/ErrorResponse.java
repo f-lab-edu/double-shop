@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.project.doubleshop.domain.exception.ServiceException;
+import com.project.doubleshop.exception.ServiceException;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

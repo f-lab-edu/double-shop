@@ -16,13 +16,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.project.doubleshop.domain.member.domain.Member;
-import com.project.doubleshop.domain.member.application.MemberService;
-import com.project.doubleshop.domain.member.infrastructure.token.TokenService;
+import com.project.doubleshop.member.domain.Member;
+import com.project.doubleshop.member.application.MemberService;
+import com.project.doubleshop.member.infrastructure.token.TokenService;
 import com.project.doubleshop.web.member.dto.JoinRequest;
 import com.project.doubleshop.web.member.dto.JoinResult;
 import com.project.doubleshop.web.member.dto.MemberResult;
-import com.project.doubleshop.domain.member.infrastructure.token.SimpleAuthentication;
+import com.project.doubleshop.member.infrastructure.token.SimpleAuthentication;
 import com.project.doubleshop.web.member.dto.UpdateMemberRequest;
 
 import lombok.RequiredArgsConstructor;

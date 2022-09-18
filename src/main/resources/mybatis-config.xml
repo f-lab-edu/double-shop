@@ -7,31 +7,31 @@
         <setting name="mapUnderscoreToCamelCase" value="true"/>
     </settings>
     <typeAliases>
-        <typeAlias type="com.project.doubleshop.domain.item.entity.Item" alias="Item"/>
-        <typeAlias type="com.project.doubleshop.domain.common.Status" alias="Status"/>
+        <typeAlias type="com.project.doubleshop.item.entity.Item" alias="Item"/>
+        <typeAlias type="com.project.doubleshop.common.Status" alias="Status"/>
         <typeAlias type="com.project.doubleshop.web.common.StatusRequest" alias="StatusRequest"/>
         <typeAlias type="com.project.doubleshop.web.config.support.Pageable" alias="Pageable"/>
-        <typeAlias type="com.project.doubleshop.domain.category.entity.Category" alias="Category"/>
-        <typeAlias type="com.project.doubleshop.domain.category.entity.CategoryType" alias="CategoryType"/>
-        <typeAlias type="com.project.doubleshop.domain.category.entity.DepthLevel" alias="DepthLevel"/>
-        <typeAlias type="com.project.doubleshop.domain.common.mapper.param.RequestItemsWithCategory" alias="RequestItemsWithCategory"/>
-        <typeAlias type="com.project.doubleshop.domain.member.domain.Member" alias="Member"/>
-        <typeAlias type="com.project.doubleshop.domain.delivery.entity.Delivery" alias="Delivery"/>
-        <typeAlias type="com.project.doubleshop.domain.delivery.entity.legacy.DeliveryDriver" alias="DeliveryDriver"/>
-        <typeAlias type="com.project.doubleshop.domain.delivery.entity.DeliveryPolicy" alias="DeliveryPolicy"/>
-        <typeAlias type="com.project.doubleshop.domain.cart.entity.Cart" alias="Cart"/>
-        <typeAlias type="com.project.doubleshop.domain.order.entity.Order" alias="Order"/>
+        <typeAlias type="com.project.doubleshop.category.entity.Category" alias="Category"/>
+        <typeAlias type="com.project.doubleshop.category.entity.CategoryType" alias="CategoryType"/>
+        <typeAlias type="com.project.doubleshop.category.entity.DepthLevel" alias="DepthLevel"/>
+        <typeAlias type="com.project.doubleshop.common.mapper.param.RequestItemsWithCategory" alias="RequestItemsWithCategory"/>
+        <typeAlias type="com.project.doubleshop.member.domain.Member" alias="Member"/>
+        <typeAlias type="com.project.doubleshop.delivery.entity.Delivery" alias="Delivery"/>
+        <typeAlias type="com.project.doubleshop.delivery.entity.legacy.DeliveryDriver" alias="DeliveryDriver"/>
+        <typeAlias type="com.project.doubleshop.delivery.entity.DeliveryPolicy" alias="DeliveryPolicy"/>
+        <typeAlias type="com.project.doubleshop.cart.entity.Cart" alias="Cart"/>
+        <typeAlias type="com.project.doubleshop.order.entity.Order" alias="Order"/>
         <typeAlias type="com.project.doubleshop.web.order.dto.OrderStatusRequest" alias="OrderStatusRequest"/>
-        <typeAlias type="com.project.doubleshop.domain.order.entity.OrderDetail" alias="OrderDetail"/>
+        <typeAlias type="com.project.doubleshop.order.entity.OrderDetail" alias="OrderDetail"/>
         <typeAlias type="com.project.doubleshop.web.order.dto.OrderDetailResult" alias="OrderDetailResult"/>
-        <typeAlias type="com.project.doubleshop.domain.address.entity.Address" alias="Address"/>
+        <typeAlias type="com.project.doubleshop.address.entity.Address" alias="Address"/>
         <typeAlias type="com.project.doubleshop.web.item.dto.ItemStockQuery" alias="ItemStockQuery"/>
     </typeAliases>
     <typeHandlers>
-        <typeHandler handler="com.project.doubleshop.domain.common.StatusTypeHandler" />
-        <typeHandler handler="com.project.doubleshop.domain.delivery.entity.enumuration.FeeMethodTypeHandler"/>
-        <typeHandler handler="com.project.doubleshop.domain.delivery.entity.enumuration.FeePolicyTypeHandler"/>
-        <typeHandler handler="com.project.doubleshop.domain.delivery.entity.enumuration.DeliveryStatusTypeHandler"/>
+        <typeHandler handler="com.project.doubleshop.common.StatusTypeHandler" />
+        <typeHandler handler="com.project.doubleshop.delivery.entity.enumuration.FeeMethodTypeHandler"/>
+        <typeHandler handler="com.project.doubleshop.delivery.entity.enumuration.FeePolicyTypeHandler"/>
+        <typeHandler handler="com.project.doubleshop.delivery.entity.enumuration.DeliveryStatusTypeHandler"/>
     </typeHandlers>
     <mappers>
         <mapper resource="mapper/itemMapper.xml"/>

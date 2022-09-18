@@ -1,7 +1,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.project.doubleshop.domain.delivery.mapper.DeliveryDriverMapper">
+<mapper namespace="com.project.doubleshop.delivery.mapper.DeliveryDriverMapper">
     <insert id="insertDeliveryDriver" parameterType="DeliveryDriver" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO DELIVERY_DRIVER (name, phone, create_time, update_time,
                                      status, status_update_time)

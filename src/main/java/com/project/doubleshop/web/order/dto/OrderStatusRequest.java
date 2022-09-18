@@ -2,8 +2,6 @@ package com.project.doubleshop.web.order.dto;
 
 import java.time.LocalDateTime;
 
-import com.project.doubleshop.domain.common.Status;
-
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
