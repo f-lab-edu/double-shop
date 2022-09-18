@@ -32,17 +32,17 @@ public class MemberAuthApi {
 	private final TokenRoleManager tokenRoleManager;
 
 	@PostMapping("v2/auth")
-	public ResponseEntity<ApiResult<AuthenticationResult>> authentication(@RequestBody AuthenticationRequest authRequest) throws
+	public ApiResult<AuthenticationResult> authentication(@RequestBody AuthenticationRequest authRequest) throws
 		UnauthenticatedMemberException {
 		AuthenticationResult result = memberFacade.login(authRequest.getPrincipal(), authRequest.getCredential());
-		return ResponseEntity.ok(ApiResult.OK(result));
+		return ApiResult.OK(result);
 
 	}
 
 	@PatchMapping("auth/admin")
-	public ResponseEntity<ApiResult<ResultRole>> addAdmin(@AuthenticationPrincipal SimpleAuthentication authentication,
+	public ApiResult<ResultRole> addAdmin(@AuthenticationPrincipal SimpleAuthentication authentication,
 		HttpServletRequest request, @RequestBody RequestRole requestRole) {
 		ResultRole result = tokenRoleManager.manage(request, authentication.getId(), requestRole);
-		return ResponseEntity.ok(ApiResult.OK(result));
+		return ApiResult.OK(result);
 	}
 }

@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.project.doubleshop.member.domain.Member;
 import com.project.doubleshop.member.application.MemberService;
 import com.project.doubleshop.member.infrastructure.token.TokenService;
-import com.project.doubleshop.web.member.dto.JoinRequest;
+import com.project.doubleshop.member.application.JoinRequest;
 import com.project.doubleshop.web.member.dto.JoinResult;
 import com.project.doubleshop.web.member.dto.MemberResult;
 import com.project.doubleshop.member.infrastructure.token.SimpleAuthentication;
@@ -39,12 +39,6 @@ public class MemberRestController {
 	@GetMapping(value = "member/me", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<MemberResult> me(@AuthenticationPrincipal SimpleAuthentication authentication) {
 		return ResponseEntity.ok(new MemberResult(authMemberService.findById(authentication.getId())));
-	}
-
-	@PostMapping("member/join")
-	public ResponseEntity<JoinResult> join(@RequestBody JoinRequest requestBody) {
-		Member member = authMemberService.join(requestBody);
-		return ResponseEntity.ok(new JoinResult(member));
 	}
 
 	@DeleteMapping("member/{id}/log-out")

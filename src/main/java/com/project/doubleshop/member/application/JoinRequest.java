@@ -1,4 +1,4 @@
-package com.project.doubleshop.web.member.dto;
+package com.project.doubleshop.member.application;
 
 import com.project.doubleshop.utils.annotation.Password;
 
