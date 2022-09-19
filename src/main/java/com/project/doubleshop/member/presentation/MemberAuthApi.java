@@ -25,7 +25,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("api")
-public class MemberAuthApi {
+public class MemberAuthApi implements MemberAuthSpecification {
 
 	private final MemberFacade memberFacade;
 
