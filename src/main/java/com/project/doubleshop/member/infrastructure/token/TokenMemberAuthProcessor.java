@@ -9,7 +9,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.project.doubleshop.exception.NotFoundException;
-import com.project.doubleshop.member.MemberAuthProcessor;
 import com.project.doubleshop.member.domain.Member;
 import com.project.doubleshop.member.domain.MemberRepository;
 import com.project.doubleshop.member.infrastructure.redis.TokenRepository;
