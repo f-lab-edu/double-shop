@@ -95,6 +95,13 @@ public class MemberService {
 	}
 
 	@Transactional
+	public Member updateProfile(Long memberId, String userId, String name, String email, String phone) {
+		Member member = findById(memberId);
+		member.updateProfile(userId, name, email, phone);
+		return member;
+	}
+
+	@Transactional
 	public Boolean changePassword(Long memberId, Map<String, String> requestMap) {
 		String reqPassword = "password";
 

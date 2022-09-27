@@ -35,14 +35,6 @@ public class MemberRestController {
 		return ResponseEntity.ok(tokenService.invalidSession(tokenKey));
 	}
 
-	@PatchMapping("member/{id}/profile")
-	public ResponseEntity<MemberResult> updateMyProfile(@PathVariable Long id, @RequestBody MemberInfoRequest requestBody) {
-		return ResponseEntity.ok(
-			new MemberResult(authMemberService.updateProfile(id, requestBody.getUserId(), requestBody.getName(),
-				requestBody.getEmail(), requestBody.getPhone()))
-		);
-	}
-
 	@PatchMapping("member/{id}/password")
 	public ResponseEntity<Boolean> changePassword(@PathVariable Long id, @RequestBody Map<String, String> requestMap) {
 		return ResponseEntity.ok(authMemberService.changePassword(id, requestMap));

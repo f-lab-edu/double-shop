@@ -1,5 +1,7 @@
 package com.project.doubleshop.member.application;
 
+import java.util.Map;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
@@ -53,5 +55,10 @@ public class MemberFacade {
 	@Transactional
 	public MemberResult update(Long id, MemberInfoRequest requestBody) {
 		return memberInfoManager.update(id, requestBody);
+	}
+
+	@Transactional
+	public Boolean changePasswd(Long id, Map<String, String> requestMap) {
+		return memberInfoManager.changePasswd(id, requestMap);
 	}
 }

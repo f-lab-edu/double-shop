@@ -1,6 +1,9 @@
 package com.project.doubleshop.member.presentation;
 
+import java.util.Map;
+
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -31,5 +34,10 @@ public class MemberInfoApi {
 	@PatchMapping(value = "member/{id}/profile")
 	public ApiResult<MemberResult> update(@PathVariable Long id, @RequestBody MemberInfoRequest requestBody) {
 		return ApiResult.OK(memberFacade.update(id, requestBody));
+	}
+
+	@PatchMapping("member/{id}/password")
+	public ApiResult<Boolean> changePassword(@PathVariable Long id, @RequestBody Map<String, String> requestMap) {
+		return ApiResult.OK(memberFacade.changePasswd(id, requestMap));
 	}
 }
