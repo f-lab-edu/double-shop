@@ -6,6 +6,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.project.doubleshop.exception.ServiceException;
 import com.project.doubleshop.member.domain.Member;
+import com.project.doubleshop.member.infrastructure.token.SimpleAuthentication;
 import com.project.doubleshop.web.member.dto.MemberInfoRequest;
 import com.project.doubleshop.web.member.dto.MemberResult;
 
@@ -16,6 +17,13 @@ public class MemberInfoManager {
 	MemberCrudService memberCrudService;
 
 	private final PasswordEncoder passwordEncoder;
+
+
+	public MemberResult find(SimpleAuthentication authentication) {
+		Long memberId = authentication.getId();
+		Member member = memberCrudService.findById(memberId);
+		return new MemberResult(member);
+	}
 
 	public MemberResult update(Long id, MemberInfoRequest requestBody) {
 		Member member = memberCrudService.findById(id);
@@ -35,5 +43,9 @@ public class MemberInfoManager {
 		member.changePassword(passwordEncoder, requestMap.get(reqPasswd));
 		String currentPasswd = member.getPassword();
 		return !prevPasswd.equals(currentPasswd);
+	}
+
+	public Boolean isDuplicated(Map<String, String> requestMap) {
+		return null;
 	}
 }
