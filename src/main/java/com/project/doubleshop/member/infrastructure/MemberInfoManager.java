@@ -1,5 +1,7 @@
 package com.project.doubleshop.member.infrastructure;
 
+import static com.project.doubleshop.utils.EmailUtils.*;
+
 import java.util.Map;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -46,6 +48,23 @@ public class MemberInfoManager {
 	}
 
 	public Boolean isDuplicated(Map<String, String> requestMap) {
-		return null;
+		String requestUserId = "userId";
+		String requestEmail = "email";
+
+		if (requestMap.containsKey(requestUserId)) {
+			String userId = requestMap.get(requestUserId);
+			if (userId == null) {
+				throw new ServiceException("Must use 'userId'.");
+			}
+			return memberCrudService.isUserIdExisted(userId);
+		} else {
+			if (requestMap.containsKey(requestEmail)) {
+				String email = requestMap.get(requestEmail);
+				if (checkEmail(email)) {
+					return memberCrudService.isEmailExisted(email);
+				}
+			}
+		}
+		throw new ServiceException("Must use 'userId' or 'email'. Otherwise, check your parameter");
 	}
 }
