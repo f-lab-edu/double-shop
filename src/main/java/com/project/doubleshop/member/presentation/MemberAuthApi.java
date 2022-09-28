@@ -2,7 +2,6 @@ package com.project.doubleshop.member.presentation;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,8 +16,8 @@ import com.project.doubleshop.member.infrastructure.AuthenticationResult;
 import com.project.doubleshop.member.infrastructure.token.SimpleAuthentication;
 import com.project.doubleshop.member.infrastructure.token.TokenRoleManager;
 import com.project.doubleshop.member.presentation.request.AuthenticationRequest;
-import com.project.doubleshop.web.member.dto.RequestRole;
-import com.project.doubleshop.web.member.dto.ResultRole;
+import com.project.doubleshop.member.presentation.request.RequestRole;
+import com.project.doubleshop.member.presentation.response.ResponseRole;
 
 import lombok.RequiredArgsConstructor;
 
@@ -40,9 +39,9 @@ public class MemberAuthApi implements MemberAuthSpecification {
 	}
 
 	@PatchMapping("auth/admin")
-	public ApiResult<ResultRole> addAdmin(@AuthenticationPrincipal SimpleAuthentication authentication,
+	public ApiResult<ResponseRole> addAdmin(@AuthenticationPrincipal SimpleAuthentication authentication,
 		HttpServletRequest request, @RequestBody RequestRole requestRole) {
-		ResultRole result = tokenRoleManager.manage(request, authentication.getId(), requestRole);
+		ResponseRole result = tokenRoleManager.manage(request, authentication.getId(), requestRole);
 		return ApiResult.OK(result);
 	}
 }

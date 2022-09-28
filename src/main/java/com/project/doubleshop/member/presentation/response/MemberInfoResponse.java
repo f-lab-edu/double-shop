@@ -1,4 +1,4 @@
-package com.project.doubleshop.web.member.dto;
+package com.project.doubleshop.member.presentation.response;
 
 import java.time.LocalDateTime;
 
@@ -9,7 +9,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class MemberResult {
+public class MemberInfoResponse {
 
 	private final Long id;
 
@@ -25,7 +25,7 @@ public class MemberResult {
 
 	private final LocalDateTime lastLoginTime;
 
-	public MemberResult(Member member) {
+	public MemberInfoResponse(Member member) {
 		this.id = member.getId();
 		this.userId = member.getUserId();
 		this.name = member.getName();
