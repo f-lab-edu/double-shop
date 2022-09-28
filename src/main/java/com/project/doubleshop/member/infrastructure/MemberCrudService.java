@@ -1,5 +1,7 @@
 package com.project.doubleshop.member.infrastructure;
 
+import java.util.Optional;
+
 import org.springframework.stereotype.Component;
 
 import com.project.doubleshop.exception.NotFoundException;
@@ -16,5 +18,13 @@ public class MemberCrudService {
 	public Member findById(Long id) {
 		return memberRepository.findById(id)
 			.orElseThrow(() -> new NotFoundException(String.format("Id [%d] NotFound", id)));
+	}
+
+	public boolean isUserIdExisted(String userId) {
+		return memberRepository.findByUserId(userId).isPresent();
+	}
+
+	public boolean isEmailExisted(String email) {
+		return memberRepository.findByEmail(email).isPresent();
 	}
 }

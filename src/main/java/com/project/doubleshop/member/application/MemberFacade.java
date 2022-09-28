@@ -12,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.project.doubleshop.exception.UnauthenticatedMemberException;
 import com.project.doubleshop.member.domain.Member;
-import com.project.doubleshop.member.infrastructure.MemberInfoFinder;
 import com.project.doubleshop.member.infrastructure.MemberInfoManager;
 import com.project.doubleshop.member.infrastructure.MemberRegisterManager;
 import com.project.doubleshop.member.infrastructure.token.SimpleAuthentication;
@@ -28,7 +27,6 @@ import lombok.RequiredArgsConstructor;
 public class MemberFacade {
 	private final AuthenticationManager authenticationManager;
 	private final MemberRegisterManager memberRegister;
-	private final MemberInfoFinder memberInfoFinder;
 	private final MemberInfoManager memberInfoManager;
 
 	public AuthenticationResult login(String userId, String password) {
@@ -49,7 +47,7 @@ public class MemberFacade {
 
 	@Transactional(readOnly = true)
 	public MemberResult find(SimpleAuthentication authentication) {
-		return memberInfoFinder.find(authentication);
+		return memberInfoManager.find(authentication);
 	}
 
 	@Transactional
@@ -60,5 +58,10 @@ public class MemberFacade {
 	@Transactional
 	public Boolean changePasswd(Long id, Map<String, String> requestMap) {
 		return memberInfoManager.changePasswd(id, requestMap);
+	}
+
+	@Transactional(readOnly = true)
+	public Boolean isDuplicated(Map<String, String> requestMap) {
+		return memberInfoManager.isDuplicated(requestMap);
 	}
 }

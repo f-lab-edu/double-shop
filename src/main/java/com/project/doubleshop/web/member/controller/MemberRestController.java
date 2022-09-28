@@ -34,19 +34,4 @@ public class MemberRestController {
 		String tokenKey = request.getHeader("x-auth-token");
 		return ResponseEntity.ok(tokenService.invalidSession(tokenKey));
 	}
-
-	@PatchMapping("member/{id}/password")
-	public ResponseEntity<Boolean> changePassword(@PathVariable Long id, @RequestBody Map<String, String> requestMap) {
-		return ResponseEntity.ok(authMemberService.changePassword(id, requestMap));
-	}
-
-	@PostMapping("member/exists/user-id")
-	public ResponseEntity<Boolean> checkDuplicateUserId(@RequestBody Map<String, String> requestMap) {
-		return ResponseEntity.ok(authMemberService.isExists(requestMap));
-	}
-
-	@PostMapping("member/exists/email")
-	public ResponseEntity<Boolean> checkDuplicateEmail(@RequestBody Map<String, String> requestMap) {
-		return ResponseEntity.ok(authMemberService.isExists(requestMap));
-	}
 }
