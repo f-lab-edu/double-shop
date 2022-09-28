@@ -17,8 +17,9 @@ import com.project.doubleshop.member.infrastructure.MemberRegisterManager;
 import com.project.doubleshop.member.infrastructure.token.SimpleAuthentication;
 import com.project.doubleshop.member.infrastructure.token.SimpleAuthenticationToken;
 import com.project.doubleshop.member.infrastructure.AuthenticationResult;
-import com.project.doubleshop.web.member.dto.MemberInfoRequest;
-import com.project.doubleshop.web.member.dto.MemberResult;
+import com.project.doubleshop.member.infrastructure.token.TokenService;
+import com.project.doubleshop.member.presentation.request.MemberInfoRequest;
+import com.project.doubleshop.member.presentation.response.MemberInfoResponse;
 
 import lombok.RequiredArgsConstructor;
 
@@ -28,6 +29,7 @@ public class MemberFacade {
 	private final AuthenticationManager authenticationManager;
 	private final MemberRegisterManager memberRegister;
 	private final MemberInfoManager memberInfoManager;
+	private final TokenService tokenService;
 
 	public AuthenticationResult login(String userId, String password) {
 		try {
@@ -46,12 +48,12 @@ public class MemberFacade {
 	}
 
 	@Transactional(readOnly = true)
-	public MemberResult find(SimpleAuthentication authentication) {
+	public MemberInfoResponse find(SimpleAuthentication authentication) {
 		return memberInfoManager.find(authentication);
 	}
 
 	@Transactional
-	public MemberResult update(Long id, MemberInfoRequest requestBody) {
+	public MemberInfoResponse update(Long id, MemberInfoRequest requestBody) {
 		return memberInfoManager.update(id, requestBody);
 	}
 
@@ -63,5 +65,9 @@ public class MemberFacade {
 	@Transactional(readOnly = true)
 	public Boolean isDuplicated(Map<String, String> requestMap) {
 		return memberInfoManager.isDuplicated(requestMap);
+	}
+
+	public Boolean invalidSession(String tokenKey) {
+		return tokenService.invalidSession(tokenKey);
 	}
 }

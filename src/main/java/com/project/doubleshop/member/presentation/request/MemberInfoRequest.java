@@ -1,4 +1,4 @@
-package com.project.doubleshop.web.member.dto;
+package com.project.doubleshop.member.presentation.request;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

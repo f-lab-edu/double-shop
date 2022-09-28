@@ -9,8 +9,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import com.project.doubleshop.exception.ServiceException;
 import com.project.doubleshop.member.domain.Member;
 import com.project.doubleshop.member.infrastructure.token.SimpleAuthentication;
-import com.project.doubleshop.web.member.dto.MemberInfoRequest;
-import com.project.doubleshop.web.member.dto.MemberResult;
+import com.project.doubleshop.member.presentation.request.MemberInfoRequest;
+import com.project.doubleshop.member.presentation.response.MemberInfoResponse;
 
 import lombok.RequiredArgsConstructor;
 
@@ -21,17 +21,17 @@ public class MemberInfoManager {
 	private final PasswordEncoder passwordEncoder;
 
 
-	public MemberResult find(SimpleAuthentication authentication) {
+	public MemberInfoResponse find(SimpleAuthentication authentication) {
 		Long memberId = authentication.getId();
 		Member member = memberCrudService.findById(memberId);
-		return new MemberResult(member);
+		return new MemberInfoResponse(member);
 	}
 
-	public MemberResult update(Long id, MemberInfoRequest requestBody) {
+	public MemberInfoResponse update(Long id, MemberInfoRequest requestBody) {
 		Member member = memberCrudService.findById(id);
 		member.updateProfile(requestBody.getUserId(), requestBody.getName(), requestBody.getEmail(),
 			requestBody.getPhone());
-		return new MemberResult(member);
+		return new MemberInfoResponse(member);
 	}
 
 	public Boolean changePasswd(Long id, Map<String, String> requestMap) {

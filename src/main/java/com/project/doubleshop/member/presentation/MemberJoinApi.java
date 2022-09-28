@@ -11,7 +11,7 @@ import com.project.doubleshop.common.ApiResult;
 import com.project.doubleshop.member.application.MemberFacade;
 import com.project.doubleshop.member.domain.Member;
 import com.project.doubleshop.member.application.JoinRequest;
-import com.project.doubleshop.web.member.dto.JoinResult;
+import com.project.doubleshop.member.presentation.response.MemberJoinResponse;
 
 import lombok.RequiredArgsConstructor;
 
@@ -22,8 +22,8 @@ public class MemberJoinApi {
 	private final MemberFacade memberFacade;
 
 	@PostMapping("v2/member/join")
-	public ApiResult<JoinResult> join(@RequestBody @Valid JoinRequest joinRequest) {
+	public ApiResult<MemberJoinResponse> join(@RequestBody @Valid JoinRequest joinRequest) {
 		Member member = memberFacade.join(joinRequest);
-		return ApiResult.OK(new JoinResult(member));
+		return ApiResult.OK(new MemberJoinResponse(member));
 	}
 }

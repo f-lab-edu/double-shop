@@ -1,4 +1,4 @@
-package com.project.doubleshop.web.member.dto;
+package com.project.doubleshop.member.presentation.request;
 
 import com.project.doubleshop.member.infrastructure.token.Role;
 
