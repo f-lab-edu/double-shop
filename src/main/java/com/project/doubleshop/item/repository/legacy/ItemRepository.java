@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.project.doubleshop.common.Manageable;
 import com.project.doubleshop.common.mapper.param.RequestItemsWithCategory;
-import com.project.doubleshop.item.entity.Item;
+import com.project.doubleshop.item.domain.Item;
 import com.project.doubleshop.web.config.support.Pageable;
 import com.project.doubleshop.web.common.StatusRequest;
 import com.project.doubleshop.web.item.dto.ItemStockQuery;

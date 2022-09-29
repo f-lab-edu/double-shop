@@ -1,7 +1,7 @@
 package com.project.doubleshop.item;
 
 import com.project.doubleshop.category.entity.Category;
-import com.project.doubleshop.item.entity.Item;
+import com.project.doubleshop.item.domain.Item;
 import com.project.doubleshop.web.item.dto.ItemForm;
 
 public class MockItem {

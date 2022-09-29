@@ -14,7 +14,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.project.doubleshop.category.service.CategoryService;
-import com.project.doubleshop.item.entity.Item;
+import com.project.doubleshop.item.domain.Item;
 import com.project.doubleshop.item.repository.ItemRepository;
 
 @ExtendWith(MockitoExtension.class)

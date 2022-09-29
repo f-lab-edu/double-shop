@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import com.project.doubleshop.common.Status;
 import com.project.doubleshop.common.mapper.param.RequestItemsWithCategory;
-import com.project.doubleshop.item.entity.Item;
+import com.project.doubleshop.item.domain.Item;
 import com.project.doubleshop.item.mapper.ItemMapper;
 import com.project.doubleshop.web.config.support.Pageable;
 import com.project.doubleshop.web.common.StatusRequest;

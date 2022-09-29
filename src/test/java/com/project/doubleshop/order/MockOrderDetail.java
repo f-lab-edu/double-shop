@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 import com.project.doubleshop.common.Status;
 import com.project.doubleshop.item.MockItem;
-import com.project.doubleshop.item.entity.Item;
+import com.project.doubleshop.item.domain.Item;
 import com.project.doubleshop.order.entity.Order;
 import com.project.doubleshop.order.entity.OrderDetail;
 

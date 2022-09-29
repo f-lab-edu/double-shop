@@ -11,7 +11,7 @@ import com.project.doubleshop.cart.entity.Cart;
 import com.project.doubleshop.cart.repository.legacy.CartRepository;
 import com.project.doubleshop.exception.BadRequestException;
 import com.project.doubleshop.exception.NotFoundException;
-import com.project.doubleshop.item.entity.Item;
+import com.project.doubleshop.item.domain.Item;
 import com.project.doubleshop.item.service.legacy.ItemService;
 import com.project.doubleshop.utils.ExceptionUtils;
 

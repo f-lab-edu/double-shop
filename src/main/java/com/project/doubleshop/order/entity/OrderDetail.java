@@ -13,7 +13,7 @@ import javax.persistence.ManyToOne;
 
 import com.project.doubleshop.common.Status;
 import com.project.doubleshop.common.StatusConverter;
-import com.project.doubleshop.item.entity.Item;
+import com.project.doubleshop.item.domain.Item;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

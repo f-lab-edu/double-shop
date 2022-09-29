@@ -7,7 +7,7 @@
         <setting name="mapUnderscoreToCamelCase" value="true"/>
     </settings>
     <typeAliases>
-        <typeAlias type="com.project.doubleshop.item.entity.Item" alias="Item"/>
+        <typeAlias type="com.project.doubleshop.item.domain.Item" alias="Item"/>
         <typeAlias type="com.project.doubleshop.common.Status" alias="Status"/>
         <typeAlias type="com.project.doubleshop.web.common.StatusRequest" alias="StatusRequest"/>
         <typeAlias type="com.project.doubleshop.web.config.support.Pageable" alias="Pageable"/>
