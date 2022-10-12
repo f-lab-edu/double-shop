@@ -1,4 +1,4 @@
-package com.project.doubleshop.item.repository.legacy;
+package com.project.doubleshop.item.infrastructure.mybatis;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ import com.project.doubleshop.web.config.support.Pageable;
 import com.project.doubleshop.web.common.StatusRequest;
 import com.project.doubleshop.web.item.dto.ItemStockQuery;
 
-public interface ItemRepository extends Manageable<StatusRequest> {
+public interface MyBatisItemRepository extends Manageable<StatusRequest> {
 	/**
 	 * 데이터를 '저장' 하는 메소드. 새로운 데이터를 저장하는 것 뿐만 아니라, 기존 데이터를 저장하는 것도 포함한다.
 	 * 따라서, 'insert' 뿐만 아니라, 'update' 역시 이 메소드를 통해 구현해야한다.

@@ -1,4 +1,4 @@
-package com.project.doubleshop.item.repository.legacy;
+package com.project.doubleshop.item.infrastructure.mybatis;
 
 import java.util.List;
 
@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 import com.project.doubleshop.common.Status;
 import com.project.doubleshop.common.mapper.param.RequestItemsWithCategory;
 import com.project.doubleshop.item.domain.Item;
-import com.project.doubleshop.item.mapper.ItemMapper;
 import com.project.doubleshop.web.config.support.Pageable;
 import com.project.doubleshop.web.common.StatusRequest;
 import com.project.doubleshop.web.item.dto.ItemStockQuery;
@@ -16,7 +15,7 @@ import lombok.RequiredArgsConstructor;
 
 @Repository
 @RequiredArgsConstructor
-public class MyBatisItemRepository implements ItemRepository {
+public class MyBatisMyBatisItemRepositoryImpl implements MyBatisItemRepository {
 
 	private final ItemMapper mapper;
 

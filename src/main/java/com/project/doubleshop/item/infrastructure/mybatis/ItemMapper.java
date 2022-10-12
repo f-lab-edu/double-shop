@@ -1,4 +1,4 @@
-package com.project.doubleshop.item.mapper;
+package com.project.doubleshop.item.infrastructure.mybatis;
 
 import java.util.List;
 
