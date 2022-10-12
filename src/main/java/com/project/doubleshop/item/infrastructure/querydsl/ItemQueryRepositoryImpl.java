@@ -1,4 +1,4 @@
-package com.project.doubleshop.item.repository.querydsl;
+package com.project.doubleshop.item.infrastructure.querydsl;
 
 import static com.project.doubleshop.item.entity.QItem.*;
 import static com.querydsl.sql.SQLExpressions.*;
