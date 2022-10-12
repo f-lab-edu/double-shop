@@ -10,7 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import com.project.doubleshop.common.Status;
 import com.project.doubleshop.item.domain.Item;
-import com.project.doubleshop.item.repository.querydsl.ItemQueryRepository;
+import com.project.doubleshop.item.infrastructure.querydsl.ItemQueryRepository;
 
 public interface ItemRepository extends JpaRepository<Item, Long>, ItemQueryRepository {
 

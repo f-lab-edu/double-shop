@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.project.doubleshop.common.ApiResult;
 import com.project.doubleshop.item.application.ItemFacade;
 import com.project.doubleshop.item.domain.Item;
+import com.project.doubleshop.web.item.dto.ItemApiResult;
 import com.project.doubleshop.web.item.dto.ItemInfoResponse;
 import com.project.doubleshop.web.item.dto.ItemForm;
 
@@ -23,9 +24,9 @@ public class ItemAdminApi {
 	private final ItemFacade itemFacade;
 
 	@PostMapping(value = "v2/member/{memberId}/item", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
-	public ApiResult<ItemInfoResponse> createNewItem(@RequestBody ItemForm itemForm, @RequestPart(required = false)
+	public ApiResult<ItemApiResult> createNewItem(@RequestBody ItemForm itemForm, @RequestPart(required = false)
 	MultipartFile imageFile) {
 		Item item = itemFacade.createItem(itemForm, imageFile);
-		return ApiResult.OK(new ItemInfoResponse(item));
+		return ApiResult.OK(new ItemApiResult(item));
 	}
 }

@@ -14,7 +14,7 @@ import com.project.doubleshop.common.Status;
 import com.project.doubleshop.exception.NotFoundException;
 import com.project.doubleshop.item.domain.Item;
 import com.project.doubleshop.item.repository.ItemRepository;
-import com.project.doubleshop.item.repository.querydsl.ItemQueryApiResult;
+import com.project.doubleshop.item.infrastructure.querydsl.ItemQueryApiResult;
 import com.project.doubleshop.web.item.dto.ItemForm;
 
 import lombok.RequiredArgsConstructor;
