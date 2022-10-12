@@ -1,4 +1,4 @@
-package com.project.doubleshop.item.repository;
+package com.project.doubleshop.item.legacy.repository;
 
 import java.util.List;
 import java.util.Optional;

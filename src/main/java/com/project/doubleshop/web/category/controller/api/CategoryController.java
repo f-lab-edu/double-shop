@@ -21,7 +21,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.project.doubleshop.category.entity.Category;
 import com.project.doubleshop.category.service.CategoryService;
 import com.project.doubleshop.common.Status;
-import com.project.doubleshop.item.service.ItemService;
+import com.project.doubleshop.item.legacy.service.ItemService;
 import com.project.doubleshop.web.category.controller.dto.CategoryApiResult;
 import com.project.doubleshop.web.category.controller.dto.CategoryForm;
 

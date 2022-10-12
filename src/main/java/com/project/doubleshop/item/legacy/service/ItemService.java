@@ -1,4 +1,4 @@
-package com.project.doubleshop.item.service;
+package com.project.doubleshop.item.legacy.service;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -13,7 +13,7 @@ import com.project.doubleshop.category.service.CategoryService;
 import com.project.doubleshop.common.Status;
 import com.project.doubleshop.exception.NotFoundException;
 import com.project.doubleshop.item.domain.Item;
-import com.project.doubleshop.item.repository.ItemRepository;
+import com.project.doubleshop.item.legacy.repository.ItemRepository;
 import com.project.doubleshop.item.infrastructure.querydsl.ItemQueryApiResult;
 import com.project.doubleshop.web.item.dto.ItemForm;
 

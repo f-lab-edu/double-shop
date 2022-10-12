@@ -25,7 +25,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.project.doubleshop.common.Status;
 import com.project.doubleshop.item.domain.Item;
-import com.project.doubleshop.item.service.ItemService;
+import com.project.doubleshop.item.legacy.service.ItemService;
 import com.project.doubleshop.web.common.file.client.FileClient;
 import com.project.doubleshop.web.item.dto.ItemApiResult;
 import com.project.doubleshop.web.item.dto.ItemForm;

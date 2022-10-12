@@ -17,7 +17,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import com.project.doubleshop.cart.entity.Cart;
 import com.project.doubleshop.cart.service.CartService;
 import com.project.doubleshop.cart.service.MockCart;
-import com.project.doubleshop.item.service.ItemService;
+import com.project.doubleshop.item.legacy.service.ItemService;
 import com.project.doubleshop.order.MockOrderDetail;
 import com.project.doubleshop.order.entity.Order;
 import com.project.doubleshop.order.repository.OrderDetailRepository;

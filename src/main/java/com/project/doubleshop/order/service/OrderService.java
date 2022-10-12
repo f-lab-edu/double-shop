@@ -12,7 +12,7 @@ import com.project.doubleshop.cart.service.CartService;
 import com.project.doubleshop.common.Status;
 import com.project.doubleshop.exception.NotFoundException;
 import com.project.doubleshop.item.domain.Item;
-import com.project.doubleshop.item.service.ItemService;
+import com.project.doubleshop.item.legacy.service.ItemService;
 import com.project.doubleshop.order.entity.Order;
 import com.project.doubleshop.order.entity.OrderDetail;
 import com.project.doubleshop.order.entity.constant.OrderConstant;

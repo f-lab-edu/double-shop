@@ -15,7 +15,7 @@ import com.project.doubleshop.cart.repository.querydsl.CartQueryResult;
 import com.project.doubleshop.exception.BadRequestException;
 import com.project.doubleshop.exception.NotFoundException;
 import com.project.doubleshop.item.domain.Item;
-import com.project.doubleshop.item.service.ItemService;
+import com.project.doubleshop.item.legacy.service.ItemService;
 import com.project.doubleshop.member.domain.Member;
 import com.project.doubleshop.member.application.MemberService;
 import com.project.doubleshop.utils.ExceptionUtils;
