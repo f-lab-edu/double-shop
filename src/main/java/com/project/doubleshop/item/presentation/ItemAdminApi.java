@@ -1,5 +1,9 @@
 package com.project.doubleshop.item.presentation;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,8 +38,14 @@ public class ItemAdminApi {
 	}
 
 	@GetMapping(value = "v2/item/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<ItemApiResult> findItem(@PathVariable Long id) {
+	public ApiResult<ItemApiResult> findItem(@PathVariable Long id) {
 		Item item = itemFacade.find(id);
-		return ResponseEntity.ok(new ItemApiResult(item));
+		return ApiResult.OK(new ItemApiResult(item));
+	}
+
+	@GetMapping(value = "v2/item", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ApiResult<List<ItemApiResult>> findAllItem(Pageable pageable) {
+		List<Item> items = itemFacade.findPerPage(pageable);
+		return ApiResult.OK(items.stream().map(ItemApiResult::new).collect(Collectors.toList()));
 	}
 }

@@ -1,6 +1,10 @@
 package com.project.doubleshop.item.infrastructure.jpa;
 
+import java.util.List;
 import java.util.Optional;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import com.project.doubleshop.common.Status;
 import com.project.doubleshop.item.domain.Item;
@@ -25,6 +29,11 @@ public class ItemRepositoryAdapter implements ItemRepository {
 	@Override
 	public Optional<Item> findByIdAndStatus(Long id, Status status) {
 		return jpaItemRepository.findItemByIdAndStatus(id, status);
+	}
+
+	@Override
+	public List<Item> findPerPage(Pageable pageable) {
+		return jpaItemRepository.findAll(pageable).getContent();
 	}
 
 }

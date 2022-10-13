@@ -1,5 +1,9 @@
 package com.project.doubleshop.item.infrastructure;
 
+import java.util.List;
+
+import org.springframework.data.domain.Pageable;
+
 import com.project.doubleshop.common.Status;
 import com.project.doubleshop.exception.NotFoundException;
 import com.project.doubleshop.item.domain.Item;
@@ -14,5 +18,9 @@ public class ItemFinder {
 	public Item find(Long itemId) {
 		return itemRepository.findByIdAndStatus(itemId, Status.ACTIVATED)
 			.orElseThrow(() -> new NotFoundException(String.format("Item ID '%s' not found.", itemId)));
+	}
+
+	public List<Item> findPerPage(Pageable pageable) {
+		return itemRepository.findPerPage(pageable);
 	}
 }

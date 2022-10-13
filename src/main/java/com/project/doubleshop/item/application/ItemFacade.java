@@ -1,5 +1,8 @@
 package com.project.doubleshop.item.application;
 
+import java.util.List;
+
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -24,5 +27,9 @@ public class ItemFacade {
 
 	public Item find(Long id) {
 		return itemFinder.find(id);
+	}
+
+	public List<Item> findPerPage(Pageable pageable) {
+		return itemFinder.findPerPage(pageable);
 	}
 }
