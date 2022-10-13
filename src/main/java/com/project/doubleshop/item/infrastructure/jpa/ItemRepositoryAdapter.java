@@ -2,6 +2,7 @@ package com.project.doubleshop.item.infrastructure.jpa;
 
 import java.util.Optional;
 
+import com.project.doubleshop.common.Status;
 import com.project.doubleshop.item.domain.Item;
 import com.project.doubleshop.item.domain.ItemRepository;
 
@@ -20,4 +21,10 @@ public class ItemRepositoryAdapter implements ItemRepository {
 	public Optional<Item> findById(Long id) {
 		return jpaItemRepository.findById(id);
 	}
+
+	@Override
+	public Optional<Item> findByIdAndStatus(Long id, Status status) {
+		return jpaItemRepository.findItemByIdAndStatus(id, status);
+	}
+
 }

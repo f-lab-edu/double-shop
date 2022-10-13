@@ -1,6 +1,9 @@
 package com.project.doubleshop.item.presentation;
 
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,5 +31,11 @@ public class ItemAdminApi {
 	MultipartFile imageFile) {
 		Item item = itemFacade.createItem(itemForm, imageFile);
 		return ApiResult.OK(new ItemApiResult(item));
+	}
+
+	@GetMapping(value = "v2/item/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ItemApiResult> findItem(@PathVariable Long id) {
+		Item item = itemFacade.find(id);
+		return ResponseEntity.ok(new ItemApiResult(item));
 	}
 }
